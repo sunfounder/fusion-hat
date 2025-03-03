@@ -31,7 +31,7 @@ info                    get hat info
     quit()
 
 def get_firmware_version():
-    ADDR = [0x14, 0x15]
+    ADDR = __device__.i2c_addr
     VERSSION_REG_ADDR = 0x05
     i2c = I2C(ADDR)
     version = i2c.mem_read(3, VERSSION_REG_ADDR)
