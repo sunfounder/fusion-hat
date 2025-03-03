@@ -55,7 +55,7 @@ class Pin(_Basic_class):
         "CE": 8,
     }
 
-    def __init__(self, pin, mode=None, pull=None, active_state:bool=None, *args, **kwargs):
+    def __init__(self, pin, mode=None, pull=None, active_state:bool=None, bounce_time=None, *args, **kwargs):
         """
         Initialize a pin
 
@@ -93,7 +93,7 @@ class Pin(_Basic_class):
         # setup
         self._value = 0
         self.gpio = None
-        self.setup(mode, pull, active_state)
+        self.setup(mode, pull, active_state, bounce_time)
         self._info("Pin init finished.")
 
     def close(self):
@@ -103,7 +103,7 @@ class Pin(_Basic_class):
         self.gpio.close()
         self.gpio.pin_factory.close()
 
-    def setup(self, mode, pull=None, active_state=None):
+    def setup(self, mode, pull=None, active_state=None, bounce_time=None):
         """
         Setup the pin
 
@@ -134,11 +134,11 @@ class Pin(_Basic_class):
             self.gpio = OutputDevice(self._pin_num)
         else:
             if pull == self.PULL_UP:
-                self.gpio = DigitalInputDevice(self._pin_num, pull_up=True, active_state=None)
+                self.gpio = DigitalInputDevice(self._pin_num, pull_up=True, active_state=None, bounce_time=bounce_time)
             elif pull == self.PULL_DOWN:
-                self.gpio = DigitalInputDevice(self._pin_num, pull_up=False, active_state=None)
+                self.gpio = DigitalInputDevice(self._pin_num, pull_up=False, active_state=None, bounce_time=bounce_time)
             else:
-                self.gpio = DigitalInputDevice(self._pin_num, pull_up=None, active_state=active_state)
+                self.gpio = DigitalInputDevice(self._pin_num, pull_up=None, active_state=active_state, bounce_time=bounce_time)
 
     def dict(self, _dict=None):
         """
