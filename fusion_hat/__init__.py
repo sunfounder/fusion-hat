@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Robot Hat Library
+Fusion Hat Library
 """
 from .adc import ADC
 from .filedb import fileDB
@@ -20,12 +20,12 @@ from .device import __device__
 
 def __usage__():
     print('''
-Usage: robot_hat [option]
+Usage: fusion_hat [option]
 
-reset_mcu               reset mcu on robot-hat
+reset_mcu               reset mcu on fusion-hat
 enable_speaker          enable speaker
 disable_speaker         disable speaker
-version                 get robot-hat libray version
+version                 get fusion-hat libray version
 info                    get hat info
     ''')
     quit()
@@ -45,13 +45,13 @@ def __main__():
             reset_mcu()
             info("Onboard MCU reset.")
         elif sys.argv[1] == "enable_speaker":
-            info(f"Enable Robot-HAT speaker.")
+            info(f"Enable Fusion-HAT speaker.")
             utils.enable_speaker()
         elif sys.argv[1] == "disable_speaker":
-            info(f"Disable Robot-HAT speaker.")
+            info(f"Disable Fusion-HAT speaker.")
             utils.disable_speaker()
         elif sys.argv[1] == "version":
-            info(f"robot-hat library version: {__version__}")
+            info(f"fusion-hat library version: {__version__}")
         elif sys.argv[1] == "info":
             info(f'HAT name: {__device__.name}')
             info(f'PCB ID: O{__device__.product_id}V{__device__.product_ver}')
