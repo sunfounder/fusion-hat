@@ -115,6 +115,10 @@ class Motor():
         """
         self._is_reverse = is_reverse
 
+    def stop(self):
+        """Stop motor"""
+        self.speed(0)
+
 
 class Motors(_Basic_class):
     """Motors"""
