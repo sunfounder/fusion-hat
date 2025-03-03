@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Robot Hat
 
 Robot Hat Python library for Raspberry Pi.
@@ -73,7 +72,4 @@ website:
 
 E-mail:
     service@sunfounder.com, support@sunfounder.com
-=======
-# fusion-hat
-Fusion Hat Python library for Raspberry Pi.
->>>>>>> 7f901e45950397565e61434a1318be4273842658
+
