@@ -34,7 +34,7 @@ Issues = "https://github.com/sunfounder/fusion-hat/issues"
 Changelog = "https://github.com/sunfounder/fusion-hat/commits/dev/"
 
 [tool.setuptools.packages.find]
-include = ["fusion_hat"]
+include = ["fusion_hat*"] # * means include all subpackages
 exclude = ["setup.py", "docs", 'tests*', 'examples', 'workspace']
 
 [tool.setuptools.dynamic]
