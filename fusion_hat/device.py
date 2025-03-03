@@ -4,7 +4,8 @@ class Devices():
     HAT_DEVICE_TREE = "/proc/device-tree/"
     HAT_UUIDs = [
         "9daeea78-0000-076e-0032-582369ac3e02", # robothat5 1902v50
-        "9daeea78-0000-0774-000a-582369ac3e02" # fusion_hat 1908v10
+        "9daeea78-0000-076e-003c-582369ac3e02", # robothat6-beta 1902v50
+        "9daeea78-0000-0774-000a-582369ac3e02", # fusion_hat 1908v10
         ]
 
     DEVICES = {
@@ -29,10 +30,17 @@ class Devices():
             "speaker_enbale_pin": 12,
             "motor_mode": 2,
         },
+        "robot_hat_v6x": {
+            "name": "robot_hat_v6x",
+            "i2c_addr": 0x17,
+            "uuid": HAT_UUIDs[1],
+            "speaker_enbale_pin": 12,
+            "motor_mode": 2,
+        },
         "fusion_hat": {
             "name": "fusion_hat",
             "i2c_addr": 0x17,
-            "uuid": HAT_UUIDs[1],
+            "uuid": HAT_UUIDs[2],
             "speaker_enbale_pin": "I2C_0x31",
             "motor_mode": 2,
         },

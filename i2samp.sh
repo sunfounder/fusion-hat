@@ -31,7 +31,8 @@ SOFTVOL_MIC_NAME="robot-hat mic"
 HAT_DEVICE_TREE="/proc/decvice-tree/"
 HAT_UUIDs=(
     "9daeea78-0000-076e-0032-582369ac3e02", # robothat5
-    "9daeea78-0000-076e-003c-582369ac3e02"  # robothat6
+    "9daeea78-0000-076e-003c-582369ac3e02", # robothat6-beta
+    "9daeea78-0000-0774-000a-582369ac3e02"  # fusion_hat
 )
 ROBOTHAT5_PRODUCT_VER=50
 ROBOTHAT6_PRODUCT_VER=60
