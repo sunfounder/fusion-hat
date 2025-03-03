@@ -7,10 +7,10 @@ import threading
 
 here = path.abspath(path.dirname(__file__))
 os.chdir(here)
-sys.path.append('./robot_hat')
+sys.path.append('./fusion_hat')
 from version import __version__
 
-print("Robot Hat Python Library v%s" % __version__)
+print("Fusion Hat Python Library v%s" % __version__)
 
 avaiable_options = ["--no-dep", "--only-lib", "--no-build-isolation"]
 options = []
@@ -144,11 +144,11 @@ def install():
     if status == 0: # if true
         _is_bsps = "--break-system-packages"
 
-    # --- install robot_hat package ---
+    # --- install fusion_hat package ---
     _if_build_isolation = ""
     if "--no-build-isolation" in options:
         _if_build_isolation = "--no-build-isolation"
-    do(msg=f"install robot_hat package {_if_build_isolation}",
+    do(msg=f"install fusion_hat package {_if_build_isolation}",
        cmd=f'pip3 install ./ {_is_bsps} {_if_build_isolation}')
 
     # --- only-library ---
