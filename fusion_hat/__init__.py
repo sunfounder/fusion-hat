@@ -11,6 +11,7 @@ from .music import Music
 from .motor import Motor, Motors
 from .pin import Pin
 from .pwm import PWM
+from .pwm_group import PWM_GROUP
 from .servo import Servo
 from .tts import TTS
 from .utils import *

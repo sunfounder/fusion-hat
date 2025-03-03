@@ -29,7 +29,7 @@ class PWM_GROUP():
     ADDR = [0x17]
     CLOCK = 72000000.0 # Clock frequency, 72MHz
 
-    def __init__(self, channels:list, freq:int, addr=0x17, auto_write=False):
+    def __init__(self, channels:list, freq:int=50, addr=0x17, auto_write=False):
         #
         self.addr = addr
         self._i2c = I2C(addr)
@@ -53,33 +53,33 @@ class PWM_GROUP():
                 self.timer_indexs.append(2)
                 break
         #
-        self.freq = freq
-        self.frequency(freq)
+        self._freq = freq
+        self.freq(freq)
         #
         self.auto_write = auto_write
 
-    def frequency(self, freq=None):
+    def freq(self, freq=None):
         '''return the current frequency'''
         if freq is None:
-            return self.freq
+            return self._freq
 
         ''' set the frequency'''
-        self.freq = int(freq)
+        self._freq = int(freq)
         # --- calculate the prescaler and period ---
         # frequency = CLOCK / (arr + 1) / (psc + 1)
-        assumed_psc = int(math.sqrt(self.CLOCK/self.freq)) # assumed prescaler, start from square root
+        assumed_psc = int(math.sqrt(self.CLOCK/self._freq)) # assumed prescaler, start from square root
         assumed_psc -= 5
         if assumed_psc < 0:
             assumed_psc = 0
-        print(f'assumed_psc: {assumed_psc}')
+        # print(f'assumed_psc: {assumed_psc}')
         
         # Calculate arr and frequency errors
         psc_arr = []
         freq_errors = []
         for psc in range(assumed_psc, assumed_psc+10):
-            arr = int(self.CLOCK/self.freq/psc)
+            arr = int(self.CLOCK/self._freq/psc)
             psc_arr.append((psc, arr))
-            freq_errors.append(abs(self.freq - self.CLOCK/psc/arr))
+            freq_errors.append(abs(self._freq - self.CLOCK/psc/arr))
         # Find the best match
         best_match = freq_errors.index(min(freq_errors))
         psc, arr = psc_arr[best_match]
@@ -190,10 +190,10 @@ class PWM_GROUP():
 
 def test():
     pwm_group = PWM_GROUP([0,1,2,3,8,9,10,11,4,5,6,7])
-    pwm_group.set_freq(1000)
+    pwm_group.freq(1000)
     pwm_group.pulse_width(0, 1000)
     pwm_group[0] = 1000
-    pwm_group = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000]
+    pwm_group.write()
 
 if __name__ == '__main__':
     test()

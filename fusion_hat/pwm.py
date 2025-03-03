@@ -22,12 +22,15 @@ class PWM(I2C):
 
     CHANNEL_NUM = 12
 
-    def __init__(self, channel, addr=None, *args, **kwargs):
+    def __init__(self, channel, freq=50, addr=None, *args, **kwargs):
         """
         Initialize PWM
 
         :param channel: PWM channel number(0-11/P0-P11)
         :type channel: int/str
+        :param freq: PWM frequency
+        :type freq: int (default: 50)
+
         """
         if addr is None:
             super().__init__(self.ADDR, *args, **kwargs)
@@ -60,8 +63,8 @@ class PWM(I2C):
         self.arr = 0
         self.ccp = 0
         self.duty_cycle = 0.0
-        self._freq = 50
-        self.freq(50)
+        self._freq = freq
+        self.freq(freq)
         self.pulse_width(0)
 
     def freq(self, freq=None):
