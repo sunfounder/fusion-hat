@@ -4,7 +4,7 @@ class Devices():
     HAT_DEVICE_TREE = "/proc/device-tree/"
     HAT_UUIDs = [
         "9daeea78-0000-076e-0032-582369ac3e02", # robothat5 1902v50
-        "9daeea78-0000-076e-003c-582369ac3e02" # robothat6 1902v60
+        "9daeea78-0000-0774-000a-582369ac3e02" # fusion_hat 1908v10
         ]
 
     DEVICES = {
@@ -29,8 +29,8 @@ class Devices():
             "speaker_enbale_pin": 12,
             "motor_mode": 2,
         },
-        "robot_hat_v6x": {
-            "name": "robot_hat_v6x",
+        "fusion_hat": {
+            "name": "fusion_hat",
             "i2c_addr": 0x17,
             "uuid": HAT_UUIDs[1],
             "speaker_enbale_pin": "I2C_0x31",
@@ -59,7 +59,7 @@ class Devices():
             self.spk_en = hat["speaker_enbale_pin"]
             self.motor_mode = hat["motor_mode"]
         else:
-            self.set_hat('robot_hat_v4x')
+            self.set_hat('fusion_hat')
 
     def check_hat(self):
         hat_path = None
@@ -122,7 +122,7 @@ __device__ = Devices()
 
 if __name__ == "__main__":
     device = Devices()
-    # device.set_hat("robot_hat_v4x")
+    # device.set_hat("fusion_hat")
     print(f'name: {device.name}')
     print(f'i2c_addr: {device.i2c_addr:#02x}')
     print(f'product_id: {device.product_id}')
