@@ -23,6 +23,7 @@ class I2C(_Basic_class):
     I2C bus read/write functions
     """
     RETRY = 5
+    _bus = 1
 
     # i2c_lock = multiprocessing.Value('i', 0)
 
@@ -122,13 +123,16 @@ class I2C(_Basic_class):
         else:
             return False
 
-    def scan(self):
+    @staticmethod
+    def scan(bus=None):
         """Scan the I2C bus for devices
 
         :return: List of I2C addresses of devices found
         :rtype: list
         """
-        cmd = f"i2cdetect -y {self._bus}"
+        if bus is None:
+            bus = I2C._bus
+        cmd = f"i2cdetect -y {bus}"
         # Run the i2cdetect command
         _, output = run_command(cmd)
 
@@ -146,7 +150,6 @@ class I2C(_Basic_class):
                 if address != '--':
                     addresses.append(int(address, 16))
                     addresses_str.append(f'0x{address}')
-        self._debug(f"Conneceted i2c device: {addresses_str}")
         return addresses
 
     def write(self, data):
