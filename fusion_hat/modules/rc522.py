@@ -393,10 +393,6 @@ class RC522():
             return status,data_read
         return status,None
 
-    def get_uid(self):
-        uid_str = ''.join(['%02X' % i for i in self.sn])
-        return uid_str
-    
     def read(self,addr,max_retries=3):
         best_attempt = ['\x00'] * 16 
         retry_count =0
@@ -410,8 +406,9 @@ class RC522():
                 continue
         #print("Successfully retrieved data block:", best_attempt)
         #self.read_card_info()
+        uid_str = ''.join(['%02X' % i for i in self.sn])
         result_string = ''.join([x for x in best_attempt if x != 0x00])
-        return result_string
+        return uid_str,result_string
             
     def write(self,addr,data):
         status = 2
