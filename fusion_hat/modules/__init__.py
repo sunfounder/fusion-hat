@@ -9,3 +9,4 @@ from .lcd1602 import LCD1602
 from .dht11 import DHT11
 from .rotary_encoder import Rotary_Encoder
 from .rc522 import RC522
+from .spi_rgb_matrix import SPI_RGB_Matrix
