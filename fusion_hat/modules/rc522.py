@@ -405,9 +405,10 @@ class RC522():
             else:
                 continue
         #print("Successfully retrieved data block:", best_attempt)
-        self.read_card_info()
+        #self.read_card_info()
+        uid_str = ''.join(['%02X' % i for i in self.sn])
         result_string = ''.join([x for x in best_attempt if x != 0x00])
-        return result_string
+        return uid_str,result_string
             
     def write(self,addr,data):
         status = 2
@@ -423,5 +424,6 @@ if __name__ == "__main__":
     data = [1, 2, 3, 4, 5]
     rc.write(2, data)
     time.sleep(2)
+    print("Card UID:", rc.get_uid())
     print(rc.read(2))
 
