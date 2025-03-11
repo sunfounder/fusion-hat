@@ -3,7 +3,7 @@ from luma.core.interface.serial import spi, noop
 from luma.core.render import canvas
 from PIL import Image
 
-class SPI_RGB_Matrix:
+class LedMatrix:
     """
     SPI RGB Matrix class
     """
@@ -15,7 +15,7 @@ class SPI_RGB_Matrix:
         self.serial = spi(port=0, device=0, gpio=noop())
         self.device = max7219(self.serial, width=8, rotate=0)
 
-    def display_pattern(self, pattern, color="white"):
+    def display_pattern(self, pattern):
         """
         Display a pattern on the matrix
         """
@@ -24,4 +24,4 @@ class SPI_RGB_Matrix:
                 for x in range(8):
                     bit = 1 << x
                     if row & bit:
-                        draw.point((y, x), fill=color)
+                        draw.point((y, x), fill="white")

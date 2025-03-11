@@ -1,6 +1,6 @@
-from fusion_hat import SPI_RGB_Matrix
+from fusion_hat import LedMatrix
 
-rgb_matrix = SPI_RGB_Matrix(rotate=0)
+rgb_matrix = LedMatrix(rotate=0)
 
 pattern = [
     0b01111110,
@@ -13,4 +13,4 @@ pattern = [
     0b00111100
 ]
 
-rgb_matrix.display_pattern(pattern, color='red') 
+rgb_matrix.display_pattern(pattern) 
