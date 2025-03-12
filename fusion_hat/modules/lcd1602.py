@@ -40,7 +40,7 @@ class LCD1602():
 
     def write_byte(self, data):
         temp = data
-        if self.blen == 1:
+        if self._backlight == 1:
             temp |= 0x08
         else:
             temp &= 0xF7
