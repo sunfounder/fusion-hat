@@ -154,7 +154,7 @@ class PWM(I2C):
             return self.ccp
 
         self.ccp = int(ccp)
-        self.duty_cycle = round(self.ccp / self.arr * 100, 2)
+        self.duty_cycle = round(self.ccp / (self.arr+1) * 100, 2)
         cpp_h = (self.ccp >> 8) & 0xff
         ccp_l = self.ccp & 0xff
         data = [self.ccp_reg_addr, cpp_h, ccp_l]

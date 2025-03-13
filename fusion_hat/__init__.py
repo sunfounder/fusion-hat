@@ -19,9 +19,9 @@ from .tts import TTS
 from .utils import *
 from .robot import Robot
 import time
-st = time.time()
+# st = time.time()
 from .modules  import *
-print("fusion-hat modules load time: ", time.time() - st)
+# print("fusion-hat modules load time: ", time.time() - st)
 
 
 def __usage__():
