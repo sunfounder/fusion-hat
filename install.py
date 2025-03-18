@@ -132,6 +132,8 @@ PIP_INSTALL_LIST = [
     'pyserial',
     'pillow',
     "'pygame>=2.1.2'",
+    'luma.led_matrix',
+    'luma.core',
 ]
 
 
