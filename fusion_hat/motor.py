@@ -10,6 +10,13 @@ class Motor():
     PRESCALER = 10
     DEFAULT_FREQ = 100 # Hz
 
+    DEFAULT_MOTOR_PINS = {
+        'M0': ['P11', 'P10'],
+        'M1': ['P9', 'P8'],
+        'M2': ['P6', 'P7'],
+        'M3': ['P4', 'P5']
+    }
+
     '''
     motor mode 1: (TC1508S)
                 pin_a: PWM    pin_b: IO
@@ -25,7 +32,8 @@ class Motor():
     brake        1              1
     '''
 
-    def __init__(self, pwm, dir, is_reversed=False, mode=None, freq=DEFAULT_FREQ):
+    # def __init__(self, pwm, dir, is_reversed=False, mode=None, freq=DEFAULT_FREQ):
+    def __init__(self, *args, **kwargs):
         """
         Initialize a motor
 
@@ -34,44 +42,72 @@ class Motor():
         :param dir: Motor direction control pin
         :type dir: robot_hat.pin.Pin
         """
-        if mode == None:
+
+        self.motor = None
+        self.pwm = None
+        self.dir = None
+
+        if len(args) == 1:
+            self.motor = args[0]
+        elif len(args) == 2:
+            self.pwm = args[0]
+            self.dir = args[1]
+        else:
+            if 'pwm' in kwargs:
+                self.pwm = kwargs['pwm']
+            if 'dir' in kwargs:
+                self.dir = kwargs['dir']
+            if 'motor' in kwargs:
+                self.motor = kwargs['motor']
+
+        self.mode = kwargs.get('mode', None)
+        if self.mode == None:
             from . import __device__
             self.mode = __device__.motor_mode
-        else:
-            self.mode = mode
+        
+        self.freq = kwargs.get('freq', self.DEFAULT_FREQ)
+        self.is_reversed = kwargs.get('is_reversed', False)
 
+        if self.motor != None:
+            if self.motor not in ['M0', 'M1', 'M2', 'M3']:
+                raise ValueError("motor must be 'M0', 'M1', 'M2', 'M3'")
+            if self.mode == 1:
+                raise ValueError("motor mode 1 not support motor parameter, please use mode 2,"
+                                 "or enter PWM parameter and dir pins parameter.")
+            elif self.mode == 2:
+                self.pwm_a = PWM(self.DEFAULT_MOTOR_PINS[self.motor][0])
+                self.pwm_b = PWM(self.DEFAULT_MOTOR_PINS[self.motor][1])
+
+        # ------------------------------
         # mode 1: (TC1508S)
         if self.mode == 1:
-            if not isinstance(pwm, PWM):
+            if not isinstance( self.pwm, PWM):
                 raise TypeError("pin_a must be a class PWM")
-            if not isinstance(dir, Pin):
+            if not isinstance( self.dir, Pin):
                 raise TypeError("pin_b must be a class Pin")
 
-            self.pwm = pwm
-            self.dir = dir
-            self.freq = freq
             self.pwm.freq(self.freq)
             self.pwm.pulse_width_percent(0)
+
+        # ------------------------------
         # mode 2: (TC618S)
         elif self.mode == 2:
-            if not isinstance(pwm, PWM):
+            if not isinstance(self.pwm, PWM):
                 raise TypeError("pin_a must be a class PWM")
-            if not isinstance(dir, PWM):
+            if not isinstance(self.dir, PWM):
                 raise TypeError("pin_b must be a class PWM")
 
-            self.freq = freq
-            self.pwm_a = pwm
             self.pwm_a.freq(self.freq)
             self.pwm_a.pulse_width_percent(0)
-            self.pwm_b = dir
             self.pwm_b.freq(self.freq)
             self.pwm_b.pulse_width_percent(0)
         # unkowned mode
         else:
             raise ValueError("Unkown motors mode")
 
+        # ------------------------------
         self._speed = 0
-        self._is_reverse = is_reversed
+
 
     def speed(self, speed=None):
         """
