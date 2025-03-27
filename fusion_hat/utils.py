@@ -210,3 +210,62 @@ def disable_speaker():
     run_command(f"{pincmd} set {__device__.spk_en} op dl")
 
 
+def get_usr_btn():
+    """
+    Get user button state
+
+    :return: True if pressed
+    :rtype: bool
+    """
+    from .device import __device__
+    from .i2c import I2C
+    ADDR = __device__.i2c_addr
+    USER_BTN_STATE_REG_ADDR = 0x24
+    i2c = I2C(ADDR)
+    usr_btn_state = i2c._read_byte_data(USER_BTN_STATE_REG_ADDR)
+    return usr_btn_state & 0x01
+
+def get_charge_state():
+    """
+    Get charge state
+
+    :return: True if charging
+    :rtype: bool
+    """
+    from .device import __device__
+    from .i2c import I2C
+    ADDR = __device__.i2c_addr
+    CHARGE_STATE_REG_ADDR = 0x25
+    i2c = I2C(ADDR)
+    charge_state = i2c._read_byte_data(CHARGE_STATE_REG_ADDR)
+    return charge_state & 0x01
+
+def get_shutdown_request():
+    """
+    Get shutdown request
+
+    :return: 0: no request, 1: low Battery request, 2: button shutdown request
+    :rtype: bool
+    """
+    from .device import __device__
+    from .i2c import I2C
+    ADDR = __device__.i2c_addr
+    SHUTDOWN_REQUEST_REG_ADDR = 0x26
+    i2c = I2C(ADDR)
+    shutdown_request = i2c._read_byte_data(SHUTDOWN_REQUEST_REG_ADDR)
+    return shutdown_request
+
+def set_user_led(state):
+    """
+    Set user led state
+
+    :param state: 0:off, 1:on, 2:toggle
+    :type state: bool
+    """
+    from .device import __device__
+    from .i2c import I2C
+    ADDR = __device__.i2c_addr
+    USER_LED_REG_ADDR = 0x30
+    i2c = I2C(ADDR)
+    i2c._write_byte_data(USER_LED_REG_ADDR, state)
+
