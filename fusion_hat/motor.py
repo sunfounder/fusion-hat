@@ -52,6 +52,9 @@ class Motor():
         elif len(args) == 2:
             self.pwm = args[0]
             self.dir = args[1]
+
+            self.pwm_a = args[0]
+            self.pwm_b = args[1]
         else:
             if 'pwm' in kwargs:
                 self.pwm = kwargs['pwm']
@@ -81,9 +84,9 @@ class Motor():
         # ------------------------------
         # mode 1: (TC1508S)
         if self.mode == 1:
-            if not isinstance( self.pwm, PWM):
+            if not isinstance(self.pwm, PWM):
                 raise TypeError("pin_a must be a class PWM")
-            if not isinstance( self.dir, Pin):
+            if not isinstance(self.dir, Pin):
                 raise TypeError("pin_b must be a class Pin")
 
             self.pwm.freq(self.freq)
@@ -92,9 +95,9 @@ class Motor():
         # ------------------------------
         # mode 2: (TC618S)
         elif self.mode == 2:
-            if not isinstance(self.pwm, PWM):
+            if not isinstance(self.pwm_a, PWM):
                 raise TypeError("pin_a must be a class PWM")
-            if not isinstance(self.dir, PWM):
+            if not isinstance(self.pwm_b, PWM):
                 raise TypeError("pin_b must be a class PWM")
 
             self.pwm_a.freq(self.freq)
