@@ -269,3 +269,12 @@ def set_user_led(state):
     i2c = I2C(ADDR)
     i2c._write_byte_data(USER_LED_REG_ADDR, state)
 
+def get_firmware_version():
+    from .device import __device__
+    from .i2c import I2C
+
+    ADDR = __device__.i2c_addr
+    VERSSION_REG_ADDR = 0x05
+    i2c = I2C(ADDR)
+    version = i2c.mem_read(3, VERSSION_REG_ADDR)
+    return version
