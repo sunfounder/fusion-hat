@@ -123,7 +123,7 @@ class Motor():
             return self._speed
 
         dir = 1 if speed > 0 else 0
-        if self._is_reverse:
+        if self.is_reversed:
             # dir = dir + 1 & 1
             dir = dir ^ 1 # XOR
         speed = abs(speed)
@@ -152,7 +152,7 @@ class Motor():
         :param is_reverse: True or False
         :type is_reverse: bool
         """
-        self._is_reverse = is_reverse
+        self.is_reversed = is_reverse
 
     def stop(self):
         """Stop motor"""
