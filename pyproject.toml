@@ -24,7 +24,8 @@ dependencies = [
 ]
 
 [project.scripts]
-fusion_hat = "fusion_hat:__main__"
+fusion_hat = "fusion_hat.script:fusion_hat_cmd"
+fusion_hat_safe_shutdown = "fusion_hat.safe_shutdown:__main__"
 
 [project.urls]
 Homepage = "https://www.sunfounder.com/products/sunfounder-fusionfusion-hat-expansion-board-designed-for-raspberry-pi"

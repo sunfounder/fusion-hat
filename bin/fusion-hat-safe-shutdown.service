@@ -1,0 +1,11 @@
+# https://www.freedesktop.org/software/systemd/man/systemd.service.html
+[Unit]
+Description=fusion-hat safe shutdown service
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=fusion_hat_safe_shutdown
+
+[Install]
+WantedBy=multi-user.target

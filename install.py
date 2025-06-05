@@ -215,6 +215,17 @@ def install():
             do(msg="copy dtoverlay",
             cmd=f'cp ./dtoverlays/* {_overlays_path}')
 
+        # --- Setup auto safe shutdown service ---
+        print("Setup auto safe-shutdown service")
+        do(msg="copy service file",
+           cmd=f'cp ./bin/fusion-hat-safe-shutdown.service /etc/systemd/system/')
+        do(msg="reload systemd",
+           cmd='systemctl daemon-reload')
+        do(msg="enable service",
+           cmd='systemctl enable fusion-hat-safe-shutdown.service')
+        do(msg="start service",
+           cmd='systemctl start fusion-hat-safe-shutdown.service')
+
     # --- Report error ---
     if len(errors) == 0:
         print("Finished")
