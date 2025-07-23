@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import sys
+import time
 
 # color:
 # https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
@@ -133,27 +134,6 @@ def get_ip(ifaces=['wlan0', 'eth0']):
             return ipv4
     return False
 
-
-def reset_mcu():
-    """
-    Reset mcu on Robot Hat.
-
-    This is helpful if the mcu somehow stuck in a I2C data
-    transfer loop, and Raspberry Pi getting IOError while
-    Reading ADC, manipulating PWM, etc.
-    """
-    import time
-    from .pin import Pin
-
-    mcu_reset = Pin("MCURST")
-    mcu_reset.off()
-    time.sleep(0.01)
-    mcu_reset.on()
-    time.sleep(0.01)
-
-    mcu_reset.close()
-
-
 def get_battery_voltage():
     """
     Get battery voltage
@@ -175,20 +155,9 @@ def enable_speaker():
     Enable speaker
     """
     from .device import __device__
-    if __device__.spk_en == "I2C_0x31":
+    if __device__.spk_en == "I2Cn_0x31":
         debug("Enable speaker on I2C reg 0x31")
         run_command('i2cset -y 1 0x17 0x31 1')
-    else:
-        pincmd = ''
-        if command_exists("pinctrl"):
-            pincmd = 'pinctrl'
-        elif command_exists("raspi-gpio"):
-            pincmd = 'raspi-gpio'
-        else:
-            error("Can't find `pinctrl` or `raspi-gpio` to enable speaker")
-            return
-        debug(f"{pincmd} set {__device__.spk_en} op dh")
-        run_command(f"{pincmd} set {__device__.spk_en} op dh")
     # play a short sound to fill data and avoid the speaker overheating
     run_command(f"play -n trim 0.0 0.5 2>/dev/null")
 
@@ -196,18 +165,10 @@ def disable_speaker():
     """
     Disable speaker
     """
-    from . import __device__
-    pincmd = ''
-    if command_exists("pinctrl"):
-        pincmd = 'pinctrl'
-    elif command_exists("raspi-gpio"):
-        pincmd = 'raspi-gpio'
-    else:
-        error("Can't find `pinctrl` or `raspi-gpio` to disable speaker")
-        return
-
-    debug(f"{pincmd} set {__device__.spk_en} op dl")
-    run_command(f"{pincmd} set {__device__.spk_en} op dl")
+    from .device import __device__
+    if __device__.spk_en == "I2Cn_0x31":
+        debug("Disable speaker on I2C reg 0x31")
+        run_command('i2cset -y 1 0x17 0x31 0')
 
 
 def get_usr_btn():
@@ -218,12 +179,15 @@ def get_usr_btn():
     :rtype: bool
     """
     from .device import __device__
-    from .i2c import I2C
     ADDR = __device__.i2c_addr
     USER_BTN_STATE_REG_ADDR = 0x24
-    i2c = I2C(ADDR)
-    usr_btn_state = i2c._read_byte_data(USER_BTN_STATE_REG_ADDR)
-    return usr_btn_state & 0x01
+    cmd = f"i2cget -y 1 {ADDR} {USER_BTN_STATE_REG_ADDR}"
+    status, output = run_command(cmd)
+    if status != 0:
+        error(f"Get user button state failed, status: {status}, output: {output}")
+        return False
+    usr_btn_state = int(output, 16)
+    return usr_btn_state == 1
 
 def get_charge_state():
     """
@@ -233,12 +197,15 @@ def get_charge_state():
     :rtype: bool
     """
     from .device import __device__
-    from .i2c import I2C
     ADDR = __device__.i2c_addr
     CHARGE_STATE_REG_ADDR = 0x25
-    i2c = I2C(ADDR)
-    charge_state = i2c._read_byte_data(CHARGE_STATE_REG_ADDR)
-    return charge_state & 0x01
+    cmd = f"i2cget -y 1 {ADDR} {CHARGE_STATE_REG_ADDR}"
+    status, output = run_command(cmd)
+    if status != 0:
+        error(f"Get charge state failed, status: {status}, output: {output}")
+        return False
+    charge_state = int(output, 16)
+    return charge_state == 1
 
 def get_shutdown_request():
     """
@@ -248,11 +215,14 @@ def get_shutdown_request():
     :rtype: bool
     """
     from .device import __device__
-    from .i2c import I2C
     ADDR = __device__.i2c_addr
     SHUTDOWN_REQUEST_REG_ADDR = 0x26
-    i2c = I2C(ADDR)
-    shutdown_request = i2c._read_byte_data(SHUTDOWN_REQUEST_REG_ADDR)
+    cmd = f"i2cget -y 1 {ADDR} {SHUTDOWN_REQUEST_REG_ADDR}"
+    status, output = run_command(cmd)
+    if status != 0:
+        error(f"Get shutdown request failed, status: {status}, output: {output}")
+        return False
+    shutdown_request = int(output, 16)
     return shutdown_request
 
 def set_user_led(state):
@@ -263,18 +233,54 @@ def set_user_led(state):
     :type state: bool
     """
     from .device import __device__
-    from .i2c import I2C
     ADDR = __device__.i2c_addr
     USER_LED_REG_ADDR = 0x30
-    i2c = I2C(ADDR)
-    i2c._write_byte_data(USER_LED_REG_ADDR, state)
+    cmd = f"i2cset -y 1 {ADDR} {USER_LED_REG_ADDR} {state}"
+    status, output = run_command(cmd)
+    if status != 0:
+        error(f"Set user led state failed, status: {status}, output: {output}")
+        return False
 
 def get_firmware_version():
     from .device import __device__
-    from .i2c import I2C
-
     ADDR = __device__.i2c_addr
     VERSSION_REG_ADDR = 0x05
-    i2c = I2C(ADDR)
-    version = i2c.mem_read(3, VERSSION_REG_ADDR)
+    cmd = f"i2cget -y 1 {ADDR} {VERSSION_REG_ADDR} i 3"
+    status, output = run_command(cmd)
+    if status != 0:
+        error(f"Get firmware version failed, status: {status}, output: {output}")
+        return False
+    version = output.split(" ")
+    version = [int(v, 16) for v in version]
     return version
+
+def constrain(value, min_value, max_value):
+    return min(max(value, min_value), max_value)
+
+class LazyReader():
+    ''' Lazy reader. Read something in a given interval,
+    even if you read it multiple times in a short time.
+    For those who don't need to read it too frequently.
+    '''
+    def __init__(self, read_function, interval=10):
+        ''' Initialize the lazy reader.
+
+        Args:
+            read_function (function): The function to read.
+            interval (int): The interval to read.
+        '''
+        self.read_function = read_function
+        self.interval = interval
+        self.value = None
+        self.last_read_time = 0
+
+    def read(self):
+        ''' Read the value.
+
+        Returns:
+            The value.
+        '''
+        if time.time() - self.last_read_time > self.interval:
+            self.value = self.read_function()
+            self.last_read_time = time.time()
+        return self.value
