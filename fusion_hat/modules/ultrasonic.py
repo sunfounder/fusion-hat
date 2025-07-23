@@ -52,7 +52,7 @@ class Ultrasonic():
     def read_with_retry(self, times=10):
         for _ in range(times):
             value = self.read_raw()
-            if value != -1:
+            if value > 0:
                 return value
         return -1
 
