@@ -6,8 +6,7 @@ from .utils import enable_speaker, \
     get_firmware_version, \
     get_shutdown_request, \
     info, \
-    warn, \
-    reset_mcu
+    warn
 
 # fusion_hat script
 # =============================================================
@@ -15,7 +14,6 @@ def __fusion_hat_cmd_usage__():
     print('''
 Usage: fusion_hat [option]
 
-reset_mcu               reset mcu on fusion-hat
 enable_speaker          enable speaker
 disable_speaker         disable speaker
 version                 get fusion-hat libray version
@@ -25,10 +23,7 @@ info                    get hat info
 def fusion_hat_cmd():
     import sys
     if len(sys.argv) == 2:
-        if sys.argv[1] == "reset_mcu":
-            reset_mcu()
-            info("Onboard MCU reset.")
-        elif sys.argv[1] == "enable_speaker":
+        if sys.argv[1] == "enable_speaker":
             info(f"Enable Fusion-HAT speaker.")
             enable_speaker()
         elif sys.argv[1] == "disable_speaker":
