@@ -1,6 +1,6 @@
 import time
 from ..pin import Pin
-
+import threading
 
 class Ultrasonic():
     SOUND_SPEED = 343.3 # ms
