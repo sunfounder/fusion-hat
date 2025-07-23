@@ -2,6 +2,7 @@
 import os
 import sys
 import time
+from unittest import result
 
 # color:
 # https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
@@ -171,6 +172,36 @@ def disable_speaker():
         run_command('i2cset -y 1 0x17 0x31 0')
 
 
+def simple_i2c_command(method, reg, *args):
+    """
+    Simple i2c command
+
+    :param method: i2c method
+    :type method: str
+    :param reg: register address
+    :type reg: int
+    :param type: data type
+    :type type: str
+    :param value: value to set
+    :type value: int
+    :return: status, output
+    :rtype: tuple
+    """
+    from .device import __device__
+    ADDR = __device__.i2c_addr
+    args = [str(arg) for arg in args]
+    cmd = f"i2c{method} -y 1 {ADDR} {reg} {' '.join(args)}"
+    status, output = run_command(cmd)
+    if status != 0 and status != None:
+        error(f"I2C {method} command failed, command: {cmd}, status: {status}, output: {output}")
+        return False
+    if method == "get":
+        value = output.split(" ")
+        value = [int(v, 16) for v in value]
+        if len(value) == 1:
+            value = value[0]
+        return value
+
 def get_usr_btn():
     """
     Get user button state
@@ -178,16 +209,9 @@ def get_usr_btn():
     :return: True if pressed
     :rtype: bool
     """
-    from .device import __device__
-    ADDR = __device__.i2c_addr
     USER_BTN_STATE_REG_ADDR = 0x24
-    cmd = f"i2cget -y 1 {ADDR} {USER_BTN_STATE_REG_ADDR}"
-    status, output = run_command(cmd)
-    if status != 0:
-        error(f"Get user button state failed, status: {status}, output: {output}")
-        return False
-    usr_btn_state = int(output, 16)
-    return usr_btn_state == 1
+    result = simple_i2c_command("get", USER_BTN_STATE_REG_ADDR, "b")
+    return result == 1
 
 def get_charge_state():
     """
@@ -196,16 +220,9 @@ def get_charge_state():
     :return: True if charging
     :rtype: bool
     """
-    from .device import __device__
-    ADDR = __device__.i2c_addr
     CHARGE_STATE_REG_ADDR = 0x25
-    cmd = f"i2cget -y 1 {ADDR} {CHARGE_STATE_REG_ADDR}"
-    status, output = run_command(cmd)
-    if status != 0:
-        error(f"Get charge state failed, status: {status}, output: {output}")
-        return False
-    charge_state = int(output, 16)
-    return charge_state == 1
+    result = simple_i2c_command("get", CHARGE_STATE_REG_ADDR, "b")
+    return result == 1
 
 def get_shutdown_request():
     """
@@ -214,44 +231,29 @@ def get_shutdown_request():
     :return: 0: no request, 1: low Battery request, 2: button shutdown request
     :rtype: bool
     """
-    from .device import __device__
-    ADDR = __device__.i2c_addr
     SHUTDOWN_REQUEST_REG_ADDR = 0x26
-    cmd = f"i2cget -y 1 {ADDR} {SHUTDOWN_REQUEST_REG_ADDR}"
-    status, output = run_command(cmd)
-    if status != 0:
-        error(f"Get shutdown request failed, status: {status}, output: {output}")
-        return False
-    shutdown_request = int(output, 16)
-    return shutdown_request
+    result = simple_i2c_command("get", SHUTDOWN_REQUEST_REG_ADDR, "b")
+    return result
 
 def set_user_led(state):
     """
     Set user led state
 
     :param state: 0:off, 1:on, 2:toggle
-    :type state: bool
+    :type state: int
     """
-    from .device import __device__
-    ADDR = __device__.i2c_addr
     USER_LED_REG_ADDR = 0x30
-    cmd = f"i2cset -y 1 {ADDR} {USER_LED_REG_ADDR} {state}"
-    status, output = run_command(cmd)
-    if status != 0:
-        error(f"Set user led state failed, status: {status}, output: {output}")
-        return False
+    simple_i2c_command("set", USER_LED_REG_ADDR, state, "b")
 
 def get_firmware_version():
-    from .device import __device__
-    ADDR = __device__.i2c_addr
+    """
+    Get firmware version
+
+    :return: firmware version
+    :rtype: list
+    """
     VERSSION_REG_ADDR = 0x05
-    cmd = f"i2cget -y 1 {ADDR} {VERSSION_REG_ADDR} i 3"
-    status, output = run_command(cmd)
-    if status != 0:
-        error(f"Get firmware version failed, status: {status}, output: {output}")
-        return False
-    version = output.split(" ")
-    version = [int(v, 16) for v in version]
+    version = simple_i2c_command("get", VERSSION_REG_ADDR, "i", 3)
     return version
 
 def constrain(value, min_value, max_value):
