@@ -3,8 +3,6 @@ import os
 class Devices():
     HAT_DEVICE_TREE = "/proc/device-tree/"
     HAT_UUIDs = [
-        "9daeea78-0000-076e-0032-582369ac3e02", # robothat5 1902v50
-        "9daeea78-0000-076e-003c-582369ac3e02", # robothat6-beta 1902v50
         "9daeea78-0000-0774-000a-582369ac3e02", # fusion_hat 1908v10
         ]
 
@@ -14,35 +12,12 @@ class Devices():
             "i2c_addr": 0x14,
             "uuid": None,
             "speaker_enbale_pin": None,
-            "motor_mode": 1
-        },
-        "robot_hat_v4x": {
-            "name": "robot_hat_v4x",
-            "i2c_addr": 0x14,
-            "uuid": None,
-            "speaker_enbale_pin": 20,
-            "motor_mode": 1,
-        }, 
-        "robot_hat_v5x": {
-            "name": "robot_hat_v5x",
-            "i2c_addr": 0x15,
-            "uuid": HAT_UUIDs[0],
-            "speaker_enbale_pin": 12,
-            "motor_mode": 2,
-        },
-        "robot_hat_v6x": {
-            "name": "robot_hat_v6x",
-            "i2c_addr": 0x17,
-            "uuid": HAT_UUIDs[1],
-            "speaker_enbale_pin": 12,
-            "motor_mode": 2,
         },
         "fusion_hat": {
             "name": "fusion_hat",
             "i2c_addr": 0x17,
-            "uuid": HAT_UUIDs[2],
+            "uuid": HAT_UUIDs[0],
             "speaker_enbale_pin": "I2C_0x31",
-            "motor_mode": 2,
         },
     }
 
@@ -65,7 +40,6 @@ class Devices():
             self.uuid = hat["uuid"]
             self.vendor = hat["vendor"]
             self.spk_en = hat["speaker_enbale_pin"]
-            self.motor_mode = hat["motor_mode"]
         else:
             self.set_hat('fusion_hat')
 
@@ -108,7 +82,6 @@ class Devices():
                 if self.DEVICES[device]['uuid'] == hat["uuid"]:
                     hat["i2c_addr"] = self.DEVICES[device]["i2c_addr"]
                     hat["speaker_enbale_pin"] = self.DEVICES[device]["speaker_enbale_pin"]
-                    hat["motor_mode"] = self.DEVICES[device]["motor_mode"]
                     break
             return hat
         else:
@@ -123,7 +96,6 @@ class Devices():
             self.vendor = ""
             self.uuid = self.DEVICES[name]["uuid"]
             self.spk_en = self.DEVICES[name]["speaker_enbale_pin"]
-            self.motor_mode = self.DEVICES[name]["motor_mode"]
 
 __device__ = Devices()
 
@@ -138,4 +110,3 @@ if __name__ == "__main__":
     print(f'vendor: {device.vendor}')
     print(f'uuid: {device.uuid}')
     print(f'speaker_enbale_pin: {device.spk_en}')
-    print(f'motor_mode: {device.motor_mode}')
