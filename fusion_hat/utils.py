@@ -151,26 +151,6 @@ def get_battery_voltage():
 def get_username():
     return os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
 
-def enable_speaker():
-    """
-    Enable speaker
-    """
-    from .device import __device__
-    if __device__.spk_en == "I2Cn_0x31":
-        debug("Enable speaker on I2C reg 0x31")
-        run_command('i2cset -y 1 0x17 0x31 1')
-    # play a short sound to fill data and avoid the speaker overheating
-    run_command(f"play -n trim 0.0 0.5 2>/dev/null")
-
-def disable_speaker():
-    """
-    Disable speaker
-    """
-    from .device import __device__
-    if __device__.spk_en == "I2Cn_0x31":
-        debug("Disable speaker on I2C reg 0x31")
-        run_command('i2cset -y 1 0x17 0x31 0')
-
 
 def simple_i2c_command(method, reg, *args):
     """
@@ -201,6 +181,22 @@ def simple_i2c_command(method, reg, *args):
         if len(value) == 1:
             value = value[0]
         return value
+
+def enable_speaker():
+    """
+    Enable speaker
+    """
+    SPEAKER_REG_ADDR = 0x31
+    simple_i2c_command("set", SPEAKER_REG_ADDR, 1)
+    # play a short sound to fill data and avoid the speaker overheating
+    run_command(f"play -n trim 0.0 0.5 2>/dev/null")
+
+def disable_speaker():
+    """
+    Disable speaker
+    """
+    SPEAKER_REG_ADDR = 0x31
+    simple_i2c_command("set", SPEAKER_REG_ADDR, 0)
 
 def get_usr_btn():
     """

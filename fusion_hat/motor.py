@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 from .basic import _Basic_class
 from .pwm import PWM
-from .pin import Pin
-from .filedb import fileDB
+from .utils import mapping
 
-class Motor():
+class Motor(_Basic_class):
     """Motor"""
     PERIOD = 4095
     PRESCALER = 10
     DEFAULT_FREQ = 100 # Hz
+    DEFAULT_MAX = 100 # %
+    DEFAULT_MIN = 0 # %
 
     DEFAULT_MOTOR_PINS = {
         'M0': ['P11', 'P10'],
@@ -38,6 +39,8 @@ class Motor():
             self.pwm_b = args[1]
 
         self.freq = kwargs.get('freq', self.DEFAULT_FREQ)
+        self.max = kwargs.get('max', self.DEFAULT_MAX)
+        self.min = kwargs.get('min', self.DEFAULT_MIN)
         self.is_reversed = kwargs.get('is_reversed', False)
 
         if self.motor != None:
@@ -56,11 +59,11 @@ class Motor():
         self.pwm_b.freq(self.freq)
         self.pwm_b.pulse_width_percent(0)
 
-        self._speed = 0
+        self._power = 0
 
     # Deprecated
-    def speed(self, speed=None):
-        self.power(speed)
+    def speed(self, power=None):
+        self.power(power)
 
     def power(self, power=None):
         """
@@ -70,12 +73,16 @@ class Motor():
         :type power: float
         """
         if power is None:
-            return self._speed
+            return self._power
 
         dir = 1 if power > 0 else 0
         if self.is_reversed:
             dir = dir ^ 1 # XOR
         power = abs(power)
+        self._power = power
+        if power > 0:
+            power = mapping(power, 0, 100, self.min, self.max)
+            power = int(power)
 
         if dir == 1:
             self.pwm_a.pulse_width_percent(power)
