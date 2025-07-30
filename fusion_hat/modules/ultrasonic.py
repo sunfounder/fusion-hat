@@ -73,13 +73,9 @@ class Ultrasonic():
             self.thread_read_interval = interval
             self.thread = threading.Thread(target=self.thread_read_loop, daemon=True)
             self.thread.start()
-        else:
-            raise RuntimeError("thread already started")
     
     def stop_thread(self):
+        self.thread_started = False
         if self.thread is not None:
-            self.thread_started = False
             self.thread.join()
             self.thread = None
-        else:
-            raise RuntimeError("thread not started")
