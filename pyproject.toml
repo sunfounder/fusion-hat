@@ -20,7 +20,7 @@ keywords = ["fusion_hat", "sunfounder"]
 dynamic = ["version"]
 
 dependencies = [
-
+  "piper-tts",
 ]
 
 [project.scripts]
