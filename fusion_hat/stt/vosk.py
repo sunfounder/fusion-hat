@@ -170,52 +170,6 @@ class Vosk():
         model_path = self.get_model_path(lang)
         return model_path.exists()
 
-    def download_model2(self, lang, progress_callback=None):
-        model_path = self.get_model_path(lang)
-        if self.is_model_downloaded(lang):
-            return
-        
-        if self.downloading:
-            return
-
-        self.downloading = True
-        try:
-            # 根据是否有回调函数选择不同的进度报告方式
-            if progress_callback:
-                # 使用回调函数
-                reporthook = self.download_progress_hook(progress_callback=progress_callback)
-                urlretrieve(
-                    MODEL_PRE_URL + str(model_path.name) + ".zip",
-                    str(model_path) + ".zip",
-                    reporthook=reporthook,
-                    data=None
-                )
-            else:
-                # 使用tqdm显示进度
-                with tqdm(
-                    unit="B", unit_scale=True, unit_divisor=1024, miniters=1,
-                    desc=(MODEL_PRE_URL + str(model_path.name) + ".zip").rsplit("/", maxsplit=1)[-1]
-                ) as t:
-                    reporthook = self.download_progress_hook(tqdm_bar=t)
-                    urlretrieve(
-                        MODEL_PRE_URL + str(model_path.name) + ".zip",
-                        str(model_path) + ".zip",
-                        reporthook=reporthook,
-                        data=None
-                    )
-                    t.total = t.n
-            
-            # 解压和清理文件
-            with ZipFile(str(model_path) + ".zip", "r") as model_ref:
-                model_ref.extractall(model_path.parent)
-            Path(str(model_path) + ".zip").unlink()
-        finally:
-            self.downloading = False
-            try:
-                os.remove(str(model_path) + ".zip")
-            except:
-                pass
-
     def download_model(self, lang, progress_callback=None, max_retries=5):
         model_path = self.get_model_path(lang)
         if self.is_model_downloaded(lang):
