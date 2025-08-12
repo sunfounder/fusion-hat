@@ -2,14 +2,6 @@ import logging
 from distutils.spawn import find_executable
 
 class TTSEngine():
-    SUPPORTED_LANGUAUE = [
-        'en-US',
-        'en-GB',
-        'de-DE',
-        'es-ES',
-        'fr-FR',
-        'it-IT',
-    ]
     def __init__(self, log=None):
         self.log = log or logging.getLogger(__name__)
 

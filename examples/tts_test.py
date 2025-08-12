@@ -2,12 +2,15 @@
 from fusion_hat.tts import Espeak
 from fusion_hat.tts import Pico2Wave
 from fusion_hat.tts import Piper
+from fusion_hat.tts import OpenAITTS
+
 import time
 
 # Initialize TTS class
 espeak = Espeak()
 pico2wave = Pico2Wave()
 piper = Piper()
+openai_tts = OpenAITTS()
 
 # Speak text
 text = "Hello, I am Espeak, a text-to-speech engine."
@@ -21,4 +24,8 @@ time.sleep(1)
 text = "Hello, I am Piper, a model-based text-to-speech engine."
 print(f"Piper: {text}")
 piper.say(text)
+time.sleep(1)
+text = "Hello, I am OpenAI TTS, a online model-based text-to-speech engine."
+print(f"OpenAI TTS: {text}")
+openai_tts.say(text)
 time.sleep(1)

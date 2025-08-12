@@ -303,8 +303,8 @@ class Piper(TTSEngine):
         if stream:
             self.stream(text)
         else:
-            self.tts(text, "tmp.wav")
-            run_command(f"aplay tmp.wav")
+            self.tts(text, "/tmp/fusion_hat_piper.wav")
+            run_command(f"aplay /tmp/fusion_hat_piper.wav")
 
     def available_models(self, country=None):
         if country is not None:

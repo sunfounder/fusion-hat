@@ -21,6 +21,7 @@ dynamic = ["version"]
 
 dependencies = [
   "piper-tts",
+  'openai',
 ]
 
 [project.scripts]

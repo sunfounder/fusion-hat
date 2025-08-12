@@ -36,7 +36,7 @@ class Pico2Wave(TTSEngine):
         if not self._check_executable('pico2wave'):
             self.log.debug('pico2wave is busy. Pass')
 
-        cmd = f'pico2wave -l {self._lang} -w /tmp/tts.wav "{words}" && aplay /tmp/tts.wav 2>/dev/null & '
+        cmd = f'pico2wave -l {self._lang} -w /tmp/fusion-hat-pico2wave.wav "{words}" && aplay /tmp/tts.wav 2>/dev/null & '
         _, result = run_command(cmd)
         if len(result) != 0:
             raise (f'tts-pico2wave:\n\t{result}')
