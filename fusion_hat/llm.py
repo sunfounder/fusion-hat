@@ -62,8 +62,7 @@ class LLM():
             # add to content
             content = [
                 {"type": "text", "text": content},
-                {"type": "image", "image_url": {"url": encoded_string}},
-
+                {"type": "image_url", "image_url": {"url": encoded_string}},
             ]
 
         self.messages.append({"role": role, "content": content})

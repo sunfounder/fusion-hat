@@ -3,15 +3,15 @@ import queue
 import wave
 import requests
 import sounddevice as sd
+import time
+import threading  # 用于终止控制
 from vosk import Model, KaldiRecognizer, SetLogLevel
 from tqdm import tqdm
-from urllib.request import urlretrieve
 from zipfile import ZipFile
 
 import json
 from pathlib import Path
 import os
-import time
 
 
 MODEL_PRE_URL = "https://alphacephei.com/vosk/models/"
@@ -30,6 +30,7 @@ class Vosk():
         self.update_model_list()
         SetLogLevel(-1)
         self.downloading = False
+        self.cancel_event = threading.Event()  # 用于控制下载终止的事件
 
         self._device = device or sd.default.device
         if samplerate is None:
@@ -37,6 +38,8 @@ class Vosk():
             samplerate = int(device_info["default_samplerate"])
         self._samplerate = samplerate
         self.recognizer = None
+        self._language = None
+
         if language is not None:
             self.set_language(language, init=False)
             self.init()
@@ -62,8 +65,8 @@ class Vosk():
     def stt(self, filename, stream=False):
         with wave.open(filename, "rb") as wf:
             if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getcomptype() != "NONE":
-                print("Audio file must be WAV format mono PCM.")
-                sys.exit(1)
+                raise ValueError("Audio file must be WAV format mono PCM.")
+
             self.recognizer.SetWords(True)
             if stream:
                 self.recognizer.SetPartialWords(True)
@@ -97,14 +100,7 @@ class Vosk():
             return self._listen_non_streaming(q, device, samplerate, callback)
 
     def _listen_streaming(self, q, device=None, samplerate=None, callback=None):
-
-        """ Listen from microphone and return the result.   
-        Args:
-            device (int, optional): The device ID to use. Defaults to None.
-            samplerate (int, optional): The samplerate to use. Defaults to None.
-        Returns:
-            str: The recognized text.
-        """
+        """ Listen from microphone and return streaming results """
         with sd.RawInputStream(samplerate=samplerate, blocksize=8000, device=device,
                                 dtype="int16", channels=1, callback=callback):
 
@@ -131,15 +127,7 @@ class Vosk():
                 yield result
 
     def _listen_non_streaming(self, q, device=None, samplerate=None, callback=None):
-
-        """ Listen from microphone and return the result.   
-        Args:
-            device (int, optional): The device ID to use. Defaults to None.
-            samplerate (int, optional): The samplerate to use. Defaults to None.
-        Returns:
-            str: The recognized text.
-        """
-
+        """ Listen from microphone and return final result """
         with sd.RawInputStream(samplerate=samplerate, blocksize=8000, device=device,
                                 dtype="int16", channels=1, callback=callback):
 
@@ -151,6 +139,9 @@ class Vosk():
                     if text == "":
                         continue
                     return text
+
+    def language(self):
+        return self._language
 
     def set_language(self, language, init=True):
         if language not in self.available_languages:
@@ -170,6 +161,12 @@ class Vosk():
         model_path = self.get_model_path(lang)
         return model_path.exists()
 
+    def cancel_download(self):
+        """ Public method to cancel ongoing download """
+        if self.downloading:
+            self.cancel_event.set()  # 触发终止事件
+            self.log.info("Download cancellation requested")
+
     def download_model(self, lang, progress_callback=None, max_retries=5):
         model_path = self.get_model_path(lang)
         if self.is_model_downloaded(lang):
@@ -179,12 +176,17 @@ class Vosk():
             return
 
         self.downloading = True
+        self.cancel_event.clear()  # 重置终止事件（确保每次下载前都是未触发状态）
         zip_url = MODEL_PRE_URL + f"{model_path.name}.zip"
         zip_path = f"{model_path}.zip"
         retries = 0
         
         try:
             while retries < max_retries:
+                # 检查是否已触发终止
+                if self.cancel_event.is_set():
+                    raise Exception("Download cancelled by user")
+
                 try:
                     # Check for partially downloaded file
                     resume_byte_pos = 0
@@ -225,6 +227,10 @@ class Vosk():
                     with open(zip_path, mode) as f:
                         downloaded_this_attempt = 0
                         for chunk in response.iter_content(chunk_size=8192):
+                            # 每次写入前检查是否需要终止
+                            if self.cancel_event.is_set():
+                                raise Exception("Download cancelled by user")
+                            
                             if chunk:  # Filter out keep-alive empty chunks
                                 f.write(chunk)
                                 chunk_size = len(chunk)
@@ -256,6 +262,11 @@ class Vosk():
                     break
                     
                 except Exception as e:
+                    # 如果是用户终止，直接跳出重试循环
+                    if "cancelled by user" in str(e).lower():
+                        self.log.info(f"Download cancelled: {str(e)}")
+                        raise
+                    
                     retries += 1
                     self.log.error(f"Download attempt {retries}/{max_retries} failed: {str(e)}")
                     
@@ -265,16 +276,19 @@ class Vosk():
                         raise
                     
                     # Wait before retrying (exponential backoff)
-                    wait_time = 2 **retries
+                    wait_time = 2** retries
                     self.log.info(f"Retrying in {wait_time} seconds...")
                     time.sleep(wait_time)
                     
         except Exception as e:
-            self.log.error(f"Final download failure: {str(e)}")
-            # Keep partially downloaded file for possible resume
+            self.log.error(f"Download terminated: {str(e)}")
+            # 终止后保留部分下载文件（以便后续续传），如果需要删除可改为os.remove(zip_path)
+            if os.path.exists(zip_path):
+                self.log.info(f"Partial download saved to {zip_path}")
             raise
         finally:
             self.downloading = False
+            self.cancel_event.clear()  # 重置终止事件
 
     def download_progress_hook(self, tqdm_bar=None, progress_callback=None):
         last_b = [0]
@@ -283,19 +297,14 @@ class Vosk():
             if tsize not in (None, -1):
                 if tqdm_bar:
                     tqdm_bar.total = tsize
-                # elif progress_callback:
-                #     # 第一次调用时，传递总大小
-                #     progress_callback(0, tsize)
             
-            # 计算已下载的字节数
+            # Calculate downloaded bytes
             downloaded = (b - last_b[0]) * bsize
             last_b[0] = b
             
             if tqdm_bar:
-                # 更新tqdm进度条
                 return tqdm_bar.update(downloaded)
             elif progress_callback:
-                # 调用进度回调函数
                 current = min(b * bsize, tsize) if tsize else b * bsize
                 progress_callback(current, tsize)
             
