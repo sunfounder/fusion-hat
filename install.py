@@ -131,7 +131,7 @@ PIP_INSTALL_LIST = [
     'spidev',
     'pyserial',
     'pillow',
-    "'pygame>=2.1.2'",
+    'pygame>=2.1.2',
     'luma.led_matrix',
     'luma.core',
 ]
@@ -254,3 +254,5 @@ if __name__ == "__main__":
         sys.stdout.write(' \033[1D')
         sys.stdout.write('\033[?25h') # cursor visible 
         sys.stdout.flush()
+        if len(errors) > 0:
+            sys.exit(1)
