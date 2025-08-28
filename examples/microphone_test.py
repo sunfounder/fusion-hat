@@ -1,8 +1,10 @@
 from fusion_hat.microphone import Microphone
+from fusion_hat.utils import enable_speaker
 import os
 
 
 mic = Microphone()
+enable_speaker()
 
 print("Echo test start")
 
