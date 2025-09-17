@@ -12,11 +12,10 @@
 
     👉 Ready to explore and create with us? Click [|link_sf_facebook|] and join today!
 
-SunFounder Fusion HAT Series
+SunFounder Fusion HAT+
 =====================================
 
-
-**Welcome to the Fusion HAT Series Documentation**
+**Welcome to the Fusion HAT+ Documentation**
 
 .. .. note::
 ..     This document is available in the following languages.
@@ -32,11 +31,11 @@ SunFounder Fusion HAT Series
 ..     :align: center
    
 
-The **Fusion HAT Series** is a collection of powerful and developer-friendly expansion boards designed to unlock the full potential of the Raspberry Pi in robotics and automation projects. Whether you're an educator, maker, or professional developer, the Fusion HAT series provides the essential hardware foundation to rapidly build smart, interactive robots—from autonomous vehicles to voice-controlled assistants.
+The **Fusion HAT+** is a powerful and developer-friendly expansion board designed to unlock the full potential of the Raspberry Pi in robotics and automation projects. Whether you're an educator, maker, or professional developer, Fusion HAT+ provides the essential hardware foundation to rapidly build smart, interactive robots—from autonomous vehicles to voice-controlled assistants.
 
-Each board in the series features an onboard MCU, extending the Raspberry Pi’s capabilities with additional PWM outputs and ADC inputs. Integrated motor drivers, audio modules, and user-friendly debugging features make development smoother and more efficient. From basic motion control to advanced voice interaction, the Fusion HAT series grows with your project needs.
+This board features an onboard MCU, extending the Raspberry Pi’s capabilities with additional PWM outputs and ADC inputs. Integrated motor drivers, audio modules, and user-friendly debugging features make development smoother and more efficient. From basic motion control to advanced voice interaction, Fusion HAT+ grows with your project needs.
 
-**Key Features Across the Series:**
+**Key Features**
 
 * **Microcontroller-based control** for enhanced PWM/ADC support
 * **Motor drivers** for flexible mobility
@@ -46,9 +45,6 @@ Each board in the series features an onboard MCU, extending the Raspberry Pi’s
 * Onboard **microphone** for voice recognition and audio input
 * Dedicated **ZERO button** for fast servo alignment
 * Enhanced hardware stability and usability
-
-
-Explore the documentation for each version to get started with setup, hardware details, and software integration:
 
 .. toctree::
     :maxdepth: 2
@@ -60,8 +56,8 @@ Explore the documentation for each version to get started with setup, hardware d
     api/api
     faq
 
-.. project/projects
+**Copyright Notice**
 
-In this document, you will get a full understanding of the interface functions of the Fusion HAT and the usage of these interfaces through the Python ``fusion-hat`` library provided by SunFounder.
+All contents including but not limited to texts, images, and code in this manual are owned by the SunFounder Company. You should only use it for personal study,investigation, enjoyment, or other non-commercial or nonprofit purposes, under therelated regulations and copyrights laws, without infringing the legal rights of the author and relevant right holders. For any individual or organization that uses these for commercial profit without permission, the Company reserves the right to take legal action.
 
-Let the Fusion HAT Series be your gateway to building the next generation of intelligent robotic systems.
+
