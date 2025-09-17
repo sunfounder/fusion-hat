@@ -1,10 +1,8 @@
-from openai import AsyncOpenAI, OpenAI
-
-from openai.helpers import LocalAudioPlayer
-import asyncio
+import requests
 import os
-
-from .tts_engine import TTSEngine
+import logging
+import pyaudio
+from ..utils import enable_speaker
 
 def volume_gain(input_file, output_file, gain):
     import sox
@@ -20,7 +18,7 @@ def volume_gain(input_file, output_file, gain):
         print(f"[ERROR] volume_gain err: {e}")
         return False
 
-class OpenAI_TTS(TTSEngine):
+class OpenAI_TTS():
     """
     OpenAI TTS engine.
     """
@@ -56,65 +54,99 @@ class OpenAI_TTS(TTSEngine):
     DEFAULT_VOICE = 'alloy'
     DEFAULT_INSTRUCTIONS = "Speak in a cheerful and positive tone."
 
+    URL = "https://api.openai.com/v1/audio/speech"
+
     def __init__(self, *args,
-        stream=False,
         voice=DEFAULT_VOICE,
         model=DEFAULT_MODEL,
         api_key=None,
         gain=3,
-        **kwargs):
-        super().__init__(*args, **kwargs)
+        log=None):
+        self.log = log or logging.getLogger(__name__)
+        enable_speaker()
 
         self._model = model or self.DEFAULT_MODEL
         self._voice = voice or self.DEFAULT_VOICE
         self._gain = gain
-        self.stream = stream
+        self.is_ready = False
 
-        if api_key:
-            self.set_api_key(api_key)
-        else:
-            if os.environ.get("OPENAI_API_KEY"):
-                if self.stream:
-                    self.client = AsyncOpenAI()
-                else:
-                    self.client = OpenAI()
-                self.is_ready = True
+        self.set_api_key(api_key)
 
-    async def async_say(self, words, instructions=DEFAULT_INSTRUCTIONS):
-        async with self.client.audio.speech.with_streaming_response.create(
-            model=self._model,
-            voice=self._voice,
-            input=words,
-            instructions=instructions,
-            response_format="pcm",
-        ) as response:
-            await LocalAudioPlayer().play(response)
-
-    def tts(self, words, output_file="/tmp/openai_tts.wav", instructions=DEFAULT_INSTRUCTIONS):
-
+    def tts(self, words, output_file="/tmp/openai_tts.wav", instructions=DEFAULT_INSTRUCTIONS, stream=False):
         """
-        TTS.
-
+        Request OpenAI TTS API.
+        
         :param words: words to say.
         :type words: str
-        :type gain: int
+        :param output_file: output file.
+        :type output_file: str
+        :param instructions: instructions.
+        :type instructions: str
+        :param stream: whether to stream the audio.
+        :type stream: bool
+        :return: True if success.
+        :rtype: bool
         """
-        with self.client.audio.speech.with_streaming_response.create(
-            model=self._model,
-            voice=self._voice,
-            input=words,
-            instructions=instructions,
-            response_format="wav",
-        ) as response:
-            response.stream_to_file(output_file)
         
-        if self._gain > 1:
-            old_output_file = output_file.replace('.wav', f'_old.wav')
-            os.rename(output_file, old_output_file)
-            volume_gain(old_output_file, output_file, self._gain)
-            os.remove(old_output_file)
+        headers = {
+            "Authorization": f"Bearer {self._api_key}",
+            "Content-Type": "application/json"
+        }
+        
+        data = {
+            "model": self._model,
+            "input": words,
+            "voice": self._voice,
+            "response_format": "wav",
+            "instructions": instructions,
+        }
+        
+        try:
+            response = requests.post(self.URL, json=data, headers=headers, stream=True)
+            
+            response.raise_for_status()
+            
+            if stream:
+                self._stream_audio(response)
+            else:
+                with open(output_file, "wb") as f:
+                    for chunk in response.iter_content(chunk_size=1024):
+                        if chunk:
+                            f.write(chunk)
+                
+                if self._gain > 1:
+                    old_output_file = output_file.replace('.wav', f'_old.wav')
+                    os.rename(output_file, old_output_file)
+                    volume_gain(old_output_file, output_file, self._gain)
+                    os.remove(old_output_file)
 
-    def say(self, words, instructions=DEFAULT_INSTRUCTIONS):
+            return True
+        
+        except requests.exceptions.RequestException as e:
+            self.log.error(f"请求发生错误: {e}")
+            return False
+        except IOError as e:
+            self.log.error(f"文件操作错误: {e}")
+            return False
+
+    def _stream_audio(self, response):
+        """流式播放音频"""
+        p = pyaudio.PyAudio()
+        
+        stream = p.open(format=p.get_format_from_width(2),
+                        channels=1,
+                        rate=22050,
+                        output=True)
+        
+        for chunk in response.iter_content(chunk_size=1024):
+            if chunk:
+                stream.write(chunk)
+        
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+
+    def say(self, words, instructions=DEFAULT_INSTRUCTIONS, stream=True):
         '''
         Say words.
 
@@ -122,16 +154,14 @@ class OpenAI_TTS(TTSEngine):
         :type words: str
         :param instructions: instructions.
         :type instructions: str
-
+        :param stream: whether to stream the audio.
+        :type stream: bool
         '''
-        if not self.is_ready:
-            raise ValueError('OpenAI TTS is not initialized, try set api key with OPENAI_API_KEY environment variable or with set_api_key method')
-
-        if self.stream:
-            asyncio.run(self.async_say(words, instructions))
+        if stream:
+            self.tts(words, instructions=instructions, stream=True)
         else:
             file_name = "/tmp/openai_tts.wav"
-            self.tts(words, instructions=instructions, output_file=file_name)
+            self.tts(words, instructions=instructions, output_file=file_name, stream=False)
             os.system(f'aplay {file_name}')
             os.remove(file_name)
 
@@ -165,11 +195,6 @@ class OpenAI_TTS(TTSEngine):
         :type api_key: str
         """
         self._api_key = api_key
-        if self.stream:
-            self.client = AsyncOpenAI(api_key=self._api_key)
-        else:
-            self.client = OpenAI(api_key=self._api_key)
-        self.is_ready = True
 
     def set_gain(self, gain):
         """

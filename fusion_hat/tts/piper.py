@@ -1,6 +1,6 @@
 import os
-from fusion_hat.utils import run_command
-from .tts_engine import TTSEngine
+from ..utils import run_command, enable_speaker
+import logging
 
 PIPER_MODELS = {
     "ar_JO": {
@@ -212,7 +212,7 @@ for country in COUNTRYS:
 
 PIPER_MODEL_DIR = "/opt/piper_models"
 
-class Piper(TTSEngine):
+class Piper():
     DEFAULT_MODEL = "en_US-danny-low"
 
     TTS_TEMPELATE = "echo \"{text}\" | piper \
@@ -223,13 +223,14 @@ class Piper(TTSEngine):
 --model {model} \
 --output-raw | aplay -r 16000 -f S16_LE -t raw -"
 
-    def __init__(self, *args, model=None, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, model=None, log=None):
+        self.log = log or logging.getLogger(__name__)
         self.model = model or self.DEFAULT_MODEL
         if not os.path.exists(PIPER_MODEL_DIR):
             run_command(f"mkdir -p {PIPER_MODEL_DIR}")
             run_command(f"chown 1000:1000 {PIPER_MODEL_DIR}")
         self.set_model(self.model)
+        enable_speaker()
 
     def is_model_downloaded(self, model=None):
         if model is None:
@@ -249,17 +250,20 @@ class Piper(TTSEngine):
         onnx_file = os.path.join(PIPER_MODEL_DIR, model + ".onnx")
         json_file = onnx_file + ".json"
 
-        status, result = run_command(f"python3 -m piper.download_voices {model} --download-dir {PIPER_MODEL_DIR}")
+        cmd = f"python3 -m piper.download_voices {model} --download-dir {PIPER_MODEL_DIR}"
+        status, result = run_command(cmd)
         if status != 0:
-            raise RuntimeError(f"Download model error: \n  Command:piper --model {model} --download-dir {PIPER_MODEL_DIR}\n  Status {status}\n  Error: {result}")
+            raise RuntimeError(f"Download model error: \n  Command:{cmd}\n  Status {status}\n  Error: {result}")
 
-        status, result = run_command(f"chown 1000:1000 {onnx_file}")
+        cmd = f"chown 1000:1000 {onnx_file}"
+        status, result = run_command(cmd)
         if status != 0:
-            raise RuntimeError(f"Chown model error: \n  Command:chown 1000:1000 {onnx_file}\n  Status {status}\n  Error: {result}")
+            raise RuntimeError(f"Chown model error: \n  Command:{cmd}\n  Status {status}\n  Error: {result}")
 
-        status, result = run_command(f"chown 1000:1000 {json_file}")
+        cmd = f"chown 1000:1000 {json_file}"
+        status, result = run_command(cmd)
         if status != 0:
-            raise RuntimeError(f"Chown model error: \n  Command:chown 1000:1000 {json_file}\n  Status {status}\n  Error: {result}")
+            raise RuntimeError(f"Chown model error: \n  Command:{cmd}\n  Status {status}\n  Error: {result}")
 
     def tts(self, text, file):
         if self.model is None:

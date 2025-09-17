@@ -1,9 +1,7 @@
-from fusion_hat.utils import is_installed
-from fusion_hat.utils import run_command
+from ..utils import is_installed, run_command, check_executable, enable_speaker
+import logging
 
-from .tts_engine import TTSEngine
-
-class Pico2Wave(TTSEngine):
+class Pico2Wave():
     """
     Pico2Wave TTS engine.
     """
@@ -17,8 +15,9 @@ class Pico2Wave(TTSEngine):
         'fr-FR',
         'it-IT',
     ]
-    def __init__(self, *args, lang=None, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, lang=None, log=None):
+        self.log = log or logging.getLogger(__name__)
+        enable_speaker()
 
         if not is_installed("pico2wave"):
             raise Exception("TTS engine: pico2wave is not installed.")
@@ -33,10 +32,10 @@ class Pico2Wave(TTSEngine):
         :type words: str
         """
         self.log.debug(f'pico2wave: [{words}]')
-        if not self._check_executable('pico2wave'):
+        if not check_executable('pico2wave'):
             self.log.debug('pico2wave is busy. Pass')
 
-        cmd = f'pico2wave -l {self._lang} -w /tmp/fusion-hat-pico2wave.wav "{words}" && aplay /tmp/tts.wav 2>/dev/null & '
+        cmd = f'pico2wave -l {self._lang} -w /tmp/pico2wave.wav "{words}" && aplay /tmp/pico2wave.wav 2>/dev/null & '
         _, result = run_command(cmd)
         if len(result) != 0:
             raise (f'tts-pico2wave:\n\t{result}')

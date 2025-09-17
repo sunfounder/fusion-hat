@@ -1,19 +1,13 @@
-from fusion_hat.llm import LLM
+from fusion_hat.llm import Grok
+from secret import GROK_API_KEY
 
-INSTRUCTIONS = "You are a funny rejector, who will reject any question or request with a funny reason."
-WELCOME = "Ask me anything, maybe I can help. (or not)"
+INSTRUCTIONS = "You are a helpful assistant."
+WELCOME = "Hello, I am a helpful assistant. How can I help you?"
 
-llm = LLM()
-# Set Deepseek V3
-# llm.set_base_url("https://api.deepseek.com")
-# llm.set_model("deepseek-chat")
-
-# Set Deepseek R1
-# llm.set_base_url("https://api.deepseek.com")
-# llm.set_model("deepseek-reasoner")
-
-# Set OpenAI gpt4o
-llm.set_model("gpt-4o")
+llm = Grok(
+    api_key=GROK_API_KEY,
+    model="grok-4-latest",
+)
 
 # Set how many messages to keep
 llm.set_max_messages(20)
@@ -37,4 +31,3 @@ while True:
         if next_word:
             print(next_word, end="", flush=True)
     print("")
-

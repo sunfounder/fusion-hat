@@ -7,9 +7,9 @@ class Ultrasonic():
 
     def __init__(self, trig, echo, timeout=0.02):
         if not isinstance(trig, Pin):
-            raise TypeError("trig must be robot_hat.Pin object")
+            raise TypeError("trig must be fusion_hat.Pin object")
         if not isinstance(echo, Pin):
-            raise TypeError("echo must be robot_hat.Pin object")
+            raise TypeError("echo must be fusion_hat.Pin object")
 
         self.timeout = timeout
 

@@ -23,9 +23,9 @@ class Motor(_Basic_class):
         Initialize a motor
 
         :param pwm: Motor speed control pwm pin
-        :type pwm: robot_hat.pwm.PWM
+        :type pwm: fusion_hat.pwm.PWM
         :param dir: Motor direction control pin
-        :type dir: robot_hat.pin.Pin
+        :type dir: fusion_hat.pin.Pin
         """
 
         self.motor = None

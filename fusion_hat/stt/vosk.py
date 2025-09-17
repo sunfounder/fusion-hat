@@ -62,6 +62,15 @@ class Vosk():
         self.available_languages = [model["lang"] for model in self.available_models]
         self.available_model_names = [model["name"] for model in self.available_models]
 
+    def wait_until_heard(self, wake_words):
+        if isinstance(wake_words, str):
+            wake_words = [wake_words]
+        while True:
+            result = self.listen(stream=False)
+            if result.lower() in wake_words:
+                break
+        return result
+
     def stt(self, filename, stream=False):
         with wave.open(filename, "rb") as wf:
             if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getcomptype() != "NONE":
@@ -101,7 +110,7 @@ class Vosk():
 
     def _listen_streaming(self, q, device=None, samplerate=None, callback=None):
         """ Listen from microphone and return streaming results """
-        with sd.RawInputStream(samplerate=samplerate, blocksize=8000, device=device,
+        with sd.RawInputStream(samplerate=samplerate, blocksize=1024, device=device,
                                 dtype="int16", channels=1, callback=callback):
 
             while True:
@@ -118,17 +127,19 @@ class Vosk():
                         continue
                     result["done"] = True
                     result["final"] = text
+                    yield result
+                    break
                 else:
                     partial = self.recognizer.PartialResult()
                     partial = json.loads(partial)["partial"]
                     if partial == "":
                         continue
                     result["partial"] = partial
-                yield result
+                    yield result
 
     def _listen_non_streaming(self, q, device=None, samplerate=None, callback=None):
         """ Listen from microphone and return final result """
-        with sd.RawInputStream(samplerate=samplerate, blocksize=8000, device=device,
+        with sd.RawInputStream(samplerate=samplerate, blocksize=1024, device=device,
                                 dtype="int16", channels=1, callback=callback):
 
             while True:
