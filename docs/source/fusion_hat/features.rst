@@ -34,6 +34,38 @@ Features
     * Power Button: Safe shutdown
     * Microphone: Onboard I2S microphone
 
+
+Compatibility and Power Notes
+------------------------------------------------------------
+
+The **Fusion HAT+** supports a wide range of commonly used servos and DC motors, including:
+
+* **Micro servos:** SG90, MG90S
+* **Standard servos:** MG996R, DS3218
+* **SunFounder custom servos**
+* **Low-current DC motors:** 130 series, N20 series
+* **SunFounder custom DC motors** with **XH2.54 2-pin connectors**
+
+**Servo Power (PWM Interface)**
+
+The PWM interface provides up to **5V/5A** maximum output, which is shared with the Raspberry Pi.
+
+* When connecting multiple servos, carefully account for their current draw.
+* If the total servo current exceeds 5A, use an **external power supply (BEC)** to avoid overload and ensure stable operation.
+
+**DC Motor Power**
+
+DC motors are powered **directly from the onboard batteries (6–8.4V)**.
+
+* Each motor channel supports up to **1.8A maximum current**.
+* Do **not** connect motors with higher current requirements, as this may damage the motor driver chip.
+
+
+
+
+Electrical Characteristics
+-----------------------------------
+
 .. list-table:: Electrical Characteristics
    :widths: 50 25 25 25 25
    :header-rows: 1
