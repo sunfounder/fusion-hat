@@ -85,7 +85,6 @@ class Motor(_Basic_class):
             power = mapping(power, 0, 100, self.min, self.max)
             power = int(power)
 
-        print(f'[DEBUG] Motor.power: {self.motor}, {dir}, {power}')
         if dir == 1:
             self.pwm_a.pulse_width_percent(power)
             self.pwm_b.pulse_width_percent(0)

@@ -1,4 +1,4 @@
-from fusion_hat import Pin
+from fusion_hat.pin import Pin
 from time import sleep
 
 io17 = Pin(17, Pin.OUT)
