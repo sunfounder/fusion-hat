@@ -21,7 +21,7 @@ Fusion HAT is a multifunctional expansion board that allows Raspberry Pi to be q
 ### Install library
 
 ```bash
-pip install git+https://github.com/sunfounder/fusion-hat.git@1.1.x
+sudo pip install --break git+https://github.com/sunfounder/fusion-hat.git@1.1.x
 ```
 
 ### Install sound-card driver
