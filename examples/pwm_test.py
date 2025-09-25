@@ -1,4 +1,4 @@
-from fusion_hat import PWM
+from fusion_hat.pwm import PWM
 from time import sleep
 
 p0 = PWM(0)

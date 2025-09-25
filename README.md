@@ -9,6 +9,7 @@ Quick Links:
   - [Installation](#installation)
     - [Install library](#install-library)
     - [Install soud-card driver](#install-soud-card-driver)
+    - [快速更新](#快速更新)
   - [About SunFounder](#about-sunfounder)
   - [Contact us](#contact-us)
 
@@ -31,6 +32,11 @@ cd fusion-hat
 sudo bash i2samp.sh
 ```
 
+### 快速更新
+```bash
+cd ~/Neo && sudo pip3 install . --break --no-deps --no-build-isolation
+cd ~/fusion-hat && sudo pip3 install . --break --no-deps --no-build-isolation
+```
 
 
 ## About SunFounder

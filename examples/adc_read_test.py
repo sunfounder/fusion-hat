@@ -1,4 +1,4 @@
-from fusion_hat import ADC
+from fusion_hat.adc import ADC
 import time
 
 a0 = ADC(0)
