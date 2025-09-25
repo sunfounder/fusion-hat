@@ -8,7 +8,7 @@ Quick Links:
   - [About Fusion Hat](#about-fusion-hat)
   - [Installation](#installation)
     - [Install library](#install-library)
-    - [Install soud-card driver](#install-soud-card-driver)
+    - [Install sound-card driver](#install-sound-card-driver)
   - [About SunFounder](#about-sunfounder)
   - [Contact us](#contact-us)
 
@@ -19,19 +19,17 @@ Fusion HAT is a multifunctional expansion board that allows Raspberry Pi to be q
 ## Installation
 
 ### Install library
-```bash
-git clone https://github.com/sunfounder/fusion-hat.git --depth=1
-cd fusion-hat
-sudo python3 setup.py install
 
-```
-### Install soud-card driver
 ```bash
-cd fusion-hat
-sudo bash i2samp.sh
+pip install git+https://github.com/sunfounder/fusion-hat.git@1.1.x
 ```
 
+### Install sound-card driver
 
+```bash
+wget https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/setup_fusion_hat_audio.sh
+sudo bash setup_fusion_hat_audio.sh
+```
 
 ## About SunFounder
 
