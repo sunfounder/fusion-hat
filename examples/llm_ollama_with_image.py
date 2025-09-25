@@ -1,6 +1,4 @@
-from fusion_hat.llm import Doubao
-from secret import DOUBAO_API_KEY
-
+from fusion_hat.llm import Ollama
 from picamera2 import Picamera2
 import time
 
@@ -13,9 +11,9 @@ You need at leaset 8GB RAM to run llava:7b large multimodal model
 INSTRUCTIONS = "You are a helpful assistant."
 WELCOME = "Hello, I am a helpful assistant. How can I help you?"
 
-llm = Doubao(
-    api_key=DOUBAO_API_KEY,
-    model="doubao-seed-1-6-250615",
+llm = Ollama(
+    ip="192.168.100.145",
+    model="llava:7b"
 )
 
 # Set how many messages to keep
@@ -27,7 +25,9 @@ llm.set_welcome(WELCOME)
 
 # Init camera
 camera = Picamera2()
-config = camera.create_still_configuration()
+config = camera.create_still_configuration(
+    main={"size": (1280, 720)},
+)
 camera.configure(config)
 camera.start()
 time.sleep(2)

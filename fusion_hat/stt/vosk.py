@@ -8,6 +8,7 @@ import threading  # 用于终止控制
 from vosk import Model, KaldiRecognizer, SetLogLevel
 from tqdm import tqdm
 from zipfile import ZipFile
+from ..utils import ignore_stderr
 
 import json
 from pathlib import Path
@@ -39,6 +40,7 @@ class Vosk():
         self._samplerate = samplerate
         self.recognizer = None
         self._language = None
+        self.wake_words = None
 
         if language is not None:
             self.set_language(language, init=False)
@@ -62,11 +64,14 @@ class Vosk():
         self.available_languages = [model["lang"] for model in self.available_models]
         self.available_model_names = [model["name"] for model in self.available_models]
 
-    def wait_until_heard(self, wake_words):
+    def wait_until_heard(self, wake_words=None, print_callback=lambda x: print(x, end="\r", flush=True)):
+        if wake_words is None:
+            wake_words = self.wake_words
         if isinstance(wake_words, str):
             wake_words = [wake_words]
         while True:
             result = self.listen(stream=False)
+            print_callback(result)
             if result.lower() in wake_words:
                 break
         return result
@@ -98,20 +103,27 @@ class Vosk():
         """ Listen from microphone """
         q = queue.Queue()
 
+
         def callback(indata, frames, time, status):
             if status:
                 self.log.warning(status)
             q.put(bytes(indata))
 
-        if stream:
-            return self._listen_streaming(q, device, samplerate, callback)
-        else:
-            return self._listen_non_streaming(q, device, samplerate, callback)
+        with ignore_stderr():
+            if stream:
+                return self._listen_streaming(q, device, samplerate, callback)
+            else:
+                return self._listen_non_streaming(q, device, samplerate, callback)
 
     def _listen_streaming(self, q, device=None, samplerate=None, callback=None):
         """ Listen from microphone and return streaming results """
-        with sd.RawInputStream(samplerate=samplerate, blocksize=1024, device=device,
-                                dtype="int16", channels=1, callback=callback):
+        with sd.RawInputStream(
+            samplerate=samplerate,
+            blocksize=1024,
+            device=device,
+            dtype="int16",
+            channels=1,
+            callback=callback):
 
             while True:
                 data = q.get()
@@ -126,15 +138,15 @@ class Vosk():
                     if text == "":
                         continue
                     result["done"] = True
-                    result["final"] = text
+                    result["final"] = text.strip()
                     yield result
                     break
                 else:
                     partial = self.recognizer.PartialResult()
                     partial = json.loads(partial)["partial"]
-                    if partial == "":
+                    if partial == "" or partial.isspace():
                         continue
-                    result["partial"] = partial
+                    result["partial"] = partial.strip()
                     yield result
 
     def _listen_non_streaming(self, q, device=None, samplerate=None, callback=None):
@@ -150,6 +162,9 @@ class Vosk():
                     if text == "":
                         continue
                     return text
+
+    def set_wake_words(self, wake_words):
+        self.wake_words = wake_words
 
     def language(self):
         return self._language

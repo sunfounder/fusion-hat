@@ -1,4 +1,5 @@
-from fusion_hat.llm import Ollama
+from fusion_hat.llm import OpenAI
+from secret import OPENAI_API_KEY
 from picamera2 import Picamera2
 import time
 
@@ -11,9 +12,9 @@ You need at leaset 8GB RAM to run llava:7b large multimodal model
 INSTRUCTIONS = "You are a helpful assistant."
 WELCOME = "Hello, I am a helpful assistant. How can I help you?"
 
-llm = Ollama(
-    ip="localhost",
-    model="llava:7b"
+llm = OpenAI(
+    api_key=OPENAI_API_KEY,
+    model="gpt-4o"
 )
 
 # Set how many messages to keep
@@ -25,7 +26,9 @@ llm.set_welcome(WELCOME)
 
 # Init camera
 camera = Picamera2()
-config = camera.create_still_configuration()
+config = camera.create_still_configuration(
+    main={"size": (640, 480)},
+)
 camera.configure(config)
 camera.start()
 time.sleep(2)
@@ -36,7 +39,7 @@ while True:
     input_text = input(">>> ")
 
     # Capture image
-    img_path = '/tmp/llm-img.jpg'
+    img_path = './llm-img.jpg'
     camera.capture_file(img_path)
 
     # Response without stream

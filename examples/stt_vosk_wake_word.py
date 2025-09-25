@@ -1,11 +1,12 @@
-from fusion_hat.stt import Vosk
+from fusion_hat.stt import Vosk as STT
 
 WAKE_WORDS = [
     "hey robot",
 ]
 
-stt = Vosk(language="en-us")
+stt = STT(language="en-us")
+stt.set_wake_words(WAKE_WORDS)
 
 print('Wake me with :"Hey robot"')
-result = stt.wait_until_heard(WAKE_WORDS)
+result = stt.wait_until_heard()
 print("Wake word detected")
