@@ -78,33 +78,38 @@ class Config():
 
 
     def get(self, key, default_value=None):
-        """获取指定键的值
+        """Get the value for the specified key
         
-        :param key: 键名
+        :param key: The key to get
         :type key: str
-        :param default_value: 默认值
+        :param default_value: The default value to return if the key is not found
         :type default_value: Any
-        :return: 键对应的值或默认值
+        :return: The value for the specified key or the default value if the key is not found
         :rtype: Any
         """
         return self._config.get(key, default_value)
 
     def set(self, key, value):
-        """设置指定键的值
+        """Set the value for the specified key
         
-        :param key: 键名
+        :param key: The key to set
         :type key: str
-        :param value: 值
+        :param value: The value to set
         :type value: Any
         """
         self._config[key] = value
         with open(self.config_file, 'w') as f:
             json.dump(self._config, f, indent=4)
+    
+    
+    def write(self):
+        """Write the current configuration to a file"""
+        with open(self.config_file, 'w') as f:
+            json.dump(self._config, f, indent=4)
 
     def delete(self, key):
-        """删除指定键
-        
-        :param key: 要删除的键
+        """Delete the specified key from the configuration  
+        :param key: The key to delete
         :type key: str
         """
         if key in self._config:
