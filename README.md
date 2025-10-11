@@ -9,6 +9,7 @@ Quick Links:
   - [Installation](#installation)
     - [Install library](#install-library)
     - [Install sound-card driver](#install-sound-card-driver)
+  - [Debug record](#debug-record)
   - [About SunFounder](#about-sunfounder)
   - [Contact us](#contact-us)
 
@@ -29,6 +30,12 @@ sudo pip install --break git+https://github.com/sunfounder/fusion-hat.git@1.1.x
 ```bash
 wget https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/setup_fusion_hat_audio.sh
 sudo bash setup_fusion_hat_audio.sh
+```
+
+## Debug record
+
+```bash
+sudo pip uninstall --break fusion_hat -y && sudo pip install --break git+https://github.com/sunfounder/fusion-hat.git@1.1.x
 ```
 
 ## About SunFounder
