@@ -1,5 +1,7 @@
 import math
 from .i2c import I2C
+from typing import Optional
+
 
 '''----------------------------------------------------------------
 PWM_HAT:
@@ -29,16 +31,30 @@ class PWM_GROUP():
     ADDR = [0x17]
     CLOCK = 72000000.0 # Clock frequency, 72MHz
 
-    def __init__(self, channels:list, freq:int=50, addr=0x17, auto_write=False):
-        #
+    def __init__(self, channels:list, freq: int=50, addr: int=0x17, auto_write: bool=False) -> None:
+        """
+        Initialize a pwm group optional parameters
+
+        :param channels: PWM channels
+        :type channels: list
+
+        :param freq: PWM frequency, default is 50Hz
+        :type freq: int
+
+        :param addr: I2C address, default is 0x17
+        :type addr: int
+
+        :param auto_write: Auto write to register, default is False
+        :type auto_write: bool
+        """
         self.addr = addr
         self._i2c = I2C(addr)
-        #
+
         self.channels = channels
         self.channel_num = len(channels)
         self.ccp = [ 0 for _ in range(self.channel_num)]
         self.duty_cycle = [ 0.00 for _ in range(self.channel_num)] # duty cycle, 0~100
-        #
+
         self.timer_indexs = []
         for i in range(3):
             if i in channels:
@@ -52,26 +68,32 @@ class PWM_GROUP():
             if i in channels:
                 self.timer_indexs.append(2)
                 break
-        #
+
         self._freq = freq
         self.freq(freq)
-        #
+
         self.auto_write = auto_write
 
-    def freq(self, freq=None):
-        '''return the current frequency'''
+    def freq(self, freq: Optional[int]=None) -> int:
+        """
+        Return or set the current frequency
+
+        :param freq: PWM frequency
+        :type freq: int
+
+        :return: PWM frequency
+        :rtype: int
+        """
+
         if freq is None:
             return self._freq
 
-        ''' set the frequency'''
         self._freq = int(freq)
         # --- calculate the prescaler and period ---
-        # frequency = CLOCK / (arr + 1) / (psc + 1)
         assumed_psc = int(math.sqrt(self.CLOCK/self._freq)) # assumed prescaler, start from square root
         assumed_psc -= 5
         if assumed_psc < 0:
             assumed_psc = 0
-        # print(f'assumed_psc: {assumed_psc}')
         
         # Calculate arr and frequency errors
         psc_arr = []
@@ -88,7 +110,16 @@ class PWM_GROUP():
         self.prescaler(self.psc)
         self.period(self.arr)
 
-    def prescaler(self, psc=None):
+    def prescaler(self, psc: Optional[int]=None) -> int:
+        """
+        return or set the current prescaler
+
+        :param psc: prescaler value
+        :type psc: int
+
+        :return: prescaler value
+        :rtype: int
+        """
         '''return the current prescaler'''
         if psc is None:
             return self.psc
@@ -102,7 +133,16 @@ class PWM_GROUP():
             data = [self.REG_PSC+timer_index, psc_h, psc_l]
             self._i2c.write(data)
 
-    def period(self, arr=None):
+    def period(self, arr: Optional[int]=None) -> int:
+        """
+        return or set the current period
+
+        :param arr: period value
+        :type arr: int
+
+        :return: period value
+        :rtype: int
+        """
         '''return the current period'''
         if arr is None:
             return self.arr
@@ -115,7 +155,19 @@ class PWM_GROUP():
             data = [self.REG_ARR+timer_index, arr_h, arr_l]
             self._i2c.write(data)
 
-    def pulse_width(self, index, pulse_width=None):
+    def pulse_width(self, index: int, pulse_width: Optional[int]=None) -> int:
+        """
+        return or set the current pulse width
+
+        :param index: PWM channel index
+        :type index: int
+
+        :param pulse_width: pulse width value
+        :type pulse_width: int
+
+        :return: pulse width value
+        :rtype: int
+        """
         '''return the current pulse width'''
         if pulse_width is None:
             return self.ccp[index]
@@ -128,7 +180,16 @@ class PWM_GROUP():
         data = [self.REG_CCP+index, ccp_h, ccp_l]
         self._i2c.write(data)
 
-    def pulse_width_all(self, pulse_widths:list=None):
+    def pulse_width_all(self, pulse_widths: Optional[list]=None) -> None:
+        """
+        return or set the current pulse width list
+
+        :param pulse_widths: pulse width list
+        :type pulse_widths: list
+
+        :return: pulse width list
+        :rtype: list
+        """
         '''return the current pulse width list'''
         if pulse_widths is None:
             return self.ccp
@@ -155,7 +216,19 @@ class PWM_GROUP():
                 data.extend([cpp_h, cpp_l])
             self._i2c.write(data)
 
-    def pulse_width_perecent(self, index, percent=None):
+    def pulse_width_perecent(self, index: int, percent: Optional[float]=None) -> float:
+        """
+        return or set the current pulse width percent
+
+        :param index: PWM channel index
+        :type index: int
+
+        :param percent: pulse width percent value
+        :type percent: float
+
+        :return: pulse width percent value
+        :rtype: float
+        """
         '''return the current pulse width'''
         if percent is None:
             return self.duty_cycle[index]
@@ -164,7 +237,16 @@ class PWM_GROUP():
         ccp = percent * self.arr / 100
         self.pulse_width(index, ccp)
 
-    def pulse_width_perecent_all(self, percents:list=None):
+    def pulse_width_perecent_all(self, percents: Optional[list]=None) -> None:
+        """
+        return or set the current pulse width percent list
+
+        :param percents: pulse width percent list
+        :type percents: list
+
+        :return: pulse width percent list
+        :rtype: list
+        """
         '''return the current pulse width list'''
         if percents is None:
             return self.duty_cycle
@@ -173,19 +255,40 @@ class PWM_GROUP():
         _len = len(percents)
         cpps = []
         for i in range(_len):
-            ccp = percents[i] * self.arr / 100
+            ccp = int(percents[i] * self.arr / 100)
             cpps.append(ccp)
         self.pulse_width_all(cpps)
 
-    def __setitem__(self, index, value):
+    def __setitem__(self, index: int, value: int) -> None:
+        """
+        set the pulse width percent value
+
+        :param index: PWM channel index
+        :type index: int
+
+        :param value: pulse width percent value
+        :type value: int
+        """
         self.ccp[index] = value
         if self.auto_write:
             self.pulse_width(index, value)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> int:
+        """
+        get the pulse width percent value
+
+        :param index: PWM channel index
+        :type index: int
+
+        :return: pulse width percent value
+        :rtype: int
+        """
         return self.ccp[index]
     
-    def write(self):
+    def write(self) -> None:
+        """
+        write the current pulse width percent list to the PWM group
+        """
         self.pulse_width_all(self.ccp)
 
 def test():
