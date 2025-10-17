@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from .i2c import I2C
+from typing import Optional
 
 class ADC(I2C):
     """
@@ -11,17 +12,14 @@ class ADC(I2C):
     REG_ADC_END = 0x19
     CHANNEL_NUM = 5
 
-    def __init__(self, chn, address=None, *args, **kwargs):
+    def __init__(self, chn: int, address: list[int] = ADDR, *args, **kwargs) -> None:
         """
         Analog to digital converter
 
         :param chn: channel number (0-4/A0-A4)
         :type chn: int/str
         """
-        if address is not None:
-            super().__init__(address, *args, **kwargs)
-        else:
-            super().__init__(self.ADDR, *args, **kwargs)
+        super().__init__(address, *args, **kwargs)
         self._debug(f'ADC device address: 0x{self.address:02X}')
 
         if isinstance(chn, str):
@@ -38,7 +36,7 @@ class ADC(I2C):
         self.channel = chn
         self.reg_addr = self.REG_ADC_START + chn*2
 
-    def read(self):
+    def read(self) -> int:
         """
         Read the ADC value
 
@@ -49,7 +47,7 @@ class ADC(I2C):
         val = (val_h << 8) | val_l
         return val
 
-    def read_voltage(self):
+    def read_voltage(self) -> float:
         """
         Read the ADC voltage
 
