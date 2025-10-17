@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from .basic import _Basic_class
 import time
 import threading
 import pyaudio
@@ -8,7 +7,7 @@ import struct
 import math
 from .utils import enable_speaker, disable_speaker
 
-class Music(_Basic_class):
+class Music():
     """Play music, sound affect and note control"""
 
     FORMAT = pyaudio.paInt16

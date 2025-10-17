@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-from .basic import _Basic_class
 from .pwm import PWM
 from .utils import mapping
 
-class Motor(_Basic_class):
+class Motor():
     """Motor"""
     PERIOD = 4095
     PRESCALER = 10

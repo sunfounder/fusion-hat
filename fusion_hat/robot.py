@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from .basic import _Basic_class
 from .pwm import PWM
 from .servo import Servo
 import time
@@ -13,7 +12,7 @@ UserHome = os.popen('getent passwd %s | cut -d: -f 6' %
 config_file = '%s/.config/robot-hat/robot-hat.conf' % UserHome
 
 
-class Robot(_Basic_class):
+class Robot():
     """
     Robot class
 
@@ -36,7 +35,7 @@ class Robot(_Basic_class):
     # max_dps = 500
     """Servo max Degree Per Second"""
 
-    def __init__(self, pin_list, db=config_file, name=None, init_angles=None, init_order=None, **kwargs):
+    def __init__(self, pin_list, db=config_file, name=None, init_angles=None, init_order=None):
         """
         Initialize the robot class
 
@@ -52,7 +51,6 @@ class Robot(_Basic_class):
         :type init_order: list
         :type init_angles: list
         """
-        super().__init__(**kwargs)
         self.servo_list = []
         self.pin_num = len(pin_list)
 

@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from .basic import _Basic_class
 from .utils import run_command
 from smbus2 import SMBus
 
@@ -18,7 +17,7 @@ def _retry_wrapper(func):
     return wrapper
 
 
-class I2C(_Basic_class):
+class I2C():
     """
     I2C bus read/write functions
     """
@@ -27,7 +26,7 @@ class I2C(_Basic_class):
 
     # i2c_lock = multiprocessing.Value('i', 0)
 
-    def __init__(self, address=None, bus=1, *args, **kwargs):
+    def __init__(self, address=None, bus=1):
         """
         Initialize the I2C bus
 
@@ -36,7 +35,6 @@ class I2C(_Basic_class):
         :param bus: I2C bus number
         :type bus: int
         """
-        super().__init__(*args, **kwargs)
         self._bus = bus
         self._smbus = SMBus(self._bus)
         if isinstance(address, list):

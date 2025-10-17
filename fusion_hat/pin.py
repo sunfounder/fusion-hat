@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-from .basic import _Basic_class
 import gpiozero  # https://gpiozero.readthedocs.io/en/latest/installing.html
 from gpiozero import OutputDevice, DigitalInputDevice, Button
 
 
-class Pin(_Basic_class):
+class Pin():
     """Pin manipulation class"""
 
     OUT = 0x01
@@ -55,7 +54,7 @@ class Pin(_Basic_class):
         "CE": 8,
     }
 
-    def __init__(self, pin, mode=None, pull=None, active_state:bool=None, bounce_time=None, *args, **kwargs):
+    def __init__(self, pin, mode=None, pull=None, active_state:bool=None, bounce_time=None):
         """
         Initialize a pin
 
@@ -70,7 +69,6 @@ class Pin(_Basic_class):
                             If False, the input polarity is reversed
         :type active_state: bool or None
         """
-        super().__init__(*args, **kwargs)
 
         # parse pin
         if isinstance(pin, str):
