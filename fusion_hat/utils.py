@@ -3,6 +3,7 @@ import os
 import sys
 import time
 from unittest import result
+from typing import Optional, TextIO, function
 
 # color:
 # https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
@@ -16,22 +17,84 @@ PURPLE = '0;35'
 DARK_GREEN = '0;36'
 WHITE = '0;37'
 
-def print_color(msg, end='\n', file=sys.stdout, flush=False, color=''):
+def print_color(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False, color: str='') -> None:
+    """
+    Print message with color
+
+    :param msg: message to print
+    :type msg: str
+    :param end: end character, defaults to '\n'
+    :type end: str
+    :param file: file to print, defaults to sys.stdout
+    :type file: file
+    :param flush: flush buffer, defaults to False
+    :type flush: bool
+    :param color: color to use, defaults to ''
+    :type color: str
+    """
     print('\033[%sm%s\033[0m'%(color, msg), end=end, file=file, flush=flush)
 
-def info(msg, end='\n', file=sys.stdout, flush=False):
+def info(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
+    """
+    Print info message with white color
+
+    :param msg: message to print
+    :type msg: str
+    :param end: end character, defaults to '\n'
+    :type end: str
+    :param file: file to print, defaults to sys.stdout
+    :type file: TextIO
+    :param flush: flush buffer, defaults to False
+    :type flush: bool
+    """
     print_color(msg, end=end, file=file, flush=flush, color=WHITE)
 
-def debug(msg, end='\n', file=sys.stdout, flush=False):
+def debug(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
+    """
+    Print debug message with gray color
+
+    :param msg: message to print
+    :type msg: str
+    :param end: end character, defaults to '\n'
+    :type end: str
+    :param file: file to print, defaults to sys.stdout
+    :type file: TextIO
+    :param flush: flush buffer, defaults to False
+    :type flush: bool
+    """
     print_color(msg, end=end, file=file, flush=flush, color=GRAY)
 
-def warn(msg, end='\n', file=sys.stdout, flush=False):
+def warn(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
+    """
+    Print warning message with yellow color
+
+    :param msg: message to print
+    :type msg: str
+    :param end: end character, defaults to '\n'
+    :type end: str
+    :param file: file to print, defaults to sys.stdout
+    :type file: TextIO
+    :param flush: flush buffer, defaults to False
+    :type flush: bool
+    """
     print_color(msg, end=end, file=file, flush=flush, color=YELLOW)
 
-def error(msg, end='\n', file=sys.stdout, flush=False):
+def error(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
+    """
+    Print error message with red color
+
+    :param msg: message to print
+    :type msg: str
+    :param end: end character, defaults to '\n'
+    :type end: str
+    :param file: file to print, defaults to sys.stdout
+    :type file: TextIO
+    :param flush: flush buffer, defaults to False
+    :type flush: bool
+    """
     print_color(msg, end=end, file=file, flush=flush, color=RED)
 
-def set_volume(value):
+def set_volume(value: int) -> None:
     """
     Set volume
 
@@ -43,7 +106,15 @@ def set_volume(value):
     os.system(cmd)
 
 
-def command_exists(cmd):
+def command_exists(cmd: str) -> bool:
+    """
+    Check if command exists
+
+    :param cmd: command to check
+    :type cmd: str
+    :return: True if exists
+    :rtype: bool
+    """
     import subprocess
     try:
         subprocess.check_output(['which', cmd], stderr=subprocess.STDOUT)
@@ -52,7 +123,7 @@ def command_exists(cmd):
         return False
 
 
-def run_command(cmd):
+def run_command(cmd: str) -> tuple:
     """
     Run command and return status and output
 
@@ -68,7 +139,15 @@ def run_command(cmd):
     status = p.poll()
     return status, result
 
-def command_exists(cmd):
+def command_exists(cmd: str) -> bool:
+    """
+    Check if command exists
+
+    :param cmd: command to check
+    :type cmd: str
+    :return: True if exists
+    :rtype: bool
+    """
     import subprocess
     try:
         subprocess.check_output(['which', cmd], stderr=subprocess.STDOUT)
@@ -76,7 +155,7 @@ def command_exists(cmd):
     except subprocess.CalledProcessError:
         return False
 
-def is_installed(cmd):
+def is_installed(cmd: str) -> bool:
     """
     Check if command is installed
 
@@ -86,33 +165,33 @@ def is_installed(cmd):
     :rtype: bool
     """
     status, _ = run_command(f"which {cmd}")
-    if status in [0, ]:
+    if status in [0, 127]:
         return True
     else:
         return False
 
 
-def mapping(x, in_min, in_max, out_min, out_max):
+def mapping(x: float, in_min: float, in_max: float, out_min: float, out_max: float) -> float:   
     """
     Map value from one range to another range
 
     :param x: value to map
-    :type x: float/int
+    :type x: float
     :param in_min: input minimum
-    :type in_min: float/int
+    :type in_min: float
     :param in_max: input maximum
-    :type in_max: float/int
+    :type in_max: float
     :param out_min: output minimum
-    :type out_min: float/int
+    :type out_min: float
     :param out_max: output maximum
-    :type out_max: float/int
+    :type out_max: float
     :return: mapped value
-    :rtype: float/int
+    :rtype: float
     """
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 
 
-def get_ip(ifaces=['wlan0', 'eth0']):
+def get_ip(ifaces: list=['wlan0', 'eth0']) -> str:
     """
     Get IP address
 
@@ -135,7 +214,7 @@ def get_ip(ifaces=['wlan0', 'eth0']):
             return ipv4
     return False
 
-def get_battery_voltage():
+def get_battery_voltage() -> float:
     """
     Get battery voltage
 
@@ -148,11 +227,17 @@ def get_battery_voltage():
     voltage = raw_voltage * 3
     return voltage
 
-def get_username():
+def get_username() -> str:
+    """
+    Get username
+
+    :return: username
+    :rtype: str
+    """
     return os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
 
 
-def simple_i2c_command(method, reg, *args):
+def simple_i2c_command(method: str, reg: int, type: str, *args) -> tuple:
     """
     Simple i2c command
 
@@ -162,8 +247,8 @@ def simple_i2c_command(method, reg, *args):
     :type reg: int
     :param type: data type
     :type type: str
-    :param value: value to set
-    :type value: int
+    :param args: value to set
+    :type args: int/float
     :return: status, output
     :rtype: tuple
     """
@@ -182,7 +267,7 @@ def simple_i2c_command(method, reg, *args):
             value = value[0]
         return value
 
-def enable_speaker():
+def enable_speaker() -> None:
     """
     Enable speaker
     """
@@ -191,14 +276,14 @@ def enable_speaker():
     # play a short sound to fill data and avoid the speaker overheating
     run_command(f"play -n trim 0.0 0.5 2>/dev/null")
 
-def disable_speaker():
+def disable_speaker() -> None:
     """
     Disable speaker
     """
     SPEAKER_REG_ADDR = 0x31
     simple_i2c_command("set", SPEAKER_REG_ADDR, 0)
 
-def get_usr_btn():
+def get_usr_btn() -> bool:
     """
     Get user button state
 
@@ -209,7 +294,7 @@ def get_usr_btn():
     result = simple_i2c_command("get", USER_BTN_STATE_REG_ADDR, "b")
     return result == 1
 
-def get_charge_state():
+def get_charge_state() -> bool:
     """
     Get charge state
 
@@ -220,18 +305,18 @@ def get_charge_state():
     result = simple_i2c_command("get", CHARGE_STATE_REG_ADDR, "b")
     return result == 1
 
-def get_shutdown_request():
+def get_shutdown_request() -> int:
     """
     Get shutdown request
 
     :return: 0: no request, 1: low Battery request, 2: button shutdown request
-    :rtype: bool
+    :rtype: int
     """
     SHUTDOWN_REQUEST_REG_ADDR = 0x26
     result = simple_i2c_command("get", SHUTDOWN_REQUEST_REG_ADDR, "b")
     return result
 
-def set_user_led(state):
+def set_user_led(state: int) -> None:
     """
     Set user led state
 
@@ -241,7 +326,7 @@ def set_user_led(state):
     USER_LED_REG_ADDR = 0x30
     simple_i2c_command("set", USER_LED_REG_ADDR, state, "b")
 
-def get_firmware_version():
+def get_firmware_version() -> list:
     """
     Get firmware version
 
@@ -252,38 +337,54 @@ def get_firmware_version():
     version = simple_i2c_command("get", VERSSION_REG_ADDR, "i", 3)
     return version
 
-def constrain(value, min_value, max_value):
+def constrain(value: float, min_value: float, max_value: float) -> float:
+    """
+    Constrain value to a range
+
+    :param value: value to constrain
+    :type value: float
+    :param min_value: minimum value
+    :type min_value: float
+    :param max_value: maximum value
+    :type max_value: float
+    :return: constrained value
+    :rtype: float
+    """
     return min(max(value, min_value), max_value)
 
 class LazyReader():
-    ''' Lazy reader. Read something in a given interval,
+    """
+    Lazy reader. Read something in a given interval,
     even if you read it multiple times in a short time.
     For those who don't need to read it too frequently.
-    '''
-    def __init__(self, read_function, interval=10):
-        ''' Initialize the lazy reader.
+    """
+    def __init__(self, read_function: function, interval: int=10) -> None:
+        """
+        Initialize the lazy reader.
 
-        Args:
-            read_function (function): The function to read.
-            interval (int): The interval to read.
-        '''
+        :param read_function: The function to read.
+        :type read_function: function
+        :param interval: The interval to read.
+        :type interval: int
+        """ 
         self.read_function = read_function
         self.interval = interval
         self.value = None
         self.last_read_time = 0
 
-    def read(self):
-        ''' Read the value.
+    def read(self) -> Any:
+        """
+        Read the value.
 
-        Returns:
-            The value.
-        '''
+        :return: The value.
+        :rtype: Any
+        """ 
         if time.time() - self.last_read_time > self.interval:
             self.value = self.read_function()
             self.last_read_time = time.time()
         return self.value
 
-def check_executable(executable):
+def check_executable(executable: str) -> bool:
     """
     Check if executable is installed
 
@@ -297,7 +398,13 @@ def check_executable(executable):
     found = executable_path is not None
     return found
 
-def redirect_error_2_null():
+def redirect_error_2_null() -> int:
+    """
+    Redirect error to null device
+
+    :return: old stderr file descriptor
+    :rtype: int
+    """
     # https://github.com/spatialaudio/python-sounddevice/issues/11
 
     devnull = os.open(os.devnull, os.O_WRONLY)
@@ -307,14 +414,41 @@ def redirect_error_2_null():
     os.close(devnull)
     return old_stderr
 
-def cancel_redirect_error(old_stderr):
+def cancel_redirect_error(old_stderr: int) -> None:
+    """
+    Cancel redirect error to null device
+
+    :param old_stderr: old stderr file descriptor
+    :type old_stderr: int
+    """
     os.dup2(old_stderr, 2)
     os.close(old_stderr)
 
 class ignore_stderr():
-    def __init__(self):
+    """
+    Ignore stderr
+    """
+    def __init__(self) -> None:
+        """
+        Initialize the ignore stderr class
+        """
         self.old_stderr = redirect_error_2_null()
-    def __enter__(self):
+
+    def __enter__(self) -> None:
+        """
+        Enter the ignore stderr context
+        """
         pass
-    def __exit__(self, exc_type, exc_val, exc_tb):
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        """
+        Exit the ignore stderr context
+
+        :param exc_type: exception type
+        :type exc_type: type
+        :param exc_val: exception value
+        :type exc_val: Exception
+        :param exc_tb: exception traceback
+        :type exc_tb: traceback
+        """ 
         cancel_redirect_error(self.old_stderr)
