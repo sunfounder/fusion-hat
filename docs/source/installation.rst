@@ -50,12 +50,6 @@ Install the ``fusion-hat`` Module
 
     .. code-block::
 
-        cd ~/
-        git clone https://github.com/sunfounder/fusion-hat.git
-        cd fusion-hat
-        sudo python3 setup.py install
-
-   .. note::
-      Run ``setup.py`` to download some necessary components. You may have a network problem and the download may fail. At this point you may need to download again. In the following cases, type ``Y`` and press ``Enter`` to continue the process.
+        sudo pip install --break git+https://github.com/sunfounder/fusion-hat.git@1.1.x
 
    .. image:: img/dowload_code.png

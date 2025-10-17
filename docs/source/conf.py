@@ -35,7 +35,7 @@ author = 'www.sunfounder.com'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autosectionlabel',
+    # 'sphinx.ext.autosectionlabel',
     'sphinx_copybutton',
     'sphinx_rtd_theme',
     #'sphinx_toolbox.collapse',
@@ -123,18 +123,65 @@ rst_epilog = """
 
     <a href="https://docs.sunfounder.com/projects/robot-hat-v4/en/latest/" target="_blank">English Online-tutorials</a>
 
-.. |link_peppe8o| raw:: html
-
-    <a href="https://peppe8o.com/raspberry-pi-robot-hat-sunfounder/" target="_blank">Introduce Raspberry Pi Robot HAT Posted by Peppe8o</a>
-
-.. |link_Robot_HAT| raw:: html
-
-    <a href="https://www.sunfounder.com/products/sunfounder-robot-hat-expansion-board-designed-for-raspberry-pi?_pos=1&_sid=761470ec5&_ss=r" target="_blank">Purchase Link for Robot HAT</a>
-
-.. |link_Robot_HAT_kit| raw:: html
-
-    <a href="https://www.sunfounder.com/products/sunfounder-robot-hat-expansion-board-designed-for-raspberry-pi?_pos=1&_sid=761470ec5&_ss=r" target="_blank">Robot HAT</a>
-
 """
 
+# Open on a new page
+
+rst_epilog += """
+
+
+.. |link_aliyun| raw:: html
+
+    <a href="https://bailian.console.aliyun.com/?spm=5176.29597918.J_SEsSjsNv72yRuRFS2VknO.2.40a37b08ic1XHy&tab=model#/api-key" target="_blank">Bailian console</a>
+
+.. |link_rpi_connect| raw:: html
+
+    <a href="https://www.raspberrypi.com/documentation/services/connect.html" target="_blank">Raspberry Pi Connect</a>
+
+
+.. |link_qwen_inter| raw:: html
+
+    <a href="https://www.alibabacloud.com/help/en/model-studio/get-api-key" target="_blank">Get API Key</a>
+
+.. |link_ollama_hub| raw:: html
+
+    <a href="https://ollama.com/library" target="_blank">Ollama Hub</a>
+
+.. |link_ollama| raw:: html
+
+    <a href="https://ollama.com/download" target="_blank">Ollama Download Page</a>
+
+.. |link_piper_voice| raw:: html
+
+    <a href="https://github.com/rhasspy/piper/blob/master/VOICES.md" target="_blank">Piper Voices</a>
+    
+.. |link_grok_ai| raw:: html
+
+    <a href="https://console.x.ai/team/f424aae2-94c8-4602-91bf-af8452fda9a2/models" target="_blank">xAI Cloud Console</a>
+    
+.. |link_deepseek| raw:: html
+
+    <a href="https://platform.deepseek.com/sign_in" target="_blank">Deepseek Platform</a>
+
+.. |link_doubao| raw:: html
+
+    <a href="https://console.volcengine.com/auth/login" target="_blank">Volcengine</a>
+
+.. |link_openai_platform| raw:: html
+
+    <a href="https://platform.openai.com/settings/organization/api-keys" target="_blank">OpenAI Platform</a>
+
+.. |link_gemini_model| raw:: html
+
+    <a href="https://ai.google.dev/gemini-api/docs/models#model-variations" target="_blank">Gemini Models</a>
+
+.. |link_google_ai| raw:: html
+
+    <a href="https://aistudio.google.com/" target="_blank">Google AI Studio</a>
+
+.. |link_voice_options| raw:: html
+
+    <a href="https://platform.openai.com/docs/guides/text-to-speech/voice-options" target="_blank">Voice options</a>
+
+"""
 
