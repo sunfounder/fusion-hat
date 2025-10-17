@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from .pwm import PWM
 from .utils import mapping, constrain
-
+from typing import Optional
 
 class Servo(PWM):
     """Servo motor class"""
@@ -10,12 +10,24 @@ class Servo(PWM):
     FREQ = 50
     PERIOD = 4095
 
-    def __init__(self, channel, address=None, offset=0.0, min=-90, max=90, *args, **kwargs):
+    def __init__(self, channel: int, address: Optional[str]=None, offset: Optional[float]=0.0, min: Optional[float]=-90, max: Optional[float]=90, *args, **kwargs):
         """
         Initialize the servo motor class
 
         :param channel: PWM channel number(0-14/P0-P14)
         :type channel: int/str
+
+        :param address: I2C address(0x17), leave it None to use default address, defaults to None
+        :type address: str, optional
+
+        :param offset: offset value(-20.0~20.0), leave it None to use default offset, defaults to 0.0
+        :type offset: float, optional
+
+        :param min: minimum angle(-90~90), leave it None to use default min angle, defaults to -90
+        :type min: float, optional
+
+        :param max: maximum angle(-90~90), leave it None to use default max angle, defaults to 90
+        :type max: float, optional
         """
         super().__init__(channel, address, *args, **kwargs)
         self.period(self.PERIOD)
@@ -26,14 +38,14 @@ class Servo(PWM):
         self._min = min
         self._max = max
 
-    def offset(self, offset=None):
+    def offset(self, offset: Optional[float]=None) -> float:
         """
         Set the offset of the servo motor
 
         :param offset: offset value(-20.0~20.0), leave it None to get the offset value, defaults to None
-        :type offset: int
+        :type offset: float, optional
         :return: offset value(-20.0~20.0) if offset is None, else None
-        :rtype: int/None
+        :rtype: float
         """
         if offset is None:
             return self._offset
@@ -41,14 +53,14 @@ class Servo(PWM):
         self._offset = offset
         return self._offset
 
-    def angle(self, angle=None):
+    def angle(self, angle: Optional[float]=None) -> float:
         """
         Get or set the angle of the servo motor
 
         :param angle: angle(-90~90), leave it None to get the angle value, defaults to None
         :type angle: float, optional
         :return: angle(-90~90) if angle is None, else None
-        :rtype: float/None
+        :rtype: float
         """
         if angle is None:
             return self._angle
@@ -57,7 +69,7 @@ class Servo(PWM):
         calibrated_angle = angle + self._offset
         return self.set_raw_angle(calibrated_angle)
 
-    def set_raw_angle(self, angle):
+    def set_raw_angle(self, angle: float) -> None:
         """
         Set the angle of the servo motor
 
@@ -71,7 +83,7 @@ class Servo(PWM):
         pulse_width_time = mapping(angle, -90, 90, self.MIN_PW, self.MAX_PW)
         self.pulse_width_time(pulse_width_time)
 
-    def pulse_width_time(self, pulse_width_time):
+    def pulse_width_time(self, pulse_width_time: float) -> None:
         """
         Set the pulse width of the servo motor
 
