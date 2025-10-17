@@ -54,7 +54,7 @@ class Pin():
         "CE": 8,
     }
 
-    def __init__(self, pin, mode=None, pull=None, active_state:bool=None, bounce_time=None):
+    def __init__(self, pin: int | str, mode: int = None, pull: int = None, active_state: bool = None, bounce_time: float = None):
         """
         Initialize a pin
 
@@ -93,14 +93,16 @@ class Pin():
         self.gpio = None
         self.setup(mode, pull, active_state, bounce_time)
 
-    def close(self):
+    def close(self) -> None:
+        """Close the pin"""
         self.gpio.close()
 
-    def deinit(self):
+    def deinit(self) -> None:
+        """Deinitialize the pin"""
         self.gpio.close()
         self.gpio.pin_factory.close()
 
-    def setup(self, mode, pull=None, active_state=None, bounce_time=None):
+    def setup(self, mode: int = None, pull: int = None, active_state: bool = None, bounce_time: float = None) -> None:
         """
         Setup the pin
 
@@ -108,6 +110,12 @@ class Pin():
         :type mode: int
         :param pull: pin pull up/down(PUD_UP/PUD_DOWN/PUD_NONE)
         :type pull: int
+        :param active_state: active state of pin,  
+                            If True, when the hardware pin state is HIGH, the software pin is HIGH. 
+                            If False, the input polarity is reversed
+        :type active_state: bool or None
+        :param bounce_time: bounce time in seconds
+        :type bounce_time: float or None
         """
         # check mode
         if mode in [None, self.OUT, self.IN]:
@@ -137,7 +145,7 @@ class Pin():
             else:
                 self.gpio = DigitalInputDevice(self._pin_num, pull_up=None, active_state=active_state, bounce_time=bounce_time)
 
-    def dict(self, _dict=None):
+    def dict(self, _dict: dict = None) -> dict:
         """
         Set/get the pin dictionary
 
@@ -155,7 +163,7 @@ class Pin():
                 )
             self._dict = _dict
 
-    def __call__(self, value):
+    def __call__(self, value: bool = None) -> int:
         """
         Set/get the pin value
 
@@ -191,7 +199,7 @@ class Pin():
                 self.gpio.off()
             return value
 
-    def on(self):
+    def on(self) -> int:
         """
         Set pin on(high)
 
@@ -200,7 +208,7 @@ class Pin():
         """
         return self.value(1)
 
-    def off(self):
+    def off(self) -> int:
         """
         Set pin off(low)
 
@@ -209,7 +217,7 @@ class Pin():
         """
         return self.value(0)
 
-    def high(self):
+    def high(self) -> int:
         """
         Set pin high(1)
 
@@ -218,7 +226,7 @@ class Pin():
         """
         return self.on()
 
-    def low(self):
+    def low(self) -> int:
         """
         Set pin low(0)
 
@@ -227,7 +235,7 @@ class Pin():
         """
         return self.off()
 
-    def irq(self, handler, trigger, bouncetime=200, pull=None):
+    def irq(self, handler, trigger, bouncetime: int = 200, pull: int = None) -> None:
         """
         Set the pin interrupt
 
@@ -293,7 +301,7 @@ class Pin():
 
 
     @property
-    def when_activated(self):
+    def when_activated(self) -> function:
         """
         Get the pressed handler
 
@@ -304,7 +312,7 @@ class Pin():
         return self.gpio.when_activated
     
     @when_activated.setter
-    def when_activated(self, handler):
+    def when_activated(self, handler: function) -> None:
         """
         Set the pressed handler
 
@@ -315,7 +323,7 @@ class Pin():
         
 
     @property
-    def when_deactivated(self):
+    def when_deactivated(self) -> function:
         """
         Get the released handler
 
@@ -325,7 +333,7 @@ class Pin():
         return self.gpio.when_deactivated
 
     @when_deactivated.setter
-    def when_deactivated(self, handler):
+    def when_deactivated(self, handler: function) -> None:
         """
         Set the released handler
 
@@ -335,9 +343,7 @@ class Pin():
         """
         self.gpio.when_deactivated = handler
 
-
-
-    def name(self):
+    def name(self) -> str:
         """
         Get the pin name
 
