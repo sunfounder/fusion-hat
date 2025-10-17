@@ -57,7 +57,11 @@ class Music():
         "C8"]
     """Notes name, MIDI compatible"""
 
-    def __init__(self):
+    def __init__(self) -> None:
+        """
+        Initialize music
+        """
+
         import warnings
         warnings_bk = warnings.filters
         warnings.filterwarnings("ignore")
@@ -74,7 +78,7 @@ class Music():
         #
         enable_speaker()
 
-    def time_signature(self, top: int = None, bottom: int = None):
+    def time_signature(self, top: int = None, bottom: int = None) -> tuple:
         """
         Set/get time signature
 
@@ -92,7 +96,7 @@ class Music():
         self._time_signature = (top, bottom)
         return self._time_signature
 
-    def key_signature(self, key: int = None):
+    def key_signature(self, key: int = None) -> int:
         """
         Set/get key signature
 
@@ -110,8 +114,8 @@ class Music():
                 key = len(key)*self.KEY_SIGNATURE_FLAT
         self._key_signature = key
         return self._key_signature
-
-    def tempo(self, tempo=None, note_value=QUARTER_NOTE):
+ 
+    def tempo(self, tempo: float = None, note_value: float = QUARTER_NOTE) -> int:
         """
         Set/get tempo beat per minute(bpm)
 
@@ -124,13 +128,13 @@ class Music():
         if tempo == None and note_value == None:
             return self._tempo
         try:
-            self._tempo = (tempo, note_value)
-            self.beat_unit = 60.0 / tempo
-            return self._tempo
+            self._tempo = (float(tempo), float(note_value))
+            self.beat_unit = 60.0 / self._tempo[0]
+            return int(self._tempo[0])
         except:
             raise ValueError("tempo must be int not {}".format(tempo))
 
-    def beat(self, beat):
+    def beat(self, beat: float) -> float:
         """
         Calculate beat delay in seconds from tempo
 
@@ -142,12 +146,12 @@ class Music():
         beat = beat / self._tempo[1] * self.beat_unit
         return beat
 
-    def note(self, note, natural=False):
+    def note(self, note: str, natural: bool = False) -> float:
         """
         Get frequency of a note
 
         :param note_name: note name(See NOTES)
-        :type note_name: string
+        :type note_name: str
         :param natural: if natural note
         :type natural: bool
         :return: frequency of note
@@ -166,12 +170,14 @@ class Music():
         freq = self.NOTE_BASE_FREQ * (2 ** (note_delta / 12))
         return freq
 
-    def sound_play(self, filename, volume=None):
+    def sound_play(self, filename: str, volume: int = None) -> None:
         """
         Play sound effect file
 
         :param filename: sound effect file name
         :type filename: str
+        :param volume: volume 0-100, leave empty will not change volume
+        :type volume: int
         """
         sound = self.pygame.mixer.Sound(filename)
         if volume is not None:
@@ -183,7 +189,7 @@ class Music():
         sound.play()
         time.sleep(time_delay)
 
-    def sound_play_threading(self, filename, volume=None):
+    def sound_play_threading(self, filename: str, volume: int = None) -> None:
         """
         Play sound effect in thread(in the background)
 
@@ -196,7 +202,7 @@ class Music():
                                "filename": filename, "volume": volume})
         obj.start()
 
-    def music_play(self, filename, loops=1, start=0.0, volume=None):
+    def music_play(self, filename: str, loops: int = 1, start: float = 0.0, volume: int = None) -> None:
         """
         Play music file
 
@@ -214,7 +220,7 @@ class Music():
         self.pygame.mixer.music.load(filename)
         self.pygame.mixer.music.play(loops, start)
 
-    def music_set_volume(self, value):
+    def music_set_volume(self, value: int) -> None:
         """
         Set music volume
 
@@ -224,23 +230,23 @@ class Music():
         value = round(value/100.0, 2)
         self.pygame.mixer.music.set_volume(value)
 
-    def music_stop(self):
+    def music_stop(self) -> None:
         """Stop music"""
         self.pygame.mixer.music.stop()
 
-    def music_pause(self):
+    def music_pause(self) -> None:
         """Pause music"""
         self.pygame.mixer.music.pause()
 
-    def music_resume(self):
+    def music_resume(self) -> None:
         """Resume music"""
         self.pygame.mixer.music.unpause()
 
-    def music_unpause(self):
+    def music_unpause(self) -> None:
         """Unpause music(resume music)"""
         self.pygame.mixer.music.unpause()
 
-    def sound_length(self, filename):
+    def sound_length(self, filename: str) -> float:
         """
         Get sound effect length in seconds
 
@@ -249,10 +255,10 @@ class Music():
         :return: length in seconds
         :rtype: float
         """
-        music = self.pygame.mixer.Sound(str(filename))
+        music = self.pygame.mixer.Sound(filename)
         return round(music.get_length(), 2)
 
-    def get_tone_data(self, freq: float, duration: float):
+    def get_tone_data(self, freq: float, duration: float) -> list:
         """
         Get tone data for playing
 
@@ -306,7 +312,7 @@ class Music():
 
         return wavedata
 
-    def play_tone_for(self, freq, duration):
+    def play_tone_for(self, freq: float, duration: float) -> None:
         """
         Play tone for duration seconds
 
@@ -323,5 +329,3 @@ class Music():
         stream = p.open(format=self.FORMAT, channels=self.CHANNELS,
                         rate=self.RATE, output=True)
         stream.write(frames)
-        # stream.stop_stream()
-        # stream.close()
