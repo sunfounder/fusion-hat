@@ -17,14 +17,20 @@ class Motor():
         'M3': ['P4', 'P5']
     }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         """
-        Initialize a motor
+        Initialize a motor optional parameters
 
-        :param pwm: Motor speed control pwm pin
-        :type pwm: fusion_hat.pwm.PWM
-        :param dir: Motor direction control pin
-        :type dir: fusion_hat.pin.Pin
+        one parameter is motor name, two parameters are pwm pins
+
+        :param motor: Motor name
+        :type motor: str
+
+        :param pwma: Motor speed control pwm pin a
+        :type pwma: fusion_hat.pwm.PWM
+
+        :param pwm_b: Motor speed control pwm pin b
+        :type pwm_b: fusion_hat.pwm.PWM
         """
 
         self.motor = None
@@ -61,10 +67,17 @@ class Motor():
         self._power = 0
 
     # Deprecated
-    def speed(self, power=None):
+    def speed(self, power: float = None) -> None:
+        """
+        Get or set motor power
+
+        :param power: Motor power(-100.0~100.0)
+        :type power: float
+        """
+        print(f"WARNING: Motor.speed() is deprecated, please use Motor.power() instead")
         self.power(power)
 
-    def power(self, power=None):
+    def power(self, power: float = None) -> None:
         """
         Get or set motor power
 
@@ -90,7 +103,7 @@ class Motor():
             self.pwm_a.pulse_width_percent(0)
             self.pwm_b.pulse_width_percent(power)
 
-    def set_is_reverse(self, is_reverse):
+    def set_is_reverse(self, is_reverse: bool) -> None:
         """
         Set motor is reversed or not
 
@@ -99,6 +112,6 @@ class Motor():
         """
         self.is_reversed = is_reverse
 
-    def stop(self):
+    def stop(self) -> None:
         """Stop motor"""
         self.power(0)
