@@ -14,6 +14,10 @@ SAFE_SHUTDOWN_LOG_PATH = '/var/log/fusion_hat_safe_shutdown.log'
 
 
 def __main__():
+    """
+    Main loop
+    """
+
     print(f'Fusion HAT safe shutdown service started')
     with open(SAFE_SHUTDOWN_LOG_PATH, 'a') as f:
         f.write(f'{datetime.now()} - service started\n')
