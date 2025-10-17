@@ -115,22 +115,23 @@ class Music():
         self._key_signature = key
         return self._key_signature
  
-    def tempo(self, tempo: float = None, note_value: float = QUARTER_NOTE) -> int:
+    def tempo(self, tempo: int = None, note_value: float = QUARTER_NOTE) -> tuple:
         """
         Set/get tempo beat per minute(bpm)
 
         :param tempo: tempo
-        :type tempo: float
+        :type tempo: int
         :param note_value: note value(1, 1/2, Music.HALF_NOTE, etc)
+        :type note_value: float
         :return: tempo
-        :rtype: int
+        :rtype: tuple
         """
         if tempo == None and note_value == None:
             return self._tempo
         try:
-            self._tempo = (float(tempo), float(note_value))
+            self._tempo = (tempo, note_value)
             self.beat_unit = 60.0 / self._tempo[0]
-            return int(self._tempo[0])
+            return self._tempo
         except:
             raise ValueError("tempo must be int not {}".format(tempo))
 
