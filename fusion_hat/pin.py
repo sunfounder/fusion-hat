@@ -92,7 +92,6 @@ class Pin():
         self._value = 0
         self.gpio = None
         self.setup(mode, pull, active_state, bounce_time)
-        self._info("Pin init finished.")
 
     def close(self):
         self.gpio.close()
@@ -180,7 +179,6 @@ class Pin():
             if self._mode in [None, self.OUT]:
                 self.setup(self.IN)
             result = self.gpio.value
-            self._debug(f"read pin {self.gpio.pin}: {result}")
             return result
         else:
             if self._mode in [self.IN]:

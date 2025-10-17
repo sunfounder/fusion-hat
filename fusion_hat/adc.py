@@ -19,7 +19,6 @@ class ADC(I2C):
         :type chn: int/str
         """
         super().__init__(address, *args, **kwargs)
-        self._debug(f'ADC device address: 0x{self.address:02X}')
 
         if isinstance(chn, str):
             # If chn is a string, assume it's a pin name, remove A and convert to int

@@ -9,7 +9,6 @@ def _retry_wrapper(func):
             try:
                 return func(self, *arg, **kwargs)
             except OSError:
-                self._debug(f"OSError: {func.__name__}")
                 continue
         else:
             return False
@@ -120,7 +119,6 @@ class I2C():
         :rtype: int
         """
         result = self._smbus.read_byte(self.address)
-        self._debug(f"_read_byte: [0x{result:02X}]")
         return result
 
     @_retry_wrapper
@@ -135,7 +133,6 @@ class I2C():
         :rtype: int
         """
         result = self._smbus.read_byte_data(self.address, reg)
-        self._debug(f"_read_byte_data: [0x{reg:02X}] [0x{result:02X}]")
         return result
 
     @_retry_wrapper
@@ -151,7 +148,6 @@ class I2C():
         """
         result = self._smbus.read_word_data(self.address, reg)
         result_list = [result & 0xFF, (result >> 8) & 0xFF]
-        self._debug(f"_read_word_data: [0x{reg:02X}] [0x{result:04X}]")
         return result_list
 
     @_retry_wrapper
@@ -169,9 +165,6 @@ class I2C():
         :rtype: list
         """
         result = self._smbus.read_i2c_block_data(self.address, reg, num)
-        self._debug(
-            f"_read_i2c_block_data: [0x{reg:02X}] {[f'0x{i:02X}' for i in result]}"
-        )
         return result
 
     @_retry_wrapper
