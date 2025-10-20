@@ -3,30 +3,22 @@ import sys
 import select
 
 class KeyboardInput:
-    """
-    Keyboard input thread
-    """
+    """ Keyboard input thread """
     def __init__(self) -> None:
-        """
-        Initialize the keyboard input thread
-        """
+        """ Initialize the keyboard input thread """
         self.thread = None
         self.running = False
         self.result = None
 
     def start(self) -> None:
-        """
-        Start the keyboard input thread
-        """
+        """ Start the keyboard input thread """
         if self.running:
             return
         self.thread = threading.Thread(name="Keyboard Input Thread", target=self.main)
         self.thread.start()
 
     def main(self) -> None:
-        """
-        Main function of the keyboard input thread
-        """
+        """ Main function of the keyboard input thread """
         self.running = True
         self.result = None
         print(">>> ", end="", flush=True)
@@ -39,18 +31,15 @@ class KeyboardInput:
         self.running = False
 
     def is_result_ready(self) -> bool:
-        """
-        Check if the result is ready
+        """ Check if the result is ready
 
-        :return: True if the result is ready, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the result is ready, False otherwise
         """
         return self.result is not None
 
     def stop(self) -> None:
-        """
-        Stop the keyboard input thread
-        """
+        """ Stop the keyboard input thread """
         if not self.running:
             return
         self.running = False

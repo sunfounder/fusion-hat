@@ -8,7 +8,7 @@ import math
 from .utils import enable_speaker, disable_speaker
 
 class Music():
-    """Play music, sound affect and note control"""
+    """ Play music, sound affect and note control """
 
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
@@ -58,9 +58,7 @@ class Music():
     """Notes name, MIDI compatible"""
 
     def __init__(self) -> None:
-        """
-        Initialize music
-        """
+        """ Initialize music """
 
         import warnings
         warnings_bk = warnings.filters
@@ -79,15 +77,14 @@ class Music():
         enable_speaker()
 
     def time_signature(self, top: int = None, bottom: int = None) -> tuple:
-        """
-        Set/get time signature
+        """ Set/get time signature
 
-        :param top: top number of time signature
-        :type top: int
-        :param bottom: bottom number of time signature
-        :type bottom: int
-        :return: time signature
-        :rtype: tuple
+        Args:
+            top (int, optional): top number of time signature. Defaults to None.
+            bottom (int, optional): bottom number of time signature. Defaults to None.
+
+        Returns:
+            tuple: time signature
         """
         if top == None and bottom == None:
             return self._time_signature
@@ -97,13 +94,21 @@ class Music():
         return self._time_signature
 
     def key_signature(self, key: int = None) -> int:
-        """
-        Set/get key signature
+        """ Set/get key signature
 
-        :param key: key signature use KEY_XX_MAJOR or String "#", "##", or "bbb", "bbbb"
-        :type key: int/str
-        :return: key signature
-        :rtype: int
+        Args:
+            key (int, optional): key signature use KEY_XX_MAJOR or String "#", "##", or "bbb", "bbbb". Defaults to None.
+
+        Returns:
+            int: key signature
+        """
+        """ Set/get key signature
+
+        Args:
+            key (int, optional): key signature use KEY_XX_MAJOR or String "#", "##", or "bbb", "bbbb". Defaults to None.
+
+        Returns:
+            int: key signature
         """
         if key == None:
             return self._key_signature
@@ -116,15 +121,14 @@ class Music():
         return self._key_signature
  
     def tempo(self, tempo: int = None, note_value: float = QUARTER_NOTE) -> tuple:
-        """
-        Set/get tempo beat per minute(bpm)
+        """ Set/get tempo beat per minute(bpm)
 
-        :param tempo: tempo
-        :type tempo: int
-        :param note_value: note value(1, 1/2, Music.HALF_NOTE, etc)
-        :type note_value: float
-        :return: tempo
-        :rtype: tuple
+        Args:
+            tempo (int, optional): tempo. Defaults to None.
+            note_value (float, optional): note value(1, 1/2, Music.HALF_NOTE, etc). Defaults to QUARTER_NOTE.
+
+        Returns:
+            tuple: tempo
         """
         if tempo == None and note_value == None:
             return self._tempo
@@ -136,27 +140,26 @@ class Music():
             raise ValueError("tempo must be int not {}".format(tempo))
 
     def beat(self, beat: float) -> float:
-        """
-        Calculate beat delay in seconds from tempo
+        """ Calculate beat delay in seconds from tempo
 
-        :param beat: beat index
-        :type beat: float
-        :return: beat delay
-        :rtype: float
+        Args:
+            beat (float): beat index
+
+        Returns:
+            float: beat delay
         """
         beat = beat / self._tempo[1] * self.beat_unit
         return beat
 
     def note(self, note: str, natural: bool = False) -> float:
-        """
-        Get frequency of a note
+        """ Get frequency of a note
 
-        :param note_name: note name(See NOTES)
-        :type note_name: str
-        :param natural: if natural note
-        :type natural: bool
-        :return: frequency of note
-        :rtype: float
+        Args:
+            note (str): note name(See NOTES)
+            natural (bool, optional): if natural note. Defaults to False.
+
+        Returns:
+            float: frequency of note
         """
         if isinstance(note, str):
             if note in self.NOTES:
@@ -172,13 +175,11 @@ class Music():
         return freq
 
     def sound_play(self, filename: str, volume: int = None) -> None:
-        """
-        Play sound effect file
+        """ Play sound effect file
 
-        :param filename: sound effect file name
-        :type filename: str
-        :param volume: volume 0-100, leave empty will not change volume
-        :type volume: int
+        Args:
+            filename (str): sound effect file name
+            volume (int, optional): volume 0-100, leave empty will not change volume. Defaults to None.
         """
         sound = self.pygame.mixer.Sound(filename)
         if volume is not None:
@@ -191,30 +192,24 @@ class Music():
         time.sleep(time_delay)
 
     def sound_play_threading(self, filename: str, volume: int = None) -> None:
-        """
-        Play sound effect in thread(in the background)
+        """ Play sound effect in thread(in the background)
 
-        :param filename: sound effect file name
-        :type filename: str
-        :param volume: volume 0-100, leave empty will not change volume
-        :type volume: int
+        Args:
+            filename (str): sound effect file name
+            volume (int, optional): volume 0-100, leave empty will not change volume. Defaults to None.
         """
         obj = threading.Thread(target=self.sound_play, kwargs={
                                "filename": filename, "volume": volume})
         obj.start()
 
     def music_play(self, filename: str, loops: int = 1, start: float = 0.0, volume: int = None) -> None:
-        """
-        Play music file
+        """ Play music file
 
-        :param filename: sound file name
-        :type filename: str
-        :param loops: number of loops, 0:loop forever, 1:play once, 2:play twice, ...
-        :type loops: int
-        :param start: start time in seconds
-        :type start: float
-        :param volume: volume 0-100, leave empty will not change volume
-        :type volume: int
+        Args:
+            filename (str): sound file name
+            loops (int, optional): number of loops, 0:loop forever, 1:play once, 2:play twice, ... Defaults to 1.
+            start (float, optional): start time in seconds. Defaults to 0.0.
+            volume (int, optional): volume 0-100, leave empty will not change volume. Defaults to None.
         """
         if volume is not None:
             self.music_set_volume(volume)
@@ -222,21 +217,20 @@ class Music():
         self.pygame.mixer.music.play(loops, start)
 
     def music_set_volume(self, value: int) -> None:
-        """
-        Set music volume
+        """ Set music volume
 
-        :param value: volume 0-100
-        :type value: int
+        Args:
+            value (int): volume 0-100
         """
         value = round(value/100.0, 2)
         self.pygame.mixer.music.set_volume(value)
 
     def music_stop(self) -> None:
-        """Stop music"""
+        """ Stop music """
         self.pygame.mixer.music.stop()
 
     def music_pause(self) -> None:
-        """Pause music"""
+        """ Pause music """
         self.pygame.mixer.music.pause()
 
     def music_resume(self) -> None:
@@ -244,34 +238,32 @@ class Music():
         self.pygame.mixer.music.unpause()
 
     def music_unpause(self) -> None:
-        """Unpause music(resume music)"""
+        """ Unpause music(resume music) """
         self.pygame.mixer.music.unpause()
 
     def sound_length(self, filename: str) -> float:
-        """
-        Get sound effect length in seconds
+        """ Get sound effect length in seconds
 
-        :param filename: sound effect file name
-        :type filename: str
-        :return: length in seconds
-        :rtype: float
+        Args:
+            filename (str): sound effect file name
+
+        Returns:
+            float: length in seconds
         """
         music = self.pygame.mixer.Sound(filename)
         return round(music.get_length(), 2)
 
     def get_tone_data(self, freq: float, duration: float) -> list:
-        """
-        Get tone data for playing
+        """ Get tone data for playing
 
-        :param freq: frequency
-        :type freq: float
-        :param duration: duration in seconds
-        :type duration: float
-        :return: tone data
-        :rtype: list
-        """
-        """
         Credit to: Aditya Shankar & Gringo Suave https://stackoverflow.com/a/53231212/14827323
+
+        Args:
+            freq (float): frequency
+            duration (float): duration in seconds
+
+        Returns:
+            list: tone data
         """
         duration /= 2.0
         frame_count = int(self.RATE * duration)
@@ -314,16 +306,12 @@ class Music():
         return wavedata
 
     def play_tone_for(self, freq: float, duration: float) -> None:
-        """
-        Play tone for duration seconds
-
-        :param freq: frequency, you can use NOTES to get frequency
-        :type freq: float
-        :param duration: duration in seconds
-        :type duration: float
-        """
-        """
+        """ Play tone for duration seconds
         Credit to: Aditya Shankar & Gringo Suave https://stackoverflow.com/a/53231212/14827323
+
+        Args:
+            freq (float): frequency, you can use NOTES to get frequency
+            duration (float): duration in seconds
         """
         p = pyaudio.PyAudio()
         frames = self.get_tone_data(freq, duration)

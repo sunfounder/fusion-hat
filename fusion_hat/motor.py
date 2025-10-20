@@ -3,7 +3,7 @@ from .pwm import PWM
 from .utils import mapping
 
 class Motor():
-    """Motor"""
+    """ Motor class """
     PERIOD = 4095
     PRESCALER = 10
     DEFAULT_FREQ = 100 # Hz
@@ -18,19 +18,14 @@ class Motor():
     }
 
     def __init__(self, *args, **kwargs) -> None:
-        """
-        Initialize a motor optional parameters
+        """ Initialize a motor optional parameters
 
         one parameter is motor name, two parameters are pwm pins
 
-        :param motor: Motor name
-        :type motor: str
-
-        :param pwma: Motor speed control pwm pin a
-        :type pwma: fusion_hat.pwm.PWM
-
-        :param pwm_b: Motor speed control pwm pin b
-        :type pwm_b: fusion_hat.pwm.PWM
+        Args:
+            motor (str): Motor name
+            pwm_a (fusion_hat.pwm.PWM): Motor speed control pwm pin a
+            pwm_b (fusion_hat.pwm.PWM): Motor speed control pwm pin b
         """
 
         self.motor = None
@@ -68,21 +63,19 @@ class Motor():
 
     # Deprecated
     def speed(self, power: float = None) -> None:
-        """
-        Get or set motor power
+        """ [DEPRECATED] Get or set motor power
 
-        :param power: Motor power(-100.0~100.0)
-        :type power: float
+        Args:
+            power (float, optional): Motor power(-100.0~100.0). Defaults to None.
         """
         print(f"WARNING: Motor.speed() is deprecated, please use Motor.power() instead")
         self.power(power)
 
     def power(self, power: float = None) -> None:
-        """
-        Get or set motor power
+        """ Get or set motor power
 
-        :param power: Motor power(-100.0~100.0)
-        :type power: float
+        Args:
+            power (float, optional): Motor power(-100.0~100.0). Defaults to None.
         """
         if power is None:
             return self._power
@@ -104,11 +97,10 @@ class Motor():
             self.pwm_b.pulse_width_percent(power)
 
     def set_is_reverse(self, is_reverse: bool) -> None:
-        """
-        Set motor is reversed or not
+        """ Set motor is reversed or not
 
-        :param is_reverse: True or False
-        :type is_reverse: bool
+        Args:
+            is_reverse (bool): True or False
         """
         self.is_reversed = is_reverse
 

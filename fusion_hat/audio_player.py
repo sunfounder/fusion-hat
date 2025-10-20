@@ -1,7 +1,6 @@
-# Original from piper:
-# https://github.com/OHF-Voice/piper1-gpl/blob/main/src/piper/audio_playback.py
-
-"""Audio playback using ffplay."""
+""" Audio playback using ffplay.
+Original from piper: https://github.com/OHF-Voice/piper1-gpl/blob/main/src/piper/audio_playback.py
+"""
 
 import shutil
 import subprocess

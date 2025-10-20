@@ -1,6 +1,19 @@
 import os
 
 class Devices():
+    """ Devices class
+    
+    Attributes:
+        name (str): device name
+        product_id (int): product id
+        product_ver (int): product version
+        uuid (str): uuid
+        vendor (str): vendor
+        spk_en (int): speaker enable pin
+        motor_mode (int): motor mode
+        i2c_addr (int): i2c address
+    """
+
     HAT_DEVICE_TREE = "/proc/device-tree/"
     HAT_UUIDs = [
         "9daeea78-0000-0774-000a-582369ac3e02", # fusion_hat 1908v10
@@ -31,6 +44,8 @@ class Devices():
     i2c_addr = None
 
     def __init__(self):
+        """ Initialize the devices class """
+
         hat = self.check_hat()
         if hat is not None:
             self.name = hat["name"]
@@ -44,6 +59,12 @@ class Devices():
             self.set_hat('fusion_hat')
 
     def check_hat(self):
+        """ Check if a fusion hat is connected
+
+        Returns:
+            dict: hat information
+        """
+
         hat_path = None
         hat = {
         }
@@ -88,6 +109,12 @@ class Devices():
             return None
 
     def set_hat(self, name):
+        """ Set the hat device
+
+        Args:
+            name (str): hat device name
+        """
+
         if name in self.DEVICES:
             self.name = name
             self.i2c_addr = self.DEVICES[name]["i2c_addr"]

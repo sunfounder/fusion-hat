@@ -6,6 +6,11 @@ import wave
 import logging
 
 def redirect_error_2_null():
+    """ Redirect error print to null.
+    
+    Returns:
+        int: The file descriptor of the original stderr.
+    """
     # https://github.com/spatialaudio/python-sounddevice/issues/11
 
     devnull = os.open(os.devnull, os.O_WRONLY)
@@ -16,12 +21,18 @@ def redirect_error_2_null():
     return old_stderr
 
 def cancel_redirect_error(stderr=None):
+    """ Cancel the redirect error print.
+    
+    Args:
+        stderr (int, optional): The file descriptor of the original stderr. Defaults to None.
+    """
     if stderr is None:
         stderr = redirect_error_2_null() # ignore error print to ignore ALSA errors
     os.dup2(stderr, 2)
     os.close(stderr)
 
 class Microphone:
+    """ Microphone class """
 
     def __init__(self,
         dynamic_energy_adjustment_damping=0.16,
@@ -29,6 +40,14 @@ class Microphone:
         pause_threshold=1,
         log=None
     ):
+        """ Initialize the microphone class.
+        
+        Args:
+            dynamic_energy_adjustment_damping (float, optional): The damping factor for the dynamic energy adjustment. Defaults to 0.16.
+            dynamic_energy_ratio (float, optional): The ratio for the dynamic energy adjustment. Defaults to 1.6.
+            pause_threshold (float, optional): The pause threshold for the dynamic energy adjustment. Defaults to 1.
+            log (logging.Logger, optional): The logger to use. Defaults to None.
+        """
         self.log = log or logging.getLogger(__name__)
 
         self.recognizer = sr.Recognizer()
@@ -59,11 +78,25 @@ class Microphone:
                 wf.writeframes(audio.get_wav_data())
 
     def set_dynamic_energy_adjustment_damping(self, value):
+        """ Set the damping factor for the dynamic energy adjustment.
+
+        Args:
+            value (float): The damping factor for the dynamic energy adjustment.
+        """
         self.recognizer.dynamic_energy_adjustment_damping = value
 
     def set_dynamic_energy_ratio(self, value):
+        """ Set the ratio for the dynamic energy adjustment.
+
+        Args:
+            value (float): The ratio for the dynamic energy adjustment.
+        """
         self.recognizer.dynamic_energy_ratio = value
 
     def set_pause_threshold(self, value):
-        self.recognizer.pause_threshold = value
+        """ Set the pause threshold for the dynamic energy adjustment.
 
+        Args:
+            value (float): The pause threshold for the dynamic energy adjustment.
+        """
+        self.recognizer.pause_threshold = value

@@ -1,15 +1,14 @@
 import json
 import os
-from typing import Optional, Iterator
-
+from typing import Iterator, Any
 
 class Config():
+    """ Config class """
     def __init__(self, config_file: str) -> None:
-        """
-        Initialize the config class
+        """ Initialize the config class
 
-        :param config_file: config file path
-        :type config_file: str
+        Args:
+            config_file (str): config file path
         """
         self.config_file = config_file
         
@@ -22,124 +21,108 @@ class Config():
                 content = '{}'
             self._config = json.loads(content)
 
-    def get(self, key: str, default_value: Optional[any] = None) -> any:
-        """
-        Get the value of the key
+    def get(self, key: str, default_value: Any = None) -> Any:
+        """ Get the value of the key
 
-        :param key: key name
-        :type key: str
+        Args:
+            key (str): key name
+            default_value (optional): default value if the key is not found. Defaults to None.
 
-        :param default_value: default value if the key is not found
-        :type default_value: Optional[any]
-
-        :return: value of the key
-        :rtype: any
+        Returns:
+            Any: value of the key
         """
         return self._config.get(key, default_value)
 
-    def set(self, key: str, value: any) -> None:
-        """
-        Set the value of the key
+    def set(self, key: str, value: Any) -> None:
+        """ Set the value of the key
 
-        :param key: key name
-        :type key: str
-
-        :param value: value of the key
-        :type value: any
+        Args:
+            key (str): key name
+            value (Any): value of the key
         """
         self._config[key] = value
         with open(self.config_file, 'w') as f:
             json.dump(self._config, f, indent=4)
 
     def delete(self, key: str) -> None:
-        """
-        Delete the key
+        """ Delete the key
 
-        :param key: key name
-        :type key: str
+        Args:
+            key (str): key name
         """
         if key in self._config:
             del self._config[key]
             with open(self.config_file, 'w') as f:
                 json.dump(self._config, f, indent=4)
 
-    def __getitem__(self, key: str) -> any:
+    def __getitem__(self, key: str) -> Any:
         """
         Get the value of the key
 
-        :param key: key name
-        :type key: str
+        Args:
+            key (str): key name
 
-        :return: value of the key
-        :rtype: any
+        Returns:
+            Any: value of the key
         """
         return self.get(key)
 
-    def __setitem__(self, key: str, value: any) -> None:
-        """
-        Set the value of the key
+    def __setitem__(self, key: str, value: Any) -> None:
+        """ Set the value of the key
 
-        :param key: key name
-        :type key: str
-
-        :param value: value of the key
-        :type value: any
+        Args:
+            key (str): key name
+            value (Any): value of the key
         """
         self.set(key, value)
 
     def __delitem__(self, key: str) -> None:
-        """
-        Delete the key
+        """ Delete the key
 
-        :param key: key name
-        :type key: str
+        Args:
+            key (str): key name
         """
         self.delete(key)
 
     def __contains__(self, key: str) -> bool:
-        """
-        Check if the key exists
+        """ Check if the key exists
 
-        :param key: key name
-        :type key: str
+        Args:
+            key (str): key name
 
-        :return: True if the key exists, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the key exists, False otherwise
         """
         return key in self._config
 
     def __iter__(self) -> Iterator[str]:
-        """
-        Iterate over the keys
+        """ Iterate over the keys
 
-        :return: iterator over the keys
-        :rtype: Iterator[str]
+        Returns:
+            Iterator[str]: iterator over the keys
         """
         return iter(self._config)
 
     def __len__(self) -> int:
-        """
-        Get the number of keys
+        """ Get the number of keys
 
-        :return: number of keys
-        :rtype: int
+        Returns:
+            int: number of keys
         """
         return len(self._config)
 
     def __str__(self) -> str:
-        """
-        Get the string representation of the config
+        """ Get the string representation of the config
 
-        :return: string representation of the config
-        :rtype: str
+        Returns:
+            str: string representation of the config
         """
         return json.dumps(self._config, indent=4)
 
     def __repr__(self) -> str:
-        """
-        Get the string representation of the config
+        """ Get the string representation of the config
 
-        :return: string representation of the config
-        :rtype: str
+        Returns:
+            str: string representation of the config
         """
         return f'Config({self.config_file})'

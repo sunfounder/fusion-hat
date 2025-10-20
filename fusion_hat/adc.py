@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
+
 from .i2c import I2C
 
 class ADC(I2C):
-    """
-    Analog to digital converter
+    """ Analog to digital converter
+
+    Attributes:
     """
     ADDR = [0x17]
 
@@ -15,8 +17,11 @@ class ADC(I2C):
         """
         Analog to digital converter
 
-        :param chn: channel number (0-4/A0-A4)
-        :type chn: int/str
+        Args:
+            chn (int/str): channel number (0-4/A0-A4)
+
+        Raises:
+            ValueError: If chn is not between 0-4 or A0-A4
         """
         super().__init__(address, *args, **kwargs)
 
@@ -35,22 +40,20 @@ class ADC(I2C):
         self.reg_addr = self.REG_ADC_START + chn*2
 
     def read(self) -> int:
-        """
-        Read the ADC value
+        """ Read the ADC value
 
-        :return: ADC value(0-4095)
-        :rtype: int
+        Returns:
+            int: ADC value(0-4095)
         """
         val_h, val_l = self._read_i2c_block_data(self.reg_addr, 2)
         val = (val_h << 8) | val_l
         return val
 
     def read_voltage(self) -> float:
-        """
-        Read the ADC voltage
+        """ Read the ADC voltage
 
-        :return: ADC voltage(0-3.3V)
-        :rtype: float
+        Returns:
+            float: ADC voltage(0-3.3V)
         """
         val = self.read()
         voltage = val * 3.3 / 4095

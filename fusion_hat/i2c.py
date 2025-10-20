@@ -3,8 +3,10 @@ from .utils import run_command
 from smbus2 import SMBus
 
 def _retry_wrapper(func):
+    """ Retry wrapper for I2C bus read/write functions """
 
     def wrapper(self, *arg, **kwargs):
+        """ Retry wrapper for I2C bus read/write functions """
         for _ in range(self.RETRY):
             try:
                 return func(self, *arg, **kwargs)
@@ -17,23 +19,16 @@ def _retry_wrapper(func):
 
 
 class I2C():
-    """
-    I2C bus read/write functions
-    """
+    """ I2C bus read/write functions """
     RETRY = 5
     _bus = 1
 
-    # i2c_lock = multiprocessing.Value('i', 0)
-
     def __init__(self, address: int = None, bus: int = 1) -> None:
-        """
-        Initialize the I2C bus
+        """ Initialize the I2C bus
 
-        :param address: I2C device address
-        :type address: int
-
-        :param bus: I2C bus number
-        :type bus: int
+        Args:
+            address (int): I2C device address
+            bus (int): I2C bus number
         """
         self._bus = bus
         self._smbus = SMBus(self._bus)
@@ -50,101 +45,88 @@ class I2C():
 
     @_retry_wrapper
     def _write_byte(self, data: int) -> bool:
-        """
-        Write a byte to the I2C bus
+        """ Write a byte to the I2C bus
 
-        :param data: byte to write
-        :type data: int
+        Args:
+            data (int): byte to write
 
-        :return: True if the byte is written successfully, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the byte is written successfully, False otherwise
         """
         result = self._smbus.write_byte(self.address, data)
         return result
 
     @_retry_wrapper
     def _write_byte_data(self, reg: int, data: int) -> bool:
-        """
-        Write a byte to the I2C bus
+        """ Write a byte to the I2C bus
 
-        :param reg: register address
-        :type reg: int
+        Args:
+            reg (int): register address
+            data (int): byte to write
 
-        :param data: byte to write
-        :type data: int
-
-        :return: True if the byte is written successfully, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the byte is written successfully, False otherwise
         """
         return self._smbus.write_byte_data(self.address, reg, data)
 
     @_retry_wrapper
     def _write_word_data(self, reg: int, data: int) -> bool:
-        """
-        Write a word to the I2C bus
+        """ Write a word to the I2C bus
 
-        :param reg: register address
-        :type reg: int
+        Args:
+            reg (int): register address
+            data (int): word to write
 
-        :param data: word to write
-        :type data: int
-
-        :return: True if the word is written successfully, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the word is written successfully, False otherwise
         """
         return self._smbus.write_word_data(self.address, reg, data)
 
     @_retry_wrapper
     def _write_i2c_block_data(self, reg: int, data: list) -> bool:
-        """
-        Write a block of data to the I2C bus
+        """ Write a block of data to the I2C bus
 
-        :param reg: register address
-        :type reg: int
+        Args:
+            reg (int): register address
+            data (list): block of data to write
 
-        :param data: block of data to write
-        :type data: list
-
-        :return: True if the block of data is written successfully, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the block of data is written successfully, False otherwise
         """
         return self._smbus.write_i2c_block_data(self.address, reg, data)
 
     @_retry_wrapper
     def _read_byte(self) -> int:
-        """
-        Read a byte from the I2C bus
+        """ Read a byte from the I2C bus
 
-        :return: byte read from the I2C bus
-        :rtype: int
+        Returns:
+            int: byte read from the I2C bus
         """
         result = self._smbus.read_byte(self.address)
         return result
 
     @_retry_wrapper
     def _read_byte_data(self, reg: int) -> int:
-        """
-        Read a byte from the I2C bus
+        """ Read a byte from the I2C bus
 
-        :param reg: register address
-        :type reg: int
+        Args:
+            reg (int): register address
 
-        :return: byte read from the I2C bus
-        :rtype: int
+        Returns:
+            int: byte read from the I2C bus
         """
         result = self._smbus.read_byte_data(self.address, reg)
         return result
 
     @_retry_wrapper
     def _read_word_data(self, reg: int) -> list:
-        """
-        Read a word from the I2C bus
+        """ Read a word from the I2C bus
 
-        :param reg: register address
-        :type reg: int
+        Args:
+            reg (int): register address
 
-        :return: word read from the I2C bus
-        :rtype: list
+        Returns:
+            list: word read from the I2C bus
         """
         result = self._smbus.read_word_data(self.address, reg)
         result_list = [result & 0xFF, (result >> 8) & 0xFF]
@@ -152,17 +134,14 @@ class I2C():
 
     @_retry_wrapper
     def _read_i2c_block_data(self, reg: int, num: int) -> list:
-        """
-        Read a block of data from the I2C bus
+        """ Read a block of data from the I2C bus
 
-        :param reg: register address
-        :type reg: int
+        Args:
+            reg (int): register address
+            num (int): number of bytes to read
 
-        :param num: number of bytes to read
-        :type num: int
-
-        :return: block of data read from the I2C bus
-        :rtype: list
+        Returns:
+            list: block of data read from the I2C bus
         """
         result = self._smbus.read_i2c_block_data(self.address, reg, num)
         return result
@@ -171,8 +150,8 @@ class I2C():
     def is_ready(self) -> bool:
         """Check if the I2C device is ready
 
-        :return: True if the I2C device is ready, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the I2C device is ready, False otherwise
         """
         addresses = self.scan()
         if self.address in addresses:
@@ -184,11 +163,11 @@ class I2C():
     def scan(bus: int = None) -> list:
         """Scan the I2C bus for devices
 
-        :param bus: I2C bus number
-        :type bus: int
+        Args:
+            bus (int): I2C bus number
 
-        :return: List of I2C addresses of devices found
-        :rtype: list
+        Returns:
+            list: List of I2C addresses of devices found
         """
         if bus is None:
             bus = I2C._bus
@@ -213,12 +192,13 @@ class I2C():
         return addresses
 
     def write(self, data: int | list | bytearray) -> None:
-        """Write data to the I2C device
+        """ Write data to the I2C device
 
-        :param data: Data to write
-        :type data: int/list/bytearray
+        Args:
+            data (int | list | bytearray): Data to write
 
-        :raises: ValueError if write is not an int, list or bytearray
+        Raises:
+            ValueError: if write is not an int, list or bytearray
         """
         if isinstance(data, bytearray):
             data_all = list(data)
@@ -255,13 +235,13 @@ class I2C():
             self._write_i2c_block_data(reg, data)
 
     def read(self, length: int = 1) -> list:
-        """Read data from I2C device
+        """ Read data from I2C device
 
-        :param length: Number of bytes to receive
-        :type length: int
+        Args:
+            length (int): Number of bytes to receive
 
-        :return: Received data
-        :rtype: list
+        Returns:
+            list: Received data
         """
         if not isinstance(length, int):
             raise ValueError(f"length must be int, not {type(length)}")
@@ -272,15 +252,14 @@ class I2C():
         return result
 
     def mem_write(self, data: int | list | bytearray, memaddr: int) -> None:
-        """Send data to specific register address
+        """ Write data to specific register address
 
-        :param data: Data to send, int, list or bytearray
-        :type data: int/list/bytearray
+        Args:
+            data (int | list | bytearray): Data to send
+            memaddr (int): Register address
 
-        :param memaddr: Register address
-        :type memaddr: int
-
-        :raise ValueError: If data is not int, list, or bytearray
+        Raises:
+            ValueError: If data is not int, list, or bytearray
         """
         if isinstance(data, bytearray):
             data_all = list(data)
@@ -301,29 +280,25 @@ class I2C():
         self._write_i2c_block_data(memaddr, data_all)
 
     def mem_read(self, length: int, memaddr: int) -> list:
-        """Read data from specific register address
+        """ Read data from specific register address
 
-        :param length: Number of bytes to receive
-        :type length: int
+        Args:
+            length (int): Number of bytes to receive
+            memaddr (int): Register address
 
-        :param memaddr: Register address
-        :type memaddr: int
-
-        :return: Received bytearray data or False if error
-        :rtype: list/False
+        Returns:
+            list: Received bytearray data or False if error
         """
         result = self._read_i2c_block_data(memaddr, length)
         return result
 
     def is_avaliable(self) -> bool:
-        """
-        Check if the I2C device is avaliable
+        """ Check if the I2C device is avaliable
 
-        :return: True if the I2C device is avaliable, False otherwise
-        :rtype: bool
+        Returns:
+            bool: True if the I2C device is avaliable, False otherwise
         """
         return self.address in self.scan()
-
 
 if __name__ == "__main__":
     i2c = I2C(address=[0x17, 0x15], debug_level='debug')
