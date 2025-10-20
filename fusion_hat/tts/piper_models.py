@@ -1,4 +1,4 @@
-
+""" Piper models. """
 PIPER_MODELS = {
     "ar_JO": {
         "kareem": ["ar_JO-kareem-low", "ar_JO-kareem-medium"]

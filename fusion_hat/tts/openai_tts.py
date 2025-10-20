@@ -5,6 +5,16 @@ import pyaudio
 from ..utils import enable_speaker
 
 def volume_gain(input_file, output_file, gain):
+    """ Apply volume gain to audio file.
+
+    Args:
+        input_file (str): Input audio file path.
+        output_file (str): Output audio file path.
+        gain (float): Gain factor.
+
+    Returns:
+        bool: True if success, False otherwise.
+    """
     import sox
 
     try:
@@ -19,9 +29,7 @@ def volume_gain(input_file, output_file, gain):
         return False
 
 class OpenAI_TTS():
-    """
-    OpenAI TTS engine.
-    """
+    """ OpenAI TTS engine. """
     WHISPER = 'whisper'
 
     MODLES = [
@@ -57,11 +65,20 @@ class OpenAI_TTS():
     URL = "https://api.openai.com/v1/audio/speech"
 
     def __init__(self, *args,
-        voice=DEFAULT_VOICE,
-        model=DEFAULT_MODEL,
-        api_key=None,
-        gain=3,
-        log=None):
+        voice: str=DEFAULT_VOICE,
+        model: str=DEFAULT_MODEL,
+        api_key: str=None,
+        gain: float=3,
+        log: logging.Logger=None) -> None:
+        """ Initialize OpenAI TTS engine.
+
+        Args:
+            voice (str, optional): Voice, default is 'alloy'.
+            model (str, optional): Model, default is 'tts-1'.
+            api_key (str, optional): API key.
+            gain (float, optional): Volume gain, default is 3.
+            log (logging.Logger, optional): Logger, default is None.
+        """
         self.log = log or logging.getLogger(__name__)
         enable_speaker()
 
@@ -72,20 +89,17 @@ class OpenAI_TTS():
 
         self.set_api_key(api_key)
 
-    def tts(self, words, output_file="/tmp/openai_tts.wav", instructions=DEFAULT_INSTRUCTIONS, stream=False):
-        """
-        Request OpenAI TTS API.
-        
-        :param words: words to say.
-        :type words: str
-        :param output_file: output file.
-        :type output_file: str
-        :param instructions: instructions.
-        :type instructions: str
-        :param stream: whether to stream the audio.
-        :type stream: bool
-        :return: True if success.
-        :rtype: bool
+    def tts(self, words: str, output_file: str="/tmp/openai_tts.wav", instructions: str=DEFAULT_INSTRUCTIONS, stream: bool=False) -> bool:
+        """ Request OpenAI TTS API.
+
+        Args:
+            words (str): Words to say.
+            output_file (str, optional): Output file, default is '/tmp/openai_tts.wav'.
+            instructions (str, optional): Instructions, default is DEFAULT_INSTRUCTIONS.
+            stream (bool, optional): Whether to stream the audio, default is False.
+
+        Returns:
+            bool: True if success, False otherwise.
         """
         
         headers = {
@@ -123,14 +137,18 @@ class OpenAI_TTS():
             return True
         
         except requests.exceptions.RequestException as e:
-            self.log.error(f"请求发生错误: {e}")
+            self.log.error(f"OpenAI TTS API request error: {e}")
             return False
         except IOError as e:
-            self.log.error(f"文件操作错误: {e}")
+            self.log.error(f"OpenAI TTS API file operation error: {e}")
             return False
 
-    def _stream_audio(self, response):
-        """流式播放音频"""
+    def _stream_audio(self, response: requests.Response) -> None:
+        """ Stream audio from response.
+
+        Args:
+            response (requests.Response): Response from OpenAI TTS API.
+        """
         p = pyaudio.PyAudio()
         
         stream = p.open(format=p.get_format_from_width(2),
@@ -146,17 +164,14 @@ class OpenAI_TTS():
         stream.close()
         p.terminate()
 
-    def say(self, words, instructions=DEFAULT_INSTRUCTIONS, stream=True):
-        '''
-        Say words.
+    def say(self, words: str, instructions: str=DEFAULT_INSTRUCTIONS, stream: bool=True) -> None:
+        """ Say words.
 
-        :param words: words to say.
-        :type words: str
-        :param instructions: instructions.
-        :type instructions: str
-        :param stream: whether to stream the audio.
-        :type stream: bool
-        '''
+        Args:
+            words (str): Words to say.
+            instructions (str, optional): Instructions, default is DEFAULT_INSTRUCTIONS.
+            stream (bool, optional): Whether to stream the audio, default is True.
+        """
         if stream:
             self.tts(words, instructions=instructions, stream=True)
         else:
@@ -165,42 +180,38 @@ class OpenAI_TTS():
             os.system(f'aplay {file_name}')
             os.remove(file_name)
 
-    def set_voice(self, voice):
-        """
-        Set voice.
+    def set_voice(self, voice: str) -> None:
+        """ Set voice.
 
-        :param voice: voice.
-        :type voice: str
+        Args:
+            voice (str): Voice.
         """
         if voice not in self.VOICES:
             raise ValueError(f'Voice {voice} is not supported')
         self._voice = voice
 
-    def set_model(self, model):
-        """
-        Set model.
+    def set_model(self, model: str) -> None:
+        """ Set model.
 
-        :param model: model.
-        :type model: str
+        Args:
+            model (str): Model.
         """
         if model not in self.MODLES:
             raise ValueError(f'Model {model} is not supported')
         self._model = model
 
-    def set_api_key(self, api_key):
-        """
-        Set api key.
+    def set_api_key(self, api_key: str) -> None:
+        """ Set api key.
 
-        :param api_key: api key.
-        :type api_key: str
+        Args:
+            api_key (str): API key.
         """
         self._api_key = api_key
 
-    def set_gain(self, gain):
-        """
-        Set gain.
+    def set_gain(self, gain: int) -> None:
+        """ Set gain.
 
-        :param gain: gain.
-        :type gain: int
+        Args:
+            gain (int): Gain.
         """
         self._gain = gain

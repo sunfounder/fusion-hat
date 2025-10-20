@@ -37,9 +37,7 @@ You are a helpful assistant, named {NAME}.
 """
 
 class VoiceAssistant:
-    """
-    Voice assistant class
-    """
+    """ Voice assistant class """
     VOICE_ACTIONS = ["bark", "bark harder", "pant",  "howling"]
 
     def __init__(self,
@@ -56,33 +54,21 @@ class VoiceAssistant:
             instructions: str = INSTRUCTIONS,
             disable_think: bool = False,
         ) -> None:
-        """
-        Initialize voice assistant
+        """ Initialize voice assistant
 
-        :param llm: Language model
-        :type llm: LLM
-        :param name: Robot name
-        :type name: str
-        :param with_image: Enable image, need to set up a multimodal language model
-        :type with_image: bool
-        :param tts_model: Text-to-speech model
-        :type tts_model: str
-        :param stt_language: Speech-to-text language
-        :type stt_language: str
-        :param keyboard_enable: Enable keyboard input
-        :type keyboard_enable: bool
-        :param wake_enable: Enable wake word
-        :type wake_enable: bool
-        :param wake_word: Wake word
-        :type wake_word: list
-        :param answer_on_wake: Answer on wake word
-        :type answer_on_wake: str
-        :param welcome: Welcome message
-        :type welcome: str
-        :param instructions: Set instructions
-        :type instructions: str
-        :param disable_think: Disable think, defaults to False
-        :type disable_think: bool
+        Args:
+            llm (LLM): Language model
+            name (str, optional): Robot name, default is NAME
+            with_image (bool, optional): Enable image, need to set up a multimodal language model, default is WITH_IMAGE
+            tts_model (str, optional): Text-to-speech model, default is TTS_MODEL
+            stt_language (str, optional): Speech-to-text language, default is STT_LANGUAGE
+            keyboard_enable (bool, optional): Enable keyboard input, default is KEYBOARD_ENABLE
+            wake_enable (bool, optional): Enable wake word, default is WAKE_ENABLE
+            wake_word (list, optional): Wake word, default is WAKE_WORD
+            answer_on_wake (str, optional): Answer on wake word, default is ANSWER_ON_WAKE
+            welcome (str, optional): Welcome message, default is WELCOME
+            instructions (str, optional): Set instructions, default is INSTRUCTIONS
+            disable_think (bool, optional): Disable think, default is False
         """
         self.llm = llm
         self.name = name
@@ -117,115 +103,97 @@ class VoiceAssistant:
             self.init_image_sensor()
 
     def before_listen(self) -> None:
-        """
-        Before listen
-        """
+        """ Before listen """
         pass
 
     def after_listen(self, stt_result: str) -> None:
-        """
-        After listen
+        """ After listen
 
-        :param stt_result: Speech-to-text result
-        :type stt_result: str
+        Args:
+            stt_result (str): Speech-to-text result
         """
         pass
 
     def before_think(self, text: str) -> None:
-        """
-        Before think
+        """ Before think
 
-        :param text: Text to think
-        :type text: str
+        Args:
+            text (str): Text to think
         """
         pass
 
     def after_think(self, text: str) -> None:
-        """
-        After think
+        """ After think
 
-        :param text: Text to think
-        :type text: str
+        Args:
+            text (str): Text to think
         """
         pass
 
     def on_start(self) -> None:
-        """
-        On start
-        """
+        """ On start """
         pass
 
     def on_wake(self) -> None:
-        """
-        On wake
-        """
+        """ On wake """
         pass
 
     def on_heard(self, text: str) -> None:
-        """
-        On heard
+        """ On heard
 
-        :param text: Text heard
-        :type text: str
+        Args:
+            text (str): Text heard
         """
         pass
 
     def parse_response(self, text: str) -> str:
-        """
-        Parse response
+        """ Parse response
 
-        :param text: Text to parse
-        :type text: str
-        :return: Parsed text
-        :rtype: str
+        Args:
+            text (str): Text to parse
+
+        Returns:
+            str: Parsed text
         """
         return text
 
     def add_trigger(self, trigger_function: function) -> None:
-        """
-        Add trigger function
+        """ Add trigger function
 
-        :param trigger_function: Trigger function
-        :type trigger_function: function
+        Args:
+            trigger_function (function): Trigger function
         """
         self.triggers.append(trigger_function)
 
     def before_say(self, text: str) -> None:
-        """
-        Before say
+        """ Before say
 
-        :param text: Text to say
-        :type text: str
+        Args:
+            text (str): Text to say 
         """
         pass
 
     def after_say(self, text: str) -> None:
-        """
-        After say
+        """ After say
 
-        :param text: Text to say
-        :type text: str
+        Args:
+            text (str): Text to say
         """
         pass
 
     def on_stop(self) -> None:
-        """
-        On stop
-        """
+        """ On stop """
         pass
 
     def on_finish_a_round(self) -> None:
-        """
-        On finish a round
-        """ 
+        """ On finish a round """ 
         pass
 
     def trigger_wake_word(self) -> tuple[bool, bool, str]:
-        """
-        Trigger wake word
+        """ Trigger wake word
 
-        :return: Triggered, disable image, message
-        :rtype: tuple[bool, bool, str]
+        Returns:
+            tuple[bool, bool, str]: Triggered, disable image, message
         """
         triggered = False
         disable_image = False
@@ -246,11 +214,10 @@ class VoiceAssistant:
         return triggered, disable_image, message
 
     def trigger_keyboard_input(self) -> tuple[bool, bool, str]:
-        """
-        Trigger keyboard input
+        """ Trigger keyboard input
 
-        :return: Triggered, disable image, message
-        :rtype: tuple[bool, bool, str]
+        Returns:
+            tuple[bool, bool, str]: Triggered, disable image, message
         """
         triggered = False
         disable_image = False
@@ -262,9 +229,7 @@ class VoiceAssistant:
         return triggered, disable_image, message
 
     def init_image_sensor(self) -> None:
-        """
-        Initialize image sensor
-        """
+        """ Initialize image sensor """
         from vilib import Vilib
         import cv2
 
@@ -283,11 +248,10 @@ class VoiceAssistant:
         print('\n')
 
     def listen(self) -> str:
-        """
-        Listen
+        """ Listen
 
-        :return: Speech-to-text result
-        :rtype: str
+        Returns:
+            str: Speech-to-text result
         """
         self.before_listen()
 
@@ -309,15 +273,14 @@ class VoiceAssistant:
         return stt_result
 
     def think(self, text: str, disable_image: bool=False) -> str:
-        """
-        Think
+        """ Think
 
-        :param text: Text to think
-        :type text: str
-        :param disable_image: Disable image, defaults to False
-        :type disable_image: bool
-        :return: LLM response
-        :rtype: str
+        Args:
+            text (str): Text to think
+            disable_image (bool, optional): Disable image, defaults to False
+
+        Returns:
+            str: LLM response
         """ 
         self.before_think(text)
 
@@ -346,9 +309,7 @@ class VoiceAssistant:
         return result
 
     def main(self) -> None:
-        """
-        Main loop
-        """
+        """ Main loop """
 
         self.running = True
         self.on_start()
@@ -404,9 +365,7 @@ class VoiceAssistant:
             time.sleep(1)
 
     def run(self) -> None:
-        """
-        Run
-        """
+        """ Run """
         try:
             self.main()
         except KeyboardInterrupt:

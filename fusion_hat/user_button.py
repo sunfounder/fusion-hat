@@ -4,15 +4,14 @@ import threading
 from typing import Optional, function
 
 class UserButton:
-    """User button class"""
+    """ User button class """
     USER_BTN_STATE_REG_ADDR = 0x24
 
     def __init__(self, interval: float=0.1) -> None:
-        """
-        Initialize the user button class
+        """ Initialize the user button class
 
-        :param interval: interval time(0.1~1.0), leave it None to use default interval time, defaults to 0.1
-        :type interval: float
+        Args:
+            interval (float, optional): interval time(0.1~1.0), leave it None to use default interval time, defaults to 0.1
         """
         self.pressed = False
         self.pressed_for = 0
@@ -31,50 +30,42 @@ class UserButton:
         self.thread = None
 
     def set_on_click(self, callback: function) -> None:
-        """
-        Set the callback function when the user button is clicked
+        """ Set the callback function when the user button is clicked
 
-        :param callback: callback function
-        :type callback: function
+        Args:
+            callback (function): callback function
         """
         self.__on_click__ = callback
 
     def set_on_press(self, callback: function) -> None:
-        """
-        Set the callback function when the user button is pressed
+        """ Set the callback function when the user button is pressed
 
-        :param callback: callback function
-        :type callback: function
+        Args:
+            callback (function): callback function
         """
         self.__on_press__ = callback
 
     def set_on_release(self, callback: function) -> None:
-        """
-        Set the callback function when the user button is released
+        """ Set the callback function when the user button is released
 
-        :param callback: callback function
-        :type callback: function
+        Args:
+            callback (function): callback function
         """
         self.__on_release__ = callback
 
     def set_on_press_released(self, callback: function) -> None:
-        """
-        Set the callback function when the user button is pressed and released
+        """ Set the callback function when the user button is pressed and released
 
-        :param callback: callback function
-        :type callback: function
+        Args:
+            callback (function): callback function
         """
         self.__on_press_released__ = callback
 
     def set_on_long_press(self, callback: function, duration: float=2.0) -> None:
-        """
-        Set the callback function when the user button is long pressed
+        """ Set the callback function when the user button is long pressed
 
-        :param callback: callback function
-        :type callback: function
-
-        :param duration: long press duration(2.0~5.0), leave it None to use default duration, defaults to 2.0
-        :type duration: float, optional
+        Args:
+            callback (function): callback function
         """
         self.__on_long_press__[duration] = {
             "callback": callback,
@@ -83,14 +74,11 @@ class UserButton:
         }
 
     def set_on_long_press_released(self, callback: function, duration: float=2.0) -> None:
-        """
-        Set the callback function when the user button is long pressed and released
+        """ Set the callback function when the user button is long pressed and released
 
-        :param callback: callback function
-        :type callback: function
-
-        :param duration: long press duration(2.0~5.0), leave it None to use default duration, defaults to 2.0
-        :type duration: float, optional
+        Args:
+            callback (function): callback function
+            duration (float, optional): long press duration(2.0~5.0), leave it None to use default duration, defaults to 2.0
         """
         self.__on_long_press_released__[duration] = {
             "callback": callback,
@@ -99,11 +87,10 @@ class UserButton:
         }
 
     def get_state(self) -> bool:
-        """
-        Get the state of the user button
+        """ Get the state of the user button
 
-        :return: True if pressed, False if released
-        :rtype: bool
+        Returns:
+            bool: True if pressed, False if released
         """
         result = simple_i2c_command("get", self.USER_BTN_STATE_REG_ADDR, "b")
         return result == 1
@@ -112,8 +99,8 @@ class UserButton:
         """
         Check if the user button is pressed
 
-        :return: True if pressed, False if released
-        :rtype: bool
+        Returns:
+            bool: True if pressed, False if released
         """
         if self._is_task_running:
             return self.pressed
@@ -123,17 +110,15 @@ class UserButton:
         """
         Get the time the user button has been pressed for
 
-        :return: time in seconds
-        :rtype: float
+        Returns:
+            float: time in seconds
         """ 
         if self.is_pressed():
             return time.time() - self.pressed_at
         return self.pressed_for
 
     def read_loop(self) -> None:
-        """
-        Read the user button state in a loop
-        """
+        """ Read the user button state in a loop """
         while self._is_task_running:
             pressed = self.get_state()
             if pressed:
@@ -176,18 +161,14 @@ class UserButton:
             time.sleep(self.interval)
 
     def start(self) -> None:
-        """
-        Start the user button read loop
-        """
+        """ Start the user button read loop """
         if not self._is_task_running:
             self._is_task_running = True
             self.thread = threading.Thread(target=self.read_loop, daemon=True)
             self.thread.start()
 
     def stop(self) -> None:
-        """
-        Stop the user button read loop
-        """
+        """ Stop the user button read loop """
         self._is_task_running = False
         if self.thread is not None:
             self.thread.join()
