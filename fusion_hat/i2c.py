@@ -44,7 +44,7 @@ class I2C():
             self.address = address
 
     @_retry_wrapper
-    def _write_byte(self, data: int) -> bool:
+    def write_byte(self, data: int) -> bool:
         """ Write a byte to the I2C bus
 
         Args:
@@ -57,7 +57,7 @@ class I2C():
         return result
 
     @_retry_wrapper
-    def _write_byte_data(self, reg: int, data: int) -> bool:
+    def write_byte_data(self, reg: int, data: int) -> bool:
         """ Write a byte to the I2C bus
 
         Args:
@@ -70,7 +70,7 @@ class I2C():
         return self._smbus.write_byte_data(self.address, reg, data)
 
     @_retry_wrapper
-    def _write_word_data(self, reg: int, data: int) -> bool:
+    def write_word_data(self, reg: int, data: int) -> bool:
         """ Write a word to the I2C bus
 
         Args:
@@ -80,10 +80,11 @@ class I2C():
         Returns:
             bool: True if the word is written successfully, False otherwise
         """
+        print(f"write_word_data: 0x{reg:02x}({reg}), 0x{data:04x}({data})")
         return self._smbus.write_word_data(self.address, reg, data)
 
     @_retry_wrapper
-    def _write_i2c_block_data(self, reg: int, data: list) -> bool:
+    def write_i2c_block_data(self, reg: int, data: list) -> bool:
         """ Write a block of data to the I2C bus
 
         Args:
@@ -96,7 +97,7 @@ class I2C():
         return self._smbus.write_i2c_block_data(self.address, reg, data)
 
     @_retry_wrapper
-    def _read_byte(self) -> int:
+    def read_byte(self) -> int:
         """ Read a byte from the I2C bus
 
         Returns:
@@ -106,7 +107,7 @@ class I2C():
         return result
 
     @_retry_wrapper
-    def _read_byte_data(self, reg: int) -> int:
+    def read_byte_data(self, reg: int) -> int:
         """ Read a byte from the I2C bus
 
         Args:
@@ -119,7 +120,7 @@ class I2C():
         return result
 
     @_retry_wrapper
-    def _read_word_data(self, reg: int) -> list:
+    def read_word_data(self, reg: int) -> list:
         """ Read a word from the I2C bus
 
         Args:
@@ -133,7 +134,7 @@ class I2C():
         return result_list
 
     @_retry_wrapper
-    def _read_i2c_block_data(self, reg: int, num: int) -> list:
+    def read_i2c_block_data(self, reg: int, num: int) -> list:
         """ Read a block of data from the I2C bus
 
         Args:
@@ -212,27 +213,24 @@ class I2C():
                     data >>= 8
         elif isinstance(data, list):
             data_all = data
-        else:
-            raise ValueError(
-                f"write data must be int, list, or bytearray, not {type(data)}"
-            )
 
         # Write data
         if len(data_all) == 1:
             data = data_all[0]
-            self._write_byte(data)
+            self.write_byte(data)
         elif len(data_all) == 2:
             reg = data_all[0]
             data = data_all[1]
-            self._write_byte_data(reg, data)
+            self.write_byte_data(reg, data)
         elif len(data_all) == 3:
             reg = data_all[0]
             data = (data_all[2] << 8) + data_all[1]
-            self._write_word_data(reg, data)
+            print(f"I2C write_word_data 0x{reg:02X} data: 0x{data:04X}")
+            self.write_word_data(reg, data)
         else:
             reg = data_all[0]
             data = list(data_all[1:])
-            self._write_i2c_block_data(reg, data)
+            self.write_i2c_block_data(reg, data)
 
     def read(self, length: int = 1) -> list:
         """ Read data from I2C device
@@ -243,12 +241,9 @@ class I2C():
         Returns:
             list: Received data
         """
-        if not isinstance(length, int):
-            raise ValueError(f"length must be int, not {type(length)}")
-
         result = []
         for _ in range(length):
-            result.append(self._read_byte())
+            result.append(self.read_byte())
         return result
 
     def mem_write(self, data: int | list | bytearray, memaddr: int) -> None:
@@ -273,11 +268,7 @@ class I2C():
                 while data > 0:
                     data_all.append(data & 0xFF)
                     data >>= 8
-        else:
-            raise ValueError(
-                "memery write require arguement of bytearray, list, int less than 0xFF"
-            )
-        self._write_i2c_block_data(memaddr, data_all)
+        self.write_i2c_block_data(memaddr, data_all)
 
     def mem_read(self, length: int, memaddr: int) -> list:
         """ Read data from specific register address
@@ -289,7 +280,7 @@ class I2C():
         Returns:
             list: Received bytearray data or False if error
         """
-        result = self._read_i2c_block_data(memaddr, length)
+        result = self.read_i2c_block_data(memaddr, length)
         return result
 
     def is_avaliable(self) -> bool:
@@ -300,5 +291,87 @@ class I2C():
         """
         return self.address in self.scan()
 
-if __name__ == "__main__":
-    i2c = I2C(address=[0x17, 0x15], debug_level='debug')
+    def _write_byte(self, data: int) -> None:
+        """ [DEPRECATED] Write a byte to I2C register
+
+        Args:
+            data (int): Data to write
+        """
+        print(f"[WARNING] _write_byte is deprecated, use write_byte instead")
+        self.write_byte(data)
+
+    def _write_byte_data(self, reg: int, data: int) -> None:
+        """ [DEPRECATED] Write a byte data to I2C register
+
+        Args:
+            reg (int): Register address
+            data (int): Data to write
+        """
+        print(f"[WARNING] _write_byte_data is deprecated, use write_byte_data instead")
+        self.write_byte_data(reg, data)
+
+    def _write_word_data(self, reg: int, data: int) -> None:
+        """ [DEPRECATED] Write word data to I2C register
+
+        Args:
+            reg (int): Register address
+            data (int): Data to write
+        """
+        print(f"[WARNING] _write_word_data is deprecated, use write_word_data instead")
+        self.write_word_data(reg, data)
+
+    def _write_i2c_block_data(self, reg: int, data: list) -> None:
+        """ [DEPRECATED] Write block data to I2C register
+
+        Args:
+            reg (int): Register address
+            data (list): Data to write
+        """
+        print(f"[WARNING] _write_i2c_block_data is deprecated, use write_i2c_block_data instead")
+        self.write_i2c_block_data(reg, data)
+
+    def _read_byte(self) -> int:
+        """ [DEPRECATED] Read a byte from the I2C bus
+
+        Returns:
+            int: byte read from the I2C bus
+        """
+        print(f"[WARNING] _read_byte is deprecated, use read_byte instead")
+        return self.read_byte()
+
+    def _read_byte_data(self, reg: int) -> int:
+        """ [DEPRECATED] Read a byte from the I2C bus
+
+        Args:
+            reg (int): register address
+
+        Returns:
+            int: byte read from the I2C bus
+        """
+        print(f"[WARNING] _read_byte_data is deprecated, use read_byte_data instead")
+        return self.read_byte_data(reg)
+
+    def _read_word_data(self, reg: int) -> list:
+        """ [DEPRECATED] Read a word from the I2C bus
+
+        Args:
+            reg (int): register address
+
+        Returns:
+            list: word read from the I2C bus
+        """
+        print(f"[WARNING] _read_word_data is deprecated, use read_word_data instead")
+        return self.read_word_data(reg)
+
+    def _read_i2c_block_data(self, reg: int, length: int) -> list:
+        """ [DEPRECATED] Read block data from I2C register
+
+        Args:
+            reg (int): Register address
+            length (int): Number of bytes to receive
+
+        Returns:
+            list: Received bytearray data or False if error
+        """
+        print(f"[WARNING] _read_i2c_block_data is deprecated, use read_i2c_block_data instead")
+        return self.read_i2c_block_data(reg, length)

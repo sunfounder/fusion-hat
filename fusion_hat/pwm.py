@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import math
 from .i2c import I2C
-from .device import __device__
+from .device import I2C_ADDRESS
 from typing import Optional
 
 
@@ -10,7 +10,6 @@ timer = [{"arr": 1} for _ in range(7)]
 class PWM(I2C):
     """ PWM class to control a single PWM channel """
 
-    ADDR = 0x17
     CLOCK = 72000000.0
 
     # 3 timer2 for 12 channels
@@ -25,7 +24,7 @@ class PWM(I2C):
 
     CHANNEL_NUM = 12
 
-    def __init__(self, channel: int, freq: int=50, addr: int=ADDR, *args, **kwargs):
+    def __init__(self, channel: int, freq: int=50, addr: int=I2C_ADDRESS, *args, **kwargs):
         """ Initialize PWM
 
         Args:
@@ -56,13 +55,13 @@ class PWM(I2C):
         else:
             self.timer_index = 2
 
-        self.psc_reg_addr = self.REG_PSC_START + self.timer_index
-        self.arr_reg_addr = self.REG_ARR_START + self.timer_index
-        self.ccp_reg_addr = self.REG_CCP_START + self.channel
-        self.psc = 0
-        self.arr = 0
-        self.ccp = 0
-        self.duty_cycle = 0.0
+        self._prescaler_register = self.REG_PSC_START + self.timer_index
+        self._period_register = self.REG_ARR_START + self.timer_index
+        self._pulse_width_register = self.REG_CCP_START + self.channel
+        self._prescaler = 0
+        self._period = 0
+        self._pulse_width = 0
+        self._pulse_width_percent = 0.0
         self._freq = freq
         self.freq(freq)
         self.pulse_width(0)
@@ -97,89 +96,77 @@ class PWM(I2C):
         # Find the best match
         best_match = freq_errors.index(min(freq_errors))
         psc, arr = psc_arr[best_match]
-        self.psc = int(psc) - 1
-        self.arr = int(arr) - 1
-        self.prescaler(self.psc)
-        self.period(self.arr)
+        self._prescaler = int(psc) - 1
+        self._period = int(arr) - 1
+        self.prescaler(self._prescaler)
+        self.period(self._period)
         return self._freq
 
-    def prescaler(self, psc: Optional[int]=None) -> int:
+    def prescaler(self, prescaler: Optional[int]=None) -> int:
         """ Set/get prescaler, leave blank to get prescaler
 
         Args:
-            psc (int, optional): prescaler(0-65535), default is 0
+            prescaler (int, optional): prescaler(0-65535), default is 0
 
         Returns:
             int: prescaler
         """
-        if psc == None:
-            return self.psc
+        if prescaler == None:
+            return self._prescaler
 
-        self.psc = int(psc)
-        self._freq = self.CLOCK/(self.psc+1)/(self.arr+1)
-        psc_h = (self.psc >> 8) & 0xff
-        psc_l = self.psc & 0xff
-        data = [self.psc_reg_addr, psc_h, psc_l]
-        self.write(data)
-        return self.psc
+        self._prescaler = int(prescaler)
+        self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
+        self.write_word_data(self._prescaler_register, self._prescaler)
+        return self._prescaler
 
-    def period(self, arr: Optional[int]=None) -> int:
+    def period(self, period: Optional[int]=None) -> int:
         """ Set/get period, leave blank to get period
 
         Args:
-            arr (int, optional): period(0-65535), default is 0
+            period (int, optional): period(0-65535), default is 0
 
         Returns:
             int: period
         """
-        if arr == None:
-            return self.arr
+        if period == None:
+            return self._period
 
-        self.arr = int(arr)
-        self._freq = self.CLOCK/(self.psc+1)/(self.arr+1)
-        self.duty_cycle = round(self.ccp / (self.arr+1) * 100, 2)
-        arr_h = (self.arr >> 8) & 0xff
-        arr_l = self.arr & 0xff
-        data = [self.arr_reg_addr, arr_h, arr_l]
-        self.write(data)
-        return self.arr
+        self._period = int(period)
+        self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
+        self._pulse_width_percent = round(self._pulse_width / (self._period+1) * 100, 2)
+        self.write_word_data(self._period_register, self._period)
+        return self._period
 
-    def pulse_width(self, ccp: Optional[int]=None) -> int:
+    def pulse_width(self, pulse_width: Optional[int]=None) -> int:
         """ Set/get pulse width, leave blank to get pulse width
 
         Args:
-            ccp (int, optional): pulse width(0-65535), default is 0
+            pulse_width (int, optional): pulse width(0-65535), default is 0
 
         Returns:
             int: pulse width
         """
-        if ccp == None:
-            return self.ccp
+        if pulse_width == None:
+            return self._pulse_width
 
-        self.ccp = int(ccp)
-        self.duty_cycle = round(self.ccp / (self.arr+1) * 100, 2)
-        ccp_h = (self.ccp >> 8) & 0xff
-        ccp_l = self.ccp & 0xff
-        data = [self.ccp_reg_addr, ccp_h, ccp_l]
-        self.write(data)
-        return self.ccp
+        self._pulse_width = int(pulse_width)
+        self._pulse_width_percent = round(pulse_width / (self._period+1) * 100, 2)
+        self.write_word_data(self._pulse_width_register, self._pulse_width)
+        return self._pulse_width
 
-    def pulse_width_percent(self, duty_cycle: Optional[float]=None) -> float:   
+    def pulse_width_percent(self, pulse_width_percent: Optional[float]=None) -> float:   
         """ Set/get pulse width percentage, leave blank to get pulse width percentage
 
         Args:
-            duty_cycle (float, optional): pulse width percentage(0-100), default is 0
+            pulse_width_percent (float, optional): pulse width percentage(0-100), default is 0
 
         Returns:
             float: pulse width percentage
         """
-        if duty_cycle == None:
-            return duty_cycle
+        if pulse_width_percent == None:
+            return self._pulse_width_percent
 
-        self.duty_cycle = round(duty_cycle, 2)
-        self.ccp = int((self.arr+1) * duty_cycle / 100)
-        cpp_h = (self.ccp >> 8) & 0xff
-        ccp_l = self.ccp & 0xff
-        data = [self.ccp_reg_addr, cpp_h, ccp_l]
-        self.write(data)
-        return self.duty_cycle
+        self._pulse_width_percent = round(pulse_width_percent, 2)
+        self._pulse_width = int((self._period+1) * pulse_width_percent / 100)
+        self.write_word_data(self._pulse_width_register, self._pulse_width)
+        return self._pulse_width_percent

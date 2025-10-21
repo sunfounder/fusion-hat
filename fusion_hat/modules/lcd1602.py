@@ -44,7 +44,7 @@ class LCD1602():
             temp |= 0x08
         else:
             temp &= 0xF7
-        self.i2c._write_byte(temp)
+        self.i2c.write_byte(temp)
     
     def send_command(self, cmd):
         # Send bit7-4 firstly
@@ -84,10 +84,10 @@ class LCD1602():
         self.send_command(0x01) # Clear Screen
         
     def open_back_light(self):  # Enable the backlight
-        self.i2c._write_byte(0x08)
+        self.i2c.write_byte(0x08)
 
     def close_back_light(self): # Disable the backlight
-        self.i2c._write_byte(0x00)
+        self.i2c.write_byte(0x00)
     
     def write(self, x, y, str):
         if x < 0:

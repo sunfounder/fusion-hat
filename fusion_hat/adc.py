@@ -45,7 +45,7 @@ class ADC(I2C):
         Returns:
             int: ADC value(0-4095)
         """
-        val_h, val_l = self._read_i2c_block_data(self.reg_addr, 2)
+        val_h, val_l = self.read_i2c_block_data(self.reg_addr, 2)
         val = (val_h << 8) | val_l
         return val
 
