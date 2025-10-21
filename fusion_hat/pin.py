@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import gpiozero  # https://gpiozero.readthedocs.io/en/latest/installing.html
 from gpiozero import OutputDevice, DigitalInputDevice, Button
 from typing import Callable
 
@@ -245,25 +244,25 @@ class Pin():
         """ Set the pressed handler
 
         Args:
-            handler (function): pressed handler
+            handler (Callable[[], None]): pressed handler
         """
         self.gpio.when_activated = handler
         
 
     @property
-    def when_deactivated(self) -> function:
+    def when_deactivated(self) -> Callable[[], None]:
         """ Get the released handler
 
         Returns:
-            function: released handler
+            Callable[[], None]: released handler
         """
         return self.gpio.when_deactivated
 
     @when_deactivated.setter
-    def when_deactivated(self, handler: function) -> None:
+    def when_deactivated(self, handler: Callable[[], None]) -> None:
         """ Set the released handler
 
         Args:
-            handler (function): released handler
+            handler (Callable[[], None]): released handler
         """
         self.gpio.when_deactivated = handler
