@@ -3,7 +3,7 @@ import os
 import sys
 import time
 from unittest import result
-from typing import Optional, TextIO, function
+from typing import Optional, TextIO, Callable, Any
 
 # color:
 # https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
@@ -316,11 +316,11 @@ class LazyReader():
     even if you read it multiple times in a short time.
     For those who don't need to read it too frequently.
     """
-    def __init__(self, read_function: function, interval: int=10) -> None:
+    def __init__(self, read_function: Callable, interval: int=10) -> None:
         """ Initialize the lazy reader.
 
         Args:
-            read_function (function): The function to read.
+            read_function (Callable): The function to read.
             interval (int, optional): The interval to read. Defaults to 10.
         """ 
         self.read_function = read_function

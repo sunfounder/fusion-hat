@@ -20,9 +20,7 @@ keywords = ["fusion_hat", "sunfounder"]
 dynamic = ["version"]
 
 dependencies = [
-  'piper-tts',
-  'vosk',
-  'sox'
+  "git@https://github.com/sunfounder/sunfounder-voice-assistant.git",
 ]
 
 [project.scripts]
@@ -30,15 +28,11 @@ fusion_hat = "fusion_hat.script:fusion_hat_cmd"
 fusion_hat_safe_shutdown = "fusion_hat.safe_shutdown:__main__"
 
 [project.urls]
-Homepage = "https://www.sunfounder.com/products/sunfounder-fusionfusion-hat-expansion-board-designed-for-raspberry-pi"
-Documentation = "https://docs.sunfounder.com/projects/fusion-hat/en/latest/"
-Repository = "https://github.com/sunfounder/fusion-hat/tree/dev"
+Repository = "https://github.com/sunfounder/fusion-hat/"
 Issues = "https://github.com/sunfounder/fusion-hat/issues"
-Changelog = "https://github.com/sunfounder/fusion-hat/commits/dev/"
 
 [tool.setuptools.packages.find]
-include = ["fusion_hat*"] # * means include all subpackages
-exclude = ["docs", 'tests*', 'examples', 'bin', 'dtoverlays']
+include = ["fusion_hat*"]
 
 [tool.setuptools.dynamic]
 version = {attr = "fusion_hat.version.__version__"}

@@ -6,8 +6,8 @@ from secret import OPENAI_API_KEY
 
 tts = OpenAI_TTS(api_key=OPENAI_API_KEY)
 # tts.set_model('tts-1')
-tts.set_voice('alloy')
 tts.set_model('gpt-4o-mini-tts')
+tts.set_voice('alloy')
 
 msg = "Hello! I'm OpenAI TTS."
 print(f"Say: {msg}")

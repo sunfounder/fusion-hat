@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import gpiozero  # https://gpiozero.readthedocs.io/en/latest/installing.html
 from gpiozero import OutputDevice, DigitalInputDevice, Button
-
+from typing import Callable
 
 class Pin():
     """ Pin manipulation class """
@@ -165,12 +165,12 @@ class Pin():
         """
         return self.off()
 
-    def irq(self, handler, trigger, bouncetime: int = 200, pull: int = None) -> None:
+    def irq(self, handler: Callable[[], None], trigger: int = None, bouncetime: int = 200, pull: int = None) -> None:
         """ Set the pin interrupt
 
         Args:
-            handler (function): interrupt handler callback function
-            trigger (int): interrupt trigger(RISING, FALLING, RISING_FALLING)
+            handler (Callable[[], None]): interrupt handler callback function
+            trigger (int, optional): interrupt trigger(RISING, FALLING, RISING_FALLING). Defaults to None.
             bouncetime (int, optional): interrupt bouncetime in miliseconds. Defaults to 200.
 
         Raises:
@@ -231,17 +231,17 @@ class Pin():
 
 
     @property
-    def when_activated(self) -> function:
+    def when_activated(self) -> Callable[[], None]:
         """ Get the pressed handler
 
         Returns:
-            function: pressed handler
+            Callable[[], None]: pressed handler
         """
 
         return self.gpio.when_activated
     
     @when_activated.setter
-    def when_activated(self, handler: function) -> None:
+    def when_activated(self, handler: Callable[[], None]) -> None:
         """ Set the pressed handler
 
         Args:
