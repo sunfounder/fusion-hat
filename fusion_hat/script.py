@@ -1,5 +1,5 @@
 from .version import __version__
-from .device import __device__
+from .device import NAME, ID, I2C_ADDRESS, UUID, PRODUCT_ID, PRODUCT_VER, VENDOR
 import argparse
 
 from .utils import enable_speaker, \
@@ -24,9 +24,9 @@ def fusion_hat_cmd():
     elif args.option == "version":
         info(f"fusion-hat library version: {__version__}")
     elif args.option == "info":
-        info(f'HAT name: {__device__.name}')
-        info(f'PCB ID: O{__device__.product_id}V{__device__.product_ver}')
-        info(f'Vendor: {__device__.vendor}')
+        info(f'HAT name: {NAME}')
+        info(f'PCB ID: O{PRODUCT_ID}V{PRODUCT_VER}')
+        info(f'Vendor: {VENDOR}')
         firmware_ver = get_firmware_version()
         firmware_ver = f'{firmware_ver[0]}.{firmware_ver[1]}.{firmware_ver[2]}'
         info(f"Firmare version: {firmware_ver}")

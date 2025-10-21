@@ -1,7 +1,7 @@
 from .utils import simple_i2c_command
 import time
 import threading
-from typing import Optional, function
+from typing import Callable
 
 class UserButton:
     """ User button class """
@@ -29,43 +29,43 @@ class UserButton:
 
         self.thread = None
 
-    def set_on_click(self, callback: function) -> None:
+    def set_on_click(self, callback: Callable[[], None]) -> None:
         """ Set the callback function when the user button is clicked
 
         Args:
-            callback (function): callback function
+            callback (Callable[[], None]): callback function
         """
         self.__on_click__ = callback
 
-    def set_on_press(self, callback: function) -> None:
+    def set_on_press(self, callback: Callable[[], None]) -> None:
         """ Set the callback function when the user button is pressed
 
         Args:
-            callback (function): callback function
+            callback (Callable[[], None]): callback function
         """
         self.__on_press__ = callback
 
-    def set_on_release(self, callback: function) -> None:
+    def set_on_release(self, callback: Callable[[], None]) -> None:
         """ Set the callback function when the user button is released
 
         Args:
-            callback (function): callback function
+            callback (Callable[[], None]): callback function
         """
         self.__on_release__ = callback
 
-    def set_on_press_released(self, callback: function) -> None:
+    def set_on_press_released(self, callback: Callable[[], None]) -> None:
         """ Set the callback function when the user button is pressed and released
 
         Args:
-            callback (function): callback function
+            callback (Callable[[], None]): callback function
         """
         self.__on_press_released__ = callback
 
-    def set_on_long_press(self, callback: function, duration: float=2.0) -> None:
+    def set_on_long_press(self, callback: Callable[[], None], duration: float=2.0) -> None:
         """ Set the callback function when the user button is long pressed
 
         Args:
-            callback (function): callback function
+            callback (Callable[[], None]): callback function
         """
         self.__on_long_press__[duration] = {
             "callback": callback,
@@ -73,11 +73,11 @@ class UserButton:
             "called": False,
         }
 
-    def set_on_long_press_released(self, callback: function, duration: float=2.0) -> None:
+    def set_on_long_press_released(self, callback: Callable[[], None], duration: float=2.0) -> None:
         """ Set the callback function when the user button is long pressed and released
 
         Args:
-            callback (function): callback function
+            callback (Callable[[], None]): callback function
             duration (float, optional): long press duration(2.0~5.0), leave it None to use default duration, defaults to 2.0
         """
         self.__on_long_press_released__[duration] = {

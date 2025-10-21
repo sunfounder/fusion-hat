@@ -221,10 +221,9 @@ def simple_i2c_command(method: str, reg: int, type: str, *args) -> tuple:
     Returns:
         tuple: status, output
     """
-    from .device import __device__
-    ADDR = __device__.i2c_addr
+    from .device import I2C_ADDRESS
     args = [str(arg) for arg in args]
-    cmd = f"i2c{method} -y 1 {ADDR} {reg} {' '.join(args)}"
+    cmd = f"i2c{method} -y 1 {I2C_ADDRESS} {reg} {' '.join(args)}"
     status, output = run_command(cmd)
     if status != 0 and status != None:
         error(f"I2C {method} command failed, command: {cmd}, status: {status}, output: {output}")
