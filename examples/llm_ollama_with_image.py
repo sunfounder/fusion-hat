@@ -12,8 +12,8 @@ INSTRUCTIONS = "You are a helpful assistant."
 WELCOME = "Hello, I am a helpful assistant. How can I help you?"
 
 llm = Ollama(
-    ip="192.168.100.145",
-    model="llava:7b"
+    ip="localhost",          # e.g., "192.168.100.145" if remote
+    model="llava:7b"         # change to "moondream:1.8b" or "granite3.2-vision:2b" for 8GB RAM
 )
 
 # Set how many messages to keep
