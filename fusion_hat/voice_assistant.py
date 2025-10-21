@@ -37,6 +37,7 @@ You are a helpful assistant, named {NAME}.
 """
 
 class VoiceAssistant:
+    """ Voice assistant class """
     VOICE_ACTIONS = ["bark", "bark harder", "pant",  "howling"]
 
     def __init__(self,
@@ -52,7 +53,23 @@ class VoiceAssistant:
             welcome: str = WELCOME,
             instructions: str = INSTRUCTIONS,
             disable_think: bool = False,
-        ):
+        ) -> None:
+        """ Initialize voice assistant
+
+        Args:
+            llm (LLM): Language model
+            name (str, optional): Robot name, default is NAME
+            with_image (bool, optional): Enable image, need to set up a multimodal language model, default is WITH_IMAGE
+            tts_model (str, optional): Text-to-speech model, default is TTS_MODEL
+            stt_language (str, optional): Speech-to-text language, default is STT_LANGUAGE
+            keyboard_enable (bool, optional): Enable keyboard input, default is KEYBOARD_ENABLE
+            wake_enable (bool, optional): Enable wake word, default is WAKE_ENABLE
+            wake_word (list, optional): Wake word, default is WAKE_WORD
+            answer_on_wake (str, optional): Answer on wake word, default is ANSWER_ON_WAKE
+            welcome (str, optional): Welcome message, default is WELCOME
+            instructions (str, optional): Set instructions, default is INSTRUCTIONS
+            disable_think (bool, optional): Disable think, default is False
+        """
         self.llm = llm
         self.name = name
         self.with_image = with_image
@@ -85,46 +102,99 @@ class VoiceAssistant:
         if self.with_image:
             self.init_image_sensor()
 
-    def before_listen(self):
+    def before_listen(self) -> None:
+        """ Before listen """
         pass
 
-    def after_listen(self, stt_result):
+    def after_listen(self, stt_result: str) -> None:
+        """ After listen
+
+        Args:
+            stt_result (str): Speech-to-text result
+        """
         pass
 
-    def before_think(self, text):
+    def before_think(self, text: str) -> None:
+        """ Before think
+
+        Args:
+            text (str): Text to think
+        """
         pass
 
-    def after_think(self, text):
+    def after_think(self, text: str) -> None:
+        """ After think
+
+        Args:
+            text (str): Text to think
+        """
         pass
 
-    def on_start(self):
+    def on_start(self) -> None:
+        """ On start """
         pass
 
-    def on_wake(self):
+    def on_wake(self) -> None:
+        """ On wake """
         pass
 
-    def on_heard(self, text):
+    def on_heard(self, text: str) -> None:
+        """ On heard
+
+        Args:
+            text (str): Text heard
+        """
         pass
 
-    def parse_response(self, text):
+    def parse_response(self, text: str) -> str:
+        """ Parse response
+
+        Args:
+            text (str): Text to parse
+
+        Returns:
+            str: Parsed text
+        """
         return text
 
-    def add_trigger(self, trigger_function):
+    def add_trigger(self, trigger_function: function) -> None:
+        """ Add trigger function
+
+        Args:
+            trigger_function (function): Trigger function
+        """
         self.triggers.append(trigger_function)
 
-    def before_say(self, text):
+    def before_say(self, text: str) -> None:
+        """ Before say
+
+        Args:
+            text (str): Text to say 
+        """
         pass
 
-    def after_say(self, text):
+    def after_say(self, text: str) -> None:
+        """ After say
+
+        Args:
+            text (str): Text to say
+        """
         pass
 
-    def on_stop(self):
+    def on_stop(self) -> None:
+        """ On stop """
         pass
 
-    def on_finish_a_round(self):
+    def on_finish_a_round(self) -> None:
+        """ On finish a round """ 
         pass
 
     def trigger_wake_word(self) -> tuple[bool, bool, str]:
+        """ Trigger wake word
+
+        Returns:
+            tuple[bool, bool, str]: Triggered, disable image, message
+        """
         triggered = False
         disable_image = False
         message = ''
@@ -144,6 +214,11 @@ class VoiceAssistant:
         return triggered, disable_image, message
 
     def trigger_keyboard_input(self) -> tuple[bool, bool, str]:
+        """ Trigger keyboard input
+
+        Returns:
+            tuple[bool, bool, str]: Triggered, disable image, message
+        """
         triggered = False
         disable_image = False
         message = ''
@@ -153,7 +228,8 @@ class VoiceAssistant:
             triggered = True
         return triggered, disable_image, message
 
-    def init_image_sensor(self):
+    def init_image_sensor(self) -> None:
+        """ Initialize image sensor """
         from vilib import Vilib
         import cv2
 
@@ -171,7 +247,12 @@ class VoiceAssistant:
         time.sleep(.5)
         print('\n')
 
-    def listen(self):
+    def listen(self) -> str:
+        """ Listen
+
+        Returns:
+            str: Speech-to-text result
+        """
         self.before_listen()
 
         stt_result = ""
@@ -191,7 +272,16 @@ class VoiceAssistant:
         self.after_listen(stt_result)
         return stt_result
 
-    def think(self, text, disable_image=False):
+    def think(self, text: str, disable_image: bool=False) -> str:
+        """ Think
+
+        Args:
+            text (str): Text to think
+            disable_image (bool, optional): Disable image, defaults to False
+
+        Returns:
+            str: LLM response
+        """ 
         self.before_think(text)
 
         if self.with_image and not disable_image:
@@ -218,7 +308,8 @@ class VoiceAssistant:
         self.after_think(result)
         return result
 
-    def main(self):
+    def main(self) -> None:
+        """ Main loop """
 
         self.running = True
         self.on_start()
@@ -273,7 +364,8 @@ class VoiceAssistant:
             # Wait a second before next round
             time.sleep(1)
 
-    def run(self):
+    def run(self) -> None:
+        """ Run """
         try:
             self.main()
         except KeyboardInterrupt:

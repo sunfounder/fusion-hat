@@ -2,12 +2,15 @@
 import math
 from .i2c import I2C
 from .device import __device__
+from typing import Optional
+
 
 timer = [{"arr": 1} for _ in range(7)]
 
 class PWM(I2C):
+    """ PWM class to control a single PWM channel """
 
-    ADDR = [0x17]
+    ADDR = 0x17
     CLOCK = 72000000.0
 
     # 3 timer2 for 12 channels
@@ -22,21 +25,18 @@ class PWM(I2C):
 
     CHANNEL_NUM = 12
 
-    def __init__(self, channel, freq=50, addr=None, *args, **kwargs):
-        """
-        Initialize PWM
+    def __init__(self, channel: int, freq: int=50, addr: int=ADDR, *args, **kwargs):
+        """ Initialize PWM
 
-        :param channel: PWM channel number(0-11/P0-P11)
-        :type channel: int/str
-        :param freq: PWM frequency
-        :type freq: int (default: 50)
-
+        Args:
+            channel (int/str): PWM channel number(0-11/P0-P11)
+            freq (int, optional): PWM frequency, default is 50Hz
+            addr (int, optional): I2C address, default is 0x17
+        
+        Raises:
+            ValueError: Invalid channel number
         """
-        if addr is None:
-            super().__init__(self.ADDR, *args, **kwargs)
-        else:
-            super().__init__(addr, *args, **kwargs)
-        # print(f'PWM channel {channel} initialized')
+        super().__init__(addr, *args, **kwargs)
         if isinstance(channel, str):
             if channel.startswith("P"):
                 channel = int(channel[1:])
@@ -67,14 +67,14 @@ class PWM(I2C):
         self.freq(freq)
         self.pulse_width(0)
 
-    def freq(self, freq=None):
-        """
-        Set/get frequency, leave blank to get frequency
+    def freq(self, freq: Optional[float]=None) -> float:
+        """ Set/get frequency, leave blank to get frequency
 
-        :param freq: frequency(0-65535)(Hz)
-        :type freq: float
-        :return: frequency
-        :rtype: float
+        Args:
+            freq (float, optional): frequency(0-65535)(Hz), default is 50Hz
+
+        Returns:
+            float: frequency
         """
         if freq == None:
             return self._freq
@@ -101,15 +101,16 @@ class PWM(I2C):
         self.arr = int(arr) - 1
         self.prescaler(self.psc)
         self.period(self.arr)
+        return self._freq
 
-    def prescaler(self, psc=None):
-        """
-        Set/get prescaler, leave blank to get prescaler
+    def prescaler(self, psc: Optional[int]=None) -> int:
+        """ Set/get prescaler, leave blank to get prescaler
 
-        :param psc: prescaler(0-65535)
-        :type psc: int
-        :return: prescaler
-        :rtype: int
+        Args:
+            psc (int, optional): prescaler(0-65535), default is 0
+
+        Returns:
+            int: prescaler
         """
         if psc == None:
             return self.psc
@@ -120,54 +121,57 @@ class PWM(I2C):
         psc_l = self.psc & 0xff
         data = [self.psc_reg_addr, psc_h, psc_l]
         self.write(data)
+        return self.psc
 
-    def period(self, arr=None):
-        """
-        Set/get period, leave blank to get period
+    def period(self, arr: Optional[int]=None) -> int:
+        """ Set/get period, leave blank to get period
 
-        :param arr: period(0-65535)
-        :type arr: int
-        :return: period
-        :rtype: int
+        Args:
+            arr (int, optional): period(0-65535), default is 0
+
+        Returns:
+            int: period
         """
         if arr == None:
             return self.arr
 
         self.arr = int(arr)
         self._freq = self.CLOCK/(self.psc+1)/(self.arr+1)
-        self.duty_cycle = round(self.ccp / self.arr * 100, 2)
+        self.duty_cycle = round(self.ccp / (self.arr+1) * 100, 2)
         arr_h = (self.arr >> 8) & 0xff
         arr_l = self.arr & 0xff
         data = [self.arr_reg_addr, arr_h, arr_l]
         self.write(data)
+        return self.arr
 
-    def pulse_width(self, ccp=None):
-        """
-        Set/get pulse width, leave blank to get pulse width
+    def pulse_width(self, ccp: Optional[int]=None) -> int:
+        """ Set/get pulse width, leave blank to get pulse width
 
-        :param ccp: pulse width(0-65535)
-        :type ccp: float
-        :return: pulse width
-        :rtype: float
+        Args:
+            ccp (int, optional): pulse width(0-65535), default is 0
+
+        Returns:
+            int: pulse width
         """
         if ccp == None:
             return self.ccp
 
         self.ccp = int(ccp)
         self.duty_cycle = round(self.ccp / (self.arr+1) * 100, 2)
-        cpp_h = (self.ccp >> 8) & 0xff
+        ccp_h = (self.ccp >> 8) & 0xff
         ccp_l = self.ccp & 0xff
-        data = [self.ccp_reg_addr, cpp_h, ccp_l]
+        data = [self.ccp_reg_addr, ccp_h, ccp_l]
         self.write(data)
+        return self.ccp
 
-    def pulse_width_percent(self, duty_cycle=None):
-        """
-        Set/get pulse width percentage, leave blank to get pulse width percentage
+    def pulse_width_percent(self, duty_cycle: Optional[float]=None) -> float:   
+        """ Set/get pulse width percentage, leave blank to get pulse width percentage
 
-        :param duty_cycle: pulse width percentage(0-100)
-        :type duty_cycle: float
-        :return: pulse width percentage
-        :rtype: float
+        Args:
+            duty_cycle (float, optional): pulse width percentage(0-100), default is 0
+
+        Returns:
+            float: pulse width percentage
         """
         if duty_cycle == None:
             return duty_cycle
@@ -178,3 +182,4 @@ class PWM(I2C):
         ccp_l = self.ccp & 0xff
         data = [self.ccp_reg_addr, cpp_h, ccp_l]
         self.write(data)
+        return self.duty_cycle

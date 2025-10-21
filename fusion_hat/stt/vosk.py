@@ -20,9 +20,18 @@ MODEL_LIST_URL = MODEL_PRE_URL + "model-list.json"
 MODEL_BASE_PATH = "/opt/vosk_models"
 
 class Vosk():
+    """ Vosk STT class """
 
     DEFAULT_LANGUAGE = "en-us"
     def __init__(self, language=None, samplerate=None, device=None, log=None):
+        """ Initialize Vosk STT
+
+        Args:
+            language (str, optional): Language, default is None
+            samplerate (int, optional): Samplerate, default is None
+            device (int, optional): Device, default is None
+            log (logging.Logger, optional): Logger, default is None
+        """
 
         if not Path(MODEL_BASE_PATH).exists():
             Path(MODEL_BASE_PATH).mkdir(parents=True)
@@ -52,9 +61,15 @@ class Vosk():
             self.init()
 
     def is_ready(self):
+        """ Check if Vosk STT is ready
+
+        Returns:
+            bool: True if ready, False otherwise
+        """
         return self.recognizer is not None
 
     def init(self):
+        """ Initialize Vosk STT """
         model_path = self.get_model_path(self._language)
         if not model_path.exists():
             self.download_model(self._language)
@@ -63,6 +78,7 @@ class Vosk():
         self.recognizer = KaldiRecognizer(model, self._samplerate)
 
     def update_model_list(self):
+        """ Update available models """
         response = requests.get(MODEL_LIST_URL, timeout=10)
         self.available_models = [model for model in response.json() if
                 model["type"] == "small" and model["obsolete"] == "false"]
@@ -70,6 +86,15 @@ class Vosk():
         self.available_model_names = [model["name"] for model in self.available_models]
 
     def wait_until_heard(self, wake_words=None, print_callback=lambda x: print(f"heard: \x1b[K{x}", end="\r", flush=True)):
+        """ Wait until heard a wake word
+
+        Args:
+            wake_words (list, optional): Wake words, default is None
+            print_callback (function, optional): Print callback, default is None
+
+        Returns:
+            str: Heard wake word
+        """
         if wake_words is None:
             wake_words = self.wake_words
         if isinstance(wake_words, str):
@@ -84,6 +109,14 @@ class Vosk():
         return result
 
     def heard_wake_word(self, print_callback=lambda x: print(f"heard: \x1b[K{x}", end="\r", flush=True)):
+        """ Check if heard a wake word
+
+        Args:
+            print_callback (function, optional): Print callback, default is None
+
+        Returns:
+            bool: True if heard a wake word, False otherwise
+        """
         result = self.listen(stream=False)
         if result is None:
             return False
@@ -91,6 +124,7 @@ class Vosk():
         return result.lower() in self.wake_words
 
     def wait_for_wake_word(self):
+        """ Wait for wake word """
         self.wake_word_thread_started = True
         self.stop_listening_event.clear()
         while self.wake_word_thread_started:
@@ -106,21 +140,30 @@ class Vosk():
         self.wake_word_thread = None
 
     def start_listening_wake_words(self):
-        '''
-        Start listening for wake words.
-        '''
+        """ Start listening for wake words """
         self.waked = False
         self.wake_word_thread = threading.Thread(name="wake_word_thread", target=self.wait_for_wake_word)
         self.wake_word_thread_started = True
         self.wake_word_thread.start()
 
     def is_waked(self):
-        '''
-        Check if the wake word thread is running.
-        '''
+        """ Check if the wake word thread is running
+
+        Returns:
+            bool: True if running, False otherwise
+        """
         return self.waked
 
     def stt(self, filename, stream=False):
+        """ Perform STT on audio file
+
+        Args:
+            filename (str): Audio file path
+            stream (bool, optional): Stream mode, default is False
+
+        Returns:
+            str: STT result
+        """
         with wave.open(filename, "rb") as wf:
             if wf.getnchannels() != 1 or wf.getsampwidth() != 2 or wf.getcomptype() != "NONE":
                 raise ValueError("Audio file must be WAV format mono PCM.")
@@ -134,6 +177,15 @@ class Vosk():
                 return self.recognizer.Result()
 
     def get_stream_result(self, wf, recognizer):
+        """ Get streaming results from recognizer
+
+        Args:
+            wf (wave.Wave_read): Wave file object
+            recognizer (KaldiRecognizer): Vosk recognizer
+
+        Yields:
+            str: STT result
+        """
         while True:
             data = wf.readframes(4000)
             if len(data) == 0:
@@ -144,7 +196,16 @@ class Vosk():
                 yield self.recognizer.PartialResult()
 
     def listen(self, stream=False, device=None, samplerate=None):
-        """ Listen from microphone """
+        """ Listen from microphone and return results
+
+        Args:
+            stream (bool, optional): Stream mode, default is False
+            device (int, optional): Device index, default is None
+            samplerate (int, optional): Sampling rate, default is None
+
+        Returns:
+            str: STT result
+        """
         q = queue.Queue()
         
         def callback(indata, frames, time, status):
@@ -160,7 +221,17 @@ class Vosk():
                 return self._listen_non_streaming(q, device, samplerate, callback)
 
     def _listen_streaming(self, q, device=None, samplerate=None, callback=None):
-        """ Listen from microphone and return streaming results """
+        """ Listen from microphone and return streaming results
+
+        Args:
+            q (queue.Queue): Queue to store audio data
+            device (int, optional): Device index, default is None
+            samplerate (int, optional): Sampling rate, default is None
+            callback (function, optional): Callback function, default is None
+
+        Yields:
+            dict: STT result
+        """
         with sd.RawInputStream(
             samplerate=samplerate,
             blocksize=1024,
@@ -200,7 +271,17 @@ class Vosk():
                     yield result
 
     def _listen_non_streaming(self, q, device=None, samplerate=None, callback=None):
-        """ Listen from microphone and return final result """
+        """ Listen from microphone and return final result
+
+        Args:
+            q (queue.Queue): Queue to store audio data
+            device (int, optional): Device index, default is None
+            samplerate (int, optional): Sampling rate, default is None
+            callback (function, optional): Callback function, default is None
+
+        Returns:
+            str: STT result
+        """
         with sd.RawInputStream(samplerate=samplerate, blocksize=1024, device=device,
                                 dtype="int16", channels=1, callback=callback):
 
@@ -219,27 +300,67 @@ class Vosk():
                         continue
                     return text
 
-    def set_wake_words(self, wake_words):
+    def set_wake_words(self, wake_words: list):
+        """ Set wake words
+
+        Args:
+            wake_words (list): List of wake words
+        """
         self.wake_words = wake_words
 
-    def language(self):
+    def language(self) -> str:
+        """ Get current language
+
+        Returns:
+            str: Current language
+        """
         return self._language
 
-    def set_language(self, language, init=True):
+    def set_language(self, language: str, init=True):
+        """ Set language
+
+        Args:
+            language (str): Language to set
+            init (bool, optional): Initialize recognizer, default is True
+        """
         if language not in self.available_languages:
             raise ValueError(f"Vosk does not support language: {language}. Available languages: {self.available_languages}")
         self._language = language
         if init:
             self.init()
 
-    def get_model_name(self, lang):
+    def get_model_name(self, lang: str) -> str:
+        """ Get model name for language
+
+        Args:
+            lang (str): Language
+
+        Returns:
+            str: Model name
+        """
         return self.available_model_names[self.available_languages.index(lang)]
 
-    def get_model_path(self, lang):
+    def get_model_path(self, lang: str) -> Path:
+        """ Get model path for language
+
+        Args:
+            lang (str): Language
+
+        Returns:
+            Path: Model path
+        """
         model_name = self.get_model_name(lang)
         return Path(MODEL_BASE_PATH, model_name)
 
-    def is_model_downloaded(self, lang):
+    def is_model_downloaded(self, lang: str) -> bool:
+        """ Check if model is downloaded
+
+        Args:
+            lang (str): Language
+
+        Returns:
+            bool: True if model is downloaded, False otherwise
+        """
         model_path = self.get_model_path(lang)
         return model_path.exists()
 
@@ -249,7 +370,14 @@ class Vosk():
             self.stop_downloading_event.set()  # 触发终止事件
             self.log.info("Download cancellation requested")
 
-    def download_model(self, lang, progress_callback=None, max_retries=5):
+    def download_model(self, lang: str, progress_callback=None, max_retries: int=5):
+        """ Download model for language
+
+        Args:
+            lang (str): Language
+            progress_callback (function, optional): Progress callback function, default is None
+            max_retries (int, optional): Maximum retries, default is 5
+        """
         model_path = self.get_model_path(lang)
         if self.is_model_downloaded(lang):
             return
@@ -373,6 +501,13 @@ class Vosk():
             self.stop_downloading_event.clear()  # 重置终止事件
 
     def download_progress_hook(self, tqdm_bar=None, progress_callback=None):
+        """ Download progress hook function
+
+        Args:
+            tqdm_bar (tqdm, optional): tqdm progress bar, default is None
+            progress_callback (function, optional): Progress callback function, default is None
+        """
+
         last_b = [0]
         
         def update_to(b=1, bsize=1, tsize=None):
@@ -395,9 +530,11 @@ class Vosk():
         return update_to
 
     def stop_listening(self):
+        """ Stop listening for wake word """
         self.stop_listening_event.set()
 
     def close(self):
+        """ Close STT """
         self.wake_word_thread_started = False
         self.stop_downloading_event.set()
         self.stop_listening_event.set()
