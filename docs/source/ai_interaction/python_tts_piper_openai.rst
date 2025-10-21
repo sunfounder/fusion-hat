@@ -163,39 +163,6 @@ It supports multiple **languages** and **voices**, making it a powerful option f
 - “say it dramatically” → bold and expressive delivery  
 - “say it excitedly” → enthusiastic tone
 
-**Available Models and Voices**
-
-.. list-table::
-   :header-rows: 1
-   :widths: 20 80
-
-   * - Category
-     - Options
-   * - Models
-     - 
-       - ``tts-1``  
-       - ``tts-1-hd``  
-       - ``gpt-4o-mini-tts``  
-       - ``accent``  
-       - ``emotional-range``  
-       - ``intonation``  
-       - ``impressions``  
-       - ``speed-of-speech``  
-       - ``tone``  
-       - ``whispering``
-   * - Voices
-     - 
-       - ``alloy``  
-       - ``ash``  
-       - ``ballad``  
-       - ``coral``  
-       - ``echo``  
-       - ``fable``  
-       - ``nova``  
-       - ``onyx``  
-       - ``sage``  
-       - ``shimmer``
-
 ----
 
 Troubleshooting
