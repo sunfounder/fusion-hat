@@ -1,4 +1,4 @@
-from fusion_hat import Pin
+from fusion_hat.pin import Pin
 import time
 
 btn = Pin(17, mode=Pin.IN, pull=Pin.PULL_UP, bounce_time=0.05)

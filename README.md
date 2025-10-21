@@ -34,7 +34,9 @@ sudo /opt/setup_fusion_hat_audio.sh
 
 ```bash
 sudo pip uninstall --break fusion_hat -y && sudo pip install --break git+https://github.com/sunfounder/fusion-hat.git@1.1.x
-sudo pip uninstall --break fusion_hat -y && sudo pip install --break ~/fusion-hat/ --break-system-packages --no-deps --no-build-isolation
+sudo pip uninstall --break fusion_hat -y && sudo pip install ~/fusion-hat/ --break-system-packages --no-deps --no-build-isolation
+sudo pip install ~/fusion-hat/ --break-system-packages --no-deps --no-build-isolation
+
 ```
 
 ## About SunFounder
