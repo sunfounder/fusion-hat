@@ -1,8 +1,7 @@
-from .utils import get_shutdown_request
+from .device import get_shutdown_request
 from datetime import datetime
 import os
 import time
-
 
 SHUTDOWN_REQUEST_CODE = {
     0:'none',
@@ -11,7 +10,6 @@ SHUTDOWN_REQUEST_CODE = {
 }
 
 SAFE_SHUTDOWN_LOG_PATH = '/var/log/fusion_hat_safe_shutdown.log'
-
 
 def __main__():
     """ Safe shutdown main loop """

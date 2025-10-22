@@ -30,8 +30,8 @@ class ADC(I2C):
     Args:
         chn (int, str): channel number (0-4/A0-A4)
         address (int, optional): I2C address, default is 0x17
-        *args: Parameters to pass to :class:`fusion_hat.i2c.I2C`.
-        **kwargs: Keyword arguments to pass to :class:`fusion_hat.i2c.I2C`.
+        *args: Parameters to pass to :class:`fusion_hat._i2c.I2C`.
+        **kwargs: Keyword arguments to pass to :class:`fusion_hat._i2c.I2C`.
 
     Raises:
         ValueError: If chn is not between 0-4 or A0-A4

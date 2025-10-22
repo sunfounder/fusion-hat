@@ -5,7 +5,7 @@ import pyaudio
 import os
 import struct
 import math
-from .utils import enable_speaker, disable_speaker
+from .device import enable_speaker, disable_speaker
 
 class Music():
     """ Play music, sound affect and note control """

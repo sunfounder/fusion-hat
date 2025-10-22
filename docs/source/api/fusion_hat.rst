@@ -24,11 +24,11 @@ Submodules
    fusion_hat._base
    fusion_hat._config
    fusion_hat._i2c
+   fusion_hat._logger
+   fusion_hat._utils
    fusion_hat.adc
    fusion_hat.device
    fusion_hat.llm
-   fusion_hat.logger
-   fusion_hat.microphone
    fusion_hat.motor
    fusion_hat.music
    fusion_hat.pin

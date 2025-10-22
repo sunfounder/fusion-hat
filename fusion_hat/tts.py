@@ -3,7 +3,7 @@ from sunfounder_voice_assistant.tts import Pico2Wave as _Pico2Wave
 from sunfounder_voice_assistant.tts import Espeak as _Espeak
 from sunfounder_voice_assistant.tts import OpenAI_TTS as _OpenAI_TTS
 
-from .utils import enable_speaker
+from .device import enable_speaker
 
 class Piper(_Piper):
     """ Piper TTS class. """

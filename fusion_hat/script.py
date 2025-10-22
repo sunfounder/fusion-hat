@@ -2,12 +2,25 @@ from .version import __version__
 from .device import NAME, ID, I2C_ADDRESS, UUID, PRODUCT_ID, PRODUCT_VER, VENDOR
 import argparse
 
-from .utils import enable_speaker, \
+from .device import enable_speaker, \
     disable_speaker, \
-    get_firmware_version, \
-    get_shutdown_request, \
-    info, \
-    warn
+    get_firmware_version
+
+def info(msg: str):
+    """ Print info message
+
+    Args:
+        msg (str): message to print
+    """
+    print(f"[INFO] {msg}")
+
+def warn(msg: str):
+    """ Print warning message
+
+    Args:
+        msg (str): message to print
+    """
+    print(f"[WARN] {msg}")
 
 def fusion_hat_cmd():
     """ fusion_hat command line interface """

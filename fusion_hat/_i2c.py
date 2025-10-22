@@ -58,25 +58,11 @@ Example:
 """
 
 #!/usr/bin/env python3
-from .utils import run_command
+from ._utils import retry
 from smbus2 import SMBus
 from ._base import _Base
 
-def _retry_wrapper(func):
-    """ Retry wrapper for I2C bus read/write functions """
-
-    def wrapper(self, *arg, **kwargs):
-        """ Retry wrapper for I2C bus read/write functions """
-        for _ in range(self.RETRY):
-            try:
-                return func(self, *arg, **kwargs)
-            except OSError:
-                continue
-        else:
-            return False
-
-    return wrapper
-
+__all__ = ["I2C"]
 
 class I2C(_Base):
     """ I2C bus read/write functions
@@ -106,7 +92,7 @@ class I2C(_Base):
         else:
             self.address = address
 
-    @_retry_wrapper
+    @retry(RETRY)
     def write_byte(self, data: int) -> bool:
         """ Write a byte to the I2C bus
 
@@ -120,7 +106,7 @@ class I2C(_Base):
         result = self._smbus.write_byte(self.address, data)
         return result
 
-    @_retry_wrapper
+    @retry(RETRY)
     def write_byte_data(self, reg: int, data: int) -> bool:
         """ Write a byte to the I2C bus
 
@@ -135,7 +121,7 @@ class I2C(_Base):
         result = self._smbus.write_byte_data(self.address, reg, data)
         return result
 
-    @_retry_wrapper
+    @retry(RETRY)
     def write_word_data(self, reg: int, data: int, lsb: bool = False) -> bool:
         """ Write a word to the I2C bus
 
@@ -156,7 +142,7 @@ class I2C(_Base):
         self.log.debug(msg)
         return self._smbus.write_word_data(self.address, reg, data)
 
-    @_retry_wrapper
+    @retry(RETRY)
     def write_i2c_block_data(self, reg: int, data: list) -> bool:
         """ Write a block of data to the I2C bus
 
@@ -171,7 +157,7 @@ class I2C(_Base):
         result = self._smbus.write_i2c_block_data(self.address, reg, data)
         return result
 
-    @_retry_wrapper
+    @retry(RETRY)
     def read_byte(self) -> int:
         """ Read a byte from the I2C bus
 
@@ -182,7 +168,7 @@ class I2C(_Base):
         result = self._smbus.read_byte(self.address)
         return result
 
-    @_retry_wrapper
+    @retry(RETRY)
     def read_byte_data(self, reg: int) -> int:
         """ Read a byte from the I2C bus
 
@@ -196,7 +182,7 @@ class I2C(_Base):
         result = self._smbus.read_byte_data(self.address, reg)
         return result
 
-    @_retry_wrapper
+    @retry(RETRY)
     def read_word_data(self, reg: int, lsb: bool = False) -> int:
         """ Read a word from the I2C bus
 
@@ -217,7 +203,7 @@ class I2C(_Base):
         self.log.debug(msg)
         return result
 
-    @_retry_wrapper
+    @retry(RETRY)
     def read_i2c_block_data(self, reg: int, num: int) -> list:
         """ Read a block of data from the I2C bus
 
@@ -234,7 +220,7 @@ class I2C(_Base):
         self.log.debug(msg) 
         return result
 
-    @_retry_wrapper
+    @retry(RETRY)
     def is_ready(self) -> bool:
         """Check if the I2C device is ready
 
@@ -251,38 +237,32 @@ class I2C(_Base):
             return False
 
     @staticmethod
-    def scan(bus: int = None) -> list:
+    def scan(bus: int = None, force: bool = False) -> list:
         """Scan the I2C bus for devices
 
         Args:
-            bus (int): I2C bus number
+            bus (int, optional): I2C bus number, default is 1
+            force (bool, optional): True if force to access the I2C bus, False otherwise, default is False
 
         Returns:
             list: List of I2C addresses of devices found
         """
-        self.log.debug(f"Scan I2C bus {bus}")
-        if bus is None:
-            bus = I2C._bus
-        cmd = f"i2cdetect -y {bus}"
-        # Run the i2cdetect command
-        _, output = run_command(cmd)
+        devices = []
+        for addr in range(0x03, 0x77 + 1):
+            read = SMBus.read_byte, (addr,), {'force':force}
+            write = SMBus.write_byte, (addr, 0), {'force':force}
+            for func, args, kwargs in (read, write):
+                try:
+                    with SMBus(bus) as bus:
+                        data = func(bus, *args, **kwargs)
+                        devices.append(addr)
+                        break
+                except OSError as expt:
+                    if expt.errno == 16:
+                        # just busy, maybe permanent by a kernel driver or just temporary by some user code
+                        pass
+        return devices
 
-        # Parse the output
-        outputs = output.split('\n')[1:]
-        addresses = []
-        addresses_str = []
-        for tmp_addresses in outputs:
-            if tmp_addresses == "":
-                continue
-            tmp_addresses = tmp_addresses.split(':')[1]
-            # Split the addresses into a list
-            tmp_addresses = tmp_addresses.strip().split(' ')
-            for address in tmp_addresses:
-                if address != '--':
-                    addresses.append(int(address, 16))
-                    addresses_str.append(f'0x{address}')
-        self.log.debug(f"Found I2C devices: {addresses_str}")
-        return addresses
 
     def write(self, data: int | list | bytearray) -> None:
         """ Write data to the I2C device

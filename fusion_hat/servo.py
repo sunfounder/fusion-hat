@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from .pwm import PWM
-from .utils import mapping, constrain
+from ._utils import mapping, constrain
 from typing import Optional
 
 class Servo(PWM):

@@ -1,5 +1,5 @@
 from fusion_hat.microphone import Microphone
-from fusion_hat.utils import enable_speaker
+from fusion_hat.device import enable_speaker
 import os
 
 

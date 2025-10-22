@@ -126,3 +126,5 @@ class Config():
             str: string representation of the config
         """
         return f'Config({self.config_file})'
+
+__all__ = ["Config"]

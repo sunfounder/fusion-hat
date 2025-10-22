@@ -1,42 +1,57 @@
-#!/usr/bin/env python3
+
 from .pwm import PWM
-from .utils import mapping
+from ._utils import mapping
+from ._base import _Base
 
-class Motor():
-    """ Motor class """
+class Motor(_Base):
+    """ Motor class
+
+    There are two ways to initialize a motor:
+    1. Pass a motor name as a string.
+    2. Pass two pwm pins as PWM objects.
+
+    Method 1:
+    Args:
+        motor (str): Motor name
+    
+    Method 2:
+    Args:
+        pwm_a (fusion_hat.pwm.PWM): Motor speed control pwm pin a
+        pwm_b (fusion_hat.pwm.PWM): Motor speed control pwm pin b
+    """
+
     PERIOD = 4095
+    """PWM period"""
     PRESCALER = 10
+    """PWM prescaler"""
     DEFAULT_FREQ = 100 # Hz
+    """Default PWM frequency"""
     DEFAULT_MAX = 100 # %
+    """Default maximum motor power"""
     DEFAULT_MIN = 0 # %
+    """Default minimum motor power"""
 
-    DEFAULT_MOTOR_PINS = {
+    MOTOR_PINS = {
         'M0': ['P11', 'P10'],
         'M1': ['P9', 'P8'],
         'M2': ['P6', 'P7'],
         'M3': ['P4', 'P5']
     }
+    """Motor pins"""
 
     def __init__(self, *args, **kwargs) -> None:
-        """ Initialize a motor optional parameters
-
-        one parameter is motor name, two parameters are pwm pins
-
-        Args:
-            motor (str): Motor name
-            pwm_a (fusion_hat.pwm.PWM): Motor speed control pwm pin a
-            pwm_b (fusion_hat.pwm.PWM): Motor speed control pwm pin b
-        """
-
         self.motor = None
         self.pwm_a = None
         self.pwm_b = None
 
         if len(args) == 1:
-            self.motor = args[0]
+            self.motor = args.pop()
+
         elif len(args) == 2:
-            self.pwm_a = args[0]
-            self.pwm_b = args[1]
+            self.pwm_a = args.pop(0)
+            self.pwm_b = args.pop(1)
+        
+        super().__init__(*args, **kwargs)
 
         self.freq = kwargs.get('freq', self.DEFAULT_FREQ)
         self.max = kwargs.get('max', self.DEFAULT_MAX)
@@ -46,8 +61,8 @@ class Motor():
         if self.motor != None:
             if self.motor not in ['M0', 'M1', 'M2', 'M3']:
                 raise ValueError("motor must be 'M0', 'M1', 'M2', 'M3'")
-            self.pwm_a = PWM(self.DEFAULT_MOTOR_PINS[self.motor][0])
-            self.pwm_b = PWM(self.DEFAULT_MOTOR_PINS[self.motor][1])
+            self.pwm_a = PWM(self.MOTOR_PINS[self.motor][0])
+            self.pwm_b = PWM(self.MOTOR_PINS[self.motor][1])
 
         if not isinstance(self.pwm_a, PWM):
             raise TypeError("pin_a must be a class PWM")

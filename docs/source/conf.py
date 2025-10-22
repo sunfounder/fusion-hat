@@ -22,9 +22,6 @@ import sys
 import time
 sys.path.insert(0, os.path.abspath('../../'))
 
-autodoc_mock_imports = ["smbus2", "RPi", "pyaudio", "numpy", "spidev", "gpiozero"]
-autodoc_default_options = {'member-order': 'bysource', }
-
 project = 'SunFounder Fusion HAT+'
 copyright = f'{time.localtime().tm_year}, SunFounder'
 author = 'www.sunfounder.com'
@@ -60,7 +57,17 @@ templates_path = ['_templates']
 exclude_patterns = []
 
 # AutoDoc settings
+autodoc_mock_imports = [
+    "luma",
+    "smbus2",
+    "RPi",
+    "pyaudio",
+    "numpy",
+    "spidev",
+    "gpiozero",
+]
 autodoc_default_options = {
+    'member-order': 'bysource',
     'members': True,          # 默认显示类/函数成员
     'classes': True,          # 默认只显示类（过滤函数，可选）
     'show-inheritance': True, # 默认显示继承关系

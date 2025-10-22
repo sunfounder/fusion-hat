@@ -1,9 +1,10 @@
 import math
+from .device import I2C_ADDRESS
 from ._i2c import I2C
+from ._base import _Base
 from typing import Optional
 
-
-class PWM_GROUP():
+class PWM_GROUP(_Base):
     """ PWM group class to control multiple PWM channels
 
     PWM channels:
@@ -23,24 +24,22 @@ class PWM_GROUP():
         9       PB15     TIM14_CH1
         10      PB8      TIM15_CH0
         11      PB9      TIM16_CH1
+
+    Args:
+        channels (list): PWM channels
+        freq (int, optional): PWM frequency, default is 50Hz
+        addr (int, optional): I2C address, default is 0x17
+        auto_write (bool, optional): Auto write to register, default is False
     """
 
     REG_PSC = 0x40 # Prescaler register prefix
     REG_ARR = 0x50 # Period registor prefix
     REG_CCP = 0x60 # Pluse width register prefix
 
-    ADDR = [0x17]
     CLOCK = 72000000.0 # Clock frequency, 72MHz
 
-    def __init__(self, channels:list, freq: int=50, addr: int=0x17, auto_write: bool=False) -> None:
-        """ Initialize a pwm group optional parameters
-
-        Args:
-            channels (list): PWM channels
-            freq (int, optional): PWM frequency, default is 50Hz
-            addr (int, optional): I2C address, default is 0x17
-            auto_write (bool, optional): Auto write to register, default is False
-        """
+    def __init__(self, channels:list, *args, freq: int=50, addr: int=I2C_ADDRESS, auto_write: bool=False, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.addr = addr
         self._i2c = I2C(addr)
 
