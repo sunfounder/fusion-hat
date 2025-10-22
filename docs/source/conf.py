@@ -39,10 +39,11 @@ extensions = [
     'sphinx_copybutton',
     'sphinx_rtd_theme',
     #'sphinx_toolbox.collapse',
-    'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon',
     #'sphinx.ext.imgmath',
+    'sphinx.ext.autodoc',  # 自动从代码提取文档
+    'sphinx.ext.napoleon',  # 解析Google/NumPy风格文档
+    'sphinx.ext.viewcode',  # 显示代码链接（可选）
 ]
 
 html_theme_options = {
