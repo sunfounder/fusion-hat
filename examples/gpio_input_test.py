@@ -1,12 +1,12 @@
-from fusion_hat.pin import Pin
+from fusion_hat.pin import Pin, Mode, Pull, Active
 from time import sleep
 
 print("GPIO Input Test")
 
-io17 = Pin(17, Pin.IN, Pin.PULL_UP)
-io4 = Pin(4, Pin.IN, Pin.PULL_DOWN)
-io27 = Pin(27, Pin.IN, Pin.PULL_NONE, active_state=True)
-io22 = Pin(22, Pin.IN, Pin.PULL_NONE, active_state=False)
+io17 = Pin(17, mode=Mode.IN, pull=Pull.UP)
+io4 = Pin(4, mode=Mode.IN, pull=Pull.DOWN)
+io27 = Pin(27, mode=Mode.IN, pull=Pull.NONE, active_state=Active.HIGH)
+io22 = Pin(22, mode=Mode.IN, pull=Pull.NONE, active_state=Active.LOW)
 
 
 while True:

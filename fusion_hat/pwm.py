@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import math
-from .i2c import I2C
+from ._i2c import I2C
 from .device import I2C_ADDRESS
 from typing import Optional
 

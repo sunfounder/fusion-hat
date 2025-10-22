@@ -1,4 +1,4 @@
-from ..i2c import I2C
+from .._i2c import I2C
 from time import sleep
 
 class LCD1602():

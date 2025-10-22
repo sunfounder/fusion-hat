@@ -59,6 +59,29 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# AutoDoc settings
+autodoc_default_options = {
+    'members': True,          # 默认显示类/函数成员
+    'classes': True,          # 默认只显示类（过滤函数，可选）
+    'show-inheritance': True, # 默认显示继承关系
+    'undoc-members': False,   # 不显示无 docstring 的成员（避免杂乱）
+}
+
+# Napoleon settings
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_init_with_doc = False
+napoleon_include_private_with_doc = True
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = False
+napoleon_use_admonition_for_notes = False
+napoleon_use_admonition_for_references = False
+napoleon_use_ivar = True
+napoleon_use_param = True
+napoleon_use_rtype = True
+napoleon_preprocess_types = False
+napoleon_type_aliases = None
+napoleon_attr_annotations = True
 
 # -- Options for HTML output -------------------------------------------------
 

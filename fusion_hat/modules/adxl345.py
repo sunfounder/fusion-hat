@@ -1,4 +1,4 @@
-from ..i2c import I2C
+from .._i2c import I2C
 from typing import Union, List, Tuple, Optional
 
 class ADXL345(I2C):

@@ -1,133 +1,188 @@
 #!/usr/bin/env python3
-from gpiozero import OutputDevice, DigitalInputDevice, Button
+from RPi import GPIO
 from typing import Callable
+from enum import Enum
 
-class Pin():
-    """ Pin manipulation class """
+from ._base import _Base
 
-    OUT = 0x01
-    """Pin mode output"""
-    IN = 0x02
-    """Pin mode input"""
+class Mode(Enum):
+    """ Pin direction """
+    AUTO = None
+    """Pin direction auto"""
+    IN = GPIO.IN
+    """Pin direction input"""
+    OUT = GPIO.OUT
+    """Pin direction output"""
 
-    PULL_UP = 0x11
+class Pull(Enum):
+    """ Pin pull up/down """
+    UP = GPIO.PUD_UP
     """Pin internal pull up"""
-    PULL_DOWN = 0x12
+    DOWN = GPIO.PUD_DOWN
     """Pin internal pull down"""
-    PULL_NONE = None
+    NONE = GPIO.PUD_OFF
     """Pin internal pull none"""
 
-    IRQ_FALLING = 0x21
+class Active(Enum):
+    """ Pin active state """
+    HIGH = True
+    """Pin active state high"""
+    LOW = False
+    """Pin active state low"""
+
+class Trigger(Enum):
+    """ Pin interrupt """
+    FALLING = GPIO.FALLING
     """Pin interrupt falling"""
-    IRQ_RISING = 0x22
-    """Pin interrupt falling"""
-    IRQ_RISING_FALLING = 0x23
+    RISING = GPIO.RISING
+    """Pin interrupt rising"""
+    BOTH = GPIO.BOTH
     """Pin interrupt both rising and falling"""
 
-    def __init__(self, pin: int, mode: int = None, pull: int = None, active_state: bool = True, bounce_time: float = None):
+class Pin(_Base):
+    """ Pin manipulation class """
+
+    OUT = Mode.OUT
+    """Pin mode output"""
+    IN = Mode.IN
+    """Pin mode input"""
+    AUTO = Mode.AUTO
+    """Pin mode auto"""
+
+    PULL_UP = Pull.UP
+    """Pin internal pull up"""
+    PULL_DOWN = Pull.DOWN
+    """Pin internal pull down"""
+    PULL_NONE = Pull.NONE
+    """Pin internal pull none"""
+
+    IRQ_FALLING = Trigger.FALLING
+    """Pin interrupt falling"""
+    IRQ_RISING = Trigger.RISING
+    """Pin interrupt rising"""
+    IRQ_RISING_FALLING = Trigger.BOTH
+    """Pin interrupt both rising and falling"""
+
+    def __init__(self, pin: int, *args, mode: Mode = Mode.AUTO, pull: Pull = Pull.NONE, active_state: Active = Active.HIGH, bounce_time: float = None, **kwargs):
         """ Initialize a pin
 
         Args:
             pin (int): pin number of Raspberry Pi
-            mode (int, optional): pin mode(IN/OUT). Defaults to None.
-            pull (int, optional): pin pull up/down(PUD_UP/PUD_DOWN/PUD_NONE). Defaults to None.
-            active_state (bool, optional): active state of pin,  
+            mode (Mode, optional): pin mode(IN/OUT/AUTO). Defaults to Mode.AUTO.
+            pull (Pull, optional): pin pull (Pull.UP/Pull.DOWN/Pull.NONE). Defaults to Pull.NONE.
+            active_state (Active, optional): active state of pin,  
                             If True, when the hardware pin state is HIGH, the software pin is HIGH. 
-                            If False, the input polarity is reversed. Defaults to None.
+                            If False, the input polarity is reversed. Defaults to Active.HIGH.
             bounce_time (float, optional): bounce time of pin interrupt. Defaults to None.
         """
+        super().__init__(*args, **kwargs)
 
-        # parse pin
+        GPIO.setmode(GPIO.BCM)
         self._pin_num = pin
-        
-        # setup
         self._value = 0
-        self.gpio = None
+        self._initialized = False
+        self._irq_inited = False
+        self._on_activated = None
+        self._on_deactivated = None
         self.setup(mode, pull, active_state, bounce_time)
 
     def close(self) -> None:
         """ Close the pin """
-        self.gpio.close()
+        self.log.debug("Close pin %d", self._pin_num)
+        GPIO.cleanup(self._pin_num)
 
     def deinit(self) -> None:
         """Deinitialize the pin"""
-        self.gpio.close()
-        self.gpio.pin_factory.close()
-
-    def setup(self, mode: int = None, pull: int = None, active_state: bool = None, bounce_time: float = None) -> None:
+        self.log.debug("Deinitialize pin %d", self._pin_num)
+        GPIO.cleanup(self._pin_num)
+        
+    def setup(self, mode: Mode = Mode.AUTO, pull: Pull = Pull.NONE, active_state: Active = Active.HIGH, bounce_time: float = None) -> None:
         """ Setup the pin
 
         Args:
-            mode (int, optional): pin mode(IN/OUT). Defaults to None.
-            pull (int, optional): pin pull up/down(PUD_UP/PUD_DOWN/PUD_NONE). Defaults to None.
-            active_state (bool, optional): active state of pin,  
+            mode (Mode, optional): pin mode(IN/OUT/AUTO). Defaults to Mode.AUTO.
+            pull (Pull, optional): pin pull (Pull.UP/Pull.DOWN/Pull.NONE). Defaults to Pull.NONE.
+            active_state (Active, optional): active state of pin,
                             If True, when the hardware pin state is HIGH, the software pin is HIGH. 
-                            If False, the input polarity is reversed. Defaults to None.
+                            If False, the input polarity is reversed. Defaults to Active.HIGH.
             bounce_time (float, optional): bounce time of pin interrupt in seconds. Defaults to None.
         """
-        # check mode
-        if mode in [None, self.OUT, self.IN]:
-            self._mode = mode
-        else:
-            raise ValueError(
-                f'mode param error, should be None, Pin.OUT, Pin.IN')
-        # check pull
-        if pull in [self.PULL_NONE, self.PULL_DOWN, self.PULL_UP]:
-            self._pull = pull
-        else:
-            raise ValueError(
-                f'pull param error, should be None, Pin.PULL_NONE, Pin.PULL_DOWN, Pin.PULL_UP'
-            )
-        #
-        if self.gpio != None:
-            if self.gpio.pin != None:
-                self.gpio.close()
-        #
-        if mode in [None, self.OUT]:
-            self.gpio = OutputDevice(self._pin_num)
-        else:
-            if pull == self.PULL_UP:
-                self.gpio = DigitalInputDevice(self._pin_num, pull_up=True, active_state=None, bounce_time=bounce_time)
-            elif pull == self.PULL_DOWN:
-                self.gpio = DigitalInputDevice(self._pin_num, pull_up=False, active_state=None, bounce_time=bounce_time)
-            else:
-                self.gpio = DigitalInputDevice(self._pin_num, pull_up=None, active_state=active_state, bounce_time=bounce_time)
+        self.log.debug("Setup pin %d, mode %s, pull %s, active_state %s, bounce_time %s", self._pin_num, mode, pull, active_state, bounce_time)
+        self._mode = mode
+        self._pull = pull
+        self._active_state = active_state
+        self._bounce_time = bounce_time
 
-    def __call__(self, value: bool = None) -> int:
+        if self._initialized:
+            self.log.warning("Pin %d already initialized, deinitializing", self._pin_num)
+            self.deinit()
+
+        if self._mode != Mode.AUTO:
+            GPIO.setup(self._pin_num, self._mode.value, pull_up_down=self._pull.value)
+        self._initialized = True
+
+    def __call__(self, value: [bool, int] = None) -> int:
         """ Set/get the pin value
 
         Args:
-            value (bool, optional): pin value, leave it empty to get the value(0/1). Defaults to None.
+            value (bool/int, optional): pin value, leave it empty to get the value(0/1). Defaults to None.
 
         Returns:
             int: pin value(0/1)
         """
         return self.value(value)
 
-    def value(self, value: bool = None) -> int:
-        """ Set/get the pin value
+    def raw(self, value: [bool, int] = None) -> int:
+        """ Set/get the pin raw value
 
         Args:
-            value (bool, optional): pin value, leave it empty to get the value(0/1). Defaults to None.
+            value (bool/int, optional): pin value, leave it empty to get the value(0/1). Defaults to None.
 
         Returns:
             int: pin value(0/1)
+
+        Raises:
+            ValueError: if pin mode is IN
         """
         if value == None:
-            if self._mode in [None, self.OUT]:
-                self.setup(self.IN)
-            result = self.gpio.value
+            if self._mode == Mode.AUTO:
+                GPIO.setup(self._pin_num, self.IN.value, pull_up_down=self._pull.value)
+                result = GPIO.input(self._pin_num)
+            else:
+                result = self._value
             return result
         else:
-            if self._mode in [self.IN]:
-                self.setup(self.OUT)
-            if bool(value):
-                value = 1
-                self.gpio.on()
+            if self._mode == Mode.IN:
+                raise ValueError("Input pin cannot set value")
+            elif self._mode == Mode.AUTO:
+                GPIO.setup(self._pin_num, self.OUT.value, pull_up_down=self._pull.value)
+            self._value = 1 if bool(value) else 0
+            GPIO.output(self._pin_num, self._value)
+            return self._value
+
+    def value(self, value: [bool, int] = None) -> int:
+        """ Set/get the pin value
+
+        Args:
+            value (bool/int, optional): pin value, leave it empty to get the value(0/1). Defaults to None.
+
+        Returns:
+            int: pin value(0/1)
+
+        Raises:
+            ValueError: if pin mode is IN
+        """
+        if value == None:
+            value = self.raw()
+            if self._active_state == Active.HIGH:
+                return value
             else:
-                value = 0
-                self.gpio.off()
-            return value
+                return value + 1 & 1
+        else:
+            if self._active_state == Active.HIGH:
+                self.raw(value)
+            else:
+                self.raw(value + 1 & 1)
 
     def on(self) -> int:
         """ Set pin on(high)
@@ -151,7 +206,7 @@ class Pin():
         Returns:
             int: pin value(1)
         """
-        return self.on()
+        return self.raw(1)
 
     def low(self) -> int:
         """ Set pin low(0)
@@ -159,72 +214,42 @@ class Pin():
         Returns:
             int: pin value(0)
         """
-        return self.off()
+        return self.raw(0)
 
-    def irq(self, handler: Callable[[], None], trigger: int = None, bouncetime: int = 200, pull: int = None) -> None:
+    def irq(self, handler: Callable[[], None], trigger: Trigger = Trigger.BOTH) -> None:
         """ Set the pin interrupt
 
         Args:
             handler (Callable[[], None]): interrupt handler callback function
-            trigger (int, optional): interrupt trigger(RISING, FALLING, RISING_FALLING). Defaults to None.
-            bouncetime (int, optional): interrupt bouncetime in miliseconds. Defaults to 200.
+            trigger (Trigger, optional): interrupt trigger(RISING, FALLING, RISING_FALLING). Defaults to Trigger.BOTH.
 
         Raises:
             ValueError: if trigger is not valid
         """
-        # check trigger
-        if trigger not in [
-                self.IRQ_FALLING, self.IRQ_RISING, self.IRQ_RISING_FALLING
-        ]:
-            raise ValueError(
-                f'trigger param error, should be None, Pin.IRQ_FALLING, Pin.IRQ_RISING, Pin.IRQ_RISING_FALLING'
-            )
+        GPIO.add_event_detect(self._pin_num, trigger.value, handler, bouncetime=self._bounce_time*1000)
+        self._irq_inited = True
 
-        # check pull
-        if pull in [self.PULL_NONE, self.PULL_DOWN, self.PULL_UP]:
-            self._pull = pull
-            if pull == self.PULL_UP:
-                _pull_up = True
-            else:
-                _pull_up = False
-        else:
-            raise ValueError(
-                f'pull param error, should be None, Pin.PULL_NONE, Pin.PULL_DOWN, Pin.PULL_UP'
-            )
+    def init_irq(self) -> None:
+        """ Initialize the pin interrupt
+        """
+        if self._irq_inited:
+            return
+        self.log.debug("Setting up IRQ for pin %d", self._pin_num)
+        GPIO.add_event_detect(self._pin_num, Trigger.BOTH.value, self.irq_handler, bouncetime=int(self._bounce_time*1000))
+        self._irq_inited = True
 
-        pressed_handler = None
-        released_handler = None
+    def irq_handler(self, channel: int) -> None:
+        """ Handle the pin interrupt
 
-        if not isinstance(self.gpio, Button):
-            if self.gpio != None:
-                self.gpio.close()
-            self.gpio = Button(pin=self._pin_num,
-                               pull_up=_pull_up,
-                               bounce_time=float(bouncetime / 1000))
-            self._bouncetime = bouncetime
-        else:
-            if bouncetime != self._bouncetime:
-                pressed_handler = self.gpio.when_pressed
-                released_handler = self.gpio.when_released
-                self.gpio.close()
-                self.gpio = Button(pin=self._pin_num,
-                                   pull_up=_pull_up,
-                                   bounce_time=float(bouncetime / 1000))
-                self._bouncetime = bouncetime
-
-        if trigger in [None, self.IRQ_FALLING]:
-            pressed_handler = handler
-        elif trigger in [self.IRQ_RISING]:
-            released_handler = handler
-        elif trigger in [self.IRQ_RISING_FALLING]:
-            pressed_handler = handler
-            released_handler = handler
-
-        if pressed_handler is not None:
-            self.gpio.when_pressed = pressed_handler
-        if released_handler is not None:
-            self.gpio.when_released = released_handler
-
+        Args:
+            channel (int): pin number
+        """
+        if self._on_activated and self.value() == 1:
+            self.log.debug("Pin %d activated", self._pin_num)
+            self._on_activated()
+        elif self._on_deactivated and self.value() == 0:
+            self.log.debug("Pin %d deactivated", self._pin_num)
+            self._on_deactivated()
 
     @property
     def when_activated(self) -> Callable[[], None]:
@@ -233,8 +258,7 @@ class Pin():
         Returns:
             Callable[[], None]: pressed handler
         """
-
-        return self.gpio.when_activated
+        return self._on_activated
     
     @when_activated.setter
     def when_activated(self, handler: Callable[[], None]) -> None:
@@ -243,8 +267,8 @@ class Pin():
         Args:
             handler (Callable[[], None]): pressed handler
         """
-        self.gpio.when_activated = handler
-        
+        self.init_irq()
+        self._on_activated = handler
 
     @property
     def when_deactivated(self) -> Callable[[], None]:
@@ -253,7 +277,7 @@ class Pin():
         Returns:
             Callable[[], None]: released handler
         """
-        return self.gpio.when_deactivated
+        return self._on_deactivated
 
     @when_deactivated.setter
     def when_deactivated(self, handler: Callable[[], None]) -> None:
@@ -262,4 +286,5 @@ class Pin():
         Args:
             handler (Callable[[], None]): released handler
         """
-        self.gpio.when_deactivated = handler
+        self.init_irq()
+        self._on_deactivated = handler

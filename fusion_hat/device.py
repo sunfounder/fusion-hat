@@ -1,21 +1,35 @@
-""" Devices constants """
+""" Devices constants
+
+
+"""
 
 import os
-
 
 HAT_DEVICE_TREE = "/proc/device-tree/"
 
 NAME = "Fusion Hat"
+""" Name of the board """
+
 ID = "fusion_hat"
+""" ID of the board """
+
 I2C_ADDRESS = 0x17
+""" I2C address of the board """
+
 UUID = "9daeea78-0000-0774-000a-582369ac3e02"
+""" UUID of the board """
 
 PRODUCT_ID = 0x0774
+""" Product ID of the board """
+
 PRODUCT_VER = 0x000a
+""" Product version of the board """
+
 VENDOR = "SunFounder"
+""" Vendor of the board """ 
 
 def is_installed() -> bool:
-    """ Check if a fusion hat is installed
+    """ Check if a Fusion Hat board is installed
 
     Returns:
         bool: True if installed, False otherwise
