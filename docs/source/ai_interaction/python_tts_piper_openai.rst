@@ -21,7 +21,7 @@ Now, let’s take a big step forward and try two **more advanced TTS options** t
 * **Piper** — a fast, neural network–based TTS engine that runs **completely offline** on Raspberry Pi.  
 * **OpenAI TTS** — an online service that provides **very natural and human-like voices**, perfect for expressive speech.
 
-These engines will make your Fusion HAT sound more realistic and lifelike. 🚀
+These engines will make your Fusion HAT+ sound more realistic and lifelike. 🚀
 
 ----
 
@@ -41,7 +41,7 @@ It supports multiple **languages** and **voices**, making it a powerful option f
       sudo python3 test_tts_piper.py
 
 * The first time you run it, the selected **voice model** will be downloaded automatically.  
-* You should then hear the Fusion HAT say: ``Hello! I'm Piper TTS.``  
+* You should then hear the Fusion HAT+ say: ``Hello! I'm Piper TTS.``  
 * You can switch voices or languages by calling ``set_model()`` with a different model name.
 
 **Code**
@@ -114,7 +114,7 @@ It supports multiple **languages** and **voices**, making it a powerful option f
   cd ~/fusion-hat/examples
   sudo python3 tts_openai.py
 
-* The program will connect to OpenAI’s TTS service, and the Fusion HAT will speak using **natural, expressive voice output**.  
+* The program will connect to OpenAI’s TTS service, and the Fusion HAT+ will speak using **natural, expressive voice output**.  
 * You can change **voice styles** and add **instructions** to control tone and expression (e.g., sad, dramatic, playful).  
 * This makes OpenAI TTS ideal for interactive robots, storytelling, or educational assistants.
 

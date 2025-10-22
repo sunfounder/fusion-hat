@@ -1,7 +1,7 @@
 DHT11 Class
 ===========
 
-The `DHT11` class provides an interface for reading temperature and humidity data from a DHT11 sensor using the Raspberry Pi's GPIO pins.
+The ``DHT11`` class provides an interface for reading temperature and humidity data from a DHT11 sensor using the Raspberry Pi's GPIO pins.
 
 
 
@@ -26,7 +26,7 @@ The `DHT11` class provides an interface for reading temperature and humidity dat
 
    This function performs the signal protocol required by the DHT11 to fetch 40 bits of data (5 bytes). It then verifies the checksum and extracts the humidity and temperature values.
 
-   :return: Tuple of (humidity, temperature) on success, or `False` on failure.
+   :return: Tuple of (humidity, temperature) on success, or ``False`` on failure.
    :rtype: tuple[int, int] or bool
 
    Example::
@@ -100,5 +100,5 @@ The `DHT11` class provides an interface for reading temperature and humidity dat
 
 
 - Requires root or GPIO access on the Raspberry Pi.
-- Uses `RPi.GPIO` internally.
+- Uses ``RPi.GPIO`` internally.
 - Results may be unstable if not given enough delay between reads (1–2 seconds recommended).

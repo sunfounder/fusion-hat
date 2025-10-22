@@ -96,7 +96,7 @@ This means:
 
    * The model file (``vosk-model-small-en-us-0.15``) has been downloaded.  
    * The list of supported languages has been printed.  
-   * The system is now listening — say something into the Fusion HAT microphone, and the recognized text will appear in the terminal.
+   * The system is now listening — say something into the Fusion HAT+ microphone, and the recognized text will appear in the terminal.
 
 **Tips:**
 

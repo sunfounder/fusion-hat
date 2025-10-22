@@ -1,7 +1,7 @@
 fileDB Class
 ============
 
-The `fileDB` class implements a lightweight file-based key-value database using plain text files. It provides simple methods to persist and retrieve configuration or calibration data in a structured format.
+The ``fileDB`` class implements a lightweight file-based key-value database using plain text files. It provides simple methods to persist and retrieve configuration or calibration data in a structured format.
 
 **Overview**
 
@@ -16,11 +16,11 @@ This class is ideal for storing small configuration settings where a full databa
 
    :param db: Path to the database file.
    :type db: str
-   :param mode: Optional file permissions to apply (e.g., `'644'`).
+   :param mode: Optional file permissions to apply (e.g., ``'644'``).
    :type mode: str or None
-   :param owner: Optional file owner (e.g., `'pi'`).
+   :param owner: Optional file owner (e.g., ``'pi'``).
    :type owner: str or None
-   :raises ValueError: If `db` is not provided.
+   :raises ValueError: If ``db`` is not provided.
 
 **Methods**
 
@@ -30,7 +30,7 @@ This class is ideal for storing small configuration settings where a full databa
 
    :param file_path: Full path to the file to check or create.
    :type file_path: str
-   :param mode: Optional file permission (e.g., `'755'`).
+   :param mode: Optional file permission (e.g., ``'755'``).
    :type mode: str or None
    :param owner: Optional user to set as owner.
    :type owner: str or None
@@ -85,7 +85,7 @@ The file is a simple key-value format, allowing comments:
 
 **Notes**
 
-- Comments starting with `#` are ignored.
+- Comments starting with ``#`` are ignored.
 - Keys and values are stored as strings.
-- Missing keys return `None` or the provided `default_value`.
+- Missing keys return ``None`` or the provided ``default_value``.
 

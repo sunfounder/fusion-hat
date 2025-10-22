@@ -4,7 +4,7 @@
 PWM Class
 =========
 
-The `PWM` class provides an interface to hardware Pulse Width Modulation (PWM) via I2C. It allows setting PWM frequency, duty cycle, and period for up to 12 channels.
+The ``PWM`` class provides an interface to hardware Pulse Width Modulation (PWM) via I2C. It allows setting PWM frequency, duty cycle, and period for up to 12 channels.
 
 **Constants**
 

@@ -2,7 +2,7 @@ RGB_LED Class
 ====================
 
 
-The `RGB_LED` class allows you to set the color of a 3-pin RGB LED using `PWM` objects for each of the red, green, and blue channels. Colors can be set using hex strings (e.g., "#FF0000"), 24-bit integers, or RGB tuples/lists.
+The ``RGB_LED`` class allows you to set the color of a 3-pin RGB LED using ``PWM`` objects for each of the red, green, and blue channels. Colors can be set using hex strings (e.g., "#FF0000"), 24-bit integers, or RGB tuples/lists.
 
 
 
@@ -18,11 +18,11 @@ The `RGB_LED` class allows you to set the color of a 3-pin RGB LED using `PWM` o
     :type g_pin: robot_hat.PWM
     :param b_pin: PWM object controlling the blue channel.
     :type b_pin: robot_hat.PWM
-    :param common: LED type, either `RGB_LED.ANODE` or `RGB_LED.CATHODE`. Default is `RGB_LED.ANODE`.
+    :param common: LED type, either ``RGB_LED.ANODE`` or ``RGB_LED.CATHODE``. Default is ``RGB_LED.ANODE``.
     :type common: int
 
-    :raises TypeError: If any pin is not a `PWM` object.
-    :raises ValueError: If `common` is not `RGB_LED.ANODE` or `RGB_LED.CATHODE`.
+    :raises TypeError: If any pin is not a ``PWM`` object.
+    :raises ValueError: If ``common`` is not ``RGB_LED.ANODE`` or ``RGB_LED.CATHODE``.
 
 **Constants**
 

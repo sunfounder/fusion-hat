@@ -3,7 +3,7 @@
 Motor Class
 ===========
 
-The `Motor` class controls a single DC motor using PWM and direction pins. It supports two operation modes:
+The ``Motor`` class controls a single DC motor using PWM and direction pins. It supports two operation modes:
 
 - **Mode 1**: One PWM pin and one GPIO pin (TC1508S)
 - **Mode 2**: Two PWM pins (TC618S)
@@ -18,9 +18,9 @@ The `Motor` class controls a single DC motor using PWM and direction pins. It su
 
    Supported parameter combinations:
 
-      - `motor='M0'` to `M3` (predefined pins)
-      - `pwm`, `dir` (PWM + GPIO for mode 1)
-      - `pwm_a`, `pwm_b` (PWM + PWM for mode 2)
+      - ``motor='M0'`` to ``M3`` (predefined pins)
+      - ``pwm``, ``dir`` (PWM + GPIO for mode 1)
+      - ``pwm_a``, ``pwm_b`` (PWM + PWM for mode 2)
 
    :keyword str motor: Motor label ('M0'–'M3')
    :keyword PWM pwm: PWM object (mode 1)
@@ -96,7 +96,7 @@ The `Motor` class controls a single DC motor using PWM and direction pins. It su
 Motors Class
 ============
 
-The `Motors` class manages a pair of DC motors (left and right), typically used for differential drive robots. It supports persistent configuration via a file.
+The ``Motors`` class manages a pair of DC motors (left and right), typically used for differential drive robots. It supports persistent configuration via a file.
 
 **Initialization**
 
@@ -214,7 +214,7 @@ The `Motors` class manages a pair of DC motors (left and right), typically used 
 **Configuration File Format**
 
 
-A sample configuration file (e.g. `/opt/robot_hat/default_motors.config`) stores persistent settings:
+A sample configuration file (e.g. ``/opt/robot_hat/default_motors.config``) stores persistent settings:
 
 .. code-block:: ini
 

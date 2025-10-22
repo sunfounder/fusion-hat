@@ -16,9 +16,9 @@
 ================================
 
 In this lesson, you will learn how to use **Ollama**, a tool for running large language and vision models locally.  
-We will show you how to install Ollama, download a model, and connect Fusion HAT to it.  
+We will show you how to install Ollama, download a model, and connect Fusion HAT+ to it.  
 
-With this setup, Fusion HAT can take a camera snapshot and the model will **see and tell** —  
+With this setup, Fusion HAT+ can take a camera snapshot and the model will **see and tell** —  
 you can ask any question about the image, and the model will reply in natural language.
 
 .. _download_ollama:
@@ -125,7 +125,7 @@ Once Ollama is installed and your model is ready, you can quickly test it with a
       cd ~/fusion-hat/examples
       sudo python3 llm_ollama.py
 
-Now you can chat with Fusion HAT directly from the terminal.
+Now you can chat with Fusion HAT+ directly from the terminal.
 
    * You can choose **any model** available on |link_ollama_hub|, but smaller models (e.g. ``moondream:1.8b``, ``phi3:mini``) are recommended if you only have 8–16GB RAM.  
    * Make sure the model you specify in the code matches the model you have already pulled in Ollama.  

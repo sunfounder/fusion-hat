@@ -1,9 +1,9 @@
 TTS Class
 ================
 
-This module provides a text-to-speech (TTS) interface using `espeak` or `pico2wave` engines.
+This module provides a text-to-speech (TTS) interface using ``espeak`` or ``pico2wave`` engines.
 
-The `TTS` class offers support for converting text to speech using either the `espeak` or `pico2wave` engine. It allows for language configuration and voice parameter tuning (for `espeak`), with runtime checks for executable availability.
+The ``TTS`` class offers support for converting text to speech using either the ``espeak`` or ``pico2wave`` engine. It allows for language configuration and voice parameter tuning (for ``espeak``), with runtime checks for executable availability.
 
 **Supported Languages (pico2wave)**
 
@@ -24,9 +24,9 @@ The `TTS` class offers support for converting text to speech using either the `e
 
     Initializes the TTS engine.
 
-    :param engine: Choose `TTS.ESPEAK` or `TTS.PICO2WAVE` as the TTS engine.
+    :param engine: Choose ``TTS.ESPEAK`` or ``TTS.PICO2WAVE`` as the TTS engine.
     :type engine: str
-    :param lang: Language for `pico2wave` engine (e.g., 'en-US').
+    :param lang: Language for ``pico2wave`` engine (e.g., 'en-US').
     :type lang: str
     :raises Exception: If the specified engine is not installed.
 
@@ -35,15 +35,15 @@ The `TTS` class offers support for converting text to speech using either the `e
 
 .. data:: TTS.ESPEAK
 
-    Constant for using the `espeak` engine.
+    Constant for using the ``espeak`` engine.
 
 .. data:: TTS.PICO2WAVE
 
-    Constant for using the `pico2wave` engine.
+    Constant for using the ``pico2wave`` engine.
 
 .. data:: TTS.SUPPORTED_LANGUAUE
 
-    List of supported languages for `pico2wave`.
+    List of supported languages for ``pico2wave``.
 
 **Methods**
 
@@ -57,25 +57,25 @@ The `TTS` class offers support for converting text to speech using either the `e
 
 .. method:: espeak(words)
 
-    Say the given words using the `espeak` engine.
+    Say the given words using the ``espeak`` engine.
 
     :param words: Text to speak.
     :type words: str
 
-    :raises RuntimeError: If `espeak` is not available.
+    :raises RuntimeError: If ``espeak`` is not available.
 
 .. method:: pico2wave(words)
 
-    Say the given words using the `pico2wave` engine.
+    Say the given words using the ``pico2wave`` engine.
 
     :param words: Text to speak.
     :type words: str
 
-    :raises RuntimeError: If `pico2wave` is not available.
+    :raises RuntimeError: If ``pico2wave`` is not available.
 
 .. method:: lang(*value)
 
-    Get or set the current language for `pico2wave`.
+    Get or set the current language for ``pico2wave``.
 
     :param value: Optional language string (e.g., 'en-US').
     :type value: str
@@ -86,14 +86,14 @@ The `TTS` class offers support for converting text to speech using either the `e
 
 .. method:: supported_lang()
 
-    Return a list of supported languages for `pico2wave`.
+    Return a list of supported languages for ``pico2wave``.
 
     :return: List of language codes.
     :rtype: list[str]
 
 .. method:: espeak_params(amp=None, speed=None, gap=None, pitch=None)
 
-    Configure voice parameters for `espeak`.
+    Configure voice parameters for ``espeak``.
 
     :param amp: Amplitude (0–200)
     :type amp: int
@@ -109,10 +109,10 @@ The `TTS` class offers support for converting text to speech using either the `e
 **Dependencies**
 
 
-- `espeak` (optional)
-- `pico2wave` (optional)
-- `aplay` for audio playback
-- `fusion_hat`
+- ``espeak`` (optional)
+- ``pico2wave`` (optional)
+- ``aplay`` for audio playback
+- ``fusion_hat`` 
 
 
 **Example Usage**

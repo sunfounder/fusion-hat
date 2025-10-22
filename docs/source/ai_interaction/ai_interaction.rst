@@ -16,7 +16,7 @@ Think · Talk · Drive —  AI-Powered with Multi-LLMs
 ------------------------------------------------------------
 
 Go beyond movement and vision by adding **speech** and **AI**.  
-Here you will explore text-to-speech (TTS), speech-to-text (STT), and large language models (LLMs) to make your Fusion HAT talk, listen, and even chat with you like a smart robot.
+Here you will explore text-to-speech (TTS), speech-to-text (STT), and large language models (LLMs) to make your Fusion HAT+ talk, listen, and even chat with you like a smart robot.
 
 .. toctree:: 
     :maxdepth: 1

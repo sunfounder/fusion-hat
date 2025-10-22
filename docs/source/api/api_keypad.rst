@@ -1,12 +1,9 @@
 Keypad Class
 ============
 
-The `Keypad` class provides an interface for matrix-style keypads (e.g., 3x4 or 4x4) using GPIO pins on a Raspberry Pi via the `gpiozero` library. It enables detection of pressed keys based on row and column scanning.
-
-
+The ``Keypad`` class provides an interface for matrix-style keypads (e.g., 3x4 or 4x4) using GPIO pins on a Raspberry Pi via the ``gpiozero`` library. It enables detection of pressed keys based on row and column scanning.
 
 **Initialization**
-
 
 .. method:: __init__(rows_pins, cols_pins, keys)
 

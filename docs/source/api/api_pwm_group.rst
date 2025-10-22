@@ -1,7 +1,7 @@
 PWM_GROUP Class
 ===============
 
-The `PWM_GROUP` class provides a high-level interface for controlling multiple PWM channels simultaneously via I2C on a Robot HAT. It allows setting frequency, duty cycle, pulse width, and supports batch updates to all channels.
+The ``PWM_GROUP`` class provides a high-level interface for controlling multiple PWM channels simultaneously via I2C on a Robot HAT. It allows setting frequency, duty cycle, pulse width, and supports batch updates to all channels.
 
 **PWM Channel Mapping**
 
@@ -27,7 +27,7 @@ The `PWM_GROUP` class provides a high-level interface for controlling multiple P
 
 .. method:: __init__(channels, freq=50, addr=0x17, auto_write=False)
 
-   Initialize a `PWM_GROUP` object for managing multiple PWM channels.
+   Initialize a ``PWM_GROUP`` object for managing multiple PWM channels.
 
    :param channels: List of channel indices (0–11).
    :type channels: list of int
@@ -128,7 +128,7 @@ The `PWM_GROUP` class provides a high-level interface for controlling multiple P
 
 .. method:: __setitem__(index, value)
 
-   Set the stored CCP value for a channel. If `auto_write=True`, it is immediately written.
+   Set the stored CCP value for a channel. If ``auto_write=True``, it is immediately written.
 
    :param index: Channel index.
    :type index: int

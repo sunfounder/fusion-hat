@@ -2,7 +2,7 @@ Rotary_Encoder Class
 ===========================
 
 
-The `Rotary_Encoder` class enables interaction with a rotary encoder using two GPIO pins: one for the A (CLK) signal and one for the B (DT) signal. It keeps track of the rotation steps and allows registering a callback function for real-time response to changes.
+The ``Rotary_Encoder`` class enables interaction with a rotary encoder using two GPIO pins: one for the A (CLK) signal and one for the B (DT) signal. It keeps track of the rotation steps and allows registering a callback function for real-time response to changes.
 
 
 **Class: Rotary_Encoder**

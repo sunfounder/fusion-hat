@@ -1,7 +1,7 @@
 _Basic_class
 ============
 
-The `_Basic_class` is a base utility class providing logging and debug functionality to derived classes. It standardizes logging output using Python’s `logging` module and supports runtime configuration of debug levels.
+The ``_Basic_class`` is a base utility class providing logging and debug functionality to derived classes. It standardizes logging output using Python’s ``logging`` module and supports runtime configuration of debug levels.
 
 **Initialization**
 
@@ -10,8 +10,10 @@ The `_Basic_class` is a base utility class providing logging and debug functiona
    Initialize the class and configure logging.
 
    :param debug_level: Initial debug level. Accepts:
+
       - Integer: 0 (critical), 1 (error), 2 (warning), 3 (info), 4 (debug)
       - String: "critical", "error", "warning", "info", or "debug"
+      
    :type debug_level: int or str
    :raises ValueError: If an unsupported debug level is provided.
 
@@ -19,23 +21,23 @@ The `_Basic_class` is a base utility class providing logging and debug functiona
 
 .. attribute:: _debug
 
-   Shortcut to `logger.debug` – log a debug-level message.
+   Shortcut to ``logger.debug`` – log a debug-level message.
 
 .. attribute:: _info
 
-   Shortcut to `logger.info` – log an info-level message.
+   Shortcut to ``logger.info`` – log an info-level message.
 
 .. attribute:: _warning
 
-   Shortcut to `logger.warning` – log a warning-level message.
+   Shortcut to ``logger.warning`` – log a warning-level message.
 
 .. attribute:: _error
 
-   Shortcut to `logger.error` – log an error-level message.
+   Shortcut to ``logger.error`` – log an error-level message.
 
 .. attribute:: _critical
 
-   Shortcut to `logger.critical` – log a critical-level message.
+   Shortcut to ``logger.critical`` – log a critical-level message.
 
 **Debug Configuration**
 
@@ -52,7 +54,7 @@ The `_Basic_class` is a base utility class providing logging and debug functiona
 
 .. data:: DEBUG_LEVELS
 
-   Mapping of debug level names to `logging` module constants.
+   Mapping of debug level names to ``logging`` module constants.
 
    :type: dict
 

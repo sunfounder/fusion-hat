@@ -1,7 +1,7 @@
 ADXL345 Class
 =============
 
-The `ADXL345` class provides an interface for the ADXL345 3-axis digital accelerometer using the I2C protocol. It allows reading acceleration data from the X, Y, and Z axes.
+The ``ADXL345`` class provides an interface for the ADXL345 3-axis digital accelerometer using the I2C protocol. It allows reading acceleration data from the X, Y, and Z axes.
 
 **Constants**
 
@@ -45,7 +45,7 @@ The `ADXL345` class provides an interface for the ADXL345 3-axis digital acceler
 
    Read acceleration data from a specified axis or all axes.
 
-   :param axis: Axis to read (`ADXL345.X`, `ADXL345.Y`, or `ADXL345.Z`). If `None`, reads all axes.
+   :param axis: Axis to read (``ADXL345.X``, ``ADXL345.Y``, or ``ADXL345.Z``). If ``None``, reads all axes.
    :type axis: int or None
    :return: Acceleration in g-force from one axis or a list of all three axes.
    :rtype: float or list of float

@@ -4,10 +4,10 @@
 Music Class
 ==================
 
-The `Music` class provides methods for playing tones, music, and sound effects, managing musical attributes like tempo and key, and generating notes programmatically.
+The ``Music`` class provides methods for playing tones, music, and sound effects, managing musical attributes like tempo and key, and generating notes programmatically.
 
 
-The `Music` class offers high-level musical control for playback and tone generation. It supports playing WAV files, generating tones by frequency and duration, configuring key signatures, tempo, and time signatures.
+The ``Music`` class offers high-level musical control for playback and tone generation. It supports playing WAV files, generating tones by frequency and duration, configuring key signatures, tempo, and time signatures.
 
 
 **Class: Music**
@@ -145,7 +145,7 @@ The `Music` class offers high-level musical control for playback and tone genera
 
 .. method:: music_unpause()
 
-    Unpause music (alias for `music_resume()`).
+    Unpause music (alias for ``music_resume()``).
 
 .. method:: sound_length(filename)
 

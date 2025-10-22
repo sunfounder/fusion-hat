@@ -1,7 +1,7 @@
 Grayscale_Module Class
 ======================
 
-The `Grayscale_Module` class provides an interface for interacting with a 3-channel grayscale sensor module. It uses ADC channels to detect surface reflectivity and determine black or white line presence for each sensor (left, middle, right).
+The ``Grayscale_Module`` class provides an interface for interacting with a 3-channel grayscale sensor module. It uses ADC channels to detect surface reflectivity and determine black or white line presence for each sensor (left, middle, right).
 
 
 
@@ -41,7 +41,7 @@ The `Grayscale_Module` class provides an interface for interacting with a 3-chan
    :type pin2: ADC
    :param reference: Optional initial reference values for each channel (list of 3 integers).
    :type reference: list[int] or None
-   :raises TypeError: If any pin is not an instance of `ADC`.
+   :raises TypeError: If any pin is not an instance of ``ADC``.
 
 **Reference Management**
 
@@ -53,7 +53,7 @@ The `Grayscale_Module` class provides an interface for interacting with a 3-chan
    :type ref: list[int] or None
    :return: Current reference values.
    :rtype: list[int]
-   :raises TypeError: If `ref` is not a 3-element list.
+   :raises TypeError: If ``ref`` is not a 3-element list.
 
 **Sensor Reading**
 

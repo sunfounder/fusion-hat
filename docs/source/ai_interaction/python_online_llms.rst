@@ -17,7 +17,7 @@
 5. Connecting to Online LLMs
 ================================
 
-In this lesson, we'll learn how to connect your Fusion HAT (or Raspberry Pi) to different **online Large Language Models (LLMs)**.  
+In this lesson, we'll learn how to connect your Fusion HAT+ (or Raspberry Pi) to different **online Large Language Models (LLMs)**.  
 Each provider requires an API key and offers different models you can choose from.  
 
 We'll cover how to:
@@ -206,8 +206,8 @@ Mainland China users can instead use the **Bailian (百炼)** console.
   #. Navigate to **Model Studio** (choose Singapore or Beijing region).  
     
       * If an “Activate Now” prompt appears at the top of the page, click it to activate Model Studio and receive the free quota (Singapore only).  
-       * Activation is free — you will only be charged after your free quota is used.  
-       * If no activation prompt appears, the service is already active. 
+      * Activation is free — you will only be charged after your free quota is used.  
+      * If no activation prompt appears, the service is already active. 
   
   #. Go to the **Key Management** page. On the **API Key** tab, click **Create API Key**.  
   #. After creation, copy your API Key and keep it safe.  

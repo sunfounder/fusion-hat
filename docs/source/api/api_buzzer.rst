@@ -1,7 +1,7 @@
 Buzzer Class
 ============
 
-The `Buzzer` class provides control for both active and passive buzzers using either a PWM or digital GPIO pin. It supports simple on/off operations for active buzzers and frequency/duration control for passive buzzers.
+The ``Buzzer`` class provides control for both active and passive buzzers using either a PWM or digital GPIO pin. It supports simple on/off operations for active buzzers and frequency/duration control for passive buzzers.
 
 
 **Initialization**
@@ -9,7 +9,7 @@ The `Buzzer` class provides control for both active and passive buzzers using ei
 
 .. method:: __init__(buzzer)
 
-   Initialize a `Buzzer` instance with a `PWM` or `Pin` object.
+   Initialize a ``Buzzer`` instance with a ``PWM`` or ``Pin`` object.
 
    :param buzzer: Either a PWM object (for passive buzzer) or a GPIO Pin object (for active buzzer).
    :type buzzer: PWM or Pin
@@ -38,9 +38,9 @@ The `Buzzer` class provides control for both active and passive buzzers using ei
 
    Play a note on the passive buzzer at a specific frequency for a specified duration.
 
-   :param freq: Frequency in Hz, or musical note string (e.g., `'A4'`, `'C5'`).
+   :param freq: Frequency in Hz, or musical note string (e.g., ``'A4'``, ``'C5'``).
    :type freq: float or str
-   :param duration: Duration of the note in seconds. If `None`, plays continuously.
+   :param duration: Duration of the note in seconds. If ``None``, plays continuously.
    :type duration: float or None
    :raises TypeError: If the buzzer is active (uses a Pin).
 
@@ -49,7 +49,7 @@ The `Buzzer` class provides control for both active and passive buzzers using ei
 
 .. data:: NOTE
 
-   A dictionary mapping musical note names (e.g., `"C4"`, `"A4"`, `"G#3"`) to their corresponding frequencies in Hz.
+   A dictionary mapping musical note names (e.g., ``"C4"``, ``"A4"``, ``"G#3"``) to their corresponding frequencies in Hz.
 
    :type: dict[str, float]
 
@@ -77,5 +77,5 @@ The `Buzzer` class provides control for both active and passive buzzers using ei
 
 - Active buzzers only support on/off operation.
 - Passive buzzers support musical notes and tone generation using frequency.
-- Musical notes can be accessed from `Buzzer.NOTE`.
+- Musical notes can be accessed from ``Buzzer.NOTE``.
 

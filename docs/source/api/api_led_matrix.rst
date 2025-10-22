@@ -1,7 +1,7 @@
 LedMatrix Class
 ===============
 
-The `LedMatrix` class provides an interface to control an 8x8 LED matrix display via SPI using the `luma.led_matrix` library. It supports displaying custom binary patterns to the matrix.
+The ``LedMatrix`` class provides an interface to control an 8x8 LED matrix display via SPI using the ``luma.led_matrix`` library. It supports displaying custom binary patterns to the matrix.
 
 **Initialization**
 
@@ -12,7 +12,7 @@ The `LedMatrix` class provides an interface to control an 8x8 LED matrix display
    :param rotate: Rotation of the display in degrees (0, 90, 180, 270).
    :type rotate: int
 
-   This sets up the SPI communication using the `luma.core.interface.serial.spi` and initializes a `max7219` 8x8 LED matrix device. The optional `rotate` parameter controls display orientation.
+   This sets up the SPI communication using the ``luma.core.interface.serial.spi`` and initializes a ``max7219`` 8x8 LED matrix device. The optional ``rotate`` parameter controls display orientation.
 
 **Pattern Display**
 
@@ -49,7 +49,7 @@ The `LedMatrix` class provides an interface to control an 8x8 LED matrix display
 
 **Dependencies**
 
-- `luma.led_matrix`
-- `luma.core`
-- `PIL` (Python Imaging Library)
+- ``luma.led_matrix`` 
+- ``luma.core`` 
+- ``PIL`` (Python Imaging Library)
 

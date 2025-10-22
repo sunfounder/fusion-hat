@@ -4,7 +4,7 @@ Utility Module
 ========================================
 
 
-This module provides utility functions and hardware interface controls for the Fusion Hat platform. It includes logging utilities, speaker control, pin control, battery monitoring, and I2C-based device interactions.
+This module provides utility functions and hardware interface controls for the Fusion HAT+ platform. It includes logging utilities, speaker control, pin control, battery monitoring, and I2C-based device interactions.
 
 **Color Logging**
 
@@ -59,7 +59,7 @@ This module provides utility functions and hardware interface controls for the F
 
 .. function:: is_installed(cmd)
 
-   Check if a command is installed using `which`.
+   Check if a command is installed using ``which``.
 
    :param cmd: Command name.
    :type cmd: str

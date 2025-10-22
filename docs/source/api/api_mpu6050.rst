@@ -2,7 +2,7 @@ MPU6050 Class
 ======================
 
 
-The `MPU6050` class communicates with the MPU-6050 sensor over I2C using the `smbus2` library. It provides methods for reading acceleration, gyroscope, and temperature data, as well as setting configuration parameters such as filter and sensor ranges.
+The ``MPU6050`` class communicates with the MPU-6050 sensor over I2C using the ``smbus2`` library. It provides methods for reading acceleration, gyroscope, and temperature data, as well as setting configuration parameters such as filter and sensor ranges.
 
 
 

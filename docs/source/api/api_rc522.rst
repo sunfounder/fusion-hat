@@ -1,7 +1,7 @@
 RC522 Class
 ==================
 
-The `RC522` class allows low-level control over RC522 RFID hardware for reading and writing MIFARE-compatible cards. It supports initialization, authentication, block data reading and writing, and card identification.
+The ``RC522`` class allows low-level control over RC522 RFID hardware for reading and writing MIFARE-compatible cards. It supports initialization, authentication, block data reading and writing, and card identification.
 
 
 **Class: RC522**
@@ -40,9 +40,9 @@ The `RC522` class allows low-level control over RC522 RFID hardware for reading 
 
 This class defines numerous constants for RC522 commands, registers, and PICC operations, including:
 
-- `PCD_IDLE`, `PCD_AUTHENT`, `PCD_TRANSCEIVE`, ...
-- `PICC_REQIDL`, `PICC_AUTHENT1A`, `PICC_READ`, `PICC_WRITE`, ...
-- `CommandReg`, `Status1Reg`, `FIFODataReg`, ...
+- ``PCD_IDLE``, ``PCD_AUTHENT``, ``PCD_TRANSCEIVE``, ...
+- ``PICC_REQIDL``, ``PICC_AUTHENT1A``, ``PICC_READ``, ``PICC_WRITE``, ...
+- ``CommandReg``, ``Status1Reg``, ``FIFODataReg``, ...
 
 Refer to the RC522 datasheet for detailed descriptions.
 

@@ -15,7 +15,7 @@
 1. TTS with Espeak and Pico2Wave
 =================================================
 
-In this lesson, we'll use two built-in text-to-speech (TTS) engines on Raspberry Pi — **Espeak** and **Pico2Wave** — to make the Fusion HAT talk.  
+In this lesson, we'll use two built-in text-to-speech (TTS) engines on Raspberry Pi — **Espeak** and **Pico2Wave** — to make the Fusion HAT+ talk.  
 
 These two engines are both simple and run offline, but they sound quite different:
 
@@ -39,7 +39,7 @@ Its voice sounds robotic, but it is highly configurable: you can adjust volume, 
       cd ~/fusion-hat/examples
       sudo python3 tts_espeak.py
 
-  * You should hear the Fusion HAT say: “Hello! I'm Espeak TTS.”
+  * You should hear the Fusion HAT+ say: “Hello! I'm Espeak TTS.”
   * Try changing the tuning parameters in the code to experiment with how ``amp``, ``speed``, ``gap``, and ``pitch`` affect the sound.
 
 **Code**
@@ -86,7 +86,7 @@ This makes Pico2Wave a great choice when you want clear and smooth speech withou
       cd ~/fusion-hat/examples
       sudo python3 tts_pico2wave.py
 
-* You should hear the Fusion HAT say: “Hello! I'm Pico2Wave TTS.”  
+* You should hear the Fusion HAT+ say: “Hello! I'm Pico2Wave TTS.”  
 * Try changing the language (for example, ``es-ES`` for Spanish) and listen to how the voice changes.  
 
 **Code**

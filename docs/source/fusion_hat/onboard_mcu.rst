@@ -17,7 +17,7 @@
 On-Board MCU
 =======================
 
-The Fusion HAT comes with an GD32E203C8T6 microcontroller. 
+The Fusion HAT+ comes with an GD32E203C8T6 microcontroller. 
 It is an ARM Cortex-M23 processor with a maximum clock frequency of 72MHz. 
 The microcontroller has 64KB of Flash memory and 8KB of SRAM.
 

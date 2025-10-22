@@ -1,7 +1,7 @@
 LCD1602 Class
 =============
 
-The `LCD1602` class provides an interface for controlling a 1602 LCD display module (16 characters x 2 lines) via I2C. It supports basic operations such as writing text, clearing the display, and toggling the backlight.
+The ``LCD1602`` class provides an interface for controlling a 1602 LCD display module (16 characters x 2 lines) via I2C. It supports basic operations such as writing text, clearing the display, and toggling the backlight.
 
 
 **Initialization**

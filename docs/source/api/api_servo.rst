@@ -1,7 +1,7 @@
 Servo Class
 ===========
 
-The `Servo` class provides an interface to control standard RC servo motors using PWM signals. It is derived from the `PWM` class and allows control over servo angle and pulse width.
+The ``Servo`` class provides an interface to control standard RC servo motors using PWM signals. It is derived from the ``PWM`` class and allows control over servo angle and pulse width.
 
 
 
@@ -74,4 +74,4 @@ The `Servo` class provides an interface to control standard RC servo motors usin
 **Notes**
 
 - The angle range -90 to 90 is a common standard, but may vary based on servo model.
-- Using `pulse_width_time()` allows for more precise tuning or non-standard control.
+- Using ``pulse_width_time()`` allows for more precise tuning or non-standard control.

@@ -4,7 +4,7 @@
 Pin Class
 =========
 
-The `Pin` class provides an abstraction layer for GPIO pin control using the `gpiozero` library on Raspberry Pi.
+The ``Pin`` class provides an abstraction layer for GPIO pin control using the ``gpiozero`` library on Raspberry Pi.
 It supports both input and output modes, internal pull-up/down resistors, interrupts, and pin state management.
 
 
@@ -56,7 +56,7 @@ It supports both input and output modes, internal pull-up/down resistors, interr
 
 .. method:: __init__(pin, mode=None, pull=None, active_state=None, bounce_time=None)
 
-   Initialize a `Pin` instance.
+   Initialize a ``Pin`` instance.
 
    :param pin: Board pin name (e.g., 'D0') or GPIO pin number.
    :type pin: str or int
@@ -85,7 +85,7 @@ It supports both input and output modes, internal pull-up/down resistors, interr
 
    Get or set the pin value.
 
-   :param value: Set value (1 or 0), or leave `None` to read.
+   :param value: Set value (1 or 0), or leave ``None`` to read.
    :type value: int or None
    :returns: Pin value (1 or 0).
    :rtype: int

@@ -3,7 +3,7 @@ Ultrasonic Class
 
 This module provides an interface to an ultrasonic distance sensor using GPIO pins.
 
-The `Ultrasonic` class allows measuring distance using an ultrasonic sensor by triggering a sound pulse and listening for its echo. The time delay between transmission and reception is used to calculate the distance.
+The ``Ultrasonic`` class allows measuring distance using an ultrasonic sensor by triggering a sound pulse and listening for its echo. The time delay between transmission and reception is used to calculate the distance.
 
 
 **Class: Ultrasonic**
@@ -21,7 +21,7 @@ The `Ultrasonic` class allows measuring distance using an ultrasonic sensor by t
     :param timeout: Timeout in seconds for waiting on echo (default 0.02s).
     :type timeout: float
 
-    :raises TypeError: If `trig` or `echo` is not a `robot_hat.Pin` instance.
+    :raises TypeError: If ``trig`` or ``echo`` is not a ``robot_hat.Pin`` instance.
 
 **Methods**
 
@@ -31,7 +31,7 @@ The `Ultrasonic` class allows measuring distance using an ultrasonic sensor by t
 
     Measures the distance to the nearest object.
 
-    It attempts to read the distance up to `times` times, ignoring failures up to that limit.
+    It attempts to read the distance up to ``times`` times, ignoring failures up to that limit.
 
     :param times: Number of attempts to get a valid reading.
     :type times: int

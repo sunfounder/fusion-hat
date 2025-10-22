@@ -4,7 +4,7 @@
 ADC Class
 =========
 
-The `ADC` class provides an interface to an analog-to-digital converter over I2C. It supports reading raw values and converted voltage values from specified analog channels.
+The ``ADC`` class provides an interface to an analog-to-digital converter over I2C. It supports reading raw values and converted voltage values from specified analog channels.
 
 
 **Constants**

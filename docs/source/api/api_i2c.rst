@@ -4,7 +4,7 @@
 I2C Class
 =========
 
-The `I2C` class provides a high-level abstraction for interacting with I2C devices using the `smbus2` library. It supports common I2C read/write operations, memory register access, bus scanning, and device availability checks.
+The ``I2C`` class provides a high-level abstraction for interacting with I2C devices using the ``smbus2`` library. It supports common I2C read/write operations, memory register access, bus scanning, and device availability checks.
 
 
 
@@ -27,7 +27,7 @@ The `I2C` class provides a high-level abstraction for interacting with I2C devic
 
    :param data: Data to write (int, list, or bytearray).
    :type data: int or list or bytearray
-   :raises ValueError: If `data` is of an unsupported type.
+   :raises ValueError: If ``data`` is of an unsupported type.
 
 .. method:: read(length=1)
 
@@ -69,7 +69,7 @@ The `I2C` class provides a high-level abstraction for interacting with I2C devic
 
 .. method:: is_avaliable()
 
-   Alias for :meth:`is_ready`. Returns `True` if the device is on the bus.
+   Alias for :meth:`is_ready`. Returns ``True`` if the device is on the bus.
 
    :return: True if device is available.
    :rtype: bool
@@ -98,7 +98,7 @@ These methods include retry logic and detailed debug output:
 - ``_read_word_data(reg)``
 - ``_read_i2c_block_data(reg, num)``
 
-Each of these is decorated with a retry mechanism to handle transient `OSError` conditions gracefully.
+Each of these is decorated with a retry mechanism to handle transient ``OSError`` conditions gracefully.
 
 **Usage Example**
 
@@ -114,6 +114,6 @@ Each of these is decorated with a retry mechanism to handle transient `OSError` 
 
 **Notes**
 
-- Default I2C bus is `1`, which is standard for Raspberry Pi.
-- The `RETRY` mechanism attempts failed I2C operations up to 5 times before returning `False`.
+- Default I2C bus is ``1``, which is standard for Raspberry Pi.
+- The ``RETRY`` mechanism attempts failed I2C operations up to 5 times before returning ``False``.
 

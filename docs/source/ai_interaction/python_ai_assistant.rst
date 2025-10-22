@@ -17,7 +17,7 @@
 7. AI Voice Assistant
 ===========================
 
-This lesson turns your Fusion HAT into a **voice-first AI assistant**.  
+This lesson turns your Fusion HAT+ into a **voice-first AI assistant**.  
 With the provided code, the robot will: **wait for a wake word**, **transcribe your speech** with Vosk, send it to an **OpenAI LLM**, and **speak back** using Piper TTS.
 
 ----
