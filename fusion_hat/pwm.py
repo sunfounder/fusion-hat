@@ -116,7 +116,7 @@ class PWM(I2C):
 
         self._prescaler = int(prescaler)
         self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
-        self.write_word_data(self._prescaler_register, self._prescaler)
+        self.write_data(self._prescaler_register, self._prescaler)
         return self._prescaler
 
     def period(self, period: Optional[int]=None) -> int:
@@ -134,7 +134,7 @@ class PWM(I2C):
         self._period = int(period)
         self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
         self._pulse_width_percent = round(self._pulse_width / (self._period+1) * 100, 2)
-        self.write_word_data(self._period_register, self._period)
+        self.write_data(self._period_register, self._period)
         return self._period
 
     def pulse_width(self, pulse_width: Optional[int]=None) -> int:
@@ -151,7 +151,7 @@ class PWM(I2C):
 
         self._pulse_width = int(pulse_width)
         self._pulse_width_percent = round(pulse_width / (self._period+1) * 100, 2)
-        self.write_word_data(self._pulse_width_register, self._pulse_width)
+        self.write_data(self._pulse_width_register, self._pulse_width)
         return self._pulse_width
 
     def pulse_width_percent(self, pulse_width_percent: Optional[float]=None) -> float:   
@@ -168,5 +168,14 @@ class PWM(I2C):
 
         self._pulse_width_percent = round(pulse_width_percent, 2)
         self._pulse_width = int((self._period+1) * pulse_width_percent / 100)
-        self.write_word_data(self._pulse_width_register, self._pulse_width)
+        self.write_data(self._pulse_width_register, self._pulse_width)
         return self._pulse_width_percent
+
+    def write_data(self, reg: int, data: int) -> None:
+        """ Write data to the PWM device
+
+        Args:
+            reg (int): register address
+            data (int): data to write
+        """
+        self.write_word_data(reg, data, lsb=True)

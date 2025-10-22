@@ -2,76 +2,7 @@
 import os
 import sys
 import time
-from unittest import result
-from typing import Optional, TextIO, Callable, Any
-
-# color:
-# https://gist.github.com/rene-d/9e584a7dd2935d0f461904b9f2950007
-# 1;30:gray 31:red, 32:green, 33:yellow, 34:blue, 35:purple, 36:dark green, 37:white
-GRAY = '1;30'
-RED = '0;31'
-GREEN = '0;32'
-YELLOW = '0;33'
-BLUE = '0;34'
-PURPLE = '0;35'
-DARK_GREEN = '0;36'
-WHITE = '0;37'
-
-def print_color(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False, color: str='') -> None:
-    """ Print message with color
-
-    Args:
-        msg (str): message to print
-        end (str, optional): end character, defaults to '\n'
-        file (TextIO, optional): file to print, defaults to sys.stdout
-        flush (bool, optional): flush buffer, defaults to False
-        color (str, optional): color to use, defaults to ''
-    """
-    print('\033[%sm%s\033[0m'%(color, msg), end=end, file=file, flush=flush)
-
-def info(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
-    """ Print info message with white color
-
-    Args:
-        msg (str): message to print
-        end (str, optional): end character, defaults to '\n'
-        file (TextIO, optional): file to print, defaults to sys.stdout
-        flush (bool, optional): flush buffer, defaults to False
-    """
-    print_color(msg, end=end, file=file, flush=flush, color=WHITE)
-
-def debug(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
-    """ Print debug message with gray color
-
-    Args:
-        msg (str): message to print
-        end (str, optional): end character, defaults to '\n'
-        file (TextIO, optional): file to print, defaults to sys.stdout
-        flush (bool, optional): flush buffer, defaults to False
-    """
-    print_color(msg, end=end, file=file, flush=flush, color=GRAY)
-
-def warn(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
-    """ Print warning message with yellow color
-
-    Args:
-        msg (str): message to print
-        end (str, optional): end character, defaults to '\n'
-        file (TextIO, optional): file to print, defaults to sys.stdout
-        flush (bool, optional): flush buffer, defaults to False
-    """
-    print_color(msg, end=end, file=file, flush=flush, color=YELLOW)
-
-def error(msg: str, end: str='\n', file: TextIO=sys.stdout, flush: bool=False) -> None:
-    """ Print error message with red color
-
-    Args:
-        msg (str): message to print
-        end (str, optional): end character, defaults to '\n'
-        file (TextIO, optional): file to print, defaults to sys.stdout
-        flush (bool, optional): flush buffer, defaults to False
-    """
-    print_color(msg, end=end, file=file, flush=flush, color=RED)
+from typing import Callable, Any
 
 def set_volume(value: int) -> None:
     """ Set volume
@@ -82,7 +13,6 @@ def set_volume(value: int) -> None:
     value = min(100, max(0, value))
     cmd = "sudo amixer -M sset 'PCM' %d%%" % value
     os.system(cmd)
-
 
 def command_exists(cmd: str) -> bool:
     """ Check if command exists
@@ -99,7 +29,6 @@ def command_exists(cmd: str) -> bool:
         return True
     except subprocess.CalledProcessError:
         return False
-
 
 def run_command(cmd: str) -> tuple:
     """ Run command and return status and output
@@ -148,7 +77,6 @@ def is_installed(cmd: str) -> bool:
     else:
         return False
 
-
 def mapping(x: float, in_min: float, in_max: float, out_min: float, out_max: float) -> float:   
     """ Map value from one range to another range
 
@@ -163,7 +91,6 @@ def mapping(x: float, in_min: float, in_max: float, out_min: float, out_max: flo
         float: mapped value
     """
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
-
 
 def get_ip(ifaces: list=['wlan0', 'eth0']) -> str:
     """ Get IP address
@@ -208,7 +135,6 @@ def get_username() -> str:
     """
     return os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
 
-
 def simple_i2c_command(method: str, reg: int, type: str, *args) -> tuple:
     """ Simple i2c command
 
@@ -223,11 +149,10 @@ def simple_i2c_command(method: str, reg: int, type: str, *args) -> tuple:
     """
     from .device import I2C_ADDRESS
     args = [str(arg) for arg in args]
-    cmd = f"i2c{method} -y 1 {I2C_ADDRESS} {reg} {' '.join(args)}"
+    cmd = f"i2c{method} -y 1 0x{I2C_ADDRESS:02X} 0x{reg:02X} {type} {' '.join(args)}"
     status, output = run_command(cmd)
     if status != 0 and status != None:
-        error(f"I2C {method} command failed, command: {cmd}, status: {status}, output: {output}")
-        return False
+        raise Exception(f"I2C {method} command failed, command: {cmd}, status: {status}, output: {output}")
     if method == "get":
         value = output.split(" ")
         value = [int(v, 16) for v in value]
@@ -246,6 +171,16 @@ def disable_speaker() -> None:
     """ Disable speaker """
     SPEAKER_REG_ADDR = 0x31
     simple_i2c_command("set", SPEAKER_REG_ADDR, 0)
+
+def get_speaker_state() -> bool:
+    """ Get speaker state
+
+    Returns:
+        bool: True if enabled
+    """
+    SPEAKER_REG_ADDR = 0x31
+    result = simple_i2c_command("get", SPEAKER_REG_ADDR, "b")
+    return result == 1
 
 def get_usr_btn() -> bool:
     """ Get user button state
