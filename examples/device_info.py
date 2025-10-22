@@ -24,8 +24,10 @@ while True:
         "Speaker State": "Enabled" if get_speaker_state() else "Disabled",
     }
 
+    print("")
+    print("="*50)
+    print("")
     for key, value in datas.items():
         print(f"{key:>20}: {value}")
 
     time.sleep(1)
-    print("="*40)
