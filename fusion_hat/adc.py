@@ -5,10 +5,7 @@ from .device import I2C_ADDRESS
 from typing import Optional
 
 class ADC(I2C):
-    """ Analog to digital converter
-
-    Attributes:
-    """
+    """ Analog to digital converter """
     REG_ADC_START = 0x10
     REG_ADC_END = 0x19
     CHANNEL_NUM = 5

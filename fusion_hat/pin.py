@@ -24,7 +24,7 @@ class Pin():
     IRQ_RISING_FALLING = 0x23
     """Pin interrupt both rising and falling"""
 
-    def __init__(self, pin: int, mode: int = None, pull: int = None, active_state: bool = None, bounce_time: float = None):
+    def __init__(self, pin: int, mode: int = None, pull: int = None, active_state: bool = True, bounce_time: float = None):
         """ Initialize a pin
 
         Args:
@@ -38,10 +38,7 @@ class Pin():
         """
 
         # parse pin
-        if isinstance(pin, int):
-            self._pin_num = pin
-        else:
-            raise ValueError(f'Pin should be int, not "{pin}(type: {type(pin)})"')
+        self._pin_num = pin
         
         # setup
         self._value = 0
