@@ -1,156 +1,144 @@
-#!/usr/bin/env python3
-from .basic import _Basic_class
-from .utils import is_installed, run_command
-from .music import Music
-from distutils.spawn import find_executable
+""" Text-to-Speech (TTS) module.
 
+This module provides a Text-to-Speech (TTS) class that can be used to convert text to speech using different TTS engines.
 
-class TTS(_Basic_class):
-    """Text to speech class"""
-    _class_name = 'TTS'
-    SUPPORTED_LANGUAUE = [
-        'en-US',
-        'en-GB',
-        'de-DE',
-        'es-ES',
-        'fr-FR',
-        'it-IT',
-    ]
-    """Supported TTS language for pico2wave"""
+Available TTS engines:
 
-    ESPEAK = 'espeak'
-    """espeak TTS engine"""
-    PICO2WAVE = 'pico2wave'
-    """pico2wave TTS engine"""
+- ``Piper``: A fast and local neural text-to-speech engine that embeds espeak-ng for phonemization.
+- ``Pico2Wave``: SVOX Pico TTS engine used to convert text into a WAV audio file.
+- ``Espeak``: A compact open source software speech synthesizer for English and other languages.
+- ``OpenAI_TTS`` Online TTS service from OpenAI.
 
-    def __init__(self, engine=PICO2WAVE, lang=None, *args, **kwargs):
-        """
-        Initialize TTS class.
+Example:
 
-        :param engine: TTS engine, TTS.PICO2WAVE or TTS.ESPEAK
-        :type engine: str
-        """
-        super().__init__()
-        self.engine = engine
-        if (engine == self.ESPEAK):
-            if not is_installed("espeak"):
-                raise Exception("TTS engine: espeak is not installed.")
-            self._amp = 100
-            self._speed = 175
-            self._gap = 5
-            self._pitch = 50
-        elif (engine == self.PICO2WAVE):
-            if not is_installed("pico2wave"):
-                raise Exception("TTS engine: pico2wave is not installed.")
-            if lang == None:
-                self._lang = "en-US"
-            else:
-                self._lang = lang
+    ``Piper``
 
-    def _check_executable(self, executable):
-        executable_path = find_executable(executable)
-        found = executable_path is not None
-        return found
+    Initialize Piper TTS engine.
 
-    def say(self, words):
-        """
-        Say words.
+    >>> from fusion_hat.tts import Piper
+    >>> tts = Piper()
 
-        :param words: words to say.
-        :type words: str
-        """
-        eval(f"self.{self.engine}('{words}')")
+    Checkout available countries.
 
-    def espeak(self, words):
-        """
-        Say words with espeak.
+    >>> tts.available_countrys()
+    ['ar_JO', 'ca_ES', 'cs_CZ', 'cy_GB', 'da_DK', 'de_DE', 'el_GR', 'en_GB', 'en_US', 'es_ES', 'es_MX', 'fa_IR', 'fi_FI', 'fr_FR', 'hu_HU', 'is_IS', 'it_IT', 'ka_GE', 'kk_KZ', 'lb_LU', 'lv_LV', 'ml_IN', 'ne_NP', 'nl_BE', 'nl_NL', 'no_NO', 'pl_PL', 'pt_BR', 'pt_PT', 'ro_RO', 'ru_RU', 'sk_SK', 'sl_SI', 'sr_RS', 'sv_SE', 'sw_CD', 'tr_TR', 'uk_UA', 'vi_VN', 'zh_CN']
+    
+    List all models for country en_US.
 
-        :param words: words to say.
-        :type words: str
-        """
-        self._debug(f'espeak: [{words}]')
-        if not self._check_executable('espeak'):
-            self._debug('espeak is busy. Pass')
+    >>> tts.available_models('en_US')
+    {'amy': ['en_US-amy-low', 'en_US-amy-medium'], 'arctic': ['en_US-arctic-medium'], 'bryce': ['en_US-bryce-medium'], 'danny': ['en_US-danny-low'], 'hfc_female': ['en_US-hfc_female-medium'], 'hfc_male': ['en_US-hfc_male-medium'], 'joe': ['en_US-joe-medium'], 'john': ['en_US-john-medium'], 'kathleen': ['en_US-kathleen-low'], 'kristin': ['en_US-kristin-medium'], 'kusal': ['en_US-kusal-medium'], 'l2arctic': ['en_US-l2arctic-medium'], 'lessac': ['en_US-lessac-low', 'en_US-lessac-medium', 'en_US-lessac-high'], 'libritts': ['en_US-libritts-high'], 'libritts_r': ['en_US-libritts_r-medium'], 'ljspeech': ['en_US-ljspeech-medium', 'en_US-ljspeech-high'], 'norman': ['en_US-norman-medium'], 'reza_ibrahim': ['en_US-reza_ibrahim-medium'], 'ryan': ['en_US-ryan-low', 'en_US-ryan-medium', 'en_US-ryan-high'], 'sam': ['en_US-sam-medium']}
+    
+    Set model
 
-        cmd = f'espeak -a{self._amp} -s{self._speed} -g{self._gap} -p{self._pitch} "{words}" --stdout | aplay 2>/dev/null & '
-        status, result = run_command(cmd)
-        if len(result) != 0:
-            raise (f'tts-espeak:\n\t{result}')
-        self._debug(f'command: {cmd}')
+    >>> tts.set_model('en_US-amy-low')
+    
+    Say message.
 
-    def pico2wave(self, words):
-        """
-        Say words with pico2wave.
+    >>> tts.say("Hi, I'm piper TTS. A fast and local neural text-to-speech engine that embeds espeak-ng for phonemization.")
 
-        :param words: words to say.
-        :type words: str
-        """
-        self._debug(f'pico2wave: [{words}]')
-        if not self._check_executable('pico2wave'):
-            self._debug('pico2wave is busy. Pass')
+    ``Espeak``
 
-        cmd = f'pico2wave -l {self._lang} -w /tmp/tts.wav "{words}" && aplay /tmp/tts.wav 2>/dev/null & '
-        status, result = run_command(cmd)
-        if len(result) != 0:
-            raise (f'tts-pico2wav:\n\t{result}')
-        self._debug(f'command: {cmd}')
+    Import and initialize Espeak TTS engine.
 
-    def lang(self, *value):
-        """
-        Set/get language. leave empty to get current language.
+    >>> from fusion_hat.tts import Espeak
+    >>> tts = Espeak()
 
-        :param value: language.
-        :type value: str
-        """
-        if len(value) == 0:
-            return self._lang
-        elif len(value) == 1:
-            v = value[0]
-            if v in self.SUPPORTED_LANGUAUE:
-                self._lang = v
-                return self._lang
-        raise ValueError(
-            f'Arguement "{value}" is not supported. run tts.supported_lang to get supported language type.'
-        )
+    Set amplitude 0-200, default 100
 
-    def supported_lang(self):
-        """
-        Get supported language.
+    >>> tts.set_amp(200)
+    
+    Set speed 80-260, default 150
 
-        :return: supported language.
-        :rtype: list
-        """
-        return self.SUPPORTED_LANGUAUE
+    >>> tts.set_speed(150)
+    
+    Set gap 0-200, default 1
 
-    def espeak_params(self, amp=None, speed=None, gap=None, pitch=None):
-        """
-        Set espeak parameters.
+    >>> tts.set_gap(1)
+    
+    Set pitch 0-99, default 80
 
-        :param amp: amplitude.
-        :type amp: int
-        :param speed: speed.
-        :type speed: int
-        :param gap: gap.
-        :type gap: int
-        :param pitch: pitch.
-        :type pitch: int
-        """
-        if amp == None:
-            amp = self._amp
-        if speed == None:
-            speed = self._speed
-        if gap == None:
-            gap = self._gap
-        if pitch == None:
-            pitch = self._pitch
+    >>> tts.set_pitch(80)
 
-        if amp not in range(0, 200):
-            raise ValueError(f'Amp should be in 0 to 200, not "{amp}"')
-        if speed not in range(80, 260):
-            raise ValueError(f'speed should be in 80 to 260, not "{speed}"')
-        if pitch not in range(0, 99):
-            raise ValueError(f'pitch should be in 0 to 99, not "{pitch}"')
-        self._amp = amp
-        self._speed = speed
-        self._gap = gap
-        self._pitch = pitch
+    Say message.
+
+    >>> tts.say("Hello world!")
+
+    ``Pico2Wave``
+
+    Import and initialize Pico2Wave TTS engine.
+
+    >>> from fusion_hat.tts import Pico2Wave
+    >>> tts = Pico2Wave()
+
+    List available languages.
+
+    >>> tts.SUPPORTED_LANGUAUE
+    ['en-US', 'en-GB', 'de-DE', 'es-ES', 'fr-FR', 'it-IT']
+
+    Set language.
+
+    >>> tts.set_lang('en-US')
+    
+    Say message.
+
+    >>> tts.say("Hello world!")
+
+    ``OpenAI TTS``
+
+    Import and initialize OpenAI TTS engine.
+
+    >>> from fusion_hat.tts import OpenAI_TTS
+    >>> API_KEY = "sk-..."
+    >>> tts = OpenAI_TTS(api_key=API_KEY)
+
+    Set voice.
+
+    >>> tts.set_voice(tts.Voice.ALLOY)
+    
+    Say message.
+
+    >>> tts.say("Hello world!")
+
+    Say message with instructions.
+    
+    >>> tts.say("I'm so sad right now.", instructions="say it sadly")
+"""
+
+__all__ = [
+    "Piper",
+    "Pico2Wave",
+    "Espeak",
+    "OpenAI_TTS",
+]
+
+from sunfounder_voice_assistant.tts import Piper, Pico2Wave, Espeak, OpenAI_TTS
+from .device import enable_speaker
+
+# Save original __init__ methods
+_original_piper_init = Piper.__init__
+_original_pico2wave_init = Pico2Wave.__init__
+_original_espeak_init = Espeak.__init__
+_original_openai_tts_init = OpenAI_TTS.__init__
+
+# Override __init__ methods to enable speaker
+def _piper_init_with_speaker(self, *args, **kwargs):
+    _original_piper_init(self, *args, **kwargs)
+    enable_speaker()
+
+def _pico2wave_init_with_speaker(self, *args, **kwargs):
+    _original_pico2wave_init(self, *args, **kwargs)
+    enable_speaker()
+
+def _espeak_init_with_speaker(self, *args, **kwargs):
+    _original_espeak_init(self, *args, **kwargs)
+    enable_speaker()
+
+def _openai_tts_init_with_speaker(self, *args, **kwargs):
+    _original_openai_tts_init(self, *args, **kwargs)
+    enable_speaker()
+
+# Apply modified __init__ methods
+Piper.__init__ = _piper_init_with_speaker
+Pico2Wave.__init__ = _pico2wave_init_with_speaker
+Espeak.__init__ = _espeak_init_with_speaker
+OpenAI_TTS.__init__ = _openai_tts_init_with_speaker

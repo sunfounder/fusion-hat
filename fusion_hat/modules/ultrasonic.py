@@ -1,15 +1,15 @@
 import time
 from ..pin import Pin
-
+import threading
 
 class Ultrasonic():
     SOUND_SPEED = 343.3 # ms
 
     def __init__(self, trig, echo, timeout=0.02):
         if not isinstance(trig, Pin):
-            raise TypeError("trig must be robot_hat.Pin object")
+            raise TypeError("trig must be fusion_hat.Pin object")
         if not isinstance(echo, Pin):
-            raise TypeError("echo must be robot_hat.Pin object")
+            raise TypeError("echo must be fusion_hat.Pin object")
 
         self.timeout = timeout
 
@@ -18,7 +18,12 @@ class Ultrasonic():
         self.trig = Pin(trig._pin_num)
         self.echo = Pin(echo._pin_num, mode=Pin.IN, pull=Pin.PULL_DOWN)
 
-    def _read(self):
+        self.thread_read_interval = 0.02
+        self.thread = None
+        self.thread_started = False
+        self.thread_value = -1
+
+    def read_raw(self):
         self.trig.off()
         time.sleep(0.001)
         self.trig.on()
@@ -44,9 +49,33 @@ class Ultrasonic():
         cm = round(during * self.SOUND_SPEED / 2 * 100, 2)
         return cm
 
-    def read(self, times=10):
-        for i in range(times):
-            a = self._read()
-            if a != -1:
-                return a
+    def read_with_retry(self, times=10):
+        for _ in range(times):
+            value = self.read_raw()
+            if value > 0:
+                return value
         return -1
+
+    def read(self):
+        if self.thread is not None and self.thread_started:
+            return self.thread_value
+        else:
+            return self.read_with_retry()
+
+    def thread_read_loop(self):
+        while self.thread_started:
+            self.thread_value = self.read_with_retry()
+            time.sleep(self.thread_read_interval)
+
+    def start_thread(self, interval=0.01):
+        if self.thread is None:
+            self.thread_started = True
+            self.thread_read_interval = interval
+            self.thread = threading.Thread(target=self.thread_read_loop, daemon=True)
+            self.thread.start()
+    
+    def stop_thread(self):
+        self.thread_started = False
+        if self.thread is not None:
+            self.thread.join()
+            self.thread = None

@@ -25,12 +25,12 @@ class Buzzer():
         Initialize buzzer
 
         :param pwm: PWM object for passive buzzer or Pin object for active buzzer
-        :type pwm: robot_hat.PWM/robot_hat.Pin
+        :type pwm: fusion_hat.PWM/fusion_hat.Pin
         """
         # print(f'buzzer type: {type(buzzer)}')
         if not isinstance(buzzer, (PWM, Pin)):
             raise TypeError(
-                "buzzer must be robot_hat.PWM or robot_hat.Pin object")
+                "buzzer must be fusion_hat.PWM or fusion_hat.Pin object")
         self.buzzer = buzzer
         self.off()
 

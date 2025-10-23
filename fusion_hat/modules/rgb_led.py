@@ -15,22 +15,22 @@ class RGB_LED():
         Initialize RGB LED
 
         :param r_pin: PWM object for red
-        :type r_pin: robot_hat.PWM
+        :type r_pin: fusion_hat.PWM
         :param g_pin: PWM object for green
-        :type g_pin: robot_hat.PWM
+        :type g_pin: fusion_hat.PWM
         :param b_pin: PWM object for blue
-        :type b_pin: robot_hat.PWM
+        :type b_pin: fusion_hat.PWM
         :param common: RGB_LED.ANODE or RGB_LED.CATHODE, default is ANODE
         :type common: int
         :raise ValueError: if common is not ANODE or CATHODE
         :raise TypeError: if r_pin, g_pin or b_pin is not PWM object
         """
         if not isinstance(r_pin, PWM):
-            raise TypeError("r_pin must be robot_hat.PWM object")
+            raise TypeError("r_pin must be fusion_hat.PWM object")
         if not isinstance(g_pin, PWM):
-            raise TypeError("g_pin must be robot_hat.PWM object")
+            raise TypeError("g_pin must be fusion_hat.PWM object")
         if not isinstance(b_pin, PWM):
-            raise TypeError("b_pin must be robot_hat.PWM object")
+            raise TypeError("b_pin must be fusion_hat.PWM object")
         if common not in (self.ANODE, self.CATHODE):
             raise ValueError("common must be RGB_LED.ANODE or RGB_LED.CATHODE")
         self.r_pin = r_pin

@@ -2,7 +2,7 @@ from .ultrasonic import Ultrasonic
 from .adxl345 import ADXL345
 from .rgb_led import RGB_LED
 from .buzzer import Buzzer
-from .grayscale_module import Grayscale_Module
+from .grayscale_module import Grayscale_Module, LineTracker
 from .keypad import Keypad
 from .mpu6050 import MPU6050
 from .lcd1602 import LCD1602

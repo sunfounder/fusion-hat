@@ -4,4 +4,4 @@ docs/build
 __pycache__
 bk/
 backup/
-
+*secret*
