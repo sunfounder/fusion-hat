@@ -9,13 +9,12 @@ Example:
     Enable speaker
 
     >>> device.enable_speaker()
+    >>> device.get_speaker_state()
+    True
 
     Disable speaker
 
     >>> device.disable_speaker()
-
-    Get speaker state
-
     >>> device.get_speaker_state()
     False
 
@@ -33,6 +32,8 @@ Example:
 
     >>> device.set_user_led(True)
     >>> device.set_user_led(False)
+    >>> device.set_user_led(1)
+    >>> device.set_user_led(0)
 
     Get firmware version
 
@@ -145,14 +146,14 @@ def get_shutdown_request() -> int:
     result = simple_i2c_command("get", SHUTDOWN_REQUEST_REG_ADDR, "b")
     return result
 
-def set_user_led(state: int) -> None:
+def set_user_led(state: [int, bool]) -> None:
     """ Set user led state
 
     Args:
-        state (int): 0:off, 1:on, 2:toggle
+        state (int or bool): 0:off, 1:on, True:on, False:off
     """
     USER_LED_REG_ADDR = 0x30
-    simple_i2c_command("set", USER_LED_REG_ADDR, "b", state)
+    simple_i2c_command("set", USER_LED_REG_ADDR, int(state), "b")
 
 def get_firmware_version() -> list:
     """ Get firmware version
@@ -171,7 +172,7 @@ def set_volume(value: int) -> None:
         value (int): volume(0~100)
     """
     value = min(100, max(0, value))
-    cmd = "sudo amixer -M sset 'PCM' %d%%" % value
+    cmd = "sudo amixer -M sset 'fusion_hat speaker' %d%%" % value
     os.system(cmd)
 
 def get_battery_voltage() -> float:
