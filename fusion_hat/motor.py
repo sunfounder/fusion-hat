@@ -69,6 +69,7 @@ class Motor(_Base):
         self.pwm_a = None
         self.pwm_b = None
 
+        args = list(args)
         if len(args) == 1:
             self.motor = args.pop()
 

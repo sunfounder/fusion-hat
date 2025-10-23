@@ -176,7 +176,16 @@ def get_shutdown_request() -> ShutdownRequestCode:
     return ShutdownRequestCode(result)
 
 def set_user_led(state: [int, bool]) -> None:
-    """ Set user led state
+    """ [Deprecated] Set user led state
+
+    Args:
+        state (int or bool): 0:off, 1:on, True:on, False:off
+    """
+    print("Warning: set_user_led is deprecated, please use set_led instead.")
+    set_led(state)
+
+def set_led(state: [int, bool]) -> None:
+    """ Set led state
 
     Args:
         state (int or bool): 0:off, 1:on, True:on, False:off

@@ -39,29 +39,29 @@ Pinout
 **Digital Pin**
     * 4-channel digital pins, D0-D3.
     * Pin: :ref:`fh_pin_v0_digital`.
-    * API: :ref:`class_pin`.
+    * API: :class:`fusion_hat.pin.Pin`.
 
 **ADC Pin**
     * 4-channel ADC pins, A0-A3.
     * Pin: :ref:`fh_pin_v0_adc`.
-    * API: :ref:`class_adc`.
+    * API: :class:`fusion_hat.adc.ADC`.
 
 **PWM Pin**
     * 12-channel PWM pins, P0-P11.
     * Pin: :ref:`fh_pin_v0_pwm`.
-    * API: :ref:`class_pwm`.
+    * API: :class:`fusion_hat.pwm.PWM`.
 
 **Motor Port**
     * 4-channel XH2.54 motor ports.
     * Pin: :ref:`fh_pin_v0_motor`.
-    * API: :ref:`class_motor`.
+    * API: :class:`fusion_hat.motor.Motor`.
 
 **I2C Pin and I2C Port**
     * **I2C Pin**: P2.54 4-pin interface.
     * **I2C Port**: SH1.0 4-pin interface, which is compatible with QWIIC and STEMMA QT. 
     * These I2C interfaces are connected to the Raspberry Pi's I2C interface via GPIO2 (SDA) and GPIO3 (SCL).
     * Pin: :ref:`fh_pin_v0_i2c`.
-    * API: :ref:`class_i2c`.
+    * API: :class:`fusion_hat.i2c.I2C`.
 
 **SPI Pin**
     * P2.54 7-pin SPI interface.
@@ -75,15 +75,14 @@ Pinout
     * 1-channel WS2812 port.
     * Pin: :ref:`fh_pin_v0_ws2812`.
 
-**RST Button**
-    * The RST button, when using Ezblock, serves as a button to restart the Ezblock program. 
-    * If not using Ezblock, the RST button does not have a predefined function and can be fully customized according to your needs.
-    * Pin: :ref:`fh_pin_v0_button`.
-    * API: :ref:`class_pin`
+**LED Indicator**
+    * One LED lights up when the power is on.
+    * Pin: :ref:`fh_pin_v0_led`.
+    * API: :class:`fusion_hat.device.set_led`.
 
 **USR Button**
     * The functions of USR Button can be set by your programming. (Pressing down leads to a input “0”; releasing produces a input “1”. ) 
-    * API: :ref:`class_pin`, you can use ``Pin("SW")`` to define it.
+    * API: :meth:`fusion_hat.device.get_usr_btn` or :class:`fusion_hat.user_button.UserButton`.
     * Pin: :ref:`fh_pin_v0_button`.
 
 **Battery Indicator**
@@ -97,7 +96,7 @@ Pinout
     * **Speaker Port**: The Fusion HAT+ is equipped with onboard I2S audio output, along with a 2030 audio chamber speaker, providing a mono sound output.
     * **MIC**: The Fusion HAT+ is equipped with a MEMS microphone, which can be used to collect ambient sound.
     * Pin: :ref:`fh_pin_v0_speaker`.
-    * API: :ref:`class_music`
+    * API: :class:`fusion_hat.music.Music`.
 
 
 

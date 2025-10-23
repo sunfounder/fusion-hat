@@ -24,8 +24,8 @@ dependencies = [
 ]
 
 [project.scripts]
-fusion_hat = "fusion_hat.script:fusion_hat_cmd"
-fusion_hat_safe_shutdown = "fusion_hat.safe_shutdown:__main__"
+fusion_hat = "fusion_hat._cli:main"
+fusion_hat_safe_shutdown = "fusion_hat._safe_shutdown:main"
 
 [project.urls]
 Repository = "https://github.com/sunfounder/fusion-hat/"
@@ -35,6 +35,6 @@ Issues = "https://github.com/sunfounder/fusion-hat/issues"
 include = ["fusion_hat*"]
 
 [tool.setuptools.dynamic]
-version = {attr = "fusion_hat.version.__version__"}
+version = {attr = "fusion_hat._version.__version__"}
 
 

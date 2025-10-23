@@ -22,10 +22,13 @@ Submodules
    :maxdepth: 1
 
    fusion_hat._base
+   fusion_hat._cli
    fusion_hat._config
    fusion_hat._i2c
    fusion_hat._logger
+   fusion_hat._safe_shutdown
    fusion_hat._utils
+   fusion_hat._version
    fusion_hat.adc
    fusion_hat.device
    fusion_hat.llm
@@ -34,12 +37,9 @@ Submodules
    fusion_hat.pin
    fusion_hat.pwm
    fusion_hat.pwm_group
-   fusion_hat.safe_shutdown
-   fusion_hat.script
    fusion_hat.servo
    fusion_hat.stt
    fusion_hat.tts
    fusion_hat.user_button
    fusion_hat.utils
-   fusion_hat.version
    fusion_hat.voice_assistant
