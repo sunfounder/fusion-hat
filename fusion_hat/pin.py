@@ -119,6 +119,8 @@ class Pin(_Base):
                         If True, when the hardware pin state is HIGH, the software pin is HIGH. 
                         If False, the input polarity is reversed. Defaults to Active.HIGH.
         bounce_time (float, optional): bounce time of pin interrupt in seconds. Defaults to 0.02.
+        *args: Additional arguments for :class:`fusion_hat._base._Base`
+        **kwargs: Additional keyword arguments for :class:`fusion_hat._base._Base`
     """
 
     OUT = Mode.OUT

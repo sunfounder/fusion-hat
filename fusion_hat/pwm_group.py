@@ -1,6 +1,16 @@
+""" PWM group class to control multiple PWM channels
+
+Example:
+    >>> from fusion_hat import PWM_GROUP
+    >>> pwm_group = PWM_GROUP([0, 1, 2, 3, 4, 5, 6, 7])
+    >>> pwm_group.freq(50)
+    >>> pwm_group.pulse_width(2048)
+"""
 import math
 from .device import I2C_ADDRESS
 from ._i2c import I2C
+
+
 from ._base import _Base
 from typing import Optional
 
@@ -12,6 +22,8 @@ class PWM_GROUP(_Base):
         freq (int, optional): PWM frequency, default is 50Hz
         addr (int, optional): I2C address, default is 0x17
         auto_write (bool, optional): Auto write to register, default is False
+        *args: passed to :class:`sunfounder_voice_assistant._base._Base`.
+        **kwargs: passed to :class:`sunfounder_voice_assistant._base._Base`.
     """
 
     REG_PSC = 0x40 # Prescaler register prefix

@@ -38,7 +38,8 @@ extensions = [
     'sphinx_rtd_theme',
     #'sphinx_toolbox.collapse',
     'sphinx.ext.autosummary',
-    #'sphinx.ext.imgmath',
+    # 'sphinx.ext.imgmath',     # 启用图片渲染数学公式
+    'sphinx.ext.mathjax',     # 启用MathJax渲染数学公式
     'sphinx.ext.autodoc',     # 自动从代码提取文档
     'sphinx.ext.napoleon',    # 解析Google/NumPy风格文档
     'sphinx.ext.viewcode',    # 显示代码链接
@@ -48,7 +49,7 @@ extensions = [
 html_theme_options = {
     'flyout_display': 'attached'
 }
-#latex_engine = 'xelatex'
+# latex_engine = 'xelatex'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
