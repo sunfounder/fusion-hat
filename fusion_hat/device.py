@@ -50,8 +50,31 @@ Example:
     >>> device.get_battery_voltage()
     8.4
 """
+
+__all__ = [
+    'NAME',
+    'ID',
+    'UUID',
+    'PRODUCT_ID',
+    'PRODUCT_VER',
+    'VENDOR',
+    'I2C_ADDRESS',
+    'is_installed',
+    'enable_speaker',
+    'disable_speaker',
+    'get_speaker_state',
+    'get_usr_btn',
+    'get_charge_state',
+    'get_shutdown_request',
+    'set_user_led',
+    'get_firmware_version',
+    'set_volume',
+    'get_battery_voltage',
+]
+
 import os
 from ._utils import run_command, simple_i2c_command
+from enum import Enum
 
 HAT_DEVICE_TREE = "/proc/device-tree/"
 
@@ -75,6 +98,12 @@ PRODUCT_VER = 0x000a
 
 VENDOR = "SunFounder"
 """ Vendor of the board """ 
+
+class ShutdownRequestCode(Enum):
+    """ Shutdown request code """
+    NONE = 0
+    LOW_BATTERY = 1
+    BUTTON = 2
 
 def is_installed() -> bool:
     """ Check if a Fusion Hat board is installed
@@ -136,15 +165,15 @@ def get_charge_state() -> bool:
     result = simple_i2c_command("get", CHARGE_STATE_REG_ADDR, "b")
     return result == 1
 
-def get_shutdown_request() -> int:
+def get_shutdown_request() -> ShutdownRequestCode:
     """ Get shutdown request
 
     Returns:
-        int: 0: no request, 1: low Battery request, 2: button shutdown request
+        ShutdownRequestCode: shutdown request code
     """
     SHUTDOWN_REQUEST_REG_ADDR = 0x26
     result = simple_i2c_command("get", SHUTDOWN_REQUEST_REG_ADDR, "b")
-    return result
+    return ShutdownRequestCode(result)
 
 def set_user_led(state: [int, bool]) -> None:
     """ Set user led state
@@ -186,17 +215,3 @@ def get_battery_voltage() -> float:
     raw_voltage = adc.read_voltage()
     voltage = round(raw_voltage * 3, 2)
     return voltage
-
-__all__ = [
-    'is_installed',
-    'enable_speaker',
-    'disable_speaker',
-    'get_speaker_state',
-    'get_usr_btn',
-    'get_charge_state',
-    'get_shutdown_request',
-    'set_user_led',
-    'get_firmware_version',
-    'set_volume',
-    'get_battery_voltage',
-]
