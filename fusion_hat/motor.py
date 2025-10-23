@@ -1,3 +1,28 @@
+""" Motor
+
+This module provides a class for controlling motors on the Fusion Hat.
+
+Example:
+
+    Simple usage
+
+    >>> from fusion_hat.motor import Motor
+    >>> motor = Motor('M0', is_reversed=False)
+    >>> motor.set_power(50)
+
+    Change the direction of the motor.
+
+    >>> motor.set_is_reverse(True)
+    >>> motor.set_power(50)
+
+    Spin the motor in the other direction.
+
+    >>> motor.set_power(-50)
+
+    Stop the motor
+
+    >>> motor.stop()
+"""
 
 from .pwm import PWM
 from ._utils import mapping
@@ -7,14 +32,14 @@ class Motor(_Base):
     """ Motor class
 
     There are two ways to initialize a motor:
-    1. Pass a motor name as a string.
-    2. Pass two pwm pins as PWM objects.
 
-    Method 1:
+    Method 1: Pass a motor name as a string.
+
     Args:
         motor (str): Motor name
     
-    Method 2:
+    Method 2: Pass two pwm pins as PWM objects.
+
     Args:
         pwm_a (fusion_hat.pwm.PWM): Motor speed control pwm pin a
         pwm_b (fusion_hat.pwm.PWM): Motor speed control pwm pin b

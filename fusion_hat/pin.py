@@ -1,4 +1,71 @@
-#!/usr/bin/env python3
+"""
+Pin manipulation class
+
+Example:
+
+    Simple example with auto mode
+
+    >>> from fusion_hat.pin import Pin
+    >>> pin = Pin(17)
+    >>> pin.value() # read the pin input value
+    0
+    >>> pin.value(1) # output pin value to high
+    1
+
+    Output mode
+
+    >>> from fusion_hat.pin import Pin
+    >>> pin = Pin(17, mode=Pin.OUT)
+    >>> pin.value(1) # output high
+    1
+    >>> pin.value(0) # output low
+    0
+    >>> pin.value() # read current value, not as input
+    0
+    >>> pin.on() # output high
+    1
+    >>> pin.off() # output low
+    0
+
+    Input mode
+    
+    >>> pin = Pin(17, mode=Pin.IN, pull=Pin.PULL_UP)
+    >>> pin.value() # read the pin input value
+    0
+
+    Active state, If your LED active LOW, you can set active_state make things easier.
+
+    >>> led = Pin(17, mode=Pin.OUT, active_state=Pin.ACTIVE_LOW)
+    >>> led.on() # output low but turn on the LED
+    0
+    >>> led.off() # output high but turn off the LED
+    1
+    >>> led.value() # read current value, not as input
+    1
+    >>> led.raw(1) # You can still set the raw value
+    1
+
+    And also if your button active LOW, you can set active_state to Pin.ACTIVE_LOW. you can also do the same.
+
+    >>> button = Pin(17, mode=Pin.IN, pull=Pin.PULL_UP, active_state=Pin.ACTIVE_LOW)
+    >>> button.value() # read's pin low but return 1 as pressed
+    1
+    >>> button.raw() # You can still read the raw value
+    0
+
+    You can also set interrupts on activated or deactivated state.
+
+    >>> button = Pin(17, mode=Pin.IN, pull=Pin.PULL_UP, active_state=Pin.ACTIVE_LOW, bouncetime=0.02)
+    >>> def on_press(pin: Pin) -> None:
+    ...     print("press")
+    >>> def on_release(pin: Pin) -> None:
+    ...     print("release")
+    >>> button.when_activated = on_press
+    >>> button.when_deactivated = on_release
+    pressed
+    release
+
+"""
 from RPi import GPIO
 from typing import Callable
 from enum import Enum
@@ -40,7 +107,19 @@ class Trigger(Enum):
     """Pin interrupt both rising and falling"""
 
 class Pin(_Base):
-    """ Pin manipulation class """
+    """ Pin manipulation class
+    
+    a pin wraping class of RPi.GPIO. you need to install rpi.lgpio instead of RPi.GPIO on Pi 5
+
+    Args:
+        pin (int): pin number of Raspberry Pi
+        mode (Mode, optional): pin mode(IN/OUT/AUTO). Defaults to Mode.AUTO.
+        pull (Pull, optional): pin pull (Pull.UP/Pull.DOWN/Pull.NONE). Defaults to Pull.NONE.
+        active_state (Active, optional): active state of pin,  
+                        If True, when the hardware pin state is HIGH, the software pin is HIGH. 
+                        If False, the input polarity is reversed. Defaults to Active.HIGH.
+        bounce_time (float, optional): bounce time of pin interrupt in seconds. Defaults to 0.02.
+    """
 
     OUT = Mode.OUT
     """Pin mode output"""
@@ -56,6 +135,11 @@ class Pin(_Base):
     PULL_NONE = Pull.NONE
     """Pin internal pull none"""
 
+    ACTIVE_HIGH = Active.HIGH
+    """Pin active state high"""
+    ACTIVE_LOW = Active.LOW
+    """Pin active state low"""
+
     IRQ_FALLING = Trigger.FALLING
     """Pin interrupt falling"""
     IRQ_RISING = Trigger.RISING
@@ -63,18 +147,14 @@ class Pin(_Base):
     IRQ_RISING_FALLING = Trigger.BOTH
     """Pin interrupt both rising and falling"""
 
-    def __init__(self, pin: int, *args, mode: Mode = Mode.AUTO, pull: Pull = Pull.NONE, active_state: Active = Active.HIGH, bounce_time: float = None, **kwargs):
-        """ Initialize a pin
-
-        Args:
-            pin (int): pin number of Raspberry Pi
-            mode (Mode, optional): pin mode(IN/OUT/AUTO). Defaults to Mode.AUTO.
-            pull (Pull, optional): pin pull (Pull.UP/Pull.DOWN/Pull.NONE). Defaults to Pull.NONE.
-            active_state (Active, optional): active state of pin,  
-                            If True, when the hardware pin state is HIGH, the software pin is HIGH. 
-                            If False, the input polarity is reversed. Defaults to Active.HIGH.
-            bounce_time (float, optional): bounce time of pin interrupt. Defaults to None.
-        """
+    def __init__(self,
+            pin: int,
+            *args,
+            mode: Mode = Mode.AUTO,
+            pull: Pull = Pull.NONE,
+            active_state: Active = Active.HIGH,
+            bounce_time: float = 0.02,
+            **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
         GPIO.setmode(GPIO.BCM)
@@ -96,7 +176,11 @@ class Pin(_Base):
         self.log.debug("Deinitialize pin %d", self._pin_num)
         GPIO.cleanup(self._pin_num)
         
-    def setup(self, mode: Mode = Mode.AUTO, pull: Pull = Pull.NONE, active_state: Active = Active.HIGH, bounce_time: float = None) -> None:
+    def setup(self,
+            mode: Mode = Mode.AUTO,
+            pull: Pull = Pull.NONE,
+            active_state: Active = Active.HIGH,
+            bounce_time: float = 0.02) -> None:
         """ Setup the pin
 
         Args:
@@ -105,7 +189,7 @@ class Pin(_Base):
             active_state (Active, optional): active state of pin,
                             If True, when the hardware pin state is HIGH, the software pin is HIGH. 
                             If False, the input polarity is reversed. Defaults to Active.HIGH.
-            bounce_time (float, optional): bounce time of pin interrupt in seconds. Defaults to None.
+            bounce_time (float, optional): bounce time of pin interrupt in seconds. Defaults to 0.02.
         """
         self.log.debug("Setup pin %d, mode %s, pull %s, active_state %s, bounce_time %s", self._pin_num, mode, pull, active_state, bounce_time)
         self._mode = mode
@@ -146,9 +230,12 @@ class Pin(_Base):
         """
         if value == None:
             if self._mode == Mode.AUTO:
+                self.log.debug("Get pin %d raw value, mode is AUTO", self._pin_num)
                 GPIO.setup(self._pin_num, self.IN.value, pull_up_down=self._pull.value)
                 result = GPIO.input(self._pin_num)
-            else:
+            elif self._mode == Mode.IN:
+                result = GPIO.input(self._pin_num)
+            elif self._mode == Mode.OUT:
                 result = self._value
             return result
         else:
@@ -244,6 +331,8 @@ class Pin(_Base):
         Args:
             channel (int): pin number
         """
+        value = GPIO.input(channel)
+        print(f"Pin {channel} value: {value}")
         if self._on_activated and self.value() == 1:
             self.log.debug("Pin %d activated", self._pin_num)
             self._on_activated()

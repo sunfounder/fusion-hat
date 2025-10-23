@@ -1,4 +1,39 @@
-#!/usr/bin/env python3
+""" Music
+
+This module provides a class for playing music, sound affect and note control.
+
+Example:
+
+    Import the module and create an instance
+
+    >>> from fusion_hat.music import Music
+    >>> music = Music()
+
+    Play a music file
+
+    >>> music.music_play("music.wav")
+
+    Play music in a thread
+
+    >>> music_thread = threading.Thread(target=music.music_play, args=("music.wav",))
+    >>> music_thread.start()
+
+    Control the music
+
+    >>> music.music_pause()
+    >>> music.music_resume()
+    >>> music.music_stop()
+
+    Play a sound file
+
+    >>> music.sound_play("sound.wav")
+
+    Play a sound file in a thread
+    
+    >>> music.sound_play_thread("sound.wav")
+
+"""
+
 import time
 import threading
 import pyaudio
@@ -73,7 +108,7 @@ class Music():
         self.time_signature(4, 4)
         self.tempo(120, 1/4)
         self.key_signature(0)
-        #
+
         enable_speaker()
 
     def time_signature(self, top: int = None, bottom: int = None) -> tuple:
