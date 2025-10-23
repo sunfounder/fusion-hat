@@ -19,7 +19,9 @@
 import os
 import sys
 import time
+
 sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../../../sunfouner-voice-assistant'))
 
 project = 'SunFounder Fusion HAT+'
 copyright = f'{time.localtime().tm_year}, SunFounder'
@@ -37,9 +39,10 @@ extensions = [
     #'sphinx_toolbox.collapse',
     'sphinx.ext.autosummary',
     #'sphinx.ext.imgmath',
-    'sphinx.ext.autodoc',  # 自动从代码提取文档
-    'sphinx.ext.napoleon',  # 解析Google/NumPy风格文档
-    'sphinx.ext.viewcode',  # 显示代码链接（可选）
+    'sphinx.ext.autodoc',     # 自动从代码提取文档
+    'sphinx.ext.napoleon',    # 解析Google/NumPy风格文档
+    'sphinx.ext.viewcode',    # 显示代码链接
+    # 'sphinx.ext.intersphinx', # 跨项目引用SunFounder voice assistant
 ]
 
 html_theme_options = {
@@ -59,11 +62,10 @@ exclude_patterns = []
 autodoc_mock_imports = [
     "luma",
     "smbus2",
-    "RPi",
     "pyaudio",
-    "numpy",
-    "spidev",
+    "RPi",
     "gpiozero",
+    "spidev",
 ]
 autodoc_default_options = {
     'member-order': 'bysource',
@@ -88,6 +90,14 @@ napoleon_use_rtype = True
 napoleon_preprocess_types = False
 napoleon_type_aliases = None
 napoleon_attr_annotations = True
+
+# 交叉引用设置
+# intersphinx_mapping = {
+#     'sunfounder_voice_assistant': (
+#         'https://sunfounder-voice-assistant.readthedocs.io/en/latest/',
+#         None  # 如果知道 objects.inv 路径，可替换为 'https://.../objects.inv'
+#     ),
+# }
 
 # -- Options for HTML output -------------------------------------------------
 

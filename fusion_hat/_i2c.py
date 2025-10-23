@@ -62,8 +62,6 @@ from ._utils import retry
 from smbus2 import SMBus
 from ._base import _Base
 
-__all__ = ["I2C"]
-
 class I2C(_Base):
     """ I2C bus read/write functions
     

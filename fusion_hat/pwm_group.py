@@ -7,24 +7,6 @@ from typing import Optional
 class PWM_GROUP(_Base):
     """ PWM group class to control multiple PWM channels
 
-    PWM channels:
-        PWM     MCU     TIM_Channel
-    ------------------------------
-        0       PA8      TIM0_CH0
-        1       PA9      TIM0_CH1
-        2       PA10     TIM0_CH2
-        3       PA11     TIM0_CH3
-
-        4       PB4      TIM2_CH0
-        5       PB5      TIM2_CH1
-        6       PB0      TIM2_CH2
-        7       PB1      TIM2_CH3
-
-        8       PB14     TIM14_CH0
-        9       PB15     TIM14_CH1
-        10      PB8      TIM15_CH0
-        11      PB9      TIM16_CH1
-
     Args:
         channels (list): PWM channels
         freq (int, optional): PWM frequency, default is 50Hz

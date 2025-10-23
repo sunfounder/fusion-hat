@@ -1,15 +1,18 @@
 import json
 import os
 from typing import Iterator, Any
+from ._base import _Base
 
-class Config():
-    """ Config class """
-    def __init__(self, config_file: str) -> None:
-        """ Initialize the config class
+class Config(_Base):
+    """ Config class
 
-        Args:
-            config_file (str): config file path
-        """
+    Args:
+        config_file (str): config file path
+        *args: pass to :class:`#fusion_hat._base._Base`
+        **kwargs: pass to :class:`#fusion_hat._base._Base`
+    """
+    def __init__(self, *args, config_file: str, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.config_file = config_file
         
         if not os.path.exists(config_file):
@@ -126,5 +129,3 @@ class Config():
             str: string representation of the config
         """
         return f'Config({self.config_file})'
-
-__all__ = ["Config"]

@@ -1,4 +1,54 @@
+""" Fusion Hat device related functions
 
+Example:
+
+    Import device module
+
+    >>> from fusion_hat import device
+
+    Enable speaker
+
+    >>> device.enable_speaker()
+
+    Disable speaker
+
+    >>> device.disable_speaker()
+
+    Get speaker state
+
+    >>> device.get_speaker_state()
+    False
+
+    Get user button state
+
+    >>> device.get_usr_btn()
+    False
+
+    Get shutdown request state
+
+    >>> device.get_shutdown_request()
+    0
+
+    Toggle user LED
+
+    >>> device.set_user_led(True)
+    >>> device.set_user_led(False)
+
+    Get firmware version
+
+    >>> version = device.get_firmware_version()
+    >>> ".".join([str(v) for v in version])
+    '1.1.4'
+
+    Set volume
+
+    >>> device.set_volume(50)
+
+    Get battery voltage
+
+    >>> device.get_battery_voltage()
+    8.4
+"""
 import os
 from ._utils import run_command, simple_i2c_command
 
@@ -102,7 +152,7 @@ def set_user_led(state: int) -> None:
         state (int): 0:off, 1:on, 2:toggle
     """
     USER_LED_REG_ADDR = 0x30
-    simple_i2c_command("set", USER_LED_REG_ADDR, state, "b")
+    simple_i2c_command("set", USER_LED_REG_ADDR, "b", state)
 
 def get_firmware_version() -> list:
     """ Get firmware version
@@ -133,7 +183,7 @@ def get_battery_voltage() -> float:
     from .adc import ADC
     adc = ADC("A4")
     raw_voltage = adc.read_voltage()
-    voltage = raw_voltage * 3
+    voltage = round(raw_voltage * 3, 2)
     return voltage
 
 __all__ = [

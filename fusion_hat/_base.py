@@ -15,5 +15,3 @@ class _Base:
     def __init__(self, *args, log: logging.Logger = Logger(__name__), log_level: [int, str] = logging.INFO, **kwargs):
         self.log = log
         self.log.setLevel(log_level)
-
-__all__ = ["_Base"]

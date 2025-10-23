@@ -1,9 +1,9 @@
 from fusion_hat.device import *
-from fusion_hat.utils import get_battery_voltage
-from fusion_hat.utils import get_usr_btn
-from fusion_hat.utils import get_speaker_state
-from fusion_hat.utils import get_charge_state
-from fusion_hat.utils import get_firmware_version
+from fusion_hat.device import get_battery_voltage
+from fusion_hat.device import get_usr_btn
+from fusion_hat.device import get_speaker_state
+from fusion_hat.device import get_charge_state
+from fusion_hat.device import get_firmware_version
 import time
 
 while True:

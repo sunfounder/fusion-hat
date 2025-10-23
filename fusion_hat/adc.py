@@ -13,11 +13,13 @@ Example:
     >>> a0 = ADC(0)
 
     Read ADC channel 0 value
-    >>> print(a0.read())
+
+    >>> a0.read()
     2048
 
     Read ADC channel 0 voltage
-    >>> print(a0.read_voltage())
+
+    >>> a0.read_voltage()
     1.65
 """
 
