@@ -1,10 +1,44 @@
-#!/usr/bin/env python3
+""" Servo motor class
+
+Example:
+
+    Simple usage:
+
+    >>> from fusion_hat.servo import Servo
+    >>> servo = Servo(0)
+    >>> servo.angle(-90)
+    >>> servo.angle(0)
+    >>> servo.angle(90)
+
+    Change the angle range:
+
+    >>> servo = Servo(0, min=0, max=180)
+    >>> servo.angle(0)
+    >>> servo.angle(180)
+
+    Add offset:
+
+    >>> servo = Servo(0, offset=10.0)
+    >>> servo.angle(0)
+    >>> servo.angle(90)
+"""
+
 from .pwm import PWM
-from .utils import mapping, constrain
+from ._utils import mapping, constrain
 from typing import Optional
 
 class Servo(PWM):
-    """ Servo motor class """
+    """ Servo motor class
+
+    Args:
+        channel (int/str): PWM channel number(0-14/P0-P14)
+        address (str, optional): I2C address(0x17), leave it None to use default address, defaults to None
+        offset (float, optional): offset value(-20.0~20.0), leave it None to use default offset, defaults to 0.0
+        min (float, optional): minimum angle(-90~90), leave it None to use default min angle, defaults to -90
+        max (float, optional): maximum angle(-90~90), leave it None to use default max angle, defaults to 90
+        *args: Pass to :class:`fusion_hat.pwm.PWM`
+        **kwargs: Pass to :class:`fusion_hat.pwm.PWM`
+    """
     MAX_PW = 2500
     MIN_PW = 500
     FREQ = 50
@@ -12,11 +46,6 @@ class Servo(PWM):
 
     def __init__(self, channel: int, address: Optional[str]=None, offset: Optional[float]=0.0, min: Optional[float]=-90, max: Optional[float]=90, *args, **kwargs):
         """ Initialize the servo motor class
-
-        Args:
-            channel (int/str): PWM channel number(0-14/P0-P14)
-            address (str, optional): I2C address(0x17), leave it None to use default address, defaults to None
-            offset (float, optional): offset value(-20.0~20.0), leave it None to use default offset, defaults to 0.0
         """
         super().__init__(channel, address, *args, **kwargs)
         self.period(self.PERIOD)

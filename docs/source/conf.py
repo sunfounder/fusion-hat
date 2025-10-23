@@ -16,14 +16,12 @@
 
 
 # -- Project information -----------------------------------------------------
-import sphinx_rtd_theme
 import os
 import sys
 import time
-sys.path.insert(0, os.path.abspath('../../'))
 
-autodoc_mock_imports = ["smbus2", "RPi", "pyaudio", "numpy", "spidev", "gpiozero"]
-autodoc_default_options = {'member-order': 'bysource', }
+sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../../../sunfouner-voice-assistant'))
 
 project = 'SunFounder Fusion HAT+'
 copyright = f'{time.localtime().tm_year}, SunFounder'
@@ -40,16 +38,18 @@ extensions = [
     'sphinx_rtd_theme',
     #'sphinx_toolbox.collapse',
     'sphinx.ext.autosummary',
-    #'sphinx.ext.imgmath',
-    'sphinx.ext.autodoc',  # 自动从代码提取文档
-    'sphinx.ext.napoleon',  # 解析Google/NumPy风格文档
-    'sphinx.ext.viewcode',  # 显示代码链接（可选）
+    # 'sphinx.ext.imgmath',     # 启用图片渲染数学公式
+    'sphinx.ext.mathjax',     # 启用MathJax渲染数学公式
+    'sphinx.ext.autodoc',     # 自动从代码提取文档
+    'sphinx.ext.napoleon',    # 解析Google/NumPy风格文档
+    'sphinx.ext.viewcode',    # 显示代码链接
+    # 'sphinx.ext.intersphinx', # 跨项目引用SunFounder voice assistant
 ]
 
 html_theme_options = {
     'flyout_display': 'attached'
 }
-#latex_engine = 'xelatex'
+# latex_engine = 'xelatex'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -59,6 +59,46 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# AutoDoc settings
+autodoc_mock_imports = [
+    "luma",
+    "smbus2",
+    "pyaudio",
+    "RPi",
+    "gpiozero",
+    "spidev",
+]
+autodoc_default_options = {
+    'member-order': 'bysource',
+    'members': True,          # 默认显示类/函数成员
+    'classes': True,          # 默认只显示类（过滤函数，可选）
+    'show-inheritance': True, # 默认显示继承关系
+    'undoc-members': False,   # 不显示无 docstring 的成员（避免杂乱）
+}
+
+# Napoleon settings
+napoleon_google_docstring = True
+napoleon_numpy_docstring = True
+napoleon_include_init_with_doc = False
+napoleon_include_private_with_doc = True
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = False
+napoleon_use_admonition_for_notes = False
+napoleon_use_admonition_for_references = False
+napoleon_use_ivar = True
+napoleon_use_param = True
+napoleon_use_rtype = True
+napoleon_preprocess_types = False
+napoleon_type_aliases = None
+napoleon_attr_annotations = True
+
+# 交叉引用设置
+# intersphinx_mapping = {
+#     'sunfounder_voice_assistant': (
+#         'https://sunfounder-voice-assistant.readthedocs.io/en/latest/',
+#         None  # 如果知道 objects.inv 路径，可替换为 'https://.../objects.inv'
+#     ),
+# }
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -66,8 +106,6 @@ exclude_patterns = []
 # a list of builtin themes.
 #
 html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-
 
 #### RTD+
 

@@ -54,7 +54,7 @@ This board features an onboard MCU, extending the Raspberry Pi’s capabilities 
     installation
     install_i2s_for_speaker
     ai_interaction/ai_interaction   
-    api/api
+    api/fusion_hat
     faq
 
 **Copyright Notice**

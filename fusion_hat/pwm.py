@@ -1,14 +1,62 @@
-#!/usr/bin/env python3
+""" PWM class to control a single PWM channel
+
+Example:
+
+    Simple example to control PWM channel 0 at 50Hz with 50% duty cycle.
+
+    >>> from fusion_hat.pwm import PWM
+    >>> pwm = PWM(0)
+    >>> pwm.freq(50)
+    >>> pwm.pulse_width_percent(0.5)
+
+    Advanced example to control PWM channel with 50 Hz frequency and period of 4096.
+    Prescaler will be
+
+    .. math::
+
+        \\begin{align*}
+        P_{rescaler} &= \\frac{F_{MCU}}{P_{eriod} \\times F_{PWM}} \\\\
+        P_{rescaler} &= \\frac{72000000}{4096 * 50} \\\\
+        P_{rescaler} &= 351.5625 \\approx 352
+        \\end{align*}
+
+    When we round up to 352. We will get actual frequency of 
+
+    .. math::
+
+        \\begin{align*}
+        F_{PWM} &= \\frac{F_{MCU}}{P_{rescaler} \\times P_{eriod}} \\\\
+        F_{PWM} &= \\frac{72000000}{352 \\times 4096} \\\\
+        F_{PWM} &= 49.93785 Hz
+        \\end{align*}
+
+    >>> from fusion_hat.pwm import PWM
+    >>> pwm = PWM(0)
+    >>> pwm.prescaler(352)
+    >>> pwm.period(4096)
+    >>> pwm.pulse_width(2048)
+
+"""
 import math
-from .i2c import I2C
+from ._i2c import I2C
 from .device import I2C_ADDRESS
 from typing import Optional
-
 
 timer = [{"arr": 1} for _ in range(7)]
 
 class PWM(I2C):
-    """ PWM class to control a single PWM channel """
+    """ PWM class to control a single PWM channel
+
+    Args:
+        channel (int/str): PWM channel number(0-11/P0-P11)
+        freq (int, optional): PWM frequency, default is 50Hz
+        addr (int, optional): I2C address, default is 0x17
+        *args: Additional arguments for :class:`fusion_hat._i2c.I2C`
+        **kwargs: Additional keyword arguments for :class:`fusion_hat._i2c.I2C`
+    
+    Raises:
+        ValueError: Invalid channel number
+    """
 
     CLOCK = 72000000.0
 
@@ -25,17 +73,7 @@ class PWM(I2C):
     CHANNEL_NUM = 12
 
     def __init__(self, channel: int, freq: int=50, addr: int=I2C_ADDRESS, *args, **kwargs):
-        """ Initialize PWM
-
-        Args:
-            channel (int/str): PWM channel number(0-11/P0-P11)
-            freq (int, optional): PWM frequency, default is 50Hz
-            addr (int, optional): I2C address, default is 0x17
-        
-        Raises:
-            ValueError: Invalid channel number
-        """
-        super().__init__(addr, *args, **kwargs)
+        super().__init__(address=addr, *args, **kwargs)
         if isinstance(channel, str):
             if channel.startswith("P"):
                 channel = int(channel[1:])
@@ -98,15 +136,16 @@ class PWM(I2C):
         psc, arr = psc_arr[best_match]
         self._prescaler = int(psc) - 1
         self._period = int(arr) - 1
-        self.prescaler(self._prescaler)
-        self.period(self._period)
+        self.prescaler(self._prescaler, raw=True)
+        self.period(self._period, raw=True)
         return self._freq
 
-    def prescaler(self, prescaler: Optional[int]=None) -> int:
+    def prescaler(self, prescaler: Optional[int]=None, raw: bool=False) -> int:
         """ Set/get prescaler, leave blank to get prescaler
 
         Args:
             prescaler (int, optional): prescaler(0-65535), default is 0
+            raw (bool, optional): Whether to write prescaler directly, default is False
 
         Returns:
             int: prescaler
@@ -114,16 +153,18 @@ class PWM(I2C):
         if prescaler == None:
             return self._prescaler
 
+        if not raw:
+            self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
         self._prescaler = int(prescaler)
-        self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
         self.write_data(self._prescaler_register, self._prescaler)
         return self._prescaler
 
-    def period(self, period: Optional[int]=None) -> int:
+    def period(self, period: Optional[int]=None, raw: bool=False) -> int:
         """ Set/get period, leave blank to get period
 
         Args:
             period (int, optional): period(0-65535), default is 0
+            raw (bool, optional): Whether to write period directly, default is False
 
         Returns:
             int: period
@@ -131,9 +172,9 @@ class PWM(I2C):
         if period == None:
             return self._period
 
+        if not raw:
+            self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
         self._period = int(period)
-        self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
-        self._pulse_width_percent = round(self._pulse_width / (self._period+1) * 100, 2)
         self.write_data(self._period_register, self._period)
         return self._period
 

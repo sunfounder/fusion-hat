@@ -1,4 +1,4 @@
-from .utils import simple_i2c_command
+from ._utils import simple_i2c_command
 import time
 import threading
 from typing import Callable

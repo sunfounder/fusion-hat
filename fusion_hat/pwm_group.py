@@ -1,46 +1,39 @@
+""" PWM group class to control multiple PWM channels
+
+Example:
+    >>> from fusion_hat import PWM_GROUP
+    >>> pwm_group = PWM_GROUP([0, 1, 2, 3, 4, 5, 6, 7])
+    >>> pwm_group.freq(50)
+    >>> pwm_group.pulse_width(2048)
+"""
 import math
-from .i2c import I2C
+from .device import I2C_ADDRESS
+from ._i2c import I2C
+
+
+from ._base import _Base
 from typing import Optional
 
-
-class PWM_GROUP():
+class PWM_GROUP(_Base):
     """ PWM group class to control multiple PWM channels
 
-    PWM channels:
-        PWM     MCU     TIM_Channel
-    ------------------------------
-        0       PA8      TIM0_CH0
-        1       PA9      TIM0_CH1
-        2       PA10     TIM0_CH2
-        3       PA11     TIM0_CH3
-
-        4       PB4      TIM2_CH0
-        5       PB5      TIM2_CH1
-        6       PB0      TIM2_CH2
-        7       PB1      TIM2_CH3
-
-        8       PB14     TIM14_CH0
-        9       PB15     TIM14_CH1
-        10      PB8      TIM15_CH0
-        11      PB9      TIM16_CH1
+    Args:
+        channels (list): PWM channels
+        freq (int, optional): PWM frequency, default is 50Hz
+        addr (int, optional): I2C address, default is 0x17
+        auto_write (bool, optional): Auto write to register, default is False
+        *args: passed to :class:`sunfounder_voice_assistant._base._Base`.
+        **kwargs: passed to :class:`sunfounder_voice_assistant._base._Base`.
     """
 
     REG_PSC = 0x40 # Prescaler register prefix
     REG_ARR = 0x50 # Period registor prefix
     REG_CCP = 0x60 # Pluse width register prefix
 
-    ADDR = [0x17]
     CLOCK = 72000000.0 # Clock frequency, 72MHz
 
-    def __init__(self, channels:list, freq: int=50, addr: int=0x17, auto_write: bool=False) -> None:
-        """ Initialize a pwm group optional parameters
-
-        Args:
-            channels (list): PWM channels
-            freq (int, optional): PWM frequency, default is 50Hz
-            addr (int, optional): I2C address, default is 0x17
-            auto_write (bool, optional): Auto write to register, default is False
-        """
+    def __init__(self, channels:list, *args, freq: int=50, addr: int=I2C_ADDRESS, auto_write: bool=False, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
         self.addr = addr
         self._i2c = I2C(addr)
 

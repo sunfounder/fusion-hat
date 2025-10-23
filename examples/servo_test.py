@@ -1,4 +1,4 @@
-from fusion_hat import Servo
+from fusion_hat.servo import Servo
 from time import sleep
 
 servos = [Servo(i) for i in range(12)]

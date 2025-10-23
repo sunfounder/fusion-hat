@@ -1,28 +1,55 @@
 #!/usr/bin/env python3
 
-from .i2c import I2C
+""" Fusion Hat on-board analog to digital converter
+
+Example:
+
+    Import ADC
+    
+    >>> from fusion_hat.adc import ADC
+
+    Init ADC channel 0
+
+    >>> a0 = ADC(0)
+
+    Read ADC channel 0 value
+
+    >>> a0.read()
+    2048
+
+    Read ADC channel 0 voltage
+
+    >>> a0.read_voltage()
+    1.65
+"""
+
+from ._i2c import I2C
 from .device import I2C_ADDRESS
-from typing import Optional
 
 class ADC(I2C):
-    """ Analog to digital converter """
-    REG_ADC_START = 0x10
-    REG_ADC_END = 0x19
-    CHANNEL_NUM = 5
+    """ Analog to digital converter
+
+    Args:
+        chn (int, str): channel number (0-4/A0-A4)
+        address (int, optional): I2C address, default is 0x17
+        *args: Parameters to pass to :class:`fusion_hat._i2c.I2C`.
+        **kwargs: Keyword arguments to pass to :class:`fusion_hat._i2c.I2C`.
+
+    Raises:
+        ValueError: If chn is not between 0-4 or A0-A4
+        I2CError: If I2C communication fails
+    """
+    REG_A0 = 0x10
+    REG_A1 = 0x12
+    REG_A2 = 0x14
+    REG_A3 = 0x16
+    REG_A4 = 0x18
+    REG_CHANNELS = [REG_A0, REG_A1, REG_A2, REG_A3, REG_A4]
+    CHANNEL_NUM = len(REG_CHANNELS)
 
     DEFAULT_REFERENCE_VOLTAGE = 3.3
 
     def __init__(self, chn: [int, str], address: int = I2C_ADDRESS, *args, **kwargs) -> None:
-        """
-        Analog to digital converter
-
-        Args:
-            chn (int/str): channel number (0-4/A0-A4)
-            address (int, optional): I2C address, default is 0x17
-
-        Raises:
-            ValueError: If chn is not between 0-4 or A0-A4
-        """
         super().__init__(*args, address=address, **kwargs)
 
         if isinstance(chn, str):
@@ -41,7 +68,7 @@ class ADC(I2C):
             raise ValueError(
                 f'ADC channel should be between [0, 4], not "{chn}"')
         self.channel = chn
-        self.reg_addr = self.REG_ADC_START + chn*2
+        self.reg_addr = self.REG_CHANNELS[chn]
 
     def read(self) -> int:
         """ Read the ADC value

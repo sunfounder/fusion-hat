@@ -1,4 +1,4 @@
-from fusion_hat import PWM_GROUP
+from fusion_hat.pwm_group import PWM_GROUP
 import time
 
 st = time.time()
