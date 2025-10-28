@@ -9,14 +9,13 @@
 #include "main.h"
 
 /**
- * fusion_hat_battery_update - Periodic worker function to update battery status
- * @work: Work structure passed to the worker
+ * fusion_hat_update_battery_status - Update battery status data
+ * @dev: Fusion HAT device structure
  * 
  * This function reads battery voltage and charging status from hardware,
- * calculates battery level percentage, updates device state, and notifies
- * the power supply subsystem of changes.
+ * calculates battery level percentage, and updates device state.
  */
-static void fusion_hat_battery_update(struct work_struct *work)
+void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
 {
     uint16_t battery_adc_value;
     uint8_t charging_status;
@@ -24,29 +23,31 @@ static void fusion_hat_battery_update(struct work_struct *work)
     int battery_level;
     int ret;
     
+    mutex_lock(&dev->lock);
+    
     // Read battery voltage from ADC
-    ret = fusion_hat_i2c_read_word(fusion_dev->client, CMD_READ_BATTERY_H, &battery_adc_value, false);
+    ret = fusion_hat_i2c_read_word(dev->client, CMD_READ_BATTERY_H, &battery_adc_value, false);
     if (ret != 0) {
-        dev_err(&fusion_dev->client->dev, "Failed to read battery voltage: %d\n", ret);
-        schedule_delayed_work((struct delayed_work *)work, msecs_to_jiffies(1000));
+        dev_err(&dev->client->dev, "Failed to read battery voltage: %d\n", ret);
+        mutex_unlock(&dev->lock);
         return;
     }
     
     // Read charging status
-    ret = fusion_hat_i2c_read_byte(fusion_dev->client, CMD_READ_CHARGING_STATUS, &charging_status);
+    ret = fusion_hat_i2c_read_byte(dev->client, CMD_READ_CHARGING_STATUS, &charging_status);
     if (ret != 0) {
-        dev_err(&fusion_dev->client->dev, "Failed to read charging status: %d\n", ret);
-        schedule_delayed_work((struct delayed_work *)work, msecs_to_jiffies(1000));
+        dev_err(&dev->client->dev, "Failed to read charging status: %d\n", ret);
+        mutex_unlock(&dev->lock);
         return;
     }
 
     // Calculate battery voltage (mV) with proper scaling
     battery_voltage_mv = (battery_adc_value * ADC_REFERENCE_VOLTAGE) / ADC_MAX_VALUE;
     battery_voltage_mv *= BATTERY_DIVIDER; // Apply voltage divider correction
-    fusion_dev->battery_voltage = battery_voltage_mv;
+    dev->battery_voltage = battery_voltage_mv;
 
     // Update charging state
-    fusion_dev->charging = charging_status ? true : false;
+    dev->charging = charging_status ? true : false;
         
     // Calculate battery level percentage using linear approximation
     if (battery_voltage_mv < BATTERY_MIN_VOLTAGE)
@@ -57,18 +58,17 @@ static void fusion_hat_battery_update(struct work_struct *work)
         battery_level = ((battery_voltage_mv - BATTERY_MIN_VOLTAGE) * 100) / 
                         (BATTERY_MAX_VOLTAGE - BATTERY_MIN_VOLTAGE);
     
-    fusion_dev->battery_level = battery_level;
-        
+    dev->battery_level = battery_level;
+    
+    mutex_unlock(&dev->lock);
+    
     // Notify power supply subsystem of status change
     if (fusion_dev->battery)
         power_supply_changed(fusion_dev->battery);
 
-    // Schedule next battery check (1 second interval)
-    schedule_delayed_work((struct delayed_work *)work, msecs_to_jiffies(1000));
+    dev_dbg(&dev->client->dev, "Battery updated: level=%d%%, charging=%d\n", 
+            dev->battery_level, dev->charging);
 }
-
-// Delayed work for periodic battery status updates
-static DECLARE_DELAYED_WORK(battery_work, fusion_hat_battery_update);
 
 /**
  * fusion_hat_get_property - Get power supply property values
@@ -81,6 +81,9 @@ static DECLARE_DELAYED_WORK(battery_work, fusion_hat_battery_update);
 static int fusion_hat_get_property(struct power_supply *psy, enum power_supply_property psp, union power_supply_propval *val)
 {
     struct fusion_hat_dev *dev = power_supply_get_drvdata(psy);
+    
+    // 为电荷相关属性定义一个假设的满容量值 (mAh)
+    const int BATTERY_FULL_CHARGE_MAH = 2000;
     
     switch (psp) {
     case POWER_SUPPLY_PROP_PRESENT:
@@ -103,11 +106,52 @@ static int fusion_hat_get_property(struct power_supply *psy, enum power_supply_p
     case POWER_SUPPLY_PROP_VOLTAGE_NOW:
         val->intval = dev->battery_voltage * 1000; // Convert mV to uV
         break;
+    case POWER_SUPPLY_PROP_VOLTAGE_MAX:
+        val->intval = BATTERY_MAX_VOLTAGE * 1000; // Convert mV to uV
+        break;
+    case POWER_SUPPLY_PROP_VOLTAGE_MIN:
+        val->intval = BATTERY_MIN_VOLTAGE * 1000; // Convert mV to uV
+        break;
+    case POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN:
+        val->intval = BATTERY_MAX_VOLTAGE * 1000; // Convert mV to uV
+        break;
+    case POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN:
+        val->intval = BATTERY_MIN_VOLTAGE * 1000; // Convert mV to uV
+        break;
+    case POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN:
+        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // Convert mAh to uAh
+        break;
+    case POWER_SUPPLY_PROP_CHARGE_NOW:
+        // 根据电量百分比计算当前电荷
+        val->intval = (BATTERY_FULL_CHARGE_MAH * dev->battery_level / 100) * 3600; // Convert mAh to uAh
+        break;
+    case POWER_SUPPLY_PROP_CHARGE_FULL:
+        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // Convert mAh to uAh
+        break;
     case POWER_SUPPLY_PROP_MODEL_NAME:
         val->strval = "Fusion Hat";
         break;
     case POWER_SUPPLY_PROP_MANUFACTURER:
         val->strval = "SunFounder";
+        break;
+    case POWER_SUPPLY_PROP_TECHNOLOGY:
+        val->intval = POWER_SUPPLY_TECHNOLOGY_LION; // Lithium-ion battery
+        break;
+    case POWER_SUPPLY_PROP_SCOPE:
+        val->intval = POWER_SUPPLY_SCOPE_SYSTEM; // System-wide battery
+        break;
+    case POWER_SUPPLY_PROP_CAPACITY_LEVEL:
+        // Set capacity level based on percentage
+        if (dev->battery_level >= 90)
+            val->intval = POWER_SUPPLY_CAPACITY_LEVEL_FULL;
+        else if (dev->battery_level >= 70)
+            val->intval = POWER_SUPPLY_CAPACITY_LEVEL_HIGH;
+        else if (dev->battery_level >= 30)
+            val->intval = POWER_SUPPLY_CAPACITY_LEVEL_NORMAL;
+        else if (dev->battery_level >= 10)
+            val->intval = POWER_SUPPLY_CAPACITY_LEVEL_LOW;
+        else
+            val->intval = POWER_SUPPLY_CAPACITY_LEVEL_CRITICAL;
         break;
     default:
         return -EINVAL;
@@ -122,35 +166,19 @@ static enum power_supply_property fusion_hat_props[] = {
     POWER_SUPPLY_PROP_STATUS,
     POWER_SUPPLY_PROP_CAPACITY,
     POWER_SUPPLY_PROP_VOLTAGE_NOW,
+    POWER_SUPPLY_PROP_VOLTAGE_MAX,      // 添加最大电压属性
+    POWER_SUPPLY_PROP_VOLTAGE_MIN,      // 添加最小电压属性
+    POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN,
+    POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
+    POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN, // 添加设计容量
+    POWER_SUPPLY_PROP_CHARGE_NOW,       // 添加当前电荷
+    POWER_SUPPLY_PROP_CHARGE_FULL,      // 添加满电荷
     POWER_SUPPLY_PROP_MODEL_NAME,
     POWER_SUPPLY_PROP_MANUFACTURER,
+    POWER_SUPPLY_PROP_TECHNOLOGY,
+    POWER_SUPPLY_PROP_SCOPE,
+    POWER_SUPPLY_PROP_CAPACITY_LEVEL,
 };
-
-/**
- * charging_show - sysfs attribute show function for charging status
- * @dev: Device structure
- * @attr: Device attribute
- * @buf: Buffer to store output
- * 
- * Returns: Number of bytes written to buffer
- */
-ssize_t charging_show(struct device *dev, struct device_attribute *attr, char *buf)
-{
-    int ret;
-    uint8_t charging_status;
-    struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
-    
-    mutex_lock(&fusion_dev->lock);
-    ret = fusion_hat_i2c_read_byte(fusion_dev->client, CMD_READ_CHARGING_STATUS, &charging_status);
-    mutex_unlock(&fusion_dev->lock);
-    
-    if (ret < 0)
-        return ret;
-    
-    return sprintf(buf, "%u\n", charging_status);
-}
-
-
 
 /**
  * fusion_hat_battery_init - Initialize battery subsystem
@@ -163,8 +191,6 @@ ssize_t charging_show(struct device *dev, struct device_attribute *attr, char *b
  */
 int fusion_hat_battery_init(struct fusion_hat_dev *dev)
 {
-    int ret = 0;
-    
     // Configure power supply descriptor
     dev->battery_desc.name = "fusion-hat";
     dev->battery_desc.type = POWER_SUPPLY_TYPE_BATTERY;
@@ -187,8 +213,8 @@ int fusion_hat_battery_init(struct fusion_hat_dev *dev)
     dev->battery_level = 0;
     dev->battery_voltage = 0;
     
-    // Start periodic battery monitoring (1-second interval)
-    schedule_delayed_work(&battery_work, msecs_to_jiffies(1000));
+    // Initial battery status update
+    fusion_hat_update_battery_status(dev);
     
     return 0;
 }
@@ -201,9 +227,6 @@ int fusion_hat_battery_init(struct fusion_hat_dev *dev)
  */
 void fusion_hat_battery_cleanup(struct fusion_hat_dev *dev)
 {
-    // Cancel periodic battery monitoring
-    cancel_delayed_work_sync(&battery_work);
-    
     // Unregister from power supply subsystem
     if (dev->battery) {
         power_supply_unregister(dev->battery);
@@ -214,7 +237,7 @@ void fusion_hat_battery_cleanup(struct fusion_hat_dev *dev)
 // Export symbols for use by other modules
 EXPORT_SYMBOL(fusion_hat_battery_init);
 EXPORT_SYMBOL(fusion_hat_battery_cleanup);
-EXPORT_SYMBOL(charging_show);
+EXPORT_SYMBOL(fusion_hat_update_battery_status);
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("SunFounder");

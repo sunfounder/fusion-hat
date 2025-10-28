@@ -54,18 +54,23 @@
 #define CMD_READ_BATTERY_L 0x19 // 电池电压ADC 低位数据
 
 // PWM
+#define CMD_SET_TIMER_PRESCALER_BASE 0x40 // 定时器预分频器基础地址
 #define CMD_SET_TIMER0_PRESCALER_H 0x40  // 定时器0预分频器 高位 PWM0-3
 #define CMD_SET_TIMER0_PRESCALER_L 0x41  // 定时器0预分频器 低位 PWM0-3
 #define CMD_SET_TIMER1_PRESCALER_H 0x42  // 定时器1预分频器 高位 PWM4-7
 #define CMD_SET_TIMER1_PRESCALER_L 0x43  // 定时器1预分频器 低位 PWM4-7
 #define CMD_SET_TIMER2_PRESCALER_H 0x44  // 定时器2预分频器 高位 PWM8-11
 #define CMD_SET_TIMER2_PRESCALER_L 0x45  // 定时器2预分频器 低位 PWM8-11
+
+#define CMD_SET_TIMER_PERIOD_BASE 0x50 // 定时器周期寄存器基础地址
 #define CMD_SET_TIMER0_PERIOD_H 0x50  // 定时器0周期寄存器 高位 PWM0-3
 #define CMD_SET_TIMER0_PERIOD_L 0x51  // 定时器0周期寄存器 低位 PWM0-3
 #define CMD_SET_TIMER1_PERIOD_H 0x52  // 定时器1周期寄存器 高位 PWM4-7
 #define CMD_SET_TIMER1_PERIOD_L 0x53  // 定时器1周期寄存器 低位 PWM4-7
 #define CMD_SET_TIMER2_PERIOD_H 0x54  // 定时器2周期寄存器 高位 PWM8-11
 #define CMD_SET_TIMER2_PERIOD_L 0x55  // 定时器2周期寄存器 低位 PWM8-11
+
+#define CMD_SET_PWM_VALUE_BASE 0x60  // PWM值寄存器基础地址
 #define CMD_SET_PWM0_VALUE_H 0x60  // PWM0值寄存器，高位
 #define CMD_SET_PWM0_VALUE_L 0x61  // PWM0值寄存器，低位
 #define CMD_SET_PWM1_VALUE_H 0x62  // PWM1值寄存器，高位
@@ -109,6 +114,10 @@
 #define SHUTDOWN_REQUEST_NONE 0 // 无关机请求
 #define SHUTDOWN_REQUEST_BATTERY 1 // 电池电量关机请求
 #define SHUTDOWN_REQUEST_BUTTON 2 // 按键关机请求
+#define PWM_CORE_FREQUENCY 72000000 // PWM核心频率 72MHz
+#define PWM_DEFAULT_PRESCALER 22 // 默认PWM预分频器值 22
+#define PWM_PERIOD_VALUE 65535 // 默认PWM周期 65535 us
+#define PWM_TIMER_COUNT 3 // 定时器数量
 
 // PWM通道数量
 #define FUSION_HAT_PWM_CHANNELS 12
@@ -132,10 +141,11 @@ struct fusion_hat_dev {
     struct mutex lock;
     struct pwm_chip pwm_chip;
     bool pwm_enabled[FUSION_HAT_PWM_CHANNELS];
-    int pwm_values[FUSION_HAT_PWM_CHANNELS];
-    uint16_t timer_periods[3];
-    uint16_t timer_prescalers[3];
-    struct work_struct shutdown_work;
+    uint32_t pwm_duty_cycles[FUSION_HAT_PWM_CHANNELS];
+    uint32_t pwm_periods[FUSION_HAT_PWM_CHANNELS];
+    uint32_t pwm_values[FUSION_HAT_PWM_CHANNELS];
+    uint16_t timer_periods[PWM_TIMER_COUNT];
+    uint16_t timer_prescalers[PWM_TIMER_COUNT];
     unsigned long button_press_time;
     struct power_supply *battery;
     struct power_supply_desc battery_desc;
@@ -144,13 +154,17 @@ struct fusion_hat_dev {
     bool charging;          // 充电状态
     int battery_level;      // 电池电量百分比
     int battery_voltage;    // 电池电压（mV）
+    struct input_dev *input_dev;   // Input device for buttons
 };
 
 // 外部变量声明
 extern struct fusion_hat_dev *fusion_dev;
+// 主工作队列
+extern struct workqueue_struct *main_wq;
 
-// 工作队列
-extern struct workqueue_struct *shutdown_wq;
+// PWM相关函数声明
+extern int fusion_hat_pwm_probe(struct fusion_hat_dev *dev);
+extern void fusion_hat_pwm_remove(struct fusion_hat_dev *dev);
 
 // I2C通信函数声明
 extern int fusion_hat_i2c_read_byte(struct i2c_client *client, uint8_t cmd, uint8_t *value);
@@ -171,6 +185,17 @@ extern void fusion_hat_adc_remove(struct fusion_hat_dev *dev);
 // 电池子系统函数
 extern int fusion_hat_battery_init(struct fusion_hat_dev *dev);
 extern void fusion_hat_battery_cleanup(struct fusion_hat_dev *dev);
-extern ssize_t charging_show(struct device *dev, struct device_attribute *attr, char *buf);
+extern void fusion_hat_update_battery_status(struct fusion_hat_dev *dev);
+
+// 按钮相关函数
+extern int fusion_hat_button_init(struct fusion_hat_dev *dev);
+extern void fusion_hat_button_cleanup(struct fusion_hat_dev *dev);
+extern void fusion_hat_button_poll_work(struct work_struct *work);
+extern ssize_t button_show(struct device *dev, struct device_attribute *attr, char *buf);
+
+// 关机控制函数
+extern int fusion_hat_check_hardware_shutdown_request(struct fusion_hat_dev *dev);
+extern void fusion_hat_execute_shutdown(struct fusion_hat_dev *dev, int request_type);
+extern void fusion_hat_shutdown_request_work(struct fusion_hat_dev *dev);
 
 #endif /* FUSION_HAT_H */

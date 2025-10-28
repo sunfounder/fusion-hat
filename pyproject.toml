@@ -21,6 +21,7 @@ dynamic = ["version"]
 
 dependencies = [
   "sunfounder-voice-assistant @ git+https://github.com/sunfounder/sunfounder-voice-assistant.git",
+  "evdev",
 ]
 
 [project.scripts]

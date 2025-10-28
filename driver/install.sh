@@ -44,7 +44,7 @@ trap handle_interrupt SIGINT
 
 # =========================================
 # Log functions
-LOG_FILE="./install.log"
+LOG_FILE="/tmp/install.log"
 if [ -f "$LOG_FILE" ]; then
     rm $LOG_FILE
 fi
