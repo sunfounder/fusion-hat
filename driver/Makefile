@@ -6,7 +6,7 @@ PWD := $(shell pwd)
 # 将所有源文件组合到fusion_hat模块中
 obj-m += fusion_hat.o
 # 组合所有源文件到一个模块中
-fusion_hat-objs := main.o i2c.o adc.o battery.o
+fusion_hat-objs := main.o i2c.o adc.o battery.o shutdown.o pwm.o button.o
 
 # 编译标志
 ccflags-y += -DMODULE
