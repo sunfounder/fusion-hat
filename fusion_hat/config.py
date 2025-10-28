@@ -1,6 +1,5 @@
 import json
 import os
-from re import S
 from time import sleep
 from fusion_hat.utils import debug
 
