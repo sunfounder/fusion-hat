@@ -1,16 +1,7 @@
 /*
  * Fusion HAT LED Driver Module
  * Responsible for LED initialization, control, and state management
- * Using kobject for sysfs interface
  */
-
-#include <linux/module.h>
-#include <linux/i2c.h>
-#include <linux/device.h>
-#include <linux/kernel.h>
-#include <linux/uaccess.h>
-#include <linux/kobject.h>
-#include <linux/sysfs.h>
 
 #include "main.h"
 
@@ -78,7 +69,6 @@ static ssize_t led_store(struct device *dev, struct device_attribute *attr, cons
         return ret;
     }
     
-    dev_info(dev, "LED state updated to %u\n", fusion_dev->led_status);
     return count;
 }
 
@@ -126,7 +116,6 @@ int fusion_hat_led_init(struct fusion_hat_dev *dev) {
         return ret;
     }
     
-    dev_info(&dev->client->dev, "LED initialized and turned off\n");
     return 0;
 }
 

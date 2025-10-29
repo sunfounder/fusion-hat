@@ -72,45 +72,6 @@ static ssize_t version_show(struct device *dev, struct device_attribute *attr, c
 }
 
 /**
- * @brief Show speaker status
- * @dev: Device structure
- * @attr: Device attribute
- * @buf: Buffer to store speaker status
- * 
- * Returns the number of bytes written to buffer or error code
- */
-static ssize_t speaker_show(struct device *dev, struct device_attribute *attr, char *buf) {
-    // Speaker status read not implemented yet
-    return sprintf(buf, "0\n");
-}
-
-/**
- * @brief Set speaker status
- * @dev: Device structure
- * @attr: Device attribute
- * @buf: Buffer containing the new speaker status
- * @count: Number of bytes in buffer
- * 
- * Returns the number of bytes processed or error code
- */
-static ssize_t speaker_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
-    int ret;
-    unsigned int value;
-    struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
-    
-    ret = kstrtouint(buf, 10, &value);
-    if (ret < 0) {
-        return ret;
-    }
-    
-    mutex_lock(&fusion_dev->lock);
-    ret = fusion_hat_i2c_write_byte(fusion_dev->client, CMD_CONTROL_SPEAKER, value ? 1 : 0);
-    mutex_unlock(&fusion_dev->lock);
-    
-    return ret < 0 ? ret : count;
-}
-
-/**
  * @brief Read firmware version
  * @dev: Device structure
  * @attr: Device attribute
@@ -145,7 +106,6 @@ static ssize_t firmware_version_show(struct device *dev, struct device_attribute
 static DEVICE_ATTR_RO(version);
 static DEVICE_ATTR_RO(button);
 static DEVICE_ATTR_RO(firmware_version);
-static DEVICE_ATTR_RW(speaker);
 
 /**
  * @brief Attribute list for Fusion HAT sysfs interface
@@ -153,7 +113,6 @@ static DEVICE_ATTR_RW(speaker);
 static struct attribute *fusion_hat_attrs[] = {
     &dev_attr_version.attr,
     &dev_attr_button.attr,
-    &dev_attr_speaker.attr,
     &dev_attr_firmware_version.attr,
     NULL,
 };
@@ -256,6 +215,13 @@ static int fusion_hat_probe(struct i2c_client *client) {
         dev_err(&client->dev, "Failed to initialize LED subsystem: %d\n", ret);
         goto error_led;
     }
+
+    // Initialize speaker subsystem
+    ret = fusion_hat_speaker_init(fusion_dev);
+    if (ret < 0) {
+        dev_err(&client->dev, "Failed to initialize speaker subsystem: %d\n", ret);
+        goto error_speaker;
+    }
     
     // Initialize battery subsystem
     ret = fusion_hat_battery_init(fusion_dev);
@@ -287,6 +253,8 @@ static int fusion_hat_probe(struct i2c_client *client) {
         fusion_hat_button_cleanup(fusion_dev);
     error_button:
         fusion_hat_button_cleanup(fusion_dev);
+    error_speaker:
+        fusion_hat_speaker_cleanup(fusion_dev);
     error_device:
         device_destroy(fusion_dev->class, MKDEV(0, 0));
         class_destroy(fusion_dev->class);

@@ -8,7 +8,16 @@ PWD := $(shell pwd)
 
 # Module definition - Combine all source files into a single module
 obj-m += fusion_hat.o
-fusion_hat-objs := main.o i2c.o adc.o battery.o shutdown.o pwm.o button.o led.o
+fusion_hat-objs := \
+	i2c.o \
+	adc.o \
+	battery.o \
+	shutdown.o \
+	pwm.o \
+	button.o \
+	led.o \
+	speaker.o \
+	main.o
 
 # Compilation flags
 ccflags-y += -DMODULE

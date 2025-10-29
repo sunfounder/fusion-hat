@@ -161,11 +161,10 @@ struct fusion_hat_dev {
     struct input_dev *input_dev;
     
     // LED
-    uint8_t led_status;     // LED status (0=off, 1=on)
-    struct kobject led_kobj;
+    uint8_t led_status; 
     
     // Speaker
-    uint8_t speaker_status; // Speaker status (0=off, 1=on)
+    uint8_t speaker_status;
 };
 
 // External variable declarations
@@ -212,5 +211,9 @@ void fusion_hat_shutdown_request_work(struct fusion_hat_dev *dev);
 // LED
 int fusion_hat_led_init(struct fusion_hat_dev *dev);
 void fusion_hat_led_cleanup(struct fusion_hat_dev *dev);
+
+// Speaker
+int fusion_hat_speaker_init(struct fusion_hat_dev *dev);
+void fusion_hat_speaker_cleanup(struct fusion_hat_dev *dev);
 
 #endif /* FUSION_HAT_H */
