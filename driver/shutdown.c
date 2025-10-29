@@ -65,8 +65,7 @@ void fusion_hat_execute_shutdown(struct fusion_hat_dev *dev, int request_type) {
     /* Check if power_off function is available */
     if (pm_power_off) {
         dev_info(&dev->client->dev, "Shutting down system...\n");
-        /* Uncomment the following line to enable actual system shutdown */
-        /* pm_power_off(); */
+        pm_power_off();
     }
 }
 

@@ -10,16 +10,16 @@ fi
 # Basic configs
 USERNAME=$(getent passwd 1000 | cut -d: -f1)
 HOME=$(getent passwd 1000 | cut -d: -f6)
-FORCE_REINSTALL=false
 SUCCESS="\033[32m[✓]\033[0m"
 FAILED="\033[31m[✗]\033[0m"
 
+FORCE_REINSTALL=false
 ERROR_HAPPENED=false
 ERROR_LOGS=""
 
 cleanup() {
     log_title "Cleanup"
-    # run "make clean" "Clean driver..."
+    run "make clean" "Clean driver..."
 }
 
 # Ctrl+C信号处理函数
@@ -127,16 +127,22 @@ run "insmod fusion_hat.ko" "Load new compiled module..."
 
 if [ "$ERROR_HAPPENED" = false ]; then
     log "$SUCCESS Install finished."
-    # read -p "Do you want to reboot now? (y/n) " -n 1 -r
-    # echo
-    # if [[ $REPLY =~ ^[Yy]$ ]]; then
-    #     log "$SUCCESS Rebooting..."
-    #     sleep 1
-    #     reboot
-    # fi
+    read -p "Do you want to reboot now? (y/n) " -n 1 -r
+    while true; do
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            log "$SUCCESS Rebooting..."
+            sleep 1
+            reboot
+        elif [[ $REPLY =~ ^[Nn]$ ]]; then
+            log "$FAILED Reboot canceled."
+            break
+        else
+            log "$FAILED Invalid input. Please enter y or n."
+        fi
+    done
 else
     echo -e "$FAILED Error happened: $ERROR_LOGS"
     echo -e "$FAILED Please check $LOG_FILE for more details."
     exit 1
 fi
-# =========================================
