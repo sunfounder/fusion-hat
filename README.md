@@ -21,7 +21,7 @@ Fusion HAT is a multifunctional expansion board that allows Raspberry Pi to be q
 Install Fusion Hat
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/install-fusion-hat-v1.1.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/install-fusion-hat.sh | sudo bash
 ```
 
 After install finished, please reboot your Raspberry Pi. After reboot, Run this command again to enable audio
