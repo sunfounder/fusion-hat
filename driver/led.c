@@ -1,6 +1,7 @@
 /*
  * Fusion HAT LED Driver Module
  * Responsible for LED initialization, control, and state management
+ * Using kobject for sysfs interface
  */
 
 #include <linux/module.h>
@@ -8,18 +9,87 @@
 #include <linux/device.h>
 #include <linux/kernel.h>
 #include <linux/uaccess.h>
+#include <linux/kobject.h>
+#include <linux/sysfs.h>
 
 #include "main.h"
+
+// LED sysfs show function
+static ssize_t led_show(struct device *dev, struct device_attribute *attr, char *buf)
+{
+    struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
+    
+    if (!fusion_dev) {
+        pr_err("Fusion HAT: Invalid device in led_show\n");
+        return -EINVAL;
+    }
+    
+    return sprintf(buf, "%u\n", fusion_dev->led_status);
+}
+
+// LED sysfs store function
+static ssize_t led_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
+{
+    struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
+    unsigned long value;
+    int ret;
+    
+    if (!fusion_dev || !fusion_dev->client) {
+        pr_err("Fusion HAT: Invalid device or client in led_store\n");
+        return -EINVAL;
+    }
+    
+    /* Parse input value */
+    ret = kstrtoul(buf, 10, &value);
+    if (ret < 0) {
+        dev_err(dev, "Invalid value for LED: %d\n", ret);
+        return ret;
+    }
+    
+    /* Check if value is valid (0 or 1) */
+    if (value > 1) {
+        dev_err(dev, "Invalid LED value, must be 0 or 1\n");
+        return -EINVAL;
+    }
+    
+    /* Update LED state */
+    mutex_lock(&fusion_dev->lock);
+    fusion_dev->led_status = value;
+    
+    /* Send I2C command to update LED */
+    ret = fusion_hat_i2c_write_byte(fusion_dev->client, CMD_CONTROL_LED, fusion_dev->led_status);
+    mutex_unlock(&fusion_dev->lock);
+    
+    if (ret < 0) {
+        dev_err(dev, "Failed to update LED state: %d\n", ret);
+        return ret;
+    }
+    
+    dev_info(dev, "LED state updated to %u\n", fusion_dev->led_status);
+    return count;
+}
+
+// Define device attribute for LED with 0666 permissions
+static struct device_attribute dev_attr_led = {
+    .attr = {.name = "led", .mode = 0666},
+    .show = led_show,
+    .store = led_store,
+};
 
 /**
  * fusion_hat_led_init - Initialize LED subsystem
  * @dev: fusion hat device structure
  * 
- * Function: Turn off LED and save state during initialization
+ * Function: Turn off LED and create sysfs attribute
  * Return: 0 on success, error code on failure
  */
 int fusion_hat_led_init(struct fusion_hat_dev *dev) {
     int ret = 0;
+    
+    if (!dev || !dev->client || !dev->device) {
+        pr_err("Fusion HAT: Invalid device, client or device structure in LED initialization\n");
+        return -EINVAL;
+    }
     
     /* Initialize LED state to off */
     dev->led_status = 0;
@@ -28,6 +98,13 @@ int fusion_hat_led_init(struct fusion_hat_dev *dev) {
     ret = fusion_hat_i2c_write_byte(dev->client, CMD_CONTROL_LED, 0);
     if (ret < 0) {
         dev_err(&dev->client->dev, "Failed to initialize LED: %d\n", ret);
+        return ret;
+    }
+    
+    /* Create sysfs attribute for LED control */
+    ret = device_create_file(dev->device, &dev_attr_led);
+    if (ret < 0) {
+        dev_err(&dev->client->dev, "Failed to create LED sysfs attribute: %d\n", ret);
         return ret;
     }
     
@@ -40,69 +117,27 @@ EXPORT_SYMBOL(fusion_hat_led_init);
  * fusion_hat_led_cleanup - Clean up LED resources
  * @dev: fusion hat device structure
  * 
- * Function: Ensure LED is turned off when device is removed
+ * Function: Ensure LED is turned off and remove sysfs attribute
  */
 void fusion_hat_led_cleanup(struct fusion_hat_dev *dev) {
+    if (!dev) {
+        return;
+    }
+    
     /* Ensure LED is turned off during cleanup */
-    fusion_hat_i2c_write_byte(dev->client, CMD_CONTROL_LED, 0);
-    dev_info(&dev->client->dev, "LED resources cleaned up\n");
+    if (dev->client) {
+        fusion_hat_i2c_write_byte(dev->client, CMD_CONTROL_LED, 0);
+    }
+    
+    /* Remove sysfs attribute */
+    if (dev->device) {
+        device_remove_file(dev->device, &dev_attr_led);
+    }
+    
+    if (dev->client) {
+        dev_info(&dev->client->dev, "LED resources cleaned up\n");
+    } else {
+        pr_info("Fusion HAT: LED resources cleaned up\n");
+    }
 }
 EXPORT_SYMBOL(fusion_hat_led_cleanup);
-
-/**
- * led_show - Display current LED state
- * @dev: device structure
- * @attr: device attribute
- * @buf: return buffer
- * 
- * Function: Return current LED state value via sysfs interface
- * Return: Number of bytes written to buffer
- */
-ssize_t led_show(struct device *dev, struct device_attribute *attr, char *buf) {
-    struct i2c_client *client = to_i2c_client(dev);
-    struct fusion_hat_dev *fusion_dev = i2c_get_clientdata(client);
-    
-    /* Return saved LED state value (0=off, 1=on) */
-    return sprintf(buf, "%u\n", fusion_dev->led_status);
-}
-EXPORT_SYMBOL(led_show);
-
-/**
- * led_store - Set LED state
- * @dev: device structure
- * @attr: device attribute
- * @buf: input buffer
- * @count: input data size
- * 
- * Function: Control LED on/off state via sysfs interface and save it
- * Return: Number of bytes processed or error code
- */
-ssize_t led_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
-    struct i2c_client *client = to_i2c_client(dev);
-    struct fusion_hat_dev *fusion_dev = i2c_get_clientdata(client);
-    int ret = 0;
-    unsigned long val;
-    uint8_t led_value;
-    
-    /* Parse input value */
-    ret = kstrtoul(buf, 10, &val);
-    if (ret < 0) {
-        dev_err(dev, "Invalid LED value: %s\n", buf);
-        return ret;
-    }
-    
-    /* Set LED state (0=off, 1=on) */
-    led_value = (val > 0) ? 1 : 0;
-    fusion_dev->led_status = led_value;
-    
-    /* Send I2C command to control LED */
-    ret = fusion_hat_i2c_write_byte(client, CMD_CONTROL_LED, led_value);
-    if (ret < 0) {
-        dev_err(dev, "Failed to control LED: %d\n", ret);
-        return ret;
-    }
-    
-    dev_info(dev, "LED set to %s\n", led_value ? "on" : "off");
-    return count;
-}
-EXPORT_SYMBOL(led_store);

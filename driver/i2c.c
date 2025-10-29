@@ -82,7 +82,7 @@ int fusion_hat_i2c_read_word(struct i2c_client *client, uint8_t cmd, uint16_t *v
     
     // i2c_smbus_read_word_data默认返回的数据是小端格式
     // 我们需要将其转换为我们需要的大端格式
-    if (!big_endian) {
+    if (big_endian) {
         *value = ((ret & 0xFF) << 8) | ((ret >> 8) & 0xFF);
     } else {
         *value = ret;
@@ -106,12 +106,13 @@ int fusion_hat_i2c_write_word(struct i2c_client *client, uint8_t cmd, uint16_t v
         return -EINVAL;
     }
     
-    // 将大端格式转换为SMBus需要的小端格式
-    if (!big_endian) {
+    // 将数据转为大端模式
+    if (big_endian) {
         value = ((value & 0xFF) << 8) | ((value >> 8) & 0xFF);
     }
     
     // 直接使用SMBus写入一个字
+    printk(KERN_DEBUG "I2C write word: cmd=%02X, value=%04X\n", cmd, value);
     ret = i2c_smbus_write_word_data(client, cmd, value);
     if (ret < 0) {
         dev_err(&client->dev, "I2C write word failed: %d\n", ret);

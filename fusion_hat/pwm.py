@@ -20,12 +20,12 @@ Example:
 
 """
 import math
-from ._base import _base
+from ._base import _Base
 from typing import Optional
 
 timer = [{"arr": 1} for _ in range(7)]
 
-class PWM(_base):
+class PWM(_Base):
     """ PWM class to control a single PWM channel
 
     Args:
@@ -61,48 +61,61 @@ class PWM(_base):
                     f'channel must be in range of 0-11, not "{channel}"')
         self.channel = channel
 
+        self.log.debug(f"PWM channel {self.channel} initilizing")
         self.timer_index = channel // 4
-
-        self._duty_cycle = self.read_duty_cycle()
+        self.enable()
         self._period = self.read_period()
-        self._freq = 1000000000 / self._period
-        self._pulse_width_percent = round(self._duty_cycle / self._period * 100, 2)
-        self.pulse_width(0)
+        self.log.debug(f"PWM channel {self.channel} period: {self._period}")
+        self._freq = 1000000 / self._period
+        self.log.debug(f"PWM channel {self.channel} frequency: {self._freq}")
+        self.duty_cycle(0)
+
+        self.log.debug(f"PWM channel {self.channel} initilized")
+
+    def enable(self, enable: bool=True) -> None:
+        """ Enable/disable PWM channel
+
+        Args:
+            enable (bool, optional): enable or disable, default is True
+        """
+        with open(f"{self.PATH}/pwm{self.channel}/enable", "w") as f:
+            f.write("1" if enable else "0")
+        self.log.debug(f"PWM channel {self.channel} enabled: {enable}")
 
     def read_period(self) -> int:
-        """ Get period in nanoseconds
+        """ Get period in ms
 
         Returns:
-            int: period in nanoseconds
+            int: period in ms
         """
         with open(f"{self.PATH}/pwm{self.channel}/period", "r") as f:
             value = f.read().strip()
             return int(value)
 
     def write_period(self, period: int) -> int:
-        """ Set period in nanoseconds
+        """ Set period in ms
 
         Args:
-            period (int): period in nanoseconds
+            period (int): period in ms
         """
         with open(f"{self.PATH}/pwm{self.channel}/period", "w") as f:
             f.write(str(period))
 
     def read_duty_cycle(self) -> int:
-        """ Get duty cycle in nanoseconds
+        """ Get duty cycle in ms
 
         Returns:
-            int: duty cycle in nanoseconds
+            int: duty cycle in ms
         """
         with open(f"{self.PATH}/pwm{self.channel}/duty_cycle", "r") as f:
             value = f.read().strip()
             return int(value)
 
     def write_duty_cycle(self, duty_cycle: int) -> int:
-        """ Set duty cycle in nanoseconds
+        """ Set duty cycle in ms
 
         Args:
-            duty_cycle (int): duty cycle in nanoseconds
+            duty_cycle (int): duty cycle in ms
         """
         with open(f"{self.PATH}/pwm{self.channel}/duty_cycle", "w") as f:
             f.write(str(duty_cycle))
@@ -120,31 +133,14 @@ class PWM(_base):
             return self._freq
         
         self._freq = int(freq)
-        # Calculate period in nanoseconds
-        period = int(1000000000/self._freq) - 1
-        # --- calculate the prescaler and period ---
-        # frequency = CLOCK / (arr + 1) / (psc + 1)
-        assumed_psc = int(math.sqrt(self.CLOCK/self._freq)) # assumed prescaler, start from square root
-        assumed_psc -= 5
-        if assumed_psc < 0:
-            assumed_psc = 0
-        # Calculate arr and frequency errors
-        for psc in range(assumed_psc, assumed_psc+10):
-            arr = int(self.CLOCK/self._freq/psc)
-            psc_arr.append((psc, arr))
-            freq_errors.append(abs(self._freq - self.CLOCK/psc/arr))
-        # Find the best match
-        best_match = freq_errors.index(min(freq_errors))
-        psc, arr = psc_arr[best_match]
-        self._prescaler = int(psc) - 1
-        self._period = int(arr) - 1
-        self.prescaler(self._prescaler, raw=True)
-        self.period(self._period, raw=True)
+        # Calculate period in ms
+        period = int(1000000/self._freq)
+        self.period(period)
         return self._freq
 
     def prescaler(self, prescaler: Optional[int]=None, raw: bool=False) -> int:
         """ [Deprecated] Set/get prescaler, leave blank to get prescaler"""
-        print("[Warning] prescaler is deprecated, please use freq instead.")
+        self.log.warning("prescaler is deprecated, please use freq instead.")
 
     def period(self, period: Optional[int]=None) -> int:
         """ Set/get period, leave blank to get period
@@ -158,11 +154,12 @@ class PWM(_base):
         """
         if period == None:
             return self._period
+        self.log.debug(f"PWM channel {self.channel} period: {period}")
         self.write_period(period)
         return self._period
 
     def duty_cycle(self, duty_cycle: Optional[int]=None) -> int:
-        """ Set/get duty cycle, in nanoseconds
+        """ Set/get duty cycle, in ms
 
         Args:
             duty_cycle (int, optional): duty cycle
@@ -171,16 +168,17 @@ class PWM(_base):
         """
         if duty_cycle == None:
             return self._duty_cycle
+        self.log.debug(f"PWM channel {self.channel} duty cycle: {duty_cycle}")
         self.write_duty_cycle(duty_cycle)
         self._duty_cycle = duty_cycle
         self._pulse_width_percent = round(self._duty_cycle / self._period * 100, 2)
         return self._duty_cycle
 
     def pulse_width(self, pulse_width: Optional[int]=None) -> int:
-        """ Set/get pulse width, in nanoseconds
+        """ Set/get pulse width, in ms
 
         Args:
-            pulse_width (int, optional): pulse width in nanoseconds
+            pulse_width (int, optional): pulse width in ms
 
         Returns:
             int: pulse width
@@ -198,6 +196,15 @@ class PWM(_base):
         """
         if pulse_width_percent == None:
             return self._pulse_width_percent
+        self.log.debug(f"PWM channel {self.channel} pulse width percent: {pulse_width_percent}")
         duty_cycle = int(pulse_width_percent * self._period / 100)
-        self.write_duty_cycle(duty_cycle)
+        self.duty_cycle(duty_cycle)
         return self._pulse_width_percent
+
+    def close(self) -> None:
+        """ Close PWM channel """
+        self.enable(False)
+
+    def __del__(self) -> None:
+        """ Close PWM channel when object is deleted """
+        self.close()

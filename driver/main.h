@@ -36,6 +36,9 @@
 #include <linux/of.h>
 #include <linux/of_device.h>
 
+// 驱动版本号
+#define VERSION "1.0.0-a2"
+
 // 设备名称和I2C地址
 #define FUSION_HAT_NAME "fusion_hat"
 #define FUSION_HAT_I2C_ADDR 0x17
@@ -116,7 +119,8 @@
 #define SHUTDOWN_REQUEST_BUTTON 2 // 按键关机请求
 #define PWM_CORE_FREQUENCY 72000000 // PWM核心频率 72MHz
 #define PWM_DEFAULT_PRESCALER 22 // 默认PWM预分频器值 22
-#define PWM_PERIOD_VALUE 65535 // 默认PWM周期 65535 us
+#define PWM_PERIOD_VALUE 65535 // PWM周期值 65535，分辨率 16位
+#define PWM_DEFAULT_PERIOD 20000 // 默认PWM周期值 20ms
 #define PWM_TIMER_COUNT 3 // 定时器数量
 
 // PWM通道数量
@@ -158,6 +162,7 @@ struct fusion_hat_dev {
     struct input_dev *input_dev;   // Input device for buttons
     // LED
     uint8_t led_status;      // LED状态（0=关闭，1=开启）
+    struct kobject led_kobj;  // LED kobject for sysfs interface
     // Speaker
     uint8_t speaker_status;  // 扬声器状态（0=关闭，1=开启）
 };
@@ -206,7 +211,5 @@ extern void fusion_hat_shutdown_request_work(struct fusion_hat_dev *dev);
 // LED相关函数
 extern int fusion_hat_led_init(struct fusion_hat_dev *dev);
 extern void fusion_hat_led_cleanup(struct fusion_hat_dev *dev);
-extern ssize_t led_show(struct device *dev, struct device_attribute *attr, char *buf);
-extern ssize_t led_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count);
 
 #endif /* FUSION_HAT_H */

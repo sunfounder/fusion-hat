@@ -79,7 +79,8 @@ int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint1
     reg = CMD_SET_PWM_VALUE_BASE + (channel * 2);
     
     // Write to I2C device
-    ret = fusion_hat_i2c_write_word(client, reg, value, false);
+    printk(KERN_DEBUG "fusion_hat_write_pwm_value: reg = %u, value = %u\n", reg, value);
+    ret = fusion_hat_i2c_write_word(client, reg, value, true);
     if (ret < 0)  return ret;
     
     // Update cached PWM value
@@ -111,7 +112,7 @@ int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, ui
     reg = CMD_SET_TIMER_PERIOD_BASE + (timer * 2);
     
     // 写入I2C设备
-    ret = fusion_hat_i2c_write_word(client, reg, period, false);
+    ret = fusion_hat_i2c_write_word(client, reg, period, true);
     if (ret < 0) return ret;
     
     // Update cached period value
@@ -144,7 +145,7 @@ int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel,
     reg = CMD_SET_TIMER_PRESCALER_BASE + (timer * 2);
     
     // 写入I2C设备
-    ret = fusion_hat_i2c_write_word(client, reg, prescaler, false);
+    ret = fusion_hat_i2c_write_word(client, reg, prescaler, true);
     if (ret < 0) return ret;
     
     // Update cached prescaler value
@@ -190,7 +191,7 @@ static ssize_t period_store(struct kobject *kobj, struct kobj_attribute *attr, c
     
     // Calculate prescaler from period
     // First calculate frequency
-    uint32_t frequency = 1000000000 / period;
+    uint32_t frequency = 1000000 / period;
     // Calculate prescaler from frequency
     uint32_t prescaler = PWM_CORE_FREQUENCY / frequency / (PWM_PERIOD_VALUE + 1) - 1;
     if (prescaler == 0) prescaler = 1;
@@ -235,20 +236,29 @@ static ssize_t duty_cycle_store(struct kobject *kobj, struct kobj_attribute *att
     struct fusion_hat_pwm_channel *pwm_chan = container_of(kobj, struct fusion_hat_pwm_channel, kobj);
     int channel = pwm_chan->channel;
     struct fusion_hat_dev *fusion_dev = pwm_chan->dev;
-    uint32_t value;
+    uint32_t input_value;
+    uint16_t pwm_value;
     int ret;
     
-    if (kstrtou32(buf, 10, &value) < 0) {
+    // check if enabled
+    if (!fusion_dev->pwm_enabled[channel]) {
         return -EINVAL;
     }
     
-    // Calculate PWM value from duty cycle (ns)
-    value = (uint32_t)value * PWM_PERIOD_VALUE / fusion_dev->pwm_periods[channel];
+    // Parse input value
+    if (kstrtou32(buf, 10, &input_value) < 0) {
+        return -EINVAL;
+    }
+    
+    // Calculate PWM value from duty cycle (ms)
+    printk(KERN_DEBUG "duty_cycle_store: input_value = %u, period = %u\n", input_value, fusion_dev->pwm_periods[channel]);
+    pwm_value = (uint32_t)input_value * PWM_PERIOD_VALUE / fusion_dev->pwm_periods[channel];
+    printk(KERN_DEBUG "duty_cycle_store: pwm_value = %u\n", pwm_value);
     
     mutex_lock(&fusion_dev->lock);
-    ret = fusion_hat_write_pwm_value(fusion_dev->client, channel, value);
+    ret = fusion_hat_write_pwm_value(fusion_dev->client, channel, pwm_value);
     if (ret >= 0) {
-        fusion_dev->pwm_duty_cycles[channel] = value;
+        fusion_dev->pwm_duty_cycles[channel] = input_value;
     }
     mutex_unlock(&fusion_dev->lock);
     
@@ -334,6 +344,7 @@ int fusion_hat_pwm_probe(struct fusion_hat_dev *dev) {
     for (i = 0; i < FUSION_HAT_PWM_CHANNELS; i++) {
         dev->pwm_enabled[i] = false;
         dev->pwm_duty_cycles[i] = 0;
+        dev->pwm_periods[i] = PWM_DEFAULT_PERIOD;
     }
     
     // Initialize all channels with default period and prescaler values

@@ -63,10 +63,18 @@ static void fusion_hat_main_work(struct work_struct *work)
 // Main periodic work for battery and shutdown checks
 static DECLARE_DELAYED_WORK(main_work, fusion_hat_main_work);
 
-// Button status function is now in button.c
-
-
-// LED相关函数已移至led.c文件中
+/**
+ * @brief Show driver version
+ * @dev: Device structure
+ * @attr: Device attribute
+ * @buf: Buffer to store driver version
+ * 
+ * Returns the number of bytes written to buffer or error code
+ */
+static ssize_t version_show(struct device *dev, struct device_attribute *attr, char *buf)
+{
+    return sprintf(buf, "%s\n", VERSION);
+}
 
 /**
  * speaker_show - Show speaker status
@@ -142,15 +150,20 @@ static ssize_t firmware_version_show(struct device *dev, struct device_attribute
 }
 
 // sysfs attribute definitions
-static DEVICE_ATTR(button, 0444, button_show, NULL);
-DEVICE_ATTR_RW(led);
-static DEVICE_ATTR_RW(speaker);
+static DEVICE_ATTR_RO(version);
+static DEVICE_ATTR_RO(button);
 static DEVICE_ATTR_RO(firmware_version);
+
+static struct device_attribute dev_attr_speaker = {
+    .attr = {.name = "speaker", .mode = 0666},
+    .show = speaker_show,
+    .store = speaker_store,
+};
 
 // Attribute list
 static struct attribute *fusion_hat_attrs[] = {
+    &dev_attr_version.attr,
     &dev_attr_button.attr,
-    &dev_attr_led.attr,
     &dev_attr_speaker.attr,
     &dev_attr_firmware_version.attr,
     NULL,
@@ -207,11 +220,6 @@ static int fusion_hat_probe(struct i2c_client *client)
     
     // Initialize mutex lock
     mutex_init(&fusion_dev->lock);
-    
-    // Initialize PWM enabled status
-    for (int i = 0; i < FUSION_HAT_PWM_CHANNELS; i++) {
-        fusion_dev->pwm_enabled[i] = false;
-    }
     
     // Create device class using modern API
     fusion_dev->class = class_create(FUSION_HAT_NAME);
@@ -284,7 +292,7 @@ static int fusion_hat_probe(struct i2c_client *client)
     error_battery:
         fusion_hat_button_cleanup(fusion_dev);
     error_button:
-        fusion_hat_pwm_remove(fusion_dev);
+        fusion_hat_button_cleanup(fusion_dev);
     error_device:
         device_destroy(fusion_dev->class, MKDEV(0, 0));
         class_destroy(fusion_dev->class);

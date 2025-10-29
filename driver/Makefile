@@ -75,8 +75,11 @@ install-overlay:
 # Full install target - Install both module and device tree overlay
 install:
 	@echo "Installing Fusion Hat driver and device tree overlay..."
+	rmmod fusion_hat || echo "Warning: Failed to unload fusion_hat module. It may be in use or require additional privileges."
 	@$(MAKE) modules_install
 	@$(MAKE) install-overlay
+	@echo "Loading fusion_hat module..."
+	@sudo modprobe fusion_hat || echo "Warning: Failed to load fusion_hat module. Please check the driver installation."
 	@echo "Installation completed successfully."
 
 # Uninstall target - Remove module and device tree overlay
