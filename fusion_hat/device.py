@@ -37,8 +37,7 @@ Example:
 
     Get firmware version
 
-    >>> version = device.get_firmware_version()
-    >>> ".".join([str(v) for v in version])
+    >>> device.get_firmware_version()
     '1.1.4'
 
     Set volume
@@ -58,23 +57,17 @@ __all__ = [
     'PRODUCT_ID',
     'PRODUCT_VER',
     'VENDOR',
-    'I2C_ADDRESS',
     'is_installed',
     'enable_speaker',
     'disable_speaker',
     'get_speaker_state',
     'get_usr_btn',
-    'get_charge_state',
-    'get_shutdown_request',
-    'set_user_led',
+    'set_led',
     'get_firmware_version',
     'set_volume',
-    'get_battery_voltage',
 ]
 
 import os
-from ._utils import run_command, simple_i2c_command
-from enum import Enum
 
 HAT_DEVICE_TREE = "/proc/device-tree/"
 
@@ -83,9 +76,6 @@ NAME = "Fusion Hat"
 
 ID = "fusion_hat"
 """ ID of the board """
-
-I2C_ADDRESS = 0x17
-""" I2C address of the board """
 
 UUID = "9daeea78-0000-0774-000a-582369ac3e02"
 """ UUID of the board """
@@ -99,11 +89,9 @@ PRODUCT_VER = 0x000a
 VENDOR = "SunFounder"
 """ Vendor of the board """ 
 
-class ShutdownRequestCode(Enum):
-    """ Shutdown request code """
-    NONE = 0
-    LOW_BATTERY = 1
-    BUTTON = 2
+
+DEVICE_PATH = "/sys/class/fusion_hat/fusion_hat/"
+
 
 def is_installed() -> bool:
     """ Check if a Fusion Hat board is installed
@@ -125,15 +113,15 @@ def is_installed() -> bool:
 
 def enable_speaker() -> None:
     """ Enable speaker """
-    SPEAKER_REG_ADDR = 0x31
-    simple_i2c_command("set", SPEAKER_REG_ADDR, 1)
-    # play a short sound to fill data and avoid the speaker overheating
-    run_command(f"play -n trim 0.0 0.5 2>/dev/null")
+    PATH = DEVICE_PATH + "speaker"
+    with open(PATH, "w") as f:
+        f.write("1")
 
 def disable_speaker() -> None:
     """ Disable speaker """
-    SPEAKER_REG_ADDR = 0x31
-    simple_i2c_command("set", SPEAKER_REG_ADDR, 0)
+    PATH = DEVICE_PATH + "speaker"
+    with open(PATH, "w") as f:
+        f.write("0")
 
 def get_speaker_state() -> bool:
     """ Get speaker state
@@ -141,9 +129,10 @@ def get_speaker_state() -> bool:
     Returns:
         bool: True if enabled
     """
-    SPEAKER_REG_ADDR = 0x31
-    result = simple_i2c_command("get", SPEAKER_REG_ADDR, "b")
-    return result == 1
+    PATH = DEVICE_PATH + "speaker"
+    with open(PATH, "r") as f:
+        state = f.read()[:-1] # [:-1] rm \n
+        return state == "1"
 
 def get_usr_btn() -> bool:
     """ Get user button state
@@ -151,38 +140,39 @@ def get_usr_btn() -> bool:
     Returns:
         bool: True if pressed
     """
-    USER_BTN_STATE_REG_ADDR = 0x24
-    result = simple_i2c_command("get", USER_BTN_STATE_REG_ADDR, "b")
-    return result == 1
+    PATH = DEVICE_PATH + "button"
+    with open(PATH, "r") as f:
+        state = f.read()[:-1] # [:-1] rm \n
+        return state == "1"
 
 def get_charge_state() -> bool:
-    """ Get charge state
+    """ [Deprecated] Get charge state
 
     Returns:
         bool: True if charging
     """
-    CHARGE_STATE_REG_ADDR = 0x25
-    result = simple_i2c_command("get", CHARGE_STATE_REG_ADDR, "b")
-    return result == 1
+    print("Warning: get_charge_state is deprecated, please use get_charge_state instead.")
+    path = f"/sys/class/power_supply/fusion-hat/charge_state"
+    with open(path, "r") as f:
+        state = f.read()[:-1] # [:-1] rm \n
+        return state == "1"
 
-def get_shutdown_request() -> ShutdownRequestCode:
-    """ Get shutdown request
+def get_battery_voltage() -> float:
+    """ [Deprecated] Get battery voltage
 
     Returns:
-        ShutdownRequestCode: shutdown request code
+        float: battery voltage(V)
     """
-    SHUTDOWN_REQUEST_REG_ADDR = 0x26
-    result = simple_i2c_command("get", SHUTDOWN_REQUEST_REG_ADDR, "b")
-    return ShutdownRequestCode(result)
+    print("Warning: get_battery_voltage is deprecated, please use get_battery_voltage instead.")
+    path = f"/sys/class/power_supply/fusion-hat/voltage_now"
+    with open(path, "r") as f:
+        voltage = f.read().strip()
+        voltage = float(voltage) / 1000
+    return voltage
 
-def set_user_led(state: [int, bool]) -> None:
-    """ [Deprecated] Set user led state
-
-    Args:
-        state (int or bool): 0:off, 1:on, True:on, False:off
-    """
-    print("Warning: set_user_led is deprecated, please use set_led instead.")
-    set_led(state)
+def get_shutdown_request() -> None:
+    """ [Deprecated] Get shutdown request """
+    raise NotImplementedError("get_shutdown_request is deprecated.")
 
 def set_led(state: [int, bool]) -> None:
     """ Set led state
@@ -190,8 +180,9 @@ def set_led(state: [int, bool]) -> None:
     Args:
         state (int or bool): 0:off, 1:on, True:on, False:off
     """
-    USER_LED_REG_ADDR = 0x30
-    simple_i2c_command("set", USER_LED_REG_ADDR, int(state), "b")
+    path = f"{DEVICE_PATH}led"
+    with open(path, "w") as f:
+        f.write(str(int(state)))
 
 def get_firmware_version() -> list:
     """ Get firmware version
@@ -199,8 +190,9 @@ def get_firmware_version() -> list:
     Returns:
         list: firmware version
     """
-    VERSSION_REG_ADDR = 0x05
-    version = simple_i2c_command("get", VERSSION_REG_ADDR, "i", 3)
+    path = f"{DEVICE_PATH}firmware_version"
+    with open(path, "r") as f:
+        version = f.read().strip()
     return version
 
 def set_volume(value: int) -> None:
@@ -212,15 +204,3 @@ def set_volume(value: int) -> None:
     value = min(100, max(0, value))
     cmd = "sudo amixer -M sset 'fusion_hat speaker' %d%%" % value
     os.system(cmd)
-
-def get_battery_voltage() -> float:
-    """ Get battery voltage
-
-    Returns:
-        float: battery voltage(V)
-    """
-    from .adc import ADC
-    adc = ADC("A4")
-    raw_voltage = adc.read_voltage()
-    voltage = round(raw_voltage * 3, 2)
-    return voltage
