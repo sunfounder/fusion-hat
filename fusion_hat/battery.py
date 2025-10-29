@@ -23,9 +23,9 @@ Example:
 """
 
 import os
-from fusion_hat._base import _base
+from fusion_hat._base import _Base
 
-class Battery(_base):
+class Battery(_Base):
     """ Battery class
 
     Read battery data from upower
@@ -93,15 +93,15 @@ class Battery(_base):
             return int(value)
 
     @property
-    def voltage_now(self) -> int:
+    def voltage(self) -> float:
         """ get battery voltage
 
         Returns:
-            int: battery voltage in mV
+            float: battery voltage in V
         """
         with open(self.voltage_now_path, "r") as f:
             value = f.read().strip()
-            return value / 1000
+            return round(float(value) / 1000000, 2)
 
     @property
     def model_name(self) -> str:
@@ -113,6 +113,15 @@ class Battery(_base):
         with open(self.model_name_path, "r") as f:
             value = f.read().strip()
             return value
+
+    @property
+    def is_charging(self) -> bool:
+        """ check if battery is charging
+
+        Returns:
+            bool: True if battery is charging, False otherwise
+        """
+        return self.status == "Charging"
 
     @property
     def manufacturer(self) -> str:
@@ -131,5 +140,5 @@ class Battery(_base):
         Returns:
             str: battery info
         """
-        return f"{self.model_name} {self.manufacturer} {self.status} {self.capacity}% {self.voltage_now} mV"
+        return f"{self.model_name} {self.manufacturer} {self.status} {self.capacity}% {self.voltage} mV"
 

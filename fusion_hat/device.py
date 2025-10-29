@@ -37,8 +37,7 @@ Example:
 
     Get firmware version
 
-    >>> version = device.get_firmware_version()
-    >>> ".".join([str(v) for v in version])
+    >>> device.get_firmware_version()
     '1.1.4'
 
     Set volume
@@ -58,23 +57,17 @@ __all__ = [
     'PRODUCT_ID',
     'PRODUCT_VER',
     'VENDOR',
-    'I2C_ADDRESS',
     'is_installed',
     'enable_speaker',
     'disable_speaker',
     'get_speaker_state',
     'get_usr_btn',
-    'get_charge_state',
-    'get_shutdown_request',
-    'set_user_led',
+    'set_led',
     'get_firmware_version',
     'set_volume',
-    'get_battery_voltage',
 ]
 
 import os
-from ._utils import run_command, simple_i2c_command
-from enum import Enum
 
 HAT_DEVICE_TREE = "/proc/device-tree/"
 

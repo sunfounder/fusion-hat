@@ -91,5 +91,5 @@ class Servo(PWM):
 
         """
         angle = constrain(angle, -90, 90)
-        pulse_width = mapping(angle, -90, 90, self.MIN_PW, self.MAX_PW) * 1000
+        pulse_width = mapping(angle, -90, 90, self.MIN_PW, self.MAX_PW)
         self.pulse_width(pulse_width)

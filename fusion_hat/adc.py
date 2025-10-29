@@ -23,9 +23,10 @@ Example:
     1.65
 """
 
-from ._base import _base
+from ._base import _Base
+import os
 
-class ADC(_base):
+class ADC(_Base):
     """ ADC class
 
     Args:
@@ -52,15 +53,17 @@ class ADC(_base):
         self.device_index = self.find_device()
         self.device_path = f"{self.IIO_DEVICE_PATH_PREFIX}{self.device_index}"
         
-        self.channel = channel
-        self.raw_path = os.path.join(self.device_path, f"in_voltage{self.channel}_raw")
-        self.scale_path = os.path.join(self.device_path, f"in_voltage{self.channel}_scale")
+        self._channel = channel
+        self.raw_path = os.path.join(self.device_path, f"in_voltage{self._channel}_raw")
+        self.scale_path = os.path.join(self.device_path, f"in_voltage{self._channel}_scale")
         
         if not os.path.exists(self.raw_path):
-            raise ValueError(f"ADC channel {self.channel} not found, path not exist: {self.raw_path}")
+            raise ValueError(f"ADC channel {self._channel} not found, path not exist: {self.raw_path}")
         
         with open(self.scale_path, "r") as f:
             self.scale = float(f.read().strip())
+            self.scale = round(self.scale, 2)
+            self.log.info(f"ADC channel {self._channel} scale: {self.scale}")
 
     def find_device(self) -> int:
         """ find adc device
@@ -102,14 +105,15 @@ class ADC(_base):
             raw_value = int(raw_value)
         return raw_value
         
-    def read_voltage(self) -> int:
-        """ read voltage value in mV
+    def read_voltage(self) -> float:
+        """ read voltage value in V
 
         Returns:
-            int: voltage value in mV
+            float: voltage value in V
         """
-        voltage = self.read_raw() * self.scale
+        voltage = self.read_raw() * self.scale / 1000
         voltage = round(voltage, 2)
+        self.log.info(f"ADC channel {self._channel} voltage: {voltage}")
         return voltage
 
     @property
@@ -121,7 +125,7 @@ class ADC(_base):
         """
         return self._channel
 
-    @channel
+    @property
     def voltage(self) -> int:
         """ get voltage
 

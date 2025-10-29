@@ -145,12 +145,7 @@ static ssize_t firmware_version_show(struct device *dev, struct device_attribute
 static DEVICE_ATTR_RO(version);
 static DEVICE_ATTR_RO(button);
 static DEVICE_ATTR_RO(firmware_version);
-
-static struct device_attribute dev_attr_speaker = {
-    .attr = {.name = "speaker", .mode = 0666},
-    .show = speaker_show,
-    .store = speaker_store,
-};
+static DEVICE_ATTR_RW(speaker);
 
 /**
  * @brief Attribute list for Fusion HAT sysfs interface
@@ -399,9 +394,9 @@ module_init(fusion_hat_init);
 module_exit(fusion_hat_exit);
 
 // Module parameter for debugging
-// static int debug = 1;  // Debug messages enabled by default
-// module_param(debug, int, S_IRUGO);
-// MODULE_PARM_DESC(debug, "Enable debug messages (default: 1)");
+static int debug = 1;  // Debug messages enabled by default
+module_param(debug, int, S_IRUGO);
+MODULE_PARM_DESC(debug, "Enable debug messages (default: 1)");
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("SunFounder");

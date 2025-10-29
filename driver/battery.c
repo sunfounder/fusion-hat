@@ -51,7 +51,7 @@ void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
     
     mutex_lock(&dev->lock);
     
-    ret = fusion_hat_i2c_read_word(dev->client, CMD_READ_BATTERY_H, &battery_adc_value, false);
+    ret = fusion_hat_i2c_read_word(dev->client, CMD_READ_BATTERY_H, &battery_adc_value, true);
     if (ret != 0) {
         dev_err(&dev->client->dev, "Failed to read battery voltage: %d\n", ret);
         mutex_unlock(&dev->lock);
@@ -67,6 +67,7 @@ void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
 
     battery_voltage_mv = (battery_adc_value * ADC_REFERENCE_VOLTAGE) / ADC_MAX_VALUE;
     battery_voltage_mv *= BATTERY_DIVIDER;
+
     dev->battery_voltage = battery_voltage_mv;
 
     dev->charging = charging_status ? true : false;
@@ -135,13 +136,13 @@ static int fusion_hat_get_property(struct power_supply *psy, enum power_supply_p
         val->intval = BATTERY_MIN_VOLTAGE * 1000; // mV to uV
         break;
     case POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN:
-        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // mAh to uAh
+        val->intval = BATTERY_FULL_CHARGE_MAH * 1000; // mAh to uAh
         break;
     case POWER_SUPPLY_PROP_CHARGE_NOW:
-        val->intval = (BATTERY_FULL_CHARGE_MAH * dev->battery_level / 100) * 3600; // mAh to uAh
+        val->intval = (BATTERY_FULL_CHARGE_MAH * dev->battery_level / 100) * 1000; // mAh to uAh
         break;
     case POWER_SUPPLY_PROP_CHARGE_FULL:
-        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // mAh to uAh
+        val->intval = BATTERY_FULL_CHARGE_MAH * 1000; // mAh to uAh
         break;
     case POWER_SUPPLY_PROP_MODEL_NAME:
         val->strval = "Fusion Hat";

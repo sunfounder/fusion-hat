@@ -1,32 +1,45 @@
-#!/bin/bash
 
-# Source progress bar
-curl -fsSL https://raw.githubusercontent.com/pollev/bash_progress_bar/refs/heads/master/progress_bar.sh -o progress_bar.sh
-source ./progress_bar.sh
-
-generate_some_output_and_sleep() {
-    echo "Here is some output"
-    sleep 0.3
+enable_pwm() {
+    echo 1 > /sys/class/fusion_hat/fusion_hat/pwm/pwm$1/enable
 }
 
+get_pwm_enabled() {
+    cat /sys/class/fusion_hat/fusion_hat/pwm/pwm$1/enable
+}
 
-main() {
-    # Make sure that the progress bar is cleaned up when user presses ctrl+c
-    enable_trapping
-    # Create progress bar
-    setup_scroll_area
-    for i in {1..99}
+set_pwm_period() {
+    echo $2 > /sys/class/fusion_hat/fusion_hat/pwm/pwm$1/period
+}
+
+get_pwm_period() {
+    cat /sys/class/fusion_hat/fusion_hat/pwm/pwm$1/period
+}
+
+set_pwm_duty_cycle() {
+    echo $2 > /sys/class/fusion_hat/fusion_hat/pwm/pwm$1/duty_cycle
+}
+
+get_pwm_duty_cycle() {
+    cat /sys/class/fusion_hat/fusion_hat/pwm/pwm$1/duty_cycle
+}
+
+test_pwm() {
+    echo "Enable PWM $1"
+    enable_pwm $1
+    echo "PWM0 enabled: $(get_pwm_enabled $1)"
+
+    echo "Set PWM $1 period to 20000"
+    set_pwm_period $1 20000
+    echo "PWM $1 period: $(get_pwm_period $1)"
+
+    for i in {0..200}
     do
-        if [ $i = 50 ]; then
-            echo "waiting for user input"
-            block_progress_bar $i
-            read -p "User input: "
-        else
-            generate_some_output_and_sleep
-            draw_progress_bar $i
-        fi
+        v=$((i * 100))
+        echo "Set PWM $1 duty cycle to $v"
+        set_pwm_duty_cycle $1 $v
+        echo "PWM $1 duty cycle: $(get_pwm_duty_cycle $1)"
+        sleep 0.001
     done
-    destroy_scroll_area
 }
 
-main
+test_pwm 1
