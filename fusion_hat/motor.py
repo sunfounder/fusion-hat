@@ -1,42 +1,83 @@
-#!/usr/bin/env python3
-from .basic import _Basic_class
+""" Motor
+
+This module provides a class for controlling motors on the Fusion Hat.
+
+Example:
+
+    Simple usage
+
+    >>> from fusion_hat.motor import Motor
+    >>> motor = Motor('M0', is_reversed=False)
+    >>> motor.set_power(50)
+
+    Change the direction of the motor.
+
+    >>> motor.set_is_reverse(True)
+    >>> motor.set_power(50)
+
+    Spin the motor in the other direction.
+
+    >>> motor.set_power(-50)
+
+    Stop the motor
+
+    >>> motor.stop()
+"""
+
 from .pwm import PWM
-from .utils import mapping
+from ._utils import mapping
+from ._base import _Base
 
-class Motor(_Basic_class):
-    """Motor"""
+class Motor(_Base):
+    """ Motor class
+
+    There are two ways to initialize a motor:
+
+    Method 1: Pass a motor name as a string.
+
+    Args:
+        motor (str): Motor name
+    
+    Method 2: Pass two pwm pins as PWM objects.
+
+    Args:
+        pwm_a (fusion_hat.pwm.PWM): Motor speed control pwm pin a
+        pwm_b (fusion_hat.pwm.PWM): Motor speed control pwm pin b
+    """
+
     PERIOD = 4095
+    """PWM period"""
     PRESCALER = 10
+    """PWM prescaler"""
     DEFAULT_FREQ = 100 # Hz
+    """Default PWM frequency"""
     DEFAULT_MAX = 100 # %
+    """Default maximum motor power"""
     DEFAULT_MIN = 0 # %
+    """Default minimum motor power"""
 
-    DEFAULT_MOTOR_PINS = {
+    MOTOR_PINS = {
         'M0': ['P11', 'P10'],
         'M1': ['P9', 'P8'],
         'M2': ['P6', 'P7'],
         'M3': ['P4', 'P5']
     }
+    """Motor pins"""
 
-    def __init__(self, *args, **kwargs):
-        """
-        Initialize a motor
-
-        :param pwm: Motor speed control pwm pin
-        :type pwm: fusion_hat.pwm.PWM
-        :param dir: Motor direction control pin
-        :type dir: fusion_hat.pin.Pin
-        """
-
+    def __init__(self, *args, **kwargs) -> None:
         self.motor = None
         self.pwm_a = None
         self.pwm_b = None
 
+        args = list(args)
         if len(args) == 1:
-            self.motor = args[0]
+            self.motor = args.pop()
+
         elif len(args) == 2:
-            self.pwm_a = args[0]
-            self.pwm_b = args[1]
+            self.pwm_a = args.pop(0)
+            self.pwm_b = args.pop(1)
+        
+        super().__init__(*args, **kwargs)
 
         self.freq = kwargs.get('freq', self.DEFAULT_FREQ)
         self.max = kwargs.get('max', self.DEFAULT_MAX)
@@ -46,8 +87,8 @@ class Motor(_Basic_class):
         if self.motor != None:
             if self.motor not in ['M0', 'M1', 'M2', 'M3']:
                 raise ValueError("motor must be 'M0', 'M1', 'M2', 'M3'")
-            self.pwm_a = PWM(self.DEFAULT_MOTOR_PINS[self.motor][0])
-            self.pwm_b = PWM(self.DEFAULT_MOTOR_PINS[self.motor][1])
+            self.pwm_a = PWM(self.MOTOR_PINS[self.motor][0])
+            self.pwm_b = PWM(self.MOTOR_PINS[self.motor][1])
 
         if not isinstance(self.pwm_a, PWM):
             raise TypeError("pin_a must be a class PWM")
@@ -62,16 +103,20 @@ class Motor(_Basic_class):
         self._power = 0
 
     # Deprecated
-    def speed(self, power=None):
-        print(f'[WARNING] Motor.speed is deprecated, use Motor.power instead')
+    def speed(self, power: float = None) -> None:
+        """ [DEPRECATED] Get or set motor power
+
+        Args:
+            power (float, optional): Motor power(-100.0~100.0). Defaults to None.
+        """
+        print(f"WARNING: Motor.speed() is deprecated, please use Motor.power() instead")
         self.power(power)
 
-    def power(self, power=None):
-        """
-        Get or set motor power
+    def power(self, power: float = None) -> None:
+        """ Get or set motor power
 
-        :param power: Motor power(-100.0~100.0)
-        :type power: float
+        Args:
+            power (float, optional): Motor power(-100.0~100.0). Defaults to None.
         """
         if power is None:
             return self._power
@@ -92,15 +137,14 @@ class Motor(_Basic_class):
             self.pwm_a.pulse_width_percent(0)
             self.pwm_b.pulse_width_percent(power)
 
-    def set_is_reverse(self, is_reverse):
-        """
-        Set motor is reversed or not
+    def set_is_reverse(self, is_reverse: bool) -> None:
+        """ Set motor is reversed or not
 
-        :param is_reverse: True or False
-        :type is_reverse: bool
+        Args:
+            is_reverse (bool): True or False
         """
         self.is_reversed = is_reverse
 
-    def stop(self):
+    def stop(self) -> None:
         """Stop motor"""
         self.power(0)

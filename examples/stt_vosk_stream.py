@@ -1,11 +1,11 @@
-from fusion_hat.stt import Vosk
+from fusion_hat.stt import Vosk as STT
 
-vosk = Vosk(language="en-us")
+stt = STT(language="en-us")
 
 while True:
     print("Say something")
-    for result in vosk.listen(stream=True):
+    for result in stt.listen(stream=True):
         if result["done"]:
-            print(f"final:   {result['final']}")
+            print(f"\r\x1b[Kfinal: {result['final']}")
         else:
-            print(f"partial: {result['partial']}", end="\r", flush=True)
+            print(f"\r\x1b[Kpartial: {result['partial']}", end="", flush=True)

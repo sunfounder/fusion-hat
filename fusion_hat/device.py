@@ -1,112 +1,226 @@
+""" Fusion Hat device related functions
+
+Example:
+
+    Import device module
+
+    >>> from fusion_hat import device
+
+    Enable speaker
+
+    >>> device.enable_speaker()
+    >>> device.get_speaker_state()
+    True
+
+    Disable speaker
+
+    >>> device.disable_speaker()
+    >>> device.get_speaker_state()
+    False
+
+    Get user button state
+
+    >>> device.get_usr_btn()
+    False
+
+    Get shutdown request state
+
+    >>> device.get_shutdown_request()
+    0
+
+    Toggle user LED
+
+    >>> device.set_user_led(True)
+    >>> device.set_user_led(False)
+    >>> device.set_user_led(1)
+    >>> device.set_user_led(0)
+
+    Get firmware version
+
+    >>> version = device.get_firmware_version()
+    >>> ".".join([str(v) for v in version])
+    '1.1.4'
+
+    Set volume
+
+    >>> device.set_volume(50)
+
+    Get battery voltage
+
+    >>> device.get_battery_voltage()
+    8.4
+"""
+
+__all__ = [
+    'NAME',
+    'ID',
+    'UUID',
+    'PRODUCT_ID',
+    'PRODUCT_VER',
+    'VENDOR',
+    'I2C_ADDRESS',
+    'is_installed',
+    'enable_speaker',
+    'disable_speaker',
+    'get_speaker_state',
+    'get_usr_btn',
+    'get_charge_state',
+    'get_shutdown_request',
+    'set_user_led',
+    'get_firmware_version',
+    'set_volume',
+    'get_battery_voltage',
+]
+
 import os
+from ._utils import run_command, simple_i2c_command
+from enum import Enum
 
-class Devices():
-    HAT_DEVICE_TREE = "/proc/device-tree/"
-    HAT_UUIDs = [
-        "9daeea78-0000-0774-000a-582369ac3e02", # fusion_hat 1908v10
-        ]
+HAT_DEVICE_TREE = "/proc/device-tree/"
 
-    DEVICES = {
-        "base": {
-            "name": "base",
-            "i2c_addr": 0x14,
-            "uuid": None,
-            "speaker_enbale_pin": None,
-        },
-        "fusion_hat": {
-            "name": "fusion_hat",
-            "i2c_addr": 0x17,
-            "uuid": HAT_UUIDs[0],
-            "speaker_enbale_pin": "I2C_0x31",
-        },
-    }
+NAME = "Fusion Hat"
+""" Name of the board """
 
-    name = ""
-    product_id = 0
-    product_ver = 0
-    uuid = ""
-    vendor = ""
-    spk_en = 20
-    motor_mode = 1
-    i2c_addr = None
+ID = "fusion_hat"
+""" ID of the board """
 
-    def __init__(self):
-        hat = self.check_hat()
-        if hat is not None:
-            self.name = hat["name"]
-            self.i2c_addr = hat["i2c_addr"]
-            self.product_id = hat["product_id"]
-            self.product_ver = hat["product_ver"]
-            self.uuid = hat["uuid"]
-            self.vendor = hat["vendor"]
-            self.spk_en = hat["speaker_enbale_pin"]
-        else:
-            self.set_hat('fusion_hat')
+I2C_ADDRESS = 0x17
+""" I2C address of the board """
 
-    def check_hat(self):
-        hat_path = None
-        hat = {
-        }
-        for file in os.listdir('/proc/device-tree/'):
-            if 'hat' in file:
-                # print("hat detected")
-                if os.path.exists(f"/proc/device-tree/{file}/uuid") \
-                    and os.path.isfile(f"/proc/device-tree/{file}/uuid"):
-                    # print("uuid detected")
-                    with open(f"/proc/device-tree/{file}/uuid", "r") as f:
-                        uuid = f.read()[:-1] # [:-1] rm \x00
-                        if uuid in self.HAT_UUIDs:
-                            hat_path = f"/proc/device-tree/{file}"
-                            break
+UUID = "9daeea78-0000-0774-000a-582369ac3e02"
+""" UUID of the board """
 
-        if hat_path is not None:
-            with open(f"{hat_path}/product", "r") as f:
-                _name = f.read()
-                hat["name"] = _name
-            with open(f"{hat_path}/product_id", "r") as f:
-                _product_id = f.read()[:-1] # [:-1] rm \x00
-                _product_id = int(_product_id, 16)
-                hat["product_id"] = _product_id
-            with open(f"{hat_path}/product_ver", "r") as f:
-                _product_ver = f.read()[:-1]
-                _product_ver = int(_product_ver, 16)
-                hat["product_ver"] = _product_ver
-            with open(f"{hat_path}/uuid", "r") as f:
-                _uuid = f.read()[:-1] # [:-1] rm \x00
-                hat["uuid"] = _uuid
-            with open(f"{hat_path}/vendor", "r") as f:
-                _vendor = f.read()
-                hat["vendor"] = _vendor
+PRODUCT_ID = 0x0774
+""" Product ID of the board """
 
-            for device in self.DEVICES:
-                if self.DEVICES[device]['uuid'] == hat["uuid"]:
-                    hat["i2c_addr"] = self.DEVICES[device]["i2c_addr"]
-                    hat["speaker_enbale_pin"] = self.DEVICES[device]["speaker_enbale_pin"]
-                    break
-            return hat
-        else:
-            return None
+PRODUCT_VER = 0x000a
+""" Product version of the board """
 
-    def set_hat(self, name):
-        if name in self.DEVICES:
-            self.name = name
-            self.i2c_addr = self.DEVICES[name]["i2c_addr"]
-            self.product_id = 0
-            self.product_ver = 0
-            self.vendor = ""
-            self.uuid = self.DEVICES[name]["uuid"]
-            self.spk_en = self.DEVICES[name]["speaker_enbale_pin"]
+VENDOR = "SunFounder"
+""" Vendor of the board """ 
 
-__device__ = Devices()
+class ShutdownRequestCode(Enum):
+    """ Shutdown request code """
+    NONE = 0
+    LOW_BATTERY = 1
+    BUTTON = 2
 
+def is_installed() -> bool:
+    """ Check if a Fusion Hat board is installed
 
-if __name__ == "__main__":
-    device = Devices()
-    # device.set_hat("fusion_hat")
-    print(f'name: {device.name}')
-    print(f'i2c_addr: {device.i2c_addr:#02x}')
-    print(f'product_id: {device.product_id}')
-    print(f'product_ver: {device.product_ver}')
-    print(f'vendor: {device.vendor}')
-    print(f'uuid: {device.uuid}')
-    print(f'speaker_enbale_pin: {device.spk_en}')
+    Returns:
+        bool: True if installed, False otherwise
+    """
+    for file in os.listdir('/proc/device-tree/'):
+        if 'hat' in file:
+            if os.path.exists(f"/proc/device-tree/{file}/uuid") \
+                and os.path.isfile(f"/proc/device-tree/{file}/uuid"):
+                with open(f"/proc/device-tree/{file}/uuid", "r") as f:
+                    uuid = f.read()[:-1] # [:-1] rm \x00
+                    product_id = uuid.split("-")[2]
+                    product_id = int(product_id, 16)
+                    if product_id == PRODUCT_ID:
+                        return True
+    return False
+
+def enable_speaker() -> None:
+    """ Enable speaker """
+    SPEAKER_REG_ADDR = 0x31
+    simple_i2c_command("set", SPEAKER_REG_ADDR, 1)
+    # play a short sound to fill data and avoid the speaker overheating
+    run_command(f"play -n trim 0.0 0.5 2>/dev/null")
+
+def disable_speaker() -> None:
+    """ Disable speaker """
+    SPEAKER_REG_ADDR = 0x31
+    simple_i2c_command("set", SPEAKER_REG_ADDR, 0)
+
+def get_speaker_state() -> bool:
+    """ Get speaker state
+
+    Returns:
+        bool: True if enabled
+    """
+    SPEAKER_REG_ADDR = 0x31
+    result = simple_i2c_command("get", SPEAKER_REG_ADDR, "b")
+    return result == 1
+
+def get_usr_btn() -> bool:
+    """ Get user button state
+
+    Returns:
+        bool: True if pressed
+    """
+    USER_BTN_STATE_REG_ADDR = 0x24
+    result = simple_i2c_command("get", USER_BTN_STATE_REG_ADDR, "b")
+    return result == 1
+
+def get_charge_state() -> bool:
+    """ Get charge state
+
+    Returns:
+        bool: True if charging
+    """
+    CHARGE_STATE_REG_ADDR = 0x25
+    result = simple_i2c_command("get", CHARGE_STATE_REG_ADDR, "b")
+    return result == 1
+
+def get_shutdown_request() -> ShutdownRequestCode:
+    """ Get shutdown request
+
+    Returns:
+        ShutdownRequestCode: shutdown request code
+    """
+    SHUTDOWN_REQUEST_REG_ADDR = 0x26
+    result = simple_i2c_command("get", SHUTDOWN_REQUEST_REG_ADDR, "b")
+    return ShutdownRequestCode(result)
+
+def set_user_led(state: [int, bool]) -> None:
+    """ [Deprecated] Set user led state
+
+    Args:
+        state (int or bool): 0:off, 1:on, True:on, False:off
+    """
+    print("Warning: set_user_led is deprecated, please use set_led instead.")
+    set_led(state)
+
+def set_led(state: [int, bool]) -> None:
+    """ Set led state
+
+    Args:
+        state (int or bool): 0:off, 1:on, True:on, False:off
+    """
+    USER_LED_REG_ADDR = 0x30
+    simple_i2c_command("set", USER_LED_REG_ADDR, int(state), "b")
+
+def get_firmware_version() -> list:
+    """ Get firmware version
+
+    Returns:
+        list: firmware version
+    """
+    VERSSION_REG_ADDR = 0x05
+    version = simple_i2c_command("get", VERSSION_REG_ADDR, "i", 3)
+    return version
+
+def set_volume(value: int) -> None:
+    """ Set volume
+
+    Args:
+        value (int): volume(0~100)
+    """
+    value = min(100, max(0, value))
+    cmd = "sudo amixer -M sset 'fusion_hat speaker' %d%%" % value
+    os.system(cmd)
+
+def get_battery_voltage() -> float:
+    """ Get battery voltage
+
+    Returns:
+        float: battery voltage(V)
+    """
+    from .adc import ADC
+    adc = ADC("A4")
+    raw_voltage = adc.read_voltage()
+    voltage = round(raw_voltage * 3, 2)
+    return voltage
