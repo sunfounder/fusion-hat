@@ -14,9 +14,15 @@
 
 #include "main.h"
 
-// LED sysfs show function
-static ssize_t led_show(struct device *dev, struct device_attribute *attr, char *buf)
-{
+/**
+ * @brief Show LED status in sysfs
+ * 
+ * @param dev Pointer to the device structure
+ * @param attr Pointer to the device attribute structure
+ * @param buf Buffer to store the LED status string
+ * @return ssize_t Number of bytes written to the buffer
+ */
+static ssize_t led_show(struct device *dev, struct device_attribute *attr, char *buf) {
     struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
     
     if (!fusion_dev) {
@@ -27,9 +33,16 @@ static ssize_t led_show(struct device *dev, struct device_attribute *attr, char 
     return sprintf(buf, "%u\n", fusion_dev->led_status);
 }
 
-// LED sysfs store function
-static ssize_t led_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
-{
+/**
+ * @brief Store LED status in sysfs
+ * 
+ * @param dev Pointer to the device structure
+ * @param attr Pointer to the device attribute structure
+ * @param buf Buffer containing the LED status string
+ * @param count Number of bytes in the buffer
+ * @return ssize_t Number of bytes processed, or error code
+ */
+static ssize_t led_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
     struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
     unsigned long value;
     int ret;
@@ -69,7 +82,12 @@ static ssize_t led_store(struct device *dev, struct device_attribute *attr, cons
     return count;
 }
 
-// Define device attribute for LED with 0666 permissions
+/**
+ * @brief Device attribute for LED control
+ * 
+ * This attribute allows userspace to read and write the LED status.
+ * The LED status is represented as a single byte (0 or 1).
+ */
 static struct device_attribute dev_attr_led = {
     .attr = {.name = "led", .mode = 0666},
     .show = led_show,
@@ -80,7 +98,7 @@ static struct device_attribute dev_attr_led = {
  * fusion_hat_led_init - Initialize LED subsystem
  * @dev: fusion hat device structure
  * 
- * Function: Turn off LED and create sysfs attribute
+ * Function: Initialize LED subsystem
  * Return: 0 on success, error code on failure
  */
 int fusion_hat_led_init(struct fusion_hat_dev *dev) {
@@ -111,13 +129,13 @@ int fusion_hat_led_init(struct fusion_hat_dev *dev) {
     dev_info(&dev->client->dev, "LED initialized and turned off\n");
     return 0;
 }
-EXPORT_SYMBOL(fusion_hat_led_init);
 
 /**
  * fusion_hat_led_cleanup - Clean up LED resources
  * @dev: fusion hat device structure
  * 
- * Function: Ensure LED is turned off and remove sysfs attribute
+ * Function: Clean up LED resources
+ * Return: None
  */
 void fusion_hat_led_cleanup(struct fusion_hat_dev *dev) {
     if (!dev) {
@@ -140,4 +158,6 @@ void fusion_hat_led_cleanup(struct fusion_hat_dev *dev) {
         pr_info("Fusion HAT: LED resources cleaned up\n");
     }
 }
+
+EXPORT_SYMBOL(fusion_hat_led_init);
 EXPORT_SYMBOL(fusion_hat_led_cleanup);

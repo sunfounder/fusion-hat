@@ -28,9 +28,6 @@
 // Include shared header file
 #include "main.h"
 
-#define FUSION_HAT_NAME "fusion_hat"
-#define FUSION_HAT_I2C_ADDR 0x17
-
 // Module parameters for specifying I2C bus number when not using device tree
 static int i2c_bus = 1;  // Default to I2C bus 1
 module_param(i2c_bus, int, S_IRUGO);
@@ -46,8 +43,7 @@ struct workqueue_struct *main_wq;
  * 
  * This function periodically updates battery status and checks for shutdown conditions.
  */
-static void fusion_hat_main_work(struct work_struct *work)
-{
+static void fusion_hat_main_work(struct work_struct *work) {
     struct delayed_work *delayed_work = container_of(work, struct delayed_work, work);
     
     // Update battery status
@@ -71,27 +67,25 @@ static DECLARE_DELAYED_WORK(main_work, fusion_hat_main_work);
  * 
  * Returns the number of bytes written to buffer or error code
  */
-static ssize_t version_show(struct device *dev, struct device_attribute *attr, char *buf)
-{
+static ssize_t version_show(struct device *dev, struct device_attribute *attr, char *buf) {
     return sprintf(buf, "%s\n", VERSION);
 }
 
 /**
- * speaker_show - Show speaker status
+ * @brief Show speaker status
  * @dev: Device structure
  * @attr: Device attribute
  * @buf: Buffer to store speaker status
  * 
  * Returns the number of bytes written to buffer or error code
  */
-static ssize_t speaker_show(struct device *dev, struct device_attribute *attr, char *buf)
-{
+static ssize_t speaker_show(struct device *dev, struct device_attribute *attr, char *buf) {
     // Speaker status read not implemented yet
     return sprintf(buf, "0\n");
 }
 
 /**
- * speaker_store - Set speaker status
+ * @brief Set speaker status
  * @dev: Device structure
  * @attr: Device attribute
  * @buf: Buffer containing the new speaker status
@@ -99,8 +93,7 @@ static ssize_t speaker_show(struct device *dev, struct device_attribute *attr, c
  * 
  * Returns the number of bytes processed or error code
  */
-static ssize_t speaker_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
-{
+static ssize_t speaker_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count) {
     int ret;
     unsigned int value;
     struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
@@ -118,15 +111,14 @@ static ssize_t speaker_store(struct device *dev, struct device_attribute *attr, 
 }
 
 /**
- * firmware_version_show - Read firmware version
+ * @brief Read firmware version
  * @dev: Device structure
  * @attr: Device attribute
  * @buf: Buffer to store firmware version
  * 
  * Returns the number of bytes written to buffer or error code
  */
-static ssize_t firmware_version_show(struct device *dev, struct device_attribute *attr, char *buf)
-{
+static ssize_t firmware_version_show(struct device *dev, struct device_attribute *attr, char *buf) {
     int ret = 0;
     uint8_t version_bytes[3];
     struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
@@ -160,7 +152,9 @@ static struct device_attribute dev_attr_speaker = {
     .store = speaker_store,
 };
 
-// Attribute list
+/**
+ * @brief Attribute list for Fusion HAT sysfs interface
+ */
 static struct attribute *fusion_hat_attrs[] = {
     &dev_attr_version.attr,
     &dev_attr_button.attr,
@@ -169,31 +163,36 @@ static struct attribute *fusion_hat_attrs[] = {
     NULL,
 };
 
-// Attribute group
+/**
+ * @brief Attribute group for Fusion HAT sysfs interface
+ */
 static struct attribute_group fusion_hat_attr_group = {
     .attrs = fusion_hat_attrs,
 };
 
-// Attribute group array
+/**
+ * @brief Attribute group array for Fusion HAT sysfs interface
+ */
 static const struct attribute_group *fusion_hat_attr_groups[] = {
     &fusion_hat_attr_group,
     NULL,
 };
 
-// Device type structure
+/**
+ * @brief Device type structure for Fusion HAT
+ */
 static struct device_type fusion_hat_device_type = {
     .name = FUSION_HAT_NAME,
 };
 
 /**
- * fusion_hat_probe - I2C driver probe function
+ * @brief I2C driver probe function for Fusion HAT
  * @client: I2C client structure
  * 
  * Initializes the Fusion HAT device and subsystems.
  * Returns 0 on success, negative error code on failure
  */
-static int fusion_hat_probe(struct i2c_client *client)
-{
+static int fusion_hat_probe(struct i2c_client *client) {
     int ret;
     
     // Check if I2C adapter supports required functionality
@@ -301,13 +300,12 @@ static int fusion_hat_probe(struct i2c_client *client)
 }
 
 /**
- * fusion_hat_remove - I2C driver remove function
+ * @brief I2C driver remove function for Fusion HAT
  * @client: I2C client structure
  * 
  * Cleans up resources allocated by the Fusion HAT driver
  */
-static void fusion_hat_remove(struct i2c_client *client)
-{
+static void fusion_hat_remove(struct i2c_client *client) {
     struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
     // Cancel periodic work
@@ -342,7 +340,7 @@ static void fusion_hat_remove(struct i2c_client *client)
 }
 
 /**
- * fusion_hat_id - I2C device ID table
+ * @brief I2C device ID table for Fusion HAT
  * 
  * Specifies the device ID and address for matching I2C devices
  */
@@ -353,7 +351,7 @@ static const struct i2c_device_id fusion_hat_id[] = {
 MODULE_DEVICE_TABLE(i2c, fusion_hat_id);
 
 /**
- * fusion_hat_of_match - Device tree match table
+ * @brief Device tree match table for Fusion HAT
  * 
  * Specifies compatible strings for device tree matching
  */
@@ -364,7 +362,7 @@ static const struct of_device_id fusion_hat_of_match[] = {
 MODULE_DEVICE_TABLE(of, fusion_hat_of_match);
 
 /**
- * fusion_hat_driver - I2C driver structure
+ * @brief I2C driver structure for Fusion HAT
  * 
  * Defines the Fusion HAT I2C driver with probe, remove and matching functions
  */
@@ -380,7 +378,7 @@ static struct i2c_driver fusion_hat_driver = {
 };
 
 /**
- * fusion_hat_init - Module initialization function
+ * @brief Module initialization function for Fusion HAT driver
  * 
  * Registers the I2C driver
  */
@@ -389,7 +387,7 @@ static int __init fusion_hat_init(void) {
 }
 
 /**
- * fusion_hat_exit - Module exit function
+ * @brief Module exit function for Fusion HAT driver
  * 
  * Unregisters the I2C driver
  */
@@ -401,13 +399,13 @@ module_init(fusion_hat_init);
 module_exit(fusion_hat_exit);
 
 // Module parameter for debugging
-static int debug = 1;  // Debug messages enabled by default
-module_param(debug, int, S_IRUGO);
-MODULE_PARM_DESC(debug, "Enable debug messages (default: 1)");
+// static int debug = 1;  // Debug messages enabled by default
+// module_param(debug, int, S_IRUGO);
+// MODULE_PARM_DESC(debug, "Enable debug messages (default: 1)");
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("SunFounder");
-MODULE_DESCRIPTION("Fusion Hat Driver for Raspberry Pi - Subsystem Integration");
+MODULE_DESCRIPTION("Fusion Hat Driver for Raspberry Pi");
 MODULE_VERSION("1.0");
 
 // Module dependency declaration

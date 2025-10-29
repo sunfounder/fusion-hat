@@ -1,29 +1,28 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
-#include <linux/input.h>  // For input subsystem and KEY_* definitions
-#include <linux/interrupt.h>
+#include <linux/input.h>
 #include <linux/workqueue.h>
 #include <linux/mutex.h>
 #include <linux/i2c.h>
 #include "main.h"
 
-#define BUTTON_POLL_INTERVAL 20  // 20ms polling interval
+#define BUTTON_POLL_INTERVAL 20  // Polling interval in milliseconds
 
 // Button polling work
 static DECLARE_DELAYED_WORK(button_poll_work, fusion_hat_button_poll_work);
 
 /**
- * @brief Button status polling work function
- * @param work Pointer to the work structure
+ * fusion_hat_button_poll_work - Poll button status and report events
+ * @work: Pointer to the work structure
  * 
- * This function reads the button status from hardware and reports button events
- * to the input subsystem.
+ * Reads button status from hardware via I2C and reports button press/release
+ * events to the input subsystem when state changes are detected.
  */
-extern struct fusion_hat_dev *fusion_dev; // Reference to global device structure
+extern struct fusion_hat_dev *fusion_dev;
 
 void fusion_hat_button_poll_work(struct work_struct *work)
 {
-    struct fusion_hat_dev *dev = fusion_dev;  // Get global device reference
+    struct fusion_hat_dev *dev = fusion_dev;
     uint8_t button_status;
     static uint8_t last_status = 0;
 
@@ -42,16 +41,15 @@ void fusion_hat_button_poll_work(struct work_struct *work)
         return;
     }
 
-    // Only check the first bit (USR button)
-    bool current_state = (button_status & 0x01); // 0 = not pressed, 1 = pressed
+    // Check USR button state (bit 0)
+    bool current_state = (button_status & 0x01);
     bool previous_state = (last_status & 0x01);
 
     if (current_state != previous_state) {
-        // Report button press/release events with proper input events sequence
+        // Report button event
         input_event(dev->input_dev, EV_KEY, BTN_0, current_state);
         input_event(dev->input_dev, EV_SYN, SYN_REPORT, 0);
         last_status = button_status;
-        dev_dbg(&dev->client->dev, "Button event: %s\n", current_state ? "pressed" : "released");
     }
 
     // Schedule next poll
@@ -59,15 +57,14 @@ void fusion_hat_button_poll_work(struct work_struct *work)
 }
 
 /**
- * @brief Initialize the button subsystem
- * @param dev Pointer to the Fusion HAT device structure
- * @return 0 on success, negative error code on failure
+ * fusion_hat_button_init - Initialize button subsystem
+ * @dev: Pointer to the Fusion HAT device structure
+ * 
+ * Returns 0 on success, negative error code on failure.
  */
 int fusion_hat_button_init(struct fusion_hat_dev *dev)
 {
     int ret;
-
-    dev_info(&dev->client->dev, "Initializing button subsystem\n");
 
     // Allocate input device
     dev->input_dev = input_allocate_device();
@@ -76,16 +73,14 @@ int fusion_hat_button_init(struct fusion_hat_dev *dev)
         return -ENOMEM;
     }
 
-    // Set input device name
+    // Configure input device
     dev->input_dev->name = "Fusion HAT USR Custom Button";
-    
-    // Set phys name to indicate it's a custom button, not a keyboard
     dev->input_dev->phys = "fusion-hat/button/0";
     dev->input_dev->id.bustype = BUS_I2C;
     dev->input_dev->dev.parent = &dev->client->dev;
 
-    // Set up capabilities - only one button (USR)
-    input_set_capability(dev->input_dev, EV_KEY, BTN_0); // Use BTN_0 (generic button) instead of keyboard key
+    // Configure button capability
+    input_set_capability(dev->input_dev, EV_KEY, BTN_0);
 
     // Register input device
     ret = input_register_device(dev->input_dev);
@@ -96,23 +91,19 @@ int fusion_hat_button_init(struct fusion_hat_dev *dev)
         return ret;
     }
 
-    // Schedule next poll - this is required since we're reading from I2C device
-    // which doesn't have hardware interrupt line exposed to host
+    // Start button polling
     schedule_delayed_work(&button_poll_work, msecs_to_jiffies(BUTTON_POLL_INTERVAL));
 
-    dev_info(&dev->client->dev, "USR button initialized successfully\n");
     return 0;
 }
 
 /**
- * @brief Clean up the button subsystem
- * @param dev Pointer to the Fusion HAT device structure
+ * fusion_hat_button_cleanup - Clean up button subsystem
+ * @dev: Pointer to the Fusion HAT device structure
  */
 void fusion_hat_button_cleanup(struct fusion_hat_dev *dev)
 {
-    dev_info(&dev->client->dev, "Cleaning up USR button\n");
-
-    // Cancel button polling
+    // Cancel button polling work
     cancel_delayed_work_sync(&button_poll_work);
 
     // Unregister and free input device
@@ -120,18 +111,16 @@ void fusion_hat_button_cleanup(struct fusion_hat_dev *dev)
         input_unregister_device(dev->input_dev);
         dev->input_dev = NULL;
     }
-
-    dev_info(&dev->client->dev, "Button subsystem cleanup completed\n");
 }
 
 /**
- * @brief Button status show function for sysfs
- * @param dev Device pointer
- * @param attr Device attribute
- * @param buf Buffer to store the button status
- * @return Number of bytes written or error code
+ * button_show - Show button status via sysfs
+ * @dev: Device pointer
+ * @attr: Device attribute
+ * @buf: Buffer to store the button status
  * 
- * Only USR button is available: 0 = not pressed, 1 = pressed
+ * Returns number of bytes written or error code.
+ * Shows USR button state: 0 = not pressed, 1 = pressed.
  */
 ssize_t button_show(struct device *dev, struct device_attribute *attr, char *buf)
 {
@@ -147,7 +136,7 @@ ssize_t button_show(struct device *dev, struct device_attribute *attr, char *buf
         return ret;
     }
     
-    // Only return the status of the USR button (bit 0)
+    // Return USR button status (bit 0)
     return sprintf(buf, "%u\n", (button_status & 0x01));
 }
 

@@ -10,11 +10,7 @@
 #include <linux/module.h>
 #include <linux/i2c.h>
 #include <linux/device.h>
-#include <linux/slab.h>
 #include <linux/mutex.h>
-#include <linux/err.h>
-#include <linux/uaccess.h>
-#include <linux/string.h>
 #include <linux/kobject.h>
 #include "main.h"
 
@@ -43,28 +39,29 @@ static struct kobject *pwm_kobj;
 // PWM channel array
 static struct fusion_hat_pwm_channel pwm_channels[FUSION_HAT_PWM_CHANNELS];
 
-/*
- * Get timer index
- * @channel: PWM channel number
- * @return: Corresponding timer index
+/**
+ * @brief Get timer index
+ * @param channel PWM channel number
+ * @return Corresponding timer index
+ * 
+ * Channels 0-3 use timer 0, 4-7 use timer 1, 8-11 use timer 2
  */
 static inline uint8_t get_timer_index(int channel)
 {
-    // Channels 0-3 use timer 0, 4-7 use timer 1, 8-11 use timer 2
     return channel / 4;
 }
 
-// 函数原型声明
+// Function prototypes
 int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint16_t value);
 int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, uint16_t period);
 int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel, uint16_t prescaler);
 
-/*
- * Set PWM value function
- * @client: I2C client
- * @channel: PWM channel (0-11)
- * @value: PWM value (0-65535)
- * @return: 0 on success, error code on failure
+/**
+ * @brief Set PWM value
+ * @param client I2C client
+ * @param channel PWM channel (0-11)
+ * @param value PWM value (0-65535)
+ * @return 0 on success, error code on failure
  */
 int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint16_t value)
 {
@@ -72,16 +69,11 @@ int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint1
     uint8_t reg;
     struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
-    // Check channel validity
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
     
-    // Calculate command address
     reg = CMD_SET_PWM_VALUE_BASE + (channel * 2);
-    
-    // Write to I2C device
-    printk(KERN_DEBUG "fusion_hat_write_pwm_value: reg = %u, value = %u\n", reg, value);
     ret = fusion_hat_i2c_write_word(client, reg, value, true);
-    if (ret < 0)  return ret;
+    if (ret < 0) return ret;
     
     // Update cached PWM value
     if (dev) dev->pwm_values[channel] = value;
@@ -89,12 +81,12 @@ int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint1
     return 0;
 }
 
-/*
- * Set PWM period value
- * @client: I2C client
- * @channel: PWM channel (0-11)
- * @period: Period value
- * @return: 0 on success, error code on failure
+/**
+ * @brief Set PWM period value
+ * @param client I2C client
+ * @param channel PWM channel (0-11)
+ * @param period Period value
+ * @return 0 on success, error code on failure
  */
 int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, uint16_t period)
 {
@@ -102,16 +94,11 @@ int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, ui
     uint8_t reg, timer;
     struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
-    // 检查通道有效性
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
 
-    // Get timer index
     timer = get_timer_index(channel);
-    
-    // 计算命令地址
     reg = CMD_SET_TIMER_PERIOD_BASE + (timer * 2);
     
-    // 写入I2C设备
     ret = fusion_hat_i2c_write_word(client, reg, period, true);
     if (ret < 0) return ret;
     
@@ -121,30 +108,24 @@ int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, ui
     return 0;
 }
 
-/*
+/**
  * @brief Write PWM prescaler value
  * @param client I2C client
  * @param channel PWM channel (0-11)
  * @param prescaler Prescaler value
  * @return 0 on success, error code on failure
  */
-
 int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel, uint16_t prescaler)
 {
     int ret;
     uint8_t reg, timer;
     struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
-    // 检查通道有效性
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
     
-    // 获取定时器索引
     timer = get_timer_index(channel);
-    
-    // 计算命令地址
     reg = CMD_SET_TIMER_PRESCALER_BASE + (timer * 2);
     
-    // 写入I2C设备
     ret = fusion_hat_i2c_write_word(client, reg, prescaler, true);
     if (ret < 0) return ret;
     
@@ -190,12 +171,9 @@ static ssize_t period_store(struct kobject *kobj, struct kobj_attribute *attr, c
     }
     
     // Calculate prescaler from period
-    // First calculate frequency
     uint32_t frequency = 1000000 / period;
-    // Calculate prescaler from frequency
     uint32_t prescaler = PWM_CORE_FREQUENCY / frequency / (PWM_PERIOD_VALUE + 1) - 1;
     if (prescaler == 0) prescaler = 1;
-    // Limit prescaler maximum to 65535
     if (prescaler > 65535) prescaler = 65535;
     
     mutex_lock(&fusion_dev->lock);
@@ -240,7 +218,7 @@ static ssize_t duty_cycle_store(struct kobject *kobj, struct kobj_attribute *att
     uint16_t pwm_value;
     int ret;
     
-    // check if enabled
+    // Check if enabled
     if (!fusion_dev->pwm_enabled[channel]) {
         return -EINVAL;
     }
@@ -251,9 +229,7 @@ static ssize_t duty_cycle_store(struct kobject *kobj, struct kobj_attribute *att
     }
     
     // Calculate PWM value from duty cycle (ms)
-    printk(KERN_DEBUG "duty_cycle_store: input_value = %u, period = %u\n", input_value, fusion_dev->pwm_periods[channel]);
     pwm_value = (uint32_t)input_value * PWM_PERIOD_VALUE / fusion_dev->pwm_periods[channel];
-    printk(KERN_DEBUG "duty_cycle_store: pwm_value = %u\n", pwm_value);
     
     mutex_lock(&fusion_dev->lock);
     ret = fusion_hat_write_pwm_value(fusion_dev->client, channel, pwm_value);
@@ -309,14 +285,14 @@ static ssize_t enable_store(struct kobject *kobj, struct kobj_attribute *attr, c
     return count;
 }
 
-/*
- * PWM channel release function
+/**
+ * @brief PWM channel release function
+ * 
  * Note: pwm_channels is a static array, no memory needs to be freed
  */
 static void fusion_hat_pwm_channel_release(struct kobject *kobj) {
     // Since pwm_channels is a static array, no need to call kfree
     // Only perform necessary cleanup operations
-    printk(KERN_DEBUG "Fusion Hat PWM: Releasing pwm channel kobject\n");
 }
 
 /**
@@ -329,16 +305,14 @@ static const struct kobj_type pwm_channel_ktype = {
     .release = fusion_hat_pwm_channel_release,
 };
 
-/*
- * PWM initialization function
- * @dev: Fusion HAT device structure
- * @return: 0 on success, error code on failure
+/**
+ * @brief PWM initialization function
+ * @param dev Fusion HAT device structure
+ * @return 0 on success, error code on failure
  */
 int fusion_hat_pwm_probe(struct fusion_hat_dev *dev) {
     int ret;
     uint8_t i;
-    
-    printk(KERN_INFO "Fusion Hat PWM: Initializing PWM subsystem\n");
     
     // Initialize PWM states
     for (i = 0; i < FUSION_HAT_PWM_CHANNELS; i++) {
@@ -425,7 +399,6 @@ int fusion_hat_pwm_probe(struct fusion_hat_dev *dev) {
         }
     }
     
-    printk(KERN_INFO "Fusion Hat PWM: PWM subsystem initialized successfully\n");
     return 0;
     
 cleanup:
@@ -445,15 +418,13 @@ cleanup:
     return ret;
 }
 
-/*
- * PWM cleanup function
- * @dev: Fusion HAT device structure
+/**
+ * @brief PWM cleanup function
+ * @param dev Fusion HAT device structure
  */
 void fusion_hat_pwm_remove(struct fusion_hat_dev *dev)
 {
     uint8_t i;
-    
-    printk(KERN_INFO "Fusion Hat PWM: Removing PWM subsystem\n");
     
     // Turn off all PWM channels
     for (i = 0; i < FUSION_HAT_PWM_CHANNELS; i++) {
@@ -476,8 +447,6 @@ void fusion_hat_pwm_remove(struct fusion_hat_dev *dev)
         kobject_put(pwm_kobj);
         pwm_kobj = NULL;
     }
-    
-    printk(KERN_INFO "Fusion Hat PWM: PWM subsystem removed successfully\n");
 }
 
 // Export functions for use by other modules

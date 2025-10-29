@@ -1,19 +1,45 @@
+/**
+ * @file battery.c
+ * @brief Fusion Hat Battery Driver
+ *
+ * This module provides battery monitoring and power supply management
+ * for the Fusion Hat, including voltage measurement, charge status detection,
+ * and integration with the Linux power supply subsystem.
+ */
+
 #include <linux/module.h>
 #include <linux/i2c.h>
-#include <linux/kernel.h>
 #include <linux/power_supply.h>
-#include <linux/workqueue.h>
 #include <linux/mutex.h>
-#include <linux/device.h>
 
 #include "main.h"
 
 /**
- * fusion_hat_update_battery_status - Update battery status data
- * @dev: Fusion HAT device structure
- * 
- * This function reads battery voltage and charging status from hardware,
- * calculates battery level percentage, and updates device state.
+ * @brief List of supported power supply properties
+ */
+static enum power_supply_property fusion_hat_props[] = {
+    POWER_SUPPLY_PROP_PRESENT,
+    POWER_SUPPLY_PROP_ONLINE,
+    POWER_SUPPLY_PROP_STATUS,
+    POWER_SUPPLY_PROP_CAPACITY,
+    POWER_SUPPLY_PROP_VOLTAGE_NOW,
+    POWER_SUPPLY_PROP_VOLTAGE_MAX,
+    POWER_SUPPLY_PROP_VOLTAGE_MIN,
+    POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN,
+    POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
+    POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN,
+    POWER_SUPPLY_PROP_CHARGE_NOW,
+    POWER_SUPPLY_PROP_CHARGE_FULL,
+    POWER_SUPPLY_PROP_MODEL_NAME,
+    POWER_SUPPLY_PROP_MANUFACTURER,
+    POWER_SUPPLY_PROP_TECHNOLOGY,
+    POWER_SUPPLY_PROP_SCOPE,
+    POWER_SUPPLY_PROP_CAPACITY_LEVEL,
+};
+
+/**
+ * @brief Update battery status data
+ * @param dev Fusion HAT device structure
  */
 void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
 {
@@ -25,7 +51,6 @@ void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
     
     mutex_lock(&dev->lock);
     
-    // Read battery voltage from ADC
     ret = fusion_hat_i2c_read_word(dev->client, CMD_READ_BATTERY_H, &battery_adc_value, false);
     if (ret != 0) {
         dev_err(&dev->client->dev, "Failed to read battery voltage: %d\n", ret);
@@ -33,7 +58,6 @@ void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
         return;
     }
     
-    // Read charging status
     ret = fusion_hat_i2c_read_byte(dev->client, CMD_READ_CHARGING_STATUS, &charging_status);
     if (ret != 0) {
         dev_err(&dev->client->dev, "Failed to read charging status: %d\n", ret);
@@ -41,15 +65,12 @@ void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
         return;
     }
 
-    // Calculate battery voltage (mV) with proper scaling
     battery_voltage_mv = (battery_adc_value * ADC_REFERENCE_VOLTAGE) / ADC_MAX_VALUE;
-    battery_voltage_mv *= BATTERY_DIVIDER; // Apply voltage divider correction
+    battery_voltage_mv *= BATTERY_DIVIDER;
     dev->battery_voltage = battery_voltage_mv;
 
-    // Update charging state
     dev->charging = charging_status ? true : false;
         
-    // Calculate battery level percentage using linear approximation
     if (battery_voltage_mv < BATTERY_MIN_VOLTAGE)
         battery_level = 0;
     else if (battery_voltage_mv > BATTERY_MAX_VOLTAGE)
@@ -62,35 +83,30 @@ void fusion_hat_update_battery_status(struct fusion_hat_dev *dev)
     
     mutex_unlock(&dev->lock);
     
-    // Notify power supply subsystem of status change
     if (fusion_dev->battery)
         power_supply_changed(fusion_dev->battery);
-
-    dev_dbg(&dev->client->dev, "Battery updated: level=%d%%, charging=%d\n", 
-            dev->battery_level, dev->charging);
 }
 
 /**
- * fusion_hat_get_property - Get power supply property values
- * @psy: Power supply object
- * @psp: Property to retrieve
- * @val: Pointer to store property value
- * 
- * Returns: 0 on success, error code on failure
+ * @brief Get power supply property values
+ * @param psy Power supply object
+ * @param psp Property to retrieve
+ * @param val Pointer to store property value
+ * @return 0 on success, error code on failure
  */
 static int fusion_hat_get_property(struct power_supply *psy, enum power_supply_property psp, union power_supply_propval *val)
 {
     struct fusion_hat_dev *dev = power_supply_get_drvdata(psy);
     
-    // 为电荷相关属性定义一个假设的满容量值 (mAh)
+    // Assumed full capacity for charge-related properties (mAh)
     const int BATTERY_FULL_CHARGE_MAH = 2000;
     
     switch (psp) {
     case POWER_SUPPLY_PROP_PRESENT:
-        val->intval = 1; // Always present in this design
+        val->intval = 1;
         break;
     case POWER_SUPPLY_PROP_ONLINE:
-        val->intval = 1; // Always online in this design
+        val->intval = 1;
         break;
     case POWER_SUPPLY_PROP_STATUS:
         if (dev->charging)
@@ -104,29 +120,28 @@ static int fusion_hat_get_property(struct power_supply *psy, enum power_supply_p
         val->intval = dev->battery_level;
         break;
     case POWER_SUPPLY_PROP_VOLTAGE_NOW:
-        val->intval = dev->battery_voltage * 1000; // Convert mV to uV
+        val->intval = dev->battery_voltage * 1000; // mV to uV
         break;
     case POWER_SUPPLY_PROP_VOLTAGE_MAX:
-        val->intval = BATTERY_MAX_VOLTAGE * 1000; // Convert mV to uV
+        val->intval = BATTERY_MAX_VOLTAGE * 1000; // mV to uV
         break;
     case POWER_SUPPLY_PROP_VOLTAGE_MIN:
-        val->intval = BATTERY_MIN_VOLTAGE * 1000; // Convert mV to uV
+        val->intval = BATTERY_MIN_VOLTAGE * 1000; // mV to uV
         break;
     case POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN:
-        val->intval = BATTERY_MAX_VOLTAGE * 1000; // Convert mV to uV
+        val->intval = BATTERY_MAX_VOLTAGE * 1000; // mV to uV
         break;
     case POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN:
-        val->intval = BATTERY_MIN_VOLTAGE * 1000; // Convert mV to uV
+        val->intval = BATTERY_MIN_VOLTAGE * 1000; // mV to uV
         break;
     case POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN:
-        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // Convert mAh to uAh
+        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // mAh to uAh
         break;
     case POWER_SUPPLY_PROP_CHARGE_NOW:
-        // 根据电量百分比计算当前电荷
-        val->intval = (BATTERY_FULL_CHARGE_MAH * dev->battery_level / 100) * 3600; // Convert mAh to uAh
+        val->intval = (BATTERY_FULL_CHARGE_MAH * dev->battery_level / 100) * 3600; // mAh to uAh
         break;
     case POWER_SUPPLY_PROP_CHARGE_FULL:
-        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // Convert mAh to uAh
+        val->intval = BATTERY_FULL_CHARGE_MAH * 3600; // mAh to uAh
         break;
     case POWER_SUPPLY_PROP_MODEL_NAME:
         val->strval = "Fusion Hat";
@@ -135,13 +150,12 @@ static int fusion_hat_get_property(struct power_supply *psy, enum power_supply_p
         val->strval = "SunFounder";
         break;
     case POWER_SUPPLY_PROP_TECHNOLOGY:
-        val->intval = POWER_SUPPLY_TECHNOLOGY_LION; // Lithium-ion battery
+        val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
         break;
     case POWER_SUPPLY_PROP_SCOPE:
-        val->intval = POWER_SUPPLY_SCOPE_SYSTEM; // System-wide battery
+        val->intval = POWER_SUPPLY_SCOPE_SYSTEM;
         break;
     case POWER_SUPPLY_PROP_CAPACITY_LEVEL:
-        // Set capacity level based on percentage
         if (dev->battery_level >= 90)
             val->intval = POWER_SUPPLY_CAPACITY_LEVEL_FULL;
         else if (dev->battery_level >= 70)
@@ -159,35 +173,10 @@ static int fusion_hat_get_property(struct power_supply *psy, enum power_supply_p
     return 0;
 }
 
-// List of supported power supply properties
-static enum power_supply_property fusion_hat_props[] = {
-    POWER_SUPPLY_PROP_PRESENT,
-    POWER_SUPPLY_PROP_ONLINE,
-    POWER_SUPPLY_PROP_STATUS,
-    POWER_SUPPLY_PROP_CAPACITY,
-    POWER_SUPPLY_PROP_VOLTAGE_NOW,
-    POWER_SUPPLY_PROP_VOLTAGE_MAX,      // 添加最大电压属性
-    POWER_SUPPLY_PROP_VOLTAGE_MIN,      // 添加最小电压属性
-    POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN,
-    POWER_SUPPLY_PROP_VOLTAGE_MIN_DESIGN,
-    POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN, // 添加设计容量
-    POWER_SUPPLY_PROP_CHARGE_NOW,       // 添加当前电荷
-    POWER_SUPPLY_PROP_CHARGE_FULL,      // 添加满电荷
-    POWER_SUPPLY_PROP_MODEL_NAME,
-    POWER_SUPPLY_PROP_MANUFACTURER,
-    POWER_SUPPLY_PROP_TECHNOLOGY,
-    POWER_SUPPLY_PROP_SCOPE,
-    POWER_SUPPLY_PROP_CAPACITY_LEVEL,
-};
-
 /**
- * fusion_hat_battery_init - Initialize battery subsystem
- * @dev: Fusion HAT device structure
- * 
- * Sets up power supply descriptor, registers with Linux power supply subsystem,
- * initializes battery state variables, and starts periodic status monitoring.
- * 
- * Returns: 0 on success, negative error code on failure
+ * @brief Initialize battery subsystem
+ * @param dev Fusion HAT device structure
+ * @return 0 on success, negative error code on failure
  */
 int fusion_hat_battery_init(struct fusion_hat_dev *dev)
 {
@@ -220,14 +209,11 @@ int fusion_hat_battery_init(struct fusion_hat_dev *dev)
 }
 
 /**
- * fusion_hat_battery_cleanup - Cleanup battery subsystem
- * @dev: Fusion HAT device structure
- * 
- * Cancels periodic work and unregisters from power supply subsystem.
+ * @brief Cleanup battery subsystem
+ * @param dev Fusion HAT device structure
  */
 void fusion_hat_battery_cleanup(struct fusion_hat_dev *dev)
 {
-    // Unregister from power supply subsystem
     if (dev->battery) {
         power_supply_unregister(dev->battery);
         dev->battery = NULL;
@@ -238,8 +224,3 @@ void fusion_hat_battery_cleanup(struct fusion_hat_dev *dev)
 EXPORT_SYMBOL(fusion_hat_battery_init);
 EXPORT_SYMBOL(fusion_hat_battery_cleanup);
 EXPORT_SYMBOL(fusion_hat_update_battery_status);
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("SunFounder");
-MODULE_DESCRIPTION("Fusion Hat Battery Driver");
-MODULE_VERSION("1.0");
