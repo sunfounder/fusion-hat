@@ -66,46 +66,7 @@ static DECLARE_DELAYED_WORK(main_work, fusion_hat_main_work);
 // Button status function is now in button.c
 
 
-/**
- * led_show - Show LED status
- * @dev: Device structure
- * @attr: Device attribute
- * @buf: Buffer to store LED status
- * 
- * Returns the number of bytes written to buffer or error code
- */
-static ssize_t led_show(struct device *dev, struct device_attribute *attr, char *buf)
-{
-    // LED status read not implemented yet
-    return sprintf(buf, "0\n");
-}
-
-/**
- * led_store - Set LED status
- * @dev: Device structure
- * @attr: Device attribute
- * @buf: Buffer containing the new LED status
- * @count: Number of bytes in buffer
- * 
- * Returns the number of bytes processed or error code
- */
-static ssize_t led_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count)
-{
-    int ret;
-    unsigned int value;
-    struct fusion_hat_dev *fusion_dev = dev_get_drvdata(dev);
-    
-    ret = kstrtouint(buf, 10, &value);
-    if (ret < 0) {
-        return ret;
-    }
-    
-    mutex_lock(&fusion_dev->lock);
-    ret = fusion_hat_i2c_write_byte(fusion_dev->client, CMD_CONTROL_LED, value ? 1 : 0);
-    mutex_unlock(&fusion_dev->lock);
-    
-    return ret < 0 ? ret : count;
-}
+// LED相关函数已移至led.c文件中
 
 /**
  * speaker_show - Show speaker status
@@ -182,7 +143,7 @@ static ssize_t firmware_version_show(struct device *dev, struct device_attribute
 
 // sysfs attribute definitions
 static DEVICE_ATTR(button, 0444, button_show, NULL);
-static DEVICE_ATTR_RW(led);
+DEVICE_ATTR_RW(led);
 static DEVICE_ATTR_RW(speaker);
 static DEVICE_ATTR_RO(firmware_version);
 
@@ -247,9 +208,6 @@ static int fusion_hat_probe(struct i2c_client *client)
     // Initialize mutex lock
     mutex_init(&fusion_dev->lock);
     
-    // Initialize button press time
-    fusion_dev->button_press_time = 0;
-    
     // Initialize PWM enabled status
     for (int i = 0; i < FUSION_HAT_PWM_CHANNELS; i++) {
         fusion_dev->pwm_enabled[i] = false;
@@ -290,6 +248,13 @@ static int fusion_hat_probe(struct i2c_client *client)
         goto error_button;
     }
     
+    // Initialize LED subsystem
+    ret = fusion_hat_led_init(fusion_dev);
+    if (ret < 0) {
+        dev_err(&client->dev, "Failed to initialize LED subsystem: %d\n", ret);
+        goto error_led;
+    }
+    
     // Initialize battery subsystem
     ret = fusion_hat_battery_init(fusion_dev);
     if (ret < 0) {
@@ -312,6 +277,8 @@ static int fusion_hat_probe(struct i2c_client *client)
     
     error_adc:
         fusion_hat_adc_remove(fusion_dev);
+    error_led:
+        fusion_hat_led_cleanup(fusion_dev);
     error_pwm:
         fusion_hat_pwm_remove(fusion_dev);
     error_battery:
@@ -335,11 +302,6 @@ static void fusion_hat_remove(struct i2c_client *client)
 {
     struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
-    // Free interrupt if allocated
-    if (dev->irq >= 0) {
-        free_irq(dev->irq, dev);
-    }
-    
     // Cancel periodic work
     cancel_delayed_work_sync(&main_work);
     
@@ -354,6 +316,9 @@ static void fusion_hat_remove(struct i2c_client *client)
     
     // Clean up button subsystem
     fusion_hat_button_cleanup(dev);
+    
+    // Clean up LED subsystem
+    fusion_hat_led_cleanup(dev);
     
     // Clean up PWM subsystem
     fusion_hat_pwm_remove(dev);

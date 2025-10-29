@@ -139,22 +139,27 @@ struct fusion_hat_dev {
     struct class *class;
     struct device *device;
     struct mutex lock;
-    struct pwm_chip pwm_chip;
+    // PWM相关
     bool pwm_enabled[FUSION_HAT_PWM_CHANNELS];
     uint32_t pwm_duty_cycles[FUSION_HAT_PWM_CHANNELS];
     uint32_t pwm_periods[FUSION_HAT_PWM_CHANNELS];
     uint32_t pwm_values[FUSION_HAT_PWM_CHANNELS];
     uint16_t timer_periods[PWM_TIMER_COUNT];
     uint16_t timer_prescalers[PWM_TIMER_COUNT];
-    unsigned long button_press_time;
+    // 电池相关
     struct power_supply *battery;
     struct power_supply_desc battery_desc;
-    int irq;
-    struct iio_dev *iio_devs[FUSION_HAT_NUM_ADC_CHANNELS];
     bool charging;          // 充电状态
     int battery_level;      // 电池电量百分比
     int battery_voltage;    // 电池电压（mV）
+    // ADC相关
+    struct iio_dev *iio_devs[FUSION_HAT_NUM_ADC_CHANNELS];
+    // Button
     struct input_dev *input_dev;   // Input device for buttons
+    // LED
+    uint8_t led_status;      // LED状态（0=关闭，1=开启）
+    // Speaker
+    uint8_t speaker_status;  // 扬声器状态（0=关闭，1=开启）
 };
 
 // 外部变量声明
@@ -197,5 +202,11 @@ extern ssize_t button_show(struct device *dev, struct device_attribute *attr, ch
 extern int fusion_hat_check_hardware_shutdown_request(struct fusion_hat_dev *dev);
 extern void fusion_hat_execute_shutdown(struct fusion_hat_dev *dev, int request_type);
 extern void fusion_hat_shutdown_request_work(struct fusion_hat_dev *dev);
+
+// LED相关函数
+extern int fusion_hat_led_init(struct fusion_hat_dev *dev);
+extern void fusion_hat_led_cleanup(struct fusion_hat_dev *dev);
+extern ssize_t led_show(struct device *dev, struct device_attribute *attr, char *buf);
+extern ssize_t led_store(struct device *dev, struct device_attribute *attr, const char *buf, size_t count);
 
 #endif /* FUSION_HAT_H */

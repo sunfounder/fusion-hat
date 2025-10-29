@@ -66,7 +66,6 @@ void fusion_hat_button_poll_work(struct work_struct *work)
 int fusion_hat_button_init(struct fusion_hat_dev *dev)
 {
     int ret;
-    int i;
 
     dev_info(&dev->client->dev, "Initializing button subsystem\n");
 
