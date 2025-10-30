@@ -235,7 +235,7 @@ class I2C(_Base):
             return False
 
     @staticmethod
-    def scan(bus: int = None, force: bool = False) -> list:
+    def scan(bus: int = 1, force: bool = False) -> list:
         """Scan the I2C bus for devices
 
         Args:
@@ -247,18 +247,18 @@ class I2C(_Base):
         """
         devices = []
         for addr in range(0x03, 0x77 + 1):
-            read = SMBus.read_byte, (addr,), {'force':force}
-            write = SMBus.write_byte, (addr, 0), {'force':force}
-            for func, args, kwargs in (read, write):
-                try:
-                    with SMBus(bus) as bus:
-                        data = func(bus, *args, **kwargs)
-                        devices.append(addr)
-                        break
-                except OSError as expt:
-                    if expt.errno == 16:
-                        # just busy, maybe permanent by a kernel driver or just temporary by some user code
-                        pass
+            try:
+                with SMBus(bus) as smbus:
+                    # Read a byte from the address
+                    smbus.read_byte(addr, force=force)
+                    devices.append(addr)
+            except OSError as expt:
+                # Ignore device busy or unresponsive errors
+                if expt.errno == 16:  # Device or resource busy
+                    # print(f"Address 0x{addr:02X} busy")
+                    pass
+                # Other errors continue to try
+                continue
         return devices
 
 
