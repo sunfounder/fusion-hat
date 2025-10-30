@@ -52,8 +52,8 @@ static void fusion_hat_main_work(struct work_struct *work) {
     // Check for shutdown requests
     fusion_hat_shutdown_request_work(fusion_dev);
     
-    // Reschedule work to run again after 1 second
-    schedule_delayed_work(delayed_work, msecs_to_jiffies(1000));
+    // Reschedule work to run again after MAIN_INTERVAL milliseconds
+    schedule_delayed_work(delayed_work, msecs_to_jiffies(MAIN_INTERVAL));
 }
 
 // Main periodic work for battery and shutdown checks
@@ -238,7 +238,7 @@ static int fusion_hat_probe(struct i2c_client *client) {
     }
     
     // Initialize and schedule periodic battery check work
-    schedule_delayed_work(&main_work, msecs_to_jiffies(1000));
+    schedule_delayed_work(&main_work, msecs_to_jiffies(MAIN_INTERVAL));
     
     dev_info(&client->dev, "Fusion Hat driver probed successfully\n");
     return 0;

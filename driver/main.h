@@ -82,6 +82,7 @@
 #define CMD_READ_FIRMWARE_VERSION 0x05     // 24-bit firmware version
 
 // Constant definitions
+#define MAIN_INTERVAL 1000                 // Main loop interval in milliseconds
 #define ADC_REFERENCE_VOLTAGE 3300         // ADC reference voltage (3.3V)
 #define ADC_MAX_VALUE 4095                 // ADC max value (12-bit)
 #define BATTERY_DIVIDER 3                  // Battery voltage divider ratio
@@ -126,9 +127,6 @@ struct fusion_hat_dev {
     bool pwm_enabled[FUSION_HAT_PWM_CHANNELS];
     uint32_t pwm_duty_cycles[FUSION_HAT_PWM_CHANNELS];
     uint32_t pwm_periods[FUSION_HAT_PWM_CHANNELS];
-    uint32_t pwm_values[FUSION_HAT_PWM_CHANNELS];
-    uint16_t timer_periods[PWM_TIMER_COUNT];
-    uint16_t timer_prescalers[PWM_TIMER_COUNT];
     
     // Battery related
     struct power_supply *battery;
