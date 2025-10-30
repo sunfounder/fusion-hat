@@ -5,7 +5,7 @@
 
 #include "main.h"
 #include <linux/i2c.h>
-#include <linux/device.h>  // For dev_err
+#include <linux/device.h>
 
 /**
  * fusion_hat_i2c_read_byte - Read a single byte from I2C device
@@ -18,9 +18,7 @@
 int fusion_hat_i2c_read_byte(struct i2c_client *client, uint8_t cmd, uint8_t *value) {
     int ret;
     
-    if (!client || !value) {
-        return -EINVAL;
-    }
+    if (!client || !value) return -EINVAL;
     
     // Send command and read single byte
     ret = i2c_smbus_read_byte_data(client, cmd);
@@ -44,10 +42,8 @@ int fusion_hat_i2c_read_byte(struct i2c_client *client, uint8_t cmd, uint8_t *va
 int fusion_hat_i2c_write_byte(struct i2c_client *client, uint8_t cmd, uint8_t value) {
     int ret;
     
-    if (!client) {
-        return -EINVAL;
-    }
-    
+    if (!client) return -EINVAL;
+
     // Send command and data
     ret = i2c_smbus_write_byte_data(client, cmd, value);
     if (ret < 0) {
@@ -70,9 +66,7 @@ int fusion_hat_i2c_write_byte(struct i2c_client *client, uint8_t cmd, uint8_t va
 int fusion_hat_i2c_read_word(struct i2c_client *client, uint8_t cmd, uint16_t *value, bool big_endian) {
     int ret;
     
-    if (!client || !value) {
-        return -EINVAL;
-    }
+    if (!client || !value) return -EINVAL;
     
     // Read word using SMBus
     ret = i2c_smbus_read_word_data(client, cmd);
@@ -102,9 +96,7 @@ int fusion_hat_i2c_read_word(struct i2c_client *client, uint8_t cmd, uint16_t *v
 int fusion_hat_i2c_write_word(struct i2c_client *client, uint8_t cmd, uint16_t value, bool big_endian) {
     int ret;
     
-    if (!client) {
-        return -EINVAL;
-    }
+    if (!client) return -EINVAL;
     
     // Convert endianness if needed
     if (big_endian) {
@@ -133,9 +125,7 @@ int fusion_hat_i2c_write_word(struct i2c_client *client, uint8_t cmd, uint16_t v
 int fusion_hat_i2c_read_block_bytes(struct i2c_client *client, uint8_t cmd, uint8_t *buffer, uint8_t len) {
     int ret;
     
-    if (!client || !buffer || len == 0 || len > 32) {
-        return -EINVAL;
-    }
+    if (!client || !buffer || len == 0 || len > 32) return -EINVAL;
     
     // Read multiple bytes using SMBus block read
     ret = i2c_smbus_read_i2c_block_data(client, cmd, len, buffer);

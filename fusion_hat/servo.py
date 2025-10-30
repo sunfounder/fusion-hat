@@ -46,7 +46,7 @@ class Servo(PWM):
         """ Initialize the servo motor class
         """
         super().__init__(channel, *args, **kwargs)
-        self.period(self.PERIOD)
+        self.freq(self.FREQ)
         self._offset = offset
         self._angle = 0
         self._min = min
@@ -92,4 +92,6 @@ class Servo(PWM):
         """
         angle = constrain(angle, -90, 90)
         pulse_width = mapping(angle, -90, 90, self.MIN_PW, self.MAX_PW)
+        pulse_width = int(pulse_width)
+        self.log.debug(f"Servo channel {self.channel} angle: {angle}, pulse_width: {pulse_width}")
         self.pulse_width(pulse_width)

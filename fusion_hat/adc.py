@@ -63,7 +63,7 @@ class ADC(_Base):
         with open(self.scale_path, "r") as f:
             self.scale = float(f.read().strip())
             self.scale = round(self.scale, 2)
-            self.log.info(f"ADC channel {self._channel} scale: {self.scale}")
+            self.log.debug(f"ADC channel {self._channel} scale: {self.scale}")
 
     def find_device(self) -> int:
         """ find adc device
@@ -113,7 +113,7 @@ class ADC(_Base):
         """
         voltage = self.read_raw() * self.scale / 1000
         voltage = round(voltage, 2)
-        self.log.info(f"ADC channel {self._channel} voltage: {voltage}")
+        self.log.debug(f"ADC channel {self._channel} voltage: {voltage}")
         return voltage
 
     @property

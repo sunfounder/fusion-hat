@@ -117,6 +117,7 @@ class PWM(_Base):
         Args:
             duty_cycle (int): duty cycle in ms
         """
+        self.log.debug(f"PWM channel {self.channel} duty cycle: {duty_cycle}")
         with open(f"{self.PATH}/pwm{self.channel}/duty_cycle", "w") as f:
             f.write(str(duty_cycle))
 

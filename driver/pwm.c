@@ -46,8 +46,7 @@ static struct fusion_hat_pwm_channel pwm_channels[FUSION_HAT_PWM_CHANNELS];
  * 
  * Channels 0-3 use timer 0, 4-7 use timer 1, 8-11 use timer 2
  */
-static inline uint8_t get_timer_index(int channel)
-{
+static inline uint8_t get_timer_index(int channel) {
     return channel / 4;
 }
 
@@ -63,22 +62,13 @@ int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel,
  * @param value PWM value (0-65535)
  * @return 0 on success, error code on failure
  */
-int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint16_t value)
-{
-    int ret;
+int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint16_t value) {
     uint8_t reg;
-    struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
     
-    reg = CMD_SET_PWM_VALUE_BASE + (channel * 2);
-    ret = fusion_hat_i2c_write_word(client, reg, value, true);
-    if (ret < 0) return ret;
-    
-    // Update cached PWM value
-    if (dev) dev->pwm_values[channel] = value;
-    
-    return 0;
+    reg = CMD_SET_PWM_VALUE_BASE + channel;
+    return fusion_hat_i2c_write_word(client, reg, value, true);
 }
 
 /**
@@ -88,24 +78,14 @@ int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint1
  * @param period Period value
  * @return 0 on success, error code on failure
  */
-int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, uint16_t period)
-{
-    int ret;
+int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, uint16_t period) {
     uint8_t reg, timer;
-    struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
-
     timer = get_timer_index(channel);
-    reg = CMD_SET_TIMER_PERIOD_BASE + (timer * 2);
+    reg = CMD_SET_TIMER_PERIOD_BASE + timer;
     
-    ret = fusion_hat_i2c_write_word(client, reg, period, true);
-    if (ret < 0) return ret;
-    
-    // Update cached period value
-    if (dev) dev->timer_periods[timer] = period;
-    
-    return 0;
+    return fusion_hat_i2c_write_word(client, reg, period, true);
 }
 
 /**
@@ -115,24 +95,14 @@ int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, ui
  * @param prescaler Prescaler value
  * @return 0 on success, error code on failure
  */
-int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel, uint16_t prescaler)
-{
-    int ret;
+int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel, uint16_t prescaler) {
     uint8_t reg, timer;
-    struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
-    
+
     timer = get_timer_index(channel);
-    reg = CMD_SET_TIMER_PRESCALER_BASE + (timer * 2);
-    
-    ret = fusion_hat_i2c_write_word(client, reg, prescaler, true);
-    if (ret < 0) return ret;
-    
-    // Update cached prescaler value
-    if (dev) dev->timer_prescalers[timer] = prescaler;
-    
-    return 0;
+    reg = CMD_SET_TIMER_PRESCALER_BASE + timer;
+    return fusion_hat_i2c_write_word(client, reg, prescaler, true);
 }
 
 /**
@@ -166,9 +136,7 @@ static ssize_t period_store(struct kobject *kobj, struct kobj_attribute *attr, c
     uint32_t period;
     int ret;
     
-    if (kstrtou32(buf, 10, &period) < 0) {
-        return -EINVAL;
-    }
+    if (kstrtou32(buf, 10, &period) < 0) return -EINVAL;
     
     // Calculate prescaler from period
     uint32_t frequency = 1000000 / period;
@@ -178,10 +146,8 @@ static ssize_t period_store(struct kobject *kobj, struct kobj_attribute *attr, c
     
     mutex_lock(&fusion_dev->lock);
     ret = fusion_hat_write_prescaler_value(fusion_dev->client, channel, prescaler);
-    if (ret >= 0) {
-        fusion_dev->pwm_periods[channel] = period;
-    }
     mutex_unlock(&fusion_dev->lock);
+    if (ret >= 0) fusion_dev->pwm_periods[channel] = period;
     
     return ret < 0 ? ret : count;
 }
@@ -219,24 +185,18 @@ static ssize_t duty_cycle_store(struct kobject *kobj, struct kobj_attribute *att
     int ret;
     
     // Check if enabled
-    if (!fusion_dev->pwm_enabled[channel]) {
-        return -EINVAL;
-    }
+    if (!fusion_dev->pwm_enabled[channel]) return -EINVAL;
     
     // Parse input value
-    if (kstrtou32(buf, 10, &input_value) < 0) {
-        return -EINVAL;
-    }
+    if (kstrtou32(buf, 10, &input_value) < 0) return -EINVAL;
     
     // Calculate PWM value from duty cycle (ms)
     pwm_value = (uint32_t)input_value * PWM_PERIOD_VALUE / fusion_dev->pwm_periods[channel];
     
     mutex_lock(&fusion_dev->lock);
     ret = fusion_hat_write_pwm_value(fusion_dev->client, channel, pwm_value);
-    if (ret >= 0) {
-        fusion_dev->pwm_duty_cycles[channel] = input_value;
-    }
     mutex_unlock(&fusion_dev->lock);
+    if (ret >= 0) fusion_dev->pwm_duty_cycles[channel] = input_value;
     
     return ret < 0 ? ret : count;
 }
@@ -270,17 +230,13 @@ static ssize_t enable_store(struct kobject *kobj, struct kobj_attribute *attr, c
     struct fusion_hat_dev *fusion_dev = pwm_chan->dev;
     uint8_t enable;
     
-    if (kstrtou8(buf, 10, &enable) < 0) {
-        return -EINVAL;
-    }
+    if (kstrtou8(buf, 10, &enable) < 0) return -EINVAL;
     
     mutex_lock(&fusion_dev->lock);
     fusion_dev->pwm_enabled[channel] = enable ? true : false;
-    // If disabling PWM, set value to 0
-    if (!enable) {
-        fusion_hat_write_pwm_value(fusion_dev->client, channel, 0);
-    }
     mutex_unlock(&fusion_dev->lock);
+    // If disabling PWM, set value to 0
+    if (!enable) fusion_hat_write_pwm_value(fusion_dev->client, channel, 0);
     
     return count;
 }

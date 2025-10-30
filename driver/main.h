@@ -45,46 +45,29 @@
 
 // PWM commands
 #define CMD_SET_TIMER_PRESCALER_BASE 0x40  // Timer prescaler base address
-#define CMD_SET_TIMER0_PRESCALER_H 0x40     // Timer0 prescaler high byte (PWM0-3)
-#define CMD_SET_TIMER0_PRESCALER_L 0x41     // Timer0 prescaler low byte (PWM0-3)
-#define CMD_SET_TIMER1_PRESCALER_H 0x42     // Timer1 prescaler high byte (PWM4-7)
-#define CMD_SET_TIMER1_PRESCALER_L 0x43     // Timer1 prescaler low byte (PWM4-7)
-#define CMD_SET_TIMER2_PRESCALER_H 0x44     // Timer2 prescaler high byte (PWM8-11)
-#define CMD_SET_TIMER2_PRESCALER_L 0x45     // Timer2 prescaler low byte (PWM8-11)
+#define CMD_SET_TIMER0_PRESCALER 0x40     // Timer0 prescaler 16bit (PWM0-3)
+#define CMD_SET_TIMER1_PRESCALER 0x41     // Timer1 prescaler 16bit (PWM4-7)
+#define CMD_SET_TIMER2_PRESCALER 0x42     // Timer2 prescaler 16bit (PWM8-11)
 
 #define CMD_SET_TIMER_PERIOD_BASE 0x50      // Timer period register base address
-#define CMD_SET_TIMER0_PERIOD_H 0x50        // Timer0 period register high byte
-#define CMD_SET_TIMER0_PERIOD_L 0x51        // Timer0 period register low byte
-#define CMD_SET_TIMER1_PERIOD_H 0x52        // Timer1 period register high byte
-#define CMD_SET_TIMER1_PERIOD_L 0x53        // Timer1 period register low byte
-#define CMD_SET_TIMER2_PERIOD_H 0x54        // Timer2 period register high byte
-#define CMD_SET_TIMER2_PERIOD_L 0x55        // Timer2 period register low byte
+#define CMD_SET_TIMER0_PERIOD 0x50        // Timer0 period register 16bit (PWM0-3)
+#define CMD_SET_TIMER1_PERIOD 0x51        // Timer1 period register 16bit (PWM4-7)
+#define CMD_SET_TIMER2_PERIOD 0x52        // Timer2 period register 16bit (PWM8-11)
 
 #define CMD_SET_PWM_VALUE_BASE 0x60         // PWM value register base address
-#define CMD_SET_PWM0_VALUE_H 0x60           // PWM0 value register high byte
-#define CMD_SET_PWM0_VALUE_L 0x61           // PWM0 value register low byte
-#define CMD_SET_PWM1_VALUE_H 0x62           // PWM1 value register high byte
-#define CMD_SET_PWM1_VALUE_L 0x63           // PWM1 value register low byte
-#define CMD_SET_PWM2_VALUE_H 0x64           // PWM2 value register high byte
-#define CMD_SET_PWM2_VALUE_L 0x65           // PWM2 value register low byte
-#define CMD_SET_PWM3_VALUE_H 0x66           // PWM3 value register high byte
-#define CMD_SET_PWM3_VALUE_L 0x67           // PWM3 value register low byte
-#define CMD_SET_PWM4_VALUE_H 0x68           // PWM4 value register high byte
-#define CMD_SET_PWM4_VALUE_L 0x69           // PWM4 value register low byte
-#define CMD_SET_PWM5_VALUE_H 0x6A           // PWM5 value register high byte
-#define CMD_SET_PWM5_VALUE_L 0x6B           // PWM5 value register low byte
-#define CMD_SET_PWM6_VALUE_H 0x6C           // PWM6 value register high byte
-#define CMD_SET_PWM6_VALUE_L 0x6D           // PWM6 value register low byte
-#define CMD_SET_PWM7_VALUE_H 0x6E           // PWM7 value register high byte
-#define CMD_SET_PWM7_VALUE_L 0x6F           // PWM7 value register low byte
-#define CMD_SET_PWM8_VALUE_H 0x70           // PWM8 value register high byte
-#define CMD_SET_PWM8_VALUE_L 0x71           // PWM8 value register low byte
-#define CMD_SET_PWM9_VALUE_H 0x72           // PWM9 value register high byte
-#define CMD_SET_PWM9_VALUE_L 0x73           // PWM9 value register low byte
-#define CMD_SET_PWM10_VALUE_H 0x74          // PWM10 value register high byte
-#define CMD_SET_PWM10_VALUE_L 0x75          // PWM10 value register low byte
-#define CMD_SET_PWM11_VALUE_H 0x76          // PWM11 value register high byte
-#define CMD_SET_PWM11_VALUE_L 0x77          // PWM11 value register low byte
+#define CMD_SET_PWM0_VALUE 0x60           // PWM0 value register 16bit
+#define CMD_SET_PWM1_VALUE 0x61           // PWM1 value register 16bit
+#define CMD_SET_PWM2_VALUE 0x62           // PWM2 value register 16bit
+#define CMD_SET_PWM3_VALUE 0x63           // PWM3 value register 16bit
+#define CMD_SET_PWM4_VALUE 0x64           // PWM4 value register 16bit
+#define CMD_SET_PWM5_VALUE 0x65           // PWM5 value register 16bit
+#define CMD_SET_PWM6_VALUE 0x66           // PWM6 value register 16bit
+#define CMD_SET_PWM7_VALUE 0x67           // PWM7 value register 16bit
+#define CMD_SET_PWM8_VALUE 0x68           // PWM8 value register 16bit
+#define CMD_SET_PWM9_VALUE 0x69           // PWM9 value register 16bit
+#define CMD_SET_PWM10_VALUE 0x6A          // PWM10 value register 16bit
+#define CMD_SET_PWM11_VALUE 0x6B          // PWM11 value register 16bit
+
 
 // Sensor commands
 #define CMD_READ_BUTTON_STATUS 0x24        // 8-bit, 1=pressed, 0=released
@@ -99,6 +82,7 @@
 #define CMD_READ_FIRMWARE_VERSION 0x05     // 24-bit firmware version
 
 // Constant definitions
+#define MAIN_INTERVAL 1000                 // Main loop interval in milliseconds
 #define ADC_REFERENCE_VOLTAGE 3300         // ADC reference voltage (3.3V)
 #define ADC_MAX_VALUE 4095                 // ADC max value (12-bit)
 #define BATTERY_DIVIDER 3                  // Battery voltage divider ratio
@@ -143,9 +127,6 @@ struct fusion_hat_dev {
     bool pwm_enabled[FUSION_HAT_PWM_CHANNELS];
     uint32_t pwm_duty_cycles[FUSION_HAT_PWM_CHANNELS];
     uint32_t pwm_periods[FUSION_HAT_PWM_CHANNELS];
-    uint32_t pwm_values[FUSION_HAT_PWM_CHANNELS];
-    uint16_t timer_periods[PWM_TIMER_COUNT];
-    uint16_t timer_prescalers[PWM_TIMER_COUNT];
     
     // Battery related
     struct power_supply *battery;
