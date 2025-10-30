@@ -362,9 +362,9 @@ module_init(fusion_hat_init);
 module_exit(fusion_hat_exit);
 
 // Module parameter for debugging
-static int debug = 1;  // Debug messages enabled by default
-module_param(debug, int, S_IRUGO);
-MODULE_PARM_DESC(debug, "Enable debug messages (default: 1)");
+// static int debug = 1;  // Debug messages enabled by default
+// module_param(debug, int, S_IRUGO);
+// MODULE_PARM_DESC(debug, "Enable debug messages (default: 1)");
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("SunFounder");
