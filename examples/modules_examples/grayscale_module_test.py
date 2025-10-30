@@ -1,5 +1,6 @@
 # Import Grayscale_Module and ADC class
-from fusion_hat import Grayscale_Module, ADC
+from fusion_hat.modules import Grayscale_Module
+from fusion_hat.adc import ADC
 
 # Create Grayscale_Module object, reference should be calculate from the value reads on white
 # and black ground, then take the middle as reference

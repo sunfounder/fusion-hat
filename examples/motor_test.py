@@ -6,6 +6,7 @@ m1 = Motor("M1", is_reversed=True)
 m2 = Motor("M2", is_reversed=False)
 m3 = Motor("M3", is_reversed=False)
 
+
 try:
     while True:
         print("Forward")

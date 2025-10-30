@@ -1,9 +1,11 @@
 # Import Ultrasonic and Pin class
-from fusion_hat import Ultrasonic, Pin
+from fusion_hat.modules import Ultrasonic
+from fusion_hat.pin import Pin
 from time import sleep
 
+
 # Create Ultrasonic object
-us = Ultrasonic(Pin(27), Pin(22))
+us = Ultrasonic(Pin(17), Pin(4))
 
 while True:
     # Read distance
