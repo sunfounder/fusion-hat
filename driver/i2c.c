@@ -101,6 +101,8 @@ int fusion_hat_i2c_read_word(struct i2c_client *client, uint8_t cmd, uint16_t *v
  */
 int fusion_hat_i2c_write_word(struct i2c_client *client, uint8_t cmd, uint16_t value, bool big_endian) {
     int ret;
+    uint8_t high_byte, low_byte;
+    uint16_t value_to_write;
     
     if (!client) {
         return -EINVAL;
@@ -108,11 +110,14 @@ int fusion_hat_i2c_write_word(struct i2c_client *client, uint8_t cmd, uint16_t v
     
     // Convert endianness if needed
     if (big_endian) {
-        value = ((value & 0xFF) << 8) | ((value >> 8) & 0xFF);
+        high_byte = (uint8_t)(value >> 8) & 0xFF;
+        low_byte = (uint8_t)(value & 0xFF);
+        value_to_write = (low_byte << 8) | high_byte;
     }
     
     // Write word using SMBus
-    ret = i2c_smbus_write_word_data(client, cmd, value);
+    printk(KERN_DEBUG "Fusion HAT: Writing word value 0x%04x(0x%04x) to register 0x%02x\n", value_to_write, value, cmd);
+    ret = i2c_smbus_write_word_data(client, cmd, value_to_write);
     if (ret < 0) {
         dev_err(&client->dev, "I2C write word failed: %d\n", ret);
         return ret;

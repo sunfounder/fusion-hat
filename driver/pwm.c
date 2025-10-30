@@ -63,15 +63,14 @@ int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel,
  * @param value PWM value (0-65535)
  * @return 0 on success, error code on failure
  */
-int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint16_t value)
-{
+int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel, uint16_t value) {
     int ret;
     uint8_t reg;
     struct fusion_hat_dev *dev = i2c_get_clientdata(client);
     
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
     
-    reg = CMD_SET_PWM_VALUE_BASE + (channel * 2);
+    reg = CMD_SET_PWM_VALUE_BASE + channel;
     ret = fusion_hat_i2c_write_word(client, reg, value, true);
     if (ret < 0) return ret;
     
@@ -97,7 +96,7 @@ int fusion_hat_write_period_value(struct i2c_client *client, uint8_t channel, ui
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
 
     timer = get_timer_index(channel);
-    reg = CMD_SET_TIMER_PERIOD_BASE + (timer * 2);
+    reg = CMD_SET_TIMER_PERIOD_BASE + timer;
     
     ret = fusion_hat_i2c_write_word(client, reg, period, true);
     if (ret < 0) return ret;
@@ -124,7 +123,7 @@ int fusion_hat_write_prescaler_value(struct i2c_client *client, uint8_t channel,
     if (channel >= FUSION_HAT_PWM_CHANNELS) return -EINVAL;
     
     timer = get_timer_index(channel);
-    reg = CMD_SET_TIMER_PRESCALER_BASE + (timer * 2);
+    reg = CMD_SET_TIMER_PRESCALER_BASE + timer;
     
     ret = fusion_hat_i2c_write_word(client, reg, prescaler, true);
     if (ret < 0) return ret;
