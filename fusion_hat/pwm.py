@@ -7,44 +7,25 @@ Example:
     >>> from fusion_hat.pwm import PWM
     >>> pwm = PWM(0)
     >>> pwm.freq(50)
-    >>> pwm.pulse_width_percent(0.5)
+    >>> pwm.pulse_width_percent(50)
 
-    Advanced example to control PWM channel with 50 Hz frequency and period of 4096.
-    Prescaler will be
-
-    .. math::
-
-        \\begin{align*}
-        P_{rescaler} &= \\frac{F_{MCU}}{P_{eriod} \\times F_{PWM}} \\\\
-        P_{rescaler} &= \\frac{72000000}{4096 * 50} \\\\
-        P_{rescaler} &= 351.5625 \\approx 352
-        \\end{align*}
-
-    When we round up to 352. We will get actual frequency of 
-
-    .. math::
-
-        \\begin{align*}
-        F_{PWM} &= \\frac{F_{MCU}}{P_{rescaler} \\times P_{eriod}} \\\\
-        F_{PWM} &= \\frac{72000000}{352 \\times 4096} \\\\
-        F_{PWM} &= 49.93785 Hz
-        \\end{align*}
+    Advanced example to control PWM channel with 50 Hz frequency, 20000us and pulse width 500-2500us for servos.
 
     >>> from fusion_hat.pwm import PWM
     >>> pwm = PWM(0)
-    >>> pwm.prescaler(352)
-    >>> pwm.period(4096)
-    >>> pwm.pulse_width(2048)
+    >>> pwm.freq(50)
+    >>> pwm.pulse_width(1500) # servo center position
+    >>> pwm.pulse_width(2500) # servo max position
+    >>> pwm.pulse_width(500) # servo min position
 
 """
 import math
-from ._i2c import I2C
-from .device import I2C_ADDRESS
+from ._base import _Base
 from typing import Optional
 
 timer = [{"arr": 1} for _ in range(7)]
 
-class PWM(I2C):
+class PWM(_Base):
     """ PWM class to control a single PWM channel
 
     Args:
@@ -60,20 +41,14 @@ class PWM(I2C):
 
     CLOCK = 72000000.0
 
-    # 3 timer2 for 12 channels
-    REG_PSC_START = 0x40
-    REG_PSC_END = 0x49
-
-    REG_ARR_START = 0x50
-    REG_ARR_END = 0x59
-
-    REG_CCP_START = 0x60
-    REG_CCP_END = 0x77
-
     CHANNEL_NUM = 12
+    DEFAULT_PRESCALER = 22
+    PERIOD = 65535
 
-    def __init__(self, channel: int, freq: int=50, addr: int=I2C_ADDRESS, *args, **kwargs):
-        super().__init__(address=addr, *args, **kwargs)
+    PATH = "/sys/class/fusion_hat/fusion_hat/pwm"
+
+    def __init__(self, channel: int, freq: int=50, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         if isinstance(channel, str):
             if channel.startswith("P"):
                 channel = int(channel[1:])
@@ -86,23 +61,65 @@ class PWM(I2C):
                     f'channel must be in range of 0-11, not "{channel}"')
         self.channel = channel
 
-        if channel < 4:
-            self.timer_index = 0
-        elif channel < 8:
-            self.timer_index = 1
-        else:
-            self.timer_index = 2
+        self.log.debug(f"PWM channel {self.channel} initilizing")
+        self.timer_index = channel // 4
+        self.enable()
+        self._period = self.read_period()
+        self.log.debug(f"PWM channel {self.channel} period: {self._period}")
+        self._freq = 1000000 / self._period
+        self.log.debug(f"PWM channel {self.channel} frequency: {self._freq}")
+        self.duty_cycle(0)
 
-        self._prescaler_register = self.REG_PSC_START + self.timer_index
-        self._period_register = self.REG_ARR_START + self.timer_index
-        self._pulse_width_register = self.REG_CCP_START + self.channel
-        self._prescaler = 0
-        self._period = 0
-        self._pulse_width = 0
-        self._pulse_width_percent = 0.0
-        self._freq = freq
-        self.freq(freq)
-        self.pulse_width(0)
+        self.log.debug(f"PWM channel {self.channel} initilized")
+
+    def enable(self, enable: bool=True) -> None:
+        """ Enable/disable PWM channel
+
+        Args:
+            enable (bool, optional): enable or disable, default is True
+        """
+        with open(f"{self.PATH}/pwm{self.channel}/enable", "w") as f:
+            f.write("1" if enable else "0")
+        self.log.debug(f"PWM channel {self.channel} enabled: {enable}")
+
+    def read_period(self) -> int:
+        """ Get period in ms
+
+        Returns:
+            int: period in ms
+        """
+        with open(f"{self.PATH}/pwm{self.channel}/period", "r") as f:
+            value = f.read().strip()
+            return int(value)
+
+    def write_period(self, period: int) -> int:
+        """ Set period in ms
+
+        Args:
+            period (int): period in ms
+        """
+        with open(f"{self.PATH}/pwm{self.channel}/period", "w") as f:
+            f.write(str(period))
+
+    def read_duty_cycle(self) -> int:
+        """ Get duty cycle in ms
+
+        Returns:
+            int: duty cycle in ms
+        """
+        with open(f"{self.PATH}/pwm{self.channel}/duty_cycle", "r") as f:
+            value = f.read().strip()
+            return int(value)
+
+    def write_duty_cycle(self, duty_cycle: int) -> int:
+        """ Set duty cycle in ms
+
+        Args:
+            duty_cycle (int): duty cycle in ms
+        """
+        self.log.debug(f"PWM channel {self.channel} duty cycle: {duty_cycle}")
+        with open(f"{self.PATH}/pwm{self.channel}/duty_cycle", "w") as f:
+            f.write(str(duty_cycle))
 
     def freq(self, freq: Optional[float]=None) -> float:
         """ Set/get frequency, leave blank to get frequency
@@ -117,49 +134,16 @@ class PWM(I2C):
             return self._freq
         
         self._freq = int(freq)
-        # Calculate arr and frequency errors
-        psc_arr = []
-        freq_errors = []
-        # --- calculate the prescaler and period ---
-        # frequency = CLOCK / (arr + 1) / (psc + 1)
-        assumed_psc = int(math.sqrt(self.CLOCK/self._freq)) # assumed prescaler, start from square root
-        assumed_psc -= 5
-        if assumed_psc < 0:
-            assumed_psc = 0
-        # Calculate arr and frequency errors
-        for psc in range(assumed_psc, assumed_psc+10):
-            arr = int(self.CLOCK/self._freq/psc)
-            psc_arr.append((psc, arr))
-            freq_errors.append(abs(self._freq - self.CLOCK/psc/arr))
-        # Find the best match
-        best_match = freq_errors.index(min(freq_errors))
-        psc, arr = psc_arr[best_match]
-        self._prescaler = int(psc) - 1
-        self._period = int(arr) - 1
-        self.prescaler(self._prescaler, raw=True)
-        self.period(self._period, raw=True)
+        # Calculate period in ms
+        period = int(1000000/self._freq)
+        self.period(period)
         return self._freq
 
     def prescaler(self, prescaler: Optional[int]=None, raw: bool=False) -> int:
-        """ Set/get prescaler, leave blank to get prescaler
+        """ [Deprecated] Set/get prescaler, leave blank to get prescaler"""
+        self.log.warning("prescaler is deprecated, please use freq instead.")
 
-        Args:
-            prescaler (int, optional): prescaler(0-65535), default is 0
-            raw (bool, optional): Whether to write prescaler directly, default is False
-
-        Returns:
-            int: prescaler
-        """
-        if prescaler == None:
-            return self._prescaler
-
-        if not raw:
-            self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
-        self._prescaler = int(prescaler)
-        self.write_data(self._prescaler_register, self._prescaler)
-        return self._prescaler
-
-    def period(self, period: Optional[int]=None, raw: bool=False) -> int:
+    def period(self, period: Optional[int]=None) -> int:
         """ Set/get period, leave blank to get period
 
         Args:
@@ -171,29 +155,36 @@ class PWM(I2C):
         """
         if period == None:
             return self._period
-
-        if not raw:
-            self._freq = self.CLOCK/(self._prescaler+1)/(self._period+1)
-        self._period = int(period)
-        self.write_data(self._period_register, self._period)
+        self.log.debug(f"PWM channel {self.channel} period: {period}")
+        self.write_period(period)
         return self._period
 
-    def pulse_width(self, pulse_width: Optional[int]=None) -> int:
-        """ Set/get pulse width, leave blank to get pulse width
+    def duty_cycle(self, duty_cycle: Optional[int]=None) -> int:
+        """ Set/get duty cycle, in ms
 
         Args:
-            pulse_width (int, optional): pulse width(0-65535), default is 0
+            duty_cycle (int, optional): duty cycle
+        Returns:
+            int: duty cycle
+        """
+        if duty_cycle == None:
+            return self._duty_cycle
+        self.log.debug(f"PWM channel {self.channel} duty cycle: {duty_cycle}")
+        self.write_duty_cycle(duty_cycle)
+        self._duty_cycle = duty_cycle
+        self._pulse_width_percent = round(self._duty_cycle / self._period * 100, 2)
+        return self._duty_cycle
+
+    def pulse_width(self, pulse_width: Optional[int]=None) -> int:
+        """ Set/get pulse width, in ms
+
+        Args:
+            pulse_width (int, optional): pulse width in ms
 
         Returns:
             int: pulse width
         """
-        if pulse_width == None:
-            return self._pulse_width
-
-        self._pulse_width = int(pulse_width)
-        self._pulse_width_percent = round(pulse_width / (self._period+1) * 100, 2)
-        self.write_data(self._pulse_width_register, self._pulse_width)
-        return self._pulse_width
+        return self.duty_cycle(pulse_width)
 
     def pulse_width_percent(self, pulse_width_percent: Optional[float]=None) -> float:   
         """ Set/get pulse width percentage, leave blank to get pulse width percentage
@@ -206,17 +197,15 @@ class PWM(I2C):
         """
         if pulse_width_percent == None:
             return self._pulse_width_percent
-
-        self._pulse_width_percent = round(pulse_width_percent, 2)
-        self._pulse_width = int((self._period+1) * pulse_width_percent / 100)
-        self.write_data(self._pulse_width_register, self._pulse_width)
+        self.log.debug(f"PWM channel {self.channel} pulse width percent: {pulse_width_percent}")
+        duty_cycle = int(pulse_width_percent * self._period / 100)
+        self.duty_cycle(duty_cycle)
         return self._pulse_width_percent
 
-    def write_data(self, reg: int, data: int) -> None:
-        """ Write data to the PWM device
+    def close(self) -> None:
+        """ Close PWM channel """
+        self.enable(False)
 
-        Args:
-            reg (int): register address
-            data (int): data to write
-        """
-        self.write_word_data(reg, data, lsb=True)
+    def __del__(self) -> None:
+        """ Close PWM channel when object is deleted """
+        self.close()

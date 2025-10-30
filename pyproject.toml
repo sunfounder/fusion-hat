@@ -21,6 +21,16 @@ dynamic = ["version"]
 
 dependencies = [
   "sunfounder-voice-assistant @ git+https://github.com/sunfounder/sunfounder-voice-assistant.git",
+  "evdev",
+  "smbus2",
+  "gpiozero",
+  "pyaudio",
+  "spidev",
+  "pyserial",
+  "pillow",
+  "pygame",
+  "luma.led_matrix",
+  "luma.core",
 ]
 
 [project.scripts]

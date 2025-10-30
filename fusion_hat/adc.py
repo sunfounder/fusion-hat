@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+
 
 """ Fusion Hat on-board analog to digital converter
 
@@ -23,70 +23,122 @@ Example:
     1.65
 """
 
-from ._i2c import I2C
-from .device import I2C_ADDRESS
+from ._base import _Base
+import os
 
-class ADC(I2C):
-    """ Analog to digital converter
+class ADC(_Base):
+    """ ADC class
 
     Args:
-        chn (int, str): channel number (0-4/A0-A4)
-        address (int, optional): I2C address, default is 0x17
-        *args: Parameters to pass to :class:`fusion_hat._i2c.I2C`.
-        **kwargs: Keyword arguments to pass to :class:`fusion_hat._i2c.I2C`.
-
+        channel (int or str): channel number or Str start with A
+        *args: pass to :class:`fusion_hat._base._base`
+        **kwargs: pass to :class:`fusion_hat._base._base`
+    
     Raises:
-        ValueError: If chn is not between 0-4 or A0-A4
-        I2CError: If I2C communication fails
+        ValueError: channel must be channel number or Str start with A
     """
-    REG_A0 = 0x10
-    REG_A1 = 0x12
-    REG_A2 = 0x14
-    REG_A3 = 0x16
-    REG_A4 = 0x18
-    REG_CHANNELS = [REG_A0, REG_A1, REG_A2, REG_A3, REG_A4]
-    CHANNEL_NUM = len(REG_CHANNELS)
+    DEVICE_NAME = "fusion-hat"
+    IIO_DEVICE_PATH_PREFIX = "/sys/bus/iio/devices/iio:device"
 
-    DEFAULT_REFERENCE_VOLTAGE = 3.3
-
-    def __init__(self, chn: [int, str], address: int = I2C_ADDRESS, *args, **kwargs) -> None:
-        super().__init__(*args, address=address, **kwargs)
-
-        if isinstance(chn, str):
-            # If chn is a string, assume it's a pin name, remove A and convert to int
-            if chn.startswith("A"):
-                chn = int(chn[1:])
-            else:
-                raise ValueError(
-                    f'ADC channel should be between [A0, A4], not "{chn}"')
-        elif isinstance(chn, int):
-            # Make sure channel is between 0 and 4
-            if chn < 0 or chn > self.CHANNEL_NUM - 1:
-                raise ValueError(
-                    f'ADC channel should be between [0, 4], not "{chn}"')
+    def __init__(self, channel: [int, str], *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        if isinstance(channel, int):
+            channel = f"{channel}"
+        elif isinstance(channel, str) and channel.startswith("A"):
+            channel = channel[1:]
         else:
-            raise ValueError(
-                f'ADC channel should be between [0, 4], not "{chn}"')
-        self.channel = chn
-        self.reg_addr = self.REG_CHANNELS[chn]
+            raise ValueError("channel must be channel number or Str start with A")
+        
+        # 查找ADC设备的路径
+        self.device_index = self.find_device()
+        self.device_path = f"{self.IIO_DEVICE_PATH_PREFIX}{self.device_index}"
+        
+        self._channel = channel
+        self.raw_path = os.path.join(self.device_path, f"in_voltage{self._channel}_raw")
+        self.scale_path = os.path.join(self.device_path, f"in_voltage{self._channel}_scale")
+        
+        if not os.path.exists(self.raw_path):
+            raise ValueError(f"ADC channel {self._channel} not found, path not exist: {self.raw_path}")
+        
+        with open(self.scale_path, "r") as f:
+            self.scale = float(f.read().strip())
+            self.scale = round(self.scale, 2)
+            self.log.debug(f"ADC channel {self._channel} scale: {self.scale}")
+
+    def find_device(self) -> int:
+        """ find adc device
+
+        Returns:
+            int: adc device index
+        """
+        index = -1
+        for i in range(10):
+            dev_path = f"/sys/bus/iio/devices/iio:device{i}"
+            if os.path.isdir(dev_path):
+                name_path = os.path.join(dev_path, "name")
+                if os.path.exists(name_path):
+                    with open(name_path, "r") as f:
+                        name = f.read().strip()
+                        if name == self.DEVICE_NAME:
+                            index = i
+                            break
+        if index < 0:
+            raise ValueError(f"Fusion Hat ADC device '{self.DEVICE_NAME}' not found")
+        return index
 
     def read(self) -> int:
-        """ Read the ADC value
+        """ read raw value
 
         Returns:
-            int: ADC value(0-4095)
+            int: raw value
         """
-        data = self.read_word_data(self.reg_addr, lsb=True)
-        self.log.debug(f"Read ADC channel {self.channel} value: {data}")
-        return data
+        return self.read_raw()
 
+    def read_raw(self) -> int:
+        """ read raw value
+
+        Returns:
+            int: raw value
+        """
+        with open(self.raw_path, "r") as f:
+            raw_value = f.read().strip()
+            raw_value = int(raw_value)
+        return raw_value
+        
     def read_voltage(self) -> float:
-        """ Read the ADC voltage
+        """ read voltage value in V
 
         Returns:
-            float: ADC voltage(0-3.3V)
+            float: voltage value in V
         """
-        data = self.read()
-        voltage = data * self.DEFAULT_REFERENCE_VOLTAGE / 4095
-        self.log.debug(f"Read ADC channel {self.channel} voltage: {voltage:.3f}V")
+        voltage = self.read_raw() * self.scale / 1000
+        voltage = round(voltage, 2)
+        self.log.debug(f"ADC channel {self._channel} voltage: {voltage}")
         return voltage
+
+    @property
+    def channel(self) -> str:
+        """ get channel
+
+        Returns:
+            str: channel number
+        """
+        return self._channel
+
+    @property
+    def voltage(self) -> int:
+        """ get voltage
+
+        Returns:
+            int: voltage value in mV
+        """
+        return self.read_voltage()
+
+    @property
+    def raw(self) -> int:
+        """ get raw value
+
+        Returns:
+            int: raw value
+        """
+        return self.read_raw()

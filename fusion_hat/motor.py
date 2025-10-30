@@ -45,10 +45,6 @@ class Motor(_Base):
         pwm_b (fusion_hat.pwm.PWM): Motor speed control pwm pin b
     """
 
-    PERIOD = 4095
-    """PWM period"""
-    PRESCALER = 10
-    """PWM prescaler"""
     DEFAULT_FREQ = 100 # Hz
     """Default PWM frequency"""
     DEFAULT_MAX = 100 # %
@@ -87,8 +83,8 @@ class Motor(_Base):
         if self.motor != None:
             if self.motor not in ['M0', 'M1', 'M2', 'M3']:
                 raise ValueError("motor must be 'M0', 'M1', 'M2', 'M3'")
-            self.pwm_a = PWM(self.MOTOR_PINS[self.motor][0])
-            self.pwm_b = PWM(self.MOTOR_PINS[self.motor][1])
+            self.pwm_a = PWM(self.MOTOR_PINS[self.motor][0], *args, **kwargs)
+            self.pwm_b = PWM(self.MOTOR_PINS[self.motor][1], *args, **kwargs)
 
         if not isinstance(self.pwm_a, PWM):
             raise TypeError("pin_a must be a class PWM")
