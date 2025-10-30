@@ -1,5 +1,5 @@
 from ..adc import ADC
-from .._utils import constrain
+from ..utils import constrain
 
 class Grayscale_Module(object):
     """3 channel Grayscale Module"""
