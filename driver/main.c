@@ -369,7 +369,7 @@ module_exit(fusion_hat_exit);
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("SunFounder");
 MODULE_DESCRIPTION("Fusion Hat Driver for Raspberry Pi");
-MODULE_VERSION("1.0");
+MODULE_VERSION(VERSION);
 
 // Module dependency declaration
 MODULE_IMPORT_NS(IIO);
