@@ -60,9 +60,6 @@ DC motors are powered **directly from the onboard batteries (6–8.4V)**.
 * Each motor channel supports up to **1.8A maximum current**.
 * Do **not** connect motors with higher current requirements, as this may damage the motor driver chip.
 
-
-
-
 Electrical Characteristics
 -----------------------------------
 

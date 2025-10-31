@@ -50,9 +50,8 @@ This board features an onboard MCU, extending the Raspberry Pi’s capabilities 
     :maxdepth: 2
 
     About this HAT<self>
-    fusion_hat/fusion_hat
-    installation
-    install_i2s_for_speaker
+    quick_user_guide
+    hardware/hardware
     ai_interaction/ai_interaction   
     api/fusion_hat
     faq

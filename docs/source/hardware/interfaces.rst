@@ -12,7 +12,7 @@
 
     👉 Ready to explore and create with us? Click [|link_sf_facebook|] and join today!
 
-Hardware Introduction
+Interfaces
 =========================
 
 Pinout
@@ -23,21 +23,20 @@ Pinout
   :align: center
 
 
-**Power Port**
+**Battery Port**
     * 6.0V-8.4V XH2.54 3pin power input.
     * Powering the Raspberry Pi and Fusion HAT+ at the same time.
 
 **Power Switch**
     * Turn on/off the power of the Fusion HAT+.
 
-**Type-C Charge Port**
+**Type-C Charging Port**
     * Insert the Type-C cable to charge the battery.
-    * At the same time, the charging indicator lights up in red color.
-    * When the battery is fully charged, the charging indicator turns off.
-    * If the USB cable is still plugged in about 4 hours after it is fully charged, the charging indicator will blink to prompt.
+    * During charging, the corresponding battery indicator light will flash.
+    * It takes approximately 2 hours to fully charge. Once fully charged, if the Fusion HAT is powered on, both battery indicator lights will stay on continuously. If the Fusion HAT is powered off, both battery indicator lights will turn off.
 
 **Digital Pin**
-    * 4-channel digital pins, D0-D3.
+    * 4-channel digital pins, 17, 4, 27, 22.
     * Pin: :ref:`fh_pin_v0_digital`.
     * API: :class:`fusion_hat.pin.Pin`.
 
@@ -61,7 +60,7 @@ Pinout
     * **I2C Port**: SH1.0 4-pin interface, which is compatible with QWIIC and STEMMA QT. 
     * These I2C interfaces are connected to the Raspberry Pi's I2C interface via GPIO2 (SDA) and GPIO3 (SCL).
     * Pin: :ref:`fh_pin_v0_i2c`.
-    * API: :class:`fusion_hat.i2c.I2C`.
+    * API: :class:`fusion_hat._i2c.I2C`.
 
 **SPI Pin**
     * P2.54 7-pin SPI interface.
@@ -75,14 +74,14 @@ Pinout
     * 1-channel WS2812 port.
     * Pin: :ref:`fh_pin_v0_ws2812`.
 
-**LED Indicator**
-    * One LED lights up when the power is on.
-    * Pin: :ref:`fh_pin_v0_led`.
+**User LED**
+    * The functions of User LED can be set by your programming.
+    * Pin: :ref:`fh_pin_v0_button`.
     * API: :class:`fusion_hat.device.set_led`.
 
 **USR Button**
     * The functions of USR Button can be set by your programming. (Pressing down leads to a input “0”; releasing produces a input “1”. ) 
-    * API: :meth:`fusion_hat.device.get_usr_btn` or :class:`fusion_hat.user_button.UserButton`.
+    * API: :meth:`fusion_hat.device.get_usr_btn` 
     * Pin: :ref:`fh_pin_v0_button`.
 
 **Battery Indicator**
@@ -430,9 +429,9 @@ Power Button & PWR Indicator
 
 .. image:: img/pwr_fh_v0.png
 
-Pressing the power button once will turn on the Raspberry Pi, and the PWR indicator will light up.
-Holding the power button for 2 seconds sends a shutdown signal to the Raspberry Pi. If it is properly configured, the Raspberry Pi will shut down and the PWR indicator will turn off.
-Holding the power button for 5 seconds forces a shutdown, and the PWR indicator will turn off immediately.
+* Pressing the power button once will turn on the Raspberry Pi, and the PWR indicator will light up.
+* Holding the power button for 2 seconds sends a shutdown signal to the Raspberry Pi. If it is properly configured, the Raspberry Pi will shut down and the PWR indicator will turn off.
+* Holding the power button for 5 seconds forces a shutdown, and the PWR indicator will turn off immediately.
 
 Additionally, the Fusion HAT+ features a :ref:`safe_shutdown` mechanism. It performs a software shutdown by reading the microcontroller’s register status via I2C.
 To enable this feature, you need to configure the Raspberry Pi's shutdown signal pin and run the corresponding code on the Raspberry Pi.
@@ -462,6 +461,9 @@ The relationship between the LED and voltage is as follows:
     * - Both LEDs off
       - Less than 6.5V
 
+When charging, the battery indicator lights will flash. The charging status can be read via I2C by accessing the microcontroller. See :ref:`charging_status` for details.
+
+
 When any one of the batteries reaches or exceeds 4.1V while the others are below that threshold, 
 the charging current of that specific battery will be reduced.
 
@@ -475,6 +477,8 @@ Servo Zeroing Button
 .. image:: img/btn_servo_zeroing_fh_v0.png
 
 The servo zeroing button is used to calibrate the servo's zero position. 
-When you press the button twice, all the PWM signals will be set to 1500us pulse, 20000us period. That is, the servo will be in the middle position. You should secure the servo arm to the servo in this state.
 
-Press the button twice again, all the PWM signals will be set to 0 pulse.
+The PWM interface supports servo zeroing control, making it convenient for robot assembly. Servo zeroing sets all PWM interfaces to a 1500 µs pulse width with a 20,000 µs period, which moves the servos to the 90° position. It is recommended to disconnect other PWM devices before entering the servo zeroing mode.  
+
+* When you press the button twice, all the PWM signals will be set to 1500us pulse, 20000us period. That is, the servo will be in the middle position. You should secure the servo arm to the servo in this state.
+* Press the button twice again, all the PWM signals will be set to 0 pulse.
