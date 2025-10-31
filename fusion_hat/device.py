@@ -184,13 +184,24 @@ def set_led(state: [int, bool]) -> None:
     with open(path, "w") as f:
         f.write(str(int(state)))
 
-def get_firmware_version() -> list:
+def get_firmware_version() -> str:
     """ Get firmware version
 
     Returns:
-        list: firmware version
+        str: firmware version
     """
     path = f"{DEVICE_PATH}firmware_version"
+    with open(path, "r") as f:
+        version = f.read().strip()
+    return version
+
+def get_driver_version() -> str:
+    """ Get driver version
+    
+    Returns:
+        str: driver version
+    """
+    path = f"{DEVICE_PATH}version"
     with open(path, "r") as f:
         version = f.read().strip()
     return version

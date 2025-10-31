@@ -11,6 +11,7 @@ from fusion_hat.device import set_led
 from fusion_hat.device import get_speaker_state
 from fusion_hat.device import get_usr_btn
 from fusion_hat.device import get_firmware_version
+from fusion_hat.device import get_driver_version
 from fusion_hat.battery import Battery
 
 import time
@@ -39,6 +40,7 @@ def main():
             "Product Ver": PRODUCT_VER,
             "Vendor": VENDOR,
             "Firmware Version": get_firmware_version(),
+            "Driver Version": get_driver_version(),
 
             "Is Installed": is_installed(),
             "User Button State": "Pressed" if get_usr_btn() else "Released",
