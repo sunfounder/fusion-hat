@@ -12,22 +12,8 @@
 
     👉 Ready to explore and create with us? Click [|link_sf_facebook|] and join today!
 
-Fusion HAT+
+Hardware
 =====================================
-
-
-
-
-.. Thanks for choosing our |link_fusion_hat_kit|.
-
-.. .. note::
-..     This document is available in the following languages.
-
-..         * |link_german_tutorials|
-..         * |link_jp_tutorials|
-..         * |link_en_tutorials|
-    
-..     Please click on the respective links to access the document in your preferred language.
 
 .. image:: img/fusionhat_v0.png
     :width: 500
@@ -47,7 +33,7 @@ The board accepts a 6.0V to 8.4V power input via a 3-pin XH2.54 connector. It in
     :maxdepth: 3
 
     features
-    hardware_introduction
+    interfaces
     onboard_mcu
     battery
 
