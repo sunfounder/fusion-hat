@@ -26,17 +26,16 @@ Submodules
    fusion_hat._config
    fusion_hat._i2c
    fusion_hat._logger
-   fusion_hat._safe_shutdown
    fusion_hat._utils
    fusion_hat._version
    fusion_hat.adc
+   fusion_hat.battery
    fusion_hat.device
    fusion_hat.llm
    fusion_hat.motor
    fusion_hat.music
    fusion_hat.pin
    fusion_hat.pwm
-   fusion_hat.pwm_group
    fusion_hat.servo
    fusion_hat.stt
    fusion_hat.tts
