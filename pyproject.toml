@@ -35,7 +35,6 @@ dependencies = [
 
 [project.scripts]
 fusion_hat = "fusion_hat._cli:main"
-fusion_hat_safe_shutdown = "fusion_hat._safe_shutdown:main"
 
 [project.urls]
 Repository = "https://github.com/sunfounder/fusion-hat/"
