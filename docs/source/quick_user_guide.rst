@@ -51,7 +51,7 @@ Before the first use, it is recommended to fully charge the battery. You can use
 * Charging from 0% to full typically takes about **2 hours**.  
 
 .. image:: img/power_charge.jpg
-   :width: 500
+   :width: 400
    :align: center
 
 The Fusion HAT includes **two battery indicator LEDs**, showing the battery voltage level:  
@@ -103,7 +103,7 @@ When the battery has sufficient charge, press the **power button** on the Fusion
 * The Raspberry Pi will power on automatically.  
 
 .. image:: img/power_button.jpg
-    :width: 500
+    :width: 400
 
 .. _shutdown_behavior:
 
@@ -120,19 +120,23 @@ These models support complete power-off after shutdown. The Fusion HAT monitors 
 1. Place the jumper on **RPI State → Pi3V3**.
 
    .. image:: img/state_3v3.jpg
-      :width: 500
-   
-2. Edit the EEPROM configuration manually:
+      :width: 400
+
+2. Open the EEPROM configuration tool:
 
    .. code-block::
 
       sudo raspi-config
 
-3. Navigate to: **Advanced Options → Shutdown Behaviour → B1 Full power off...**.
+3. Navigate to **Advanced Options → A12 Shutdown Behaviour**.
+
+   .. image:: img/shutdown_behaviour.png
+
+4. Select **B1 Full Power Off**.
 
    .. image:: img/run_power_off.png
 
-4. After saving, you will be prompted to reboot for changes to take effect.
+5. Save the changes. You will be prompted to reboot for the new settings to take effect.
 
 
 **For Raspberry Pi Zero 2W, 3B, 3B+**
@@ -142,7 +146,7 @@ These models do **not** support full power-off using 3.3V. Instead, GPIO26 must 
 1. Place the jumper on **RPI_STATE → IO26**.
 
    .. image:: img/state_io26.jpg
-      :width: 500
+      :width: 400
 
 2. Edit the ``/boot/firmware/config.txt`` file:
 
