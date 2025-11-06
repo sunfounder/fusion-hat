@@ -53,31 +53,6 @@ def tilt_comp_heading(mx, my, mz, ax, ay, az, decl_deg=0.0):
     if hdg >= 360.0: hdg -= 360.0
     return hdg
 
-class ExtendedMPU6050(MPU6050):
-    """
-    Enable MPU6050 bypass mode
-    """
-    # REG ADDER
-    REG_INT_PIN_CFG = 0x37    # INT_PIN_CFG
-    REG_USER_CTRL = 0x6A      # USER_CTRL
-    REG_WHO_AM_I = 0x75       # WHO_AM_I
-    
-    def enable_bypass(self):
-        """
-        Enable MPU6050 bypass mode
-        """
-
-        self.bus.write_byte_data(self.address, self.REG_USER_CTRL, 0x00)
-        time.sleep(0.002)  
-        # open I2C bypass mode, connect SDA/SCL to auxiliary I2C device
-        self.bus.write_byte_data(self.address, self.REG_INT_PIN_CFG, 0x02)
-        time.sleep(0.002) 
-        
-        uc = self.bus.read_byte_data(self.address, self.REG_USER_CTRL)
-        ic = self.bus.read_byte_data(self.address, self.REG_INT_PIN_CFG)
-        print(f"Bypass enabled: USER_CTRL=0x{uc:02X}, INT_PIN_CFG=0x{ic:02X}")
-    
-
 # ------------------------ HMC5883L ------------------------
 class HMC5883L:
     """
@@ -455,7 +430,7 @@ class GY87:
     
     def __init__(self, bus_id=I2C_BUS, decl_deg=0.0):
         self.bus = SMBus(bus_id)
-        self.mpu = ExtendedMPU6050(bus=bus_id)
+        self.mpu = MPU6050(bus=bus_id)
         self.bmp = BMP180(self.bus)
         self.decl_deg = float(decl_deg)
 
@@ -518,7 +493,7 @@ class GY87:
                 return f()
             except Exception:
                 try:
-                    self.mpu = ExtendedMPU6050(bus=I2C_BUS)
+                    self.mpu = MPU6050(bus=I2C_BUS)
                     self.mpu.enable_bypass()
                 except Exception:
                     pass
@@ -526,7 +501,7 @@ class GY87:
                     return f()
                 except Exception:
                     return default
-
+        
         # read MPU6050 sensor data
         ax, ay, az = _safe(lambda: self.mpu.get_accel_data(g=True), (0.0, 0.0, 0.0))  # unit: g
         gx, gy, gz = _safe(self.mpu.get_gyro_data,  (0.0, 0.0, 0.0))   # unit: dps
