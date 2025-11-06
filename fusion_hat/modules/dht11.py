@@ -12,11 +12,10 @@ class DHT11():
       self._pull_up = pull_up
 
 
-   def read_data(self):
+   def read(self):
       bit_count = 0
       delay_count = 0
       bits = ""
-
       # -------------- send start --------------
       gpio = OutputDevice(self._pin)
       gpio.off()
@@ -77,6 +76,6 @@ class DHT11():
 if __name__ == '__main__':
    dht11 = DHT11(17)
    while True:
-      humidity, temperature = dht11.read_data()
+      humidity, temperature = dht11.read()
       print(f"{time.time():.3f}  temperature:{temperature}°C  humidity: {humidity}%")
       time.sleep(2)
