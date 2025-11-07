@@ -6,6 +6,7 @@ https://github.com/m-rtijn/mpu6050
 """
 
 from smbus2 import SMBus
+import time
 
 class MPU6050():
 
@@ -63,6 +64,11 @@ class MPU6050():
     ACCEL_CONFIG = 0x1C
     GYRO_CONFIG = 0x1B
     MPU_CONFIG = 0x1A
+
+    # Bypass Mode
+    REG_INT_PIN_CFG = 0x37    # INT_PIN_CFG
+    REG_USER_CTRL = 0x6A      # USER_CTRL
+    REG_WHO_AM_I = 0x75       # WHO_AM_I
 
     def __init__(self, address=I2C_ADDRESS, bus=1):
         self.address = address
@@ -262,6 +268,26 @@ class MPU6050():
 
         return [accel, gyro, temp]
 
+    def enable_bypass(self):
+        """
+        Enable MPU6050 bypass mode
+
+        Returns:
+            [uc,ic] : USER_CTRL and INT_PIN_CFG register values
+        """
+
+        self.bus.write_byte_data(self.address, self.REG_USER_CTRL, 0x00)
+        time.sleep(0.002)  
+        # open I2C bypass mode, connect SDA/SCL to auxiliary I2C device
+        self.bus.write_byte_data(self.address, self.REG_INT_PIN_CFG, 0x02)
+        time.sleep(0.002) 
+        
+        uc = self.bus.read_byte_data(self.address, self.REG_USER_CTRL)
+        ic = self.bus.read_byte_data(self.address, self.REG_INT_PIN_CFG)
+        print(f"Bypass enabled: USER_CTRL=0x{uc:02X}, INT_PIN_CFG=0x{ic:02X}")
+        
+        return [uc,ic]
+
 if __name__ == "__main__":
     # mpu = MPU6050(0x68)
     mpu = MPU6050()
@@ -274,3 +300,6 @@ if __name__ == "__main__":
     print(gyro_data[0])
     print(gyro_data[1])
     print(gyro_data[2])
+    bypassDate = mpu.enable_bypass()
+    print(bypassDate[0])
+    print(bypassDate[1])
