@@ -203,4 +203,8 @@ class PWM(_Base):
 
     def __del__(self) -> None:
         """ Close PWM channel when object is deleted """
-        self.close()
+        try:
+            if hasattr(self, 'close'):
+                self.close()
+        except Exception:
+            pass
