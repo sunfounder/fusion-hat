@@ -19,7 +19,6 @@ Example:
     >>> pwm.pulse_width(500) # servo min position
 
 """
-import math
 from ._base import _Base
 from typing import Optional
 
@@ -39,11 +38,7 @@ class PWM(_Base):
         ValueError: Invalid channel number
     """
 
-    CLOCK = 72000000.0
-
     CHANNEL_NUM = 12
-    DEFAULT_PRESCALER = 22
-    PERIOD = 65535
 
     PATH = "/sys/class/fusion_hat/fusion_hat/pwm"
 
