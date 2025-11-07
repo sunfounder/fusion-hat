@@ -1,16 +1,28 @@
-# Import RGB_LED and PWM class
-from fusion_hat import RGB_LED, PWM
+#!/usr/bin/env python3
+from fusion_hat.modules import RGB_LED
+from fusion_hat.pwm import PWM
+from time import sleep
 
-# Create RGB_LED object for common anode RGB LED
-rgb = RGB_LED(PWM(0), PWM(1), PWM(2), common=RGB_LED.ANODE)
-# or for common cathode RGB LED
-rgb = RGB_LED(PWM(0), PWM(1), PWM(2), common=RGB_LED.CATHODE)
+# Initialize an RGB LED. Connect the red component to P0, green to P1, and blue to P2.
+rgb_led = RGB_LED(PWM(0), PWM(1), PWM(2), common=RGB_LED.CATHODE)
 
-# Set color with 24 bit int
-rgb.color(0xFF0000) # Red
-# Set color with RGB tuple
-rgb.color((0, 255, 0)) # Green
-# Set color with RGB List
-rgb.color([0, 0, 255]) # Blue
-# Set color with RGB hex string starts with “#”
-rgb.color("#FFFF00") # Yellow
+try:
+    # Set the RGB LED to red.
+    rgb_led.color((255, 0, 0))
+    sleep(1)
+
+    # Set the RGB LED to green.
+    rgb_led.color("#00FF22") 
+    sleep(1)
+
+    # Set the RGB LED to purple.
+    rgb_led.color(0xFF00FF)  
+    sleep(1)
+
+    # Set the RGB LED to black.
+    rgb_led.color(0x000000)  
+
+except KeyboardInterrupt:
+    # Handle a KeyboardInterrupt (Ctrl+C) to exit.
+    rgb_led.color(0x000000)  
+    pass
