@@ -1,4 +1,4 @@
-from fusion_hat import RC522
+from fusion_hat.modules import RC522
 
 rc = RC522()
 rc.Pcd_start()
