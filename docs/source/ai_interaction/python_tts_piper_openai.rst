@@ -38,7 +38,7 @@ It supports multiple **languages** and **voices**, making it a powerful option f
   .. code-block:: bash
   
       cd ~/fusion-hat/examples
-      sudo python3 test_tts_piper.py
+      sudo python3 tts_piper.py
 
 * The first time you run it, the selected **voice model** will be downloaded automatically.  
 * You should then hear the Fusion HAT+ say: ``Hello! I'm Piper TTS.``  
