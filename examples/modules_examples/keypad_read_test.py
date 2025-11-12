@@ -1,4 +1,4 @@
-from fusion_hat import Keypad
+from fusion_hat.modules import Keypad
 from time import sleep
 
 try:

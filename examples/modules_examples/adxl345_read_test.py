@@ -1,5 +1,5 @@
 # Import ADXL345 class
-from fusion_hat import ADXL345
+from fusion_hat.modules import ADXL345
 
 # Create ADXL345 object
 adxl = ADXL345()

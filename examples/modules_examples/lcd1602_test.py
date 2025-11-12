@@ -1,4 +1,4 @@
-from fusion_hat import LCD1602
+from fusion_hat.modules import LCD1602
 from time import sleep
 
 lcd = LCD1602(address=0x27, backlight=1)
