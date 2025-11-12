@@ -80,4 +80,5 @@ __all__ = [
     "Qwen",
     "OpenAI",
     "Ollama",
+    "Gemini",
 ]
