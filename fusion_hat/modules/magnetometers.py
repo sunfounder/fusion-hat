@@ -32,7 +32,7 @@ def i2c_ack(bus, addr):
     except Exception:
         return False
 
-class QMC6310:
+class qmc6310:
     # https://www.qstcorp.com/upload/pdf/202202/%EF%BC%88%E5%B7%B2%E4%BC%A0%EF%BC%8913-52-17%20QMC6310%20Datasheet%20Rev.C(1).pdf
 
     # I2C address  of QMC6310 compass sensor
@@ -151,7 +151,7 @@ class QMC6310:
         # Convert to Gauss (divide by 1000 since LSB is in mGauss)
         return (raw_data[0] / (lsb_value * 1000), raw_data[1] / (lsb_value * 1000), raw_data[2] / (lsb_value * 1000))
 
-class HMC5883L:
+class hmc5883l:
     """
     HMC5883L 3-axis magnetometer sensor driver class
     Used to measure Earth's magnetic field strength, suitable for direction detection and heading angle calculation
@@ -205,7 +205,7 @@ class HMC5883L:
         return (x / self.scale, y / self.scale, z / self.scale)
 
 
-class QMC5883L:
+class qmc5883l:
     """
     QMC5883L 3-axis magnetometer sensor driver class
     Used to measure Earth's magnetic field strength, is a common alternative to HMC5883L
@@ -277,7 +277,7 @@ class QMC5883L:
         return (x / self.scale, y / self.scale, z / self.scale)
 
 
-class QMC5883P:
+class qmc5883p:
     """
     QMC5883P 3-axis magnetometer sensor driver class
     Another version of the QMC5883 series with I2C address 0x2C
@@ -382,7 +382,7 @@ class Magnetometer:
             # Try initializing magnetometer in priority order or specific type
             if mag_type == QMC6310:
                 try:
-                    self.mag = QMC6310(self.bus, addr=0x1C, field_range=field_range)
+                    self.mag = qmc6310(self.bus, addr=0x1C, field_range=field_range)
                     self.mag_type = "QMC6310"
                     print(f"Magnetometer: {self.mag_type} @0x1C")
                 except Exception as e:
@@ -393,7 +393,7 @@ class Magnetometer:
             
             if self.mag is None and (mag_type == QMC5883P or (mag_type is None and i2c_ack(self.bus, 0x2C))):
                 try:
-                    self.mag = QMC5883P(self.bus, addr=0x2C)
+                    self.mag = qmc5883p(self.bus, addr=0x2C)
                     self.mag_type = "QMC5883P"
                     print(f"Magnetometer: {self.mag_type} @0x2C")
                 except Exception as e:
@@ -401,7 +401,7 @@ class Magnetometer:
             
             if self.mag is None and (mag_type == QMC5883L or (mag_type is None and i2c_ack(self.bus, 0x0D))):
                 try:
-                    self.mag = QMC5883L(self.bus, addr=0x0D)
+                    self.mag = qmc5883l(self.bus, addr=0x0D)
                     self.mag_type = "QMC5883L"
                     print(f"Magnetometer: {self.mag_type} @0x0D")
                 except Exception as e:
@@ -409,7 +409,7 @@ class Magnetometer:
             
             if self.mag is None and (mag_type == HMC5883L or (mag_type is None and i2c_ack(self.bus, 0x1E))):
                 try:
-                    self.mag = HMC5883L(self.bus, addr=0x1E)
+                    self.mag = hmc5883l(self.bus, addr=0x1E)
                     self.mag_type = "HMC5883L"
                     print(f"Magnetometer: {self.mag_type} @0x1E")
                 except Exception as e:
