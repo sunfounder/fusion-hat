@@ -4,9 +4,7 @@
 from smbus2 import SMBus
 import time
 import math
-from fusion_hat.modules.mpu6050 import MPU6050
-from fusion_hat.magnetometers import HMC5883L, QMC5883L, QMC5883P
-from fusion_hat.bmp180 import BMP180
+from fusion_hat.modules import Magnetometer,MPU6050,BMP180
 
 I2C_BUS = 1  
 
@@ -65,52 +63,16 @@ class GY87:
     
     def __init__(self, bus_id=I2C_BUS, decl_deg=0.0):
         self.bus = SMBus(bus_id)
-        self.mpu = MPU6050(bus=bus_id)
+        # self.mpu = MPU6050(bus=bus_id)
         self.bmp = BMP180(self.bus)
         self.decl_deg = float(decl_deg)
 
-        # Enable MPU6050 I2C bypass mode
-        self.mpu.enable_bypass()
+        # # Enable MPU6050 I2C bypass mode
+        # self.mpu.enable_bypass()
 
-        # ---- Intelligent magnetometer auto-detection mechanism ----
-        # Try detecting different magnetometer models in priority order
-        # 1. QMC5883P (@0x2C) → 2. QMC5883L (@0x0D) → 3. HMC5883L (@0x1E)
-        self.mag = None
-        
-        def i2c_ack(addr):
-            """
-            Check if a device responds at the specified I2C address
-            
-            Parameters:
-                addr: I2C address to check
-            
-            Returns:
-                bool: True if the device responds, False otherwise
-            """
-            try:
-                self.bus.read_byte(addr)
-                return True
-            except Exception:
-                return False
-
-        # Try initializing magnetometer in priority order
-        if i2c_ack(0x2C):
-            self.mag = QMC5883P(self.bus, addr=0x2C)
-            print("Magnetometer: QMC5883P @0x2C")
-        elif i2c_ack(0x0D):
-            try:
-                self.mag = QMC5883L(self.bus, addr=0x0D)
-                print("Magnetometer: QMC5883L @0x0D")
-            except Exception:
-                pass
-        elif i2c_ack(0x1E):
-            try:
-                self.mag = HMC5883L(self.bus, addr=0x1E)
-                print("Magnetometer: HMC5883L @0x1E")
-            except Exception:
-                pass
-        else:
-            print("No magnetometer found on 0x2C/0x0D/0x1E; running without MAG.")
+        # Use Magnetometer class for auto-detection of magnetometer type
+        self.magnetometer = Magnetometer(mag_type=None, field_range="8G")
+        self.mag = self.magnetometer.mag  # Get the actual magnetometer instance if available
 
     def read_all(self):
         """
