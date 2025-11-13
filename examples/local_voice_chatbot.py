@@ -1,8 +1,8 @@
 import re
 import time
-from picarx.llm import Ollama
-from picarx.stt import Vosk
-from picarx.tts import Piper
+from fusion_hat.llm import Ollama
+from fusion_hat.stt import Vosk
+from fusion_hat.tts import Piper
 
 # Initialize speech recognition
 stt = Vosk(language="en-us")

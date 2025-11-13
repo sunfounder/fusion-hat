@@ -1,4 +1,4 @@
-from fusion_hat import LedMatrix
+from fusion_hat.modules import LedMatrix
 
 rgb_matrix = LedMatrix(rotate=0)
 
