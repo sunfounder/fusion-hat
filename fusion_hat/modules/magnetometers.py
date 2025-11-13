@@ -366,18 +366,17 @@ class Magnetometer:
         """
         self.mag = None
         self.mag_type = None
+        self.mpu = None
         
         try:
-            # Try to enable bypass mode on MPU6050 if available
+            self.bus = SMBus(I2C_BUS)
+            
             try:
-                self.mpu = MPU6050()
+                self.mpu = MPU6050(bus=I2C_BUS)
                 self.mpu.enable_bypass()
                 print("MPU6050 bypass enabled")
-            except Exception:
-                print("MPU6050 not found or bypass not enabled")
-            
-            # Initialize SMBus for all magnetometers (consistent approach)
-            self.bus = SMBus(I2C_BUS)
+            except Exception as e:
+                print(f"MPU6050 bypass mode failed: {e}")
             
             # Try initializing magnetometer in priority order or specific type
             if mag_type == QMC6310:
