@@ -9,6 +9,19 @@ from math import pi, atan2, degrees
 
 
 class Compass(Magnetometer):
+    """Compass module for reading and calculating heading angles from magnetometer data.
+    
+    This class extends the Magnetometer class to provide compass functionality
+    that can be easily integrated into projects requiring heading information.
+    
+    Public Methods:
+        read_raw(): Get raw magnetic field data
+        read(): Get processed compass data including heading angle
+        read_angle(): Get just the heading angle (with optional filtering)
+        set_offset(): Calibrate the compass with offset values
+        set_magnetic_declination(): Adjust for local magnetic declination
+        clear_calibration(): Reset all calibration data
+    """
 
     FILTER_SIZE = 30
 
@@ -16,14 +29,16 @@ class Compass(Magnetometer):
                  offset=[0, 0, 0, 0, 0, 0],
                  declination="0°0'W",
                  field_range="8G"):
-        '''
-        placement: '[x','y','z']  ...
-                   ...
-                   ...
-                   ...
+        """Initialize the Compass module.
         
-        offset: [x_min, x_max, y_min, y_max, z_min, z_max]
-        '''
+        Args:
+            placement (list, optional): Axis orientation of the compass. Defaults to ["x", "y", "z"].
+                Can include negative signs to indicate inverted axes (e.g., ["-x", "y", "z"]).
+            offset (list, optional): Calibration offsets in mGauss. Format: [x_min, x_max, y_min, y_max, z_min, z_max].
+                Defaults to [0, 0, 0, 0, 0, 0].
+            declination (str, optional): Magnetic declination. Defaults to "0°0'W".
+            field_range (str, optional): Magnetic field measurement range. Defaults to "8G".
+        """
 
         super().__init__(mag_type=QMC6310, field_range=field_range)
 
@@ -53,8 +68,12 @@ class Compass(Magnetometer):
         for _ in range(self.FILTER_SIZE):
             self.read_angle(filter=True)
     
-    # Compass raw data
     def read_raw(self):
+        """Read raw magnetometer data.
+        
+        Returns:
+            list: Raw magnetic field data [x, y, z] in mGauss.
+        """
         mag_data = Magnetometer.read(self)
         if mag_data is None:
             return [0, 0, 0]
@@ -64,6 +83,14 @@ class Compass(Magnetometer):
 
 
     def angle_str_2_number(self, str):
+        """Convert magnetic declination from string format to numerical value.
+        
+        Args:
+            str (str): Magnetic declination in format "DD°MM'E" or "DD°MM'W".
+            
+        Returns:
+            float: Magnetic declination in degrees (positive for East, negative for West).
+        """
         parts = str.split("°")
         degree = int(parts[0])
         parts = parts[1].split("'")
@@ -75,6 +102,14 @@ class Compass(Magnetometer):
             return degree + minute / 60
         
     def angle_number_2_str(self, number):
+        """Convert magnetic declination from numerical value to string format.
+        
+        Args:
+            number (float): Magnetic declination in degrees (positive for East, negative for West).
+            
+        Returns:
+            str: Magnetic declination in format "DD°MM'E" or "DD°MM'W".
+        """
         degree = int(number)
         minute = int((number - degree) * 60)
         direction = "E"
@@ -84,10 +119,21 @@ class Compass(Magnetometer):
         return str(degree) + "°" + str(minute) + "'" + direction
 
     def set_magnetic_declination(self, str):
+        """Set magnetic declination from string format.
+        
+        Args:
+            str (str): Magnetic declination in format "DD°MM'E" or "DD°MM'W".
+        """
         self.magnetic_declination_angle = self.angle_str_2_number(str)
 
-    # Compass data
     def read(self):
+        """Read processed compass data.
+        
+        Returns:
+            tuple: Processed magnetic field data (x, y, z, angle) where:
+                x, y, z are in mGauss after applying offsets,
+                angle is the heading angle in degrees.
+        """
         # Get data from magnetometer (already in Gauss)
 
         # mag_data = Magnetometer.read(self)
@@ -136,6 +182,14 @@ class Compass(Magnetometer):
         return (x_mG, y_mG, z_mG, round(angle, 2))
     
     def read_angle(self, filter=False):
+        """Read the current heading angle.
+        
+        Args:
+            filter (bool, optional): Whether to apply moving average filter. Defaults to False.
+            
+        Returns:
+            float: Heading angle in degrees (0-360).
+        """
         _value = self.read()[3]
         if not filter:
             return _value
@@ -149,7 +203,14 @@ class Compass(Magnetometer):
             return round(_value, 2)
 
     def set_offset(self, offset):
-        # https://www.appelsiini.net/2018/calibrate-magnetometer/
+        """Set calibration offsets for the magnetometer.
+        
+        Args:
+            offset (list): Calibration offsets in mGauss. Format: [x_min, x_max, y_min, y_max, z_min, z_max].
+        
+        Reference:
+            https://www.appelsiini.net/2018/calibrate-magnetometer/
+        """
         self.x_min = offset[0]
         self.x_max = offset[1]
         self.y_min = offset[2]
@@ -175,6 +236,13 @@ class Compass(Magnetometer):
         # print(f"compass offset: {self.x_offset} {self.y_offset} {self.z_offset} scale: {self.x_scale} {self.y_scale} {self.z_scale}")
 
     def set_magnetic_declination(self, angle):
+        """Set magnetic declination.
+        
+        Args:
+            angle (str or float or int): Magnetic declination. Can be either:
+                - String format: "DD°MM'E" or "DD°MM'W"
+                - Numeric format: Degrees (positive for East, negative for West)
+        """
         if isinstance(angle, str):
             self.magnetic_declination_str = angle
             self.magnetic_declination_angle = self.angle_str_2_number(angle)
@@ -183,6 +251,10 @@ class Compass(Magnetometer):
             self.magnetic_declination_str = self.angle_number_2_str(angle)
 
     def clear_calibration(self):
+        """Clear all calibration data.
+        
+        Resets all minimum/maximum values and offsets to zero.
+        """
         self.x_min = 0
         self.x_max = 0
         self.y_min = 0
