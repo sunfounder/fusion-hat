@@ -9,7 +9,7 @@ from fusion_hat.modules import Magnetometer,MPU6050,BMP180
 I2C_BUS = 1  
 
 # ------------------------ I2C scan function ------------------------
-def scan_i2c(bus_id=I2C_BUS):
+def scan_i2c_addr(bus_id=I2C_BUS):
     """
     Scan the I2C bus for all responding device addresses
     
@@ -63,16 +63,13 @@ class GY87:
     
     def __init__(self, bus_id=I2C_BUS, decl_deg=0.0):
         self.bus = SMBus(bus_id)
-        # self.mpu = MPU6050(bus=bus_id)
         self.bmp = BMP180(self.bus)
         self.decl_deg = float(decl_deg)
 
-        # # Enable MPU6050 I2C bypass mode
-        # self.mpu.enable_bypass()
-
         # Use Magnetometer class for auto-detection of magnetometer type
         self.magnetometer = Magnetometer(mag_type=None, field_range="8G")
-        self.mag = self.magnetometer.mag  # Get the actual magnetometer instance if available
+        self.mag = self.magnetometer.mag
+        self.mpu = self.magnetometer.mpu
 
     def read_all(self):
         """
@@ -90,19 +87,26 @@ class GY87:
                 return f()
             except Exception:
                 try:
-                    self.mpu = MPU6050(bus=I2C_BUS)
-                    self.mpu.enable_bypass()
+                    # try again to enable bypass mode
+                    self.magnetometer.mpu = MPU6050(bus=I2C_BUS)
+                    self.magnetometer.mpu.enable_bypass()
+                    self.mpu = self.magnetometer.mpu  # update self.mpu reference
                 except Exception:
-                    pass
+                    print("Failed to reinitialize MPU6050")
                 try:
                     return f()
                 except Exception:
                     return default
         
         # read MPU6050 sensor data
-        ax, ay, az = _safe(lambda: self.mpu.get_accel_data(g=True), (0.0, 0.0, 0.0))  # unit: g
-        gx, gy, gz = _safe(self.mpu.get_gyro_data,  (0.0, 0.0, 0.0))   # unit: dps
-        t_mpu      = _safe(self.mpu.get_temp, 0.0)              # unit: °C
+        if self.mpu is not None:
+            ax, ay, az = _safe(lambda: self.mpu.get_accel_data(g=True), (0.0, 0.0, 0.0))  # unit: g
+            gx, gy, gz = _safe(self.mpu.get_gyro_data,  (0.0, 0.0, 0.0))   # unit: dps
+            t_mpu      = _safe(self.mpu.get_temp, 0.0)              # unit: °C
+        else:
+            ax, ay, az = (0.0, 0.0, 0.0)
+            gx, gy, gz = (0.0, 0.0, 0.0)
+            t_mpu = 0.0
         
         # read BMP180 sensor data
         try:
@@ -150,7 +154,7 @@ def demo_loop():
     Sampling frequency:
         ~5 Hz (0.2 s pause after each read)
     """
-    addrs = scan_i2c()
+    addrs = scan_i2c_addr()
     print("I2C devices found:", ["0x%02X" % a for a in addrs])
 
 
