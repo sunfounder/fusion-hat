@@ -1,14 +1,16 @@
 from fusion_hat.modules.mpu6050 import MPU6050
 from smbus2 import SMBus
+from enum import Enum
 import time
 
 # I2C bus ID
 I2C_BUS = 1 
-# Define macro constants for magnetometer types
-QMC6310 = 1
-QMC5883P = 2
-QMC5883L = 3
-HMC5883L = 4
+
+class MagnetometerType(Enum):
+    mag_QMC6310 = 1
+    mag_QMC5883P = 2
+    mag_QMC5883L = 3
+    mag_HMC5883L = 4
 
 def convert_2_int16(value):
     if value > 32767:
@@ -32,7 +34,7 @@ def i2c_ack(bus, addr):
     except Exception:
         return False
 
-class qmc6310:
+class QMC6310:
     # https://www.qstcorp.com/upload/pdf/202202/%EF%BC%88%E5%B7%B2%E4%BC%A0%EF%BC%8913-52-17%20QMC6310%20Datasheet%20Rev.C(1).pdf
 
     # I2C address  of QMC6310 compass sensor
@@ -151,7 +153,7 @@ class qmc6310:
         # Convert to Gauss (divide by 1000 since LSB is in mGauss)
         return (raw_data[0] / (lsb_value * 1000), raw_data[1] / (lsb_value * 1000), raw_data[2] / (lsb_value * 1000))
 
-class hmc5883l:
+class HMC5883L:
     """
     HMC5883L 3-axis magnetometer sensor driver class
     Used to measure Earth's magnetic field strength, suitable for direction detection and heading angle calculation
@@ -205,7 +207,7 @@ class hmc5883l:
         return (x / self.scale, y / self.scale, z / self.scale)
 
 
-class qmc5883l:
+class QMC5883L:
     """
     QMC5883L 3-axis magnetometer sensor driver class
     Used to measure Earth's magnetic field strength, is a common alternative to HMC5883L
@@ -277,7 +279,7 @@ class qmc5883l:
         return (x / self.scale, y / self.scale, z / self.scale)
 
 
-class qmc5883p:
+class QMC5883P:
     """
     QMC5883P 3-axis magnetometer sensor driver class
     Another version of the QMC5883 series with I2C address 0x2C
@@ -361,18 +363,27 @@ class Magnetometer:
         Initialize the magnetometer based on the specified type
         
         Parameters:
-            mag_type: The type of magnetometer to initialize (use None for auto)
+            mag_type: The type of magnetometer to initialize (use None for auto-detection)
             field_range: Magnetic field range for QMC6310 ("30G", "12G", "8G", "2G")
         """
-        self.mag = None
+        self.active_magnetometer = None
         self.mag_type = None
         self.mpu = None
         
         try:
             self.bus = SMBus(I2C_BUS)
             
-            # Only initialize MPU6050 if not explicitly using QMC6310
-            if mag_type != QMC6310:
+            if mag_type == MagnetometerType.mag_QMC6310:
+                try:
+                    self.active_magnetometer = QMC6310(self.bus, addr=0x1C, field_range=field_range)
+                    self.mag_type = "QMC6310"
+                    print(f"Magnetometer: {self.mag_type} @0x1C")
+                except Exception as e:
+                    print(f"Failed to initialize QMC6310: {e}")
+                    # If QMC6310 failed but was explicitly requested, don't try others
+                    if mag_type == MagnetometerType.mag_QMC6310:
+                        return
+            else:
                 try:
                     self.mpu = MPU6050(bus=I2C_BUS)
                     self.mpu.enable_bypass()
@@ -380,47 +391,36 @@ class Magnetometer:
                 except Exception as e:
                     print(f"MPU6050 bypass mode failed: {e}")
             
-            # Try initializing magnetometer in priority order or specific type
-            if mag_type == QMC6310:
-                try:
-                    self.mag = qmc6310(self.bus, addr=0x1C, field_range=field_range)
-                    self.mag_type = "QMC6310"
-                    print(f"Magnetometer: {self.mag_type} @0x1C")
-                except Exception as e:
-                    print(f"Failed to initialize QMC6310: {e}")
-                    # If QMC6310 failed but was explicitly requested, don't try others
-                    if mag_type == QMC6310:
-                        return
-            
-            if self.mag is None and (mag_type == QMC5883P or (mag_type is None and i2c_ack(self.bus, 0x2C))):
-                try:
-                    self.mag = qmc5883p(self.bus, addr=0x2C)
-                    self.mag_type = "QMC5883P"
-                    print(f"Magnetometer: {self.mag_type} @0x2C")
-                except Exception as e:
-                    print(f"Failed to initialize QMC5883P: {e}")
-            
-            if self.mag is None and (mag_type == QMC5883L or (mag_type is None and i2c_ack(self.bus, 0x0D))):
-                try:
-                    self.mag = qmc5883l(self.bus, addr=0x0D)
-                    self.mag_type = "QMC5883L"
-                    print(f"Magnetometer: {self.mag_type} @0x0D")
-                except Exception as e:
-                    print(f"Failed to initialize QMC5883L: {e}")
-            
-            if self.mag is None and (mag_type == HMC5883L or (mag_type is None and i2c_ack(self.bus, 0x1E))):
-                try:
-                    self.mag = hmc5883l(self.bus, addr=0x1E)
-                    self.mag_type = "HMC5883L"
-                    print(f"Magnetometer: {self.mag_type} @0x1E")
-                except Exception as e:
-                    print(f"Failed to initialize HMC5883L: {e}")
-            
-            if self.mag is None:
-                print("No magnetometer found on 0x1C/0x2C/0x0D/0x1E; running without MAG.")
+                if mag_type == MagnetometerType.mag_QMC5883P or (mag_type is None and i2c_ack(self.bus, 0x2C)):
+                    try:
+                        self.active_magnetometer = QMC5883P(self.bus, addr=0x2C)
+                        self.mag_type = "QMC5883P"
+                        print(f"Magnetometer: {self.mag_type} @0x2C")
+                    except Exception as e:
+                        print(f"Failed to initialize QMC5883P: {e}")
+                
+                if mag_type == MagnetometerType.mag_QMC5883L or (mag_type is None and i2c_ack(self.bus, 0x0D)):
+                    try:
+                        self.active_magnetometer = QMC5883L(self.bus, addr=0x0D)
+                        self.mag_type = "QMC5883L"
+                        print(f"Magnetometer: {self.mag_type} @0x0D")
+                    except Exception as e:
+                        print(f"Failed to initialize QMC5883L: {e}")
+                
+                if mag_type == MagnetometerType.mag_HMC5883L or (mag_type is None and i2c_ack(self.bus, 0x1E)):
+                    try:
+                        self.active_magnetometer = HMC5883L(self.bus, addr=0x1E)
+                        self.mag_type = "HMC5883L"
+                        print(f"Magnetometer: {self.mag_type} @0x1E")
+                    except Exception as e:
+                        print(f"Failed to initialize HMC5883L: {e}")
+                
+                if self.active_magnetometer is None:
+                    print("No magnetometer found on 0x1C/0x2C/0x0D/0x1E; running without active_magnetometer.")
+                    
         except Exception as e:
             print(f"Error during magnetometer initialization: {e}")
-            self.mag = None
+            self.active_magnetometer = None
     
     def read(self):
         """
@@ -430,12 +430,12 @@ class Magnetometer:
             tuple: (x, y, z) magnetic field values in appropriate units based on sensor type
             None: if no magnetometer is initialized
         """
-        if self.mag is None:
+        if self.active_magnetometer is None:
             return None
         
         try:
             # Now all magnetometer classes have a consistent read_magnet method
-            return self.mag.read_magnet()
+            return self.active_magnetometer.read_magnet()
         except Exception as e:
             print(f"Error reading magnetometer: {e}")
             return None
@@ -453,13 +453,13 @@ class Magnetometer:
 # Example usage
 if __name__ == "__main__":
     # Auto-detect magnetometer (default behavior)
-    mag = Magnetometer(QMC6310)
+    mag = Magnetometer()
     
-    # Alternative: Specify magnetometer type using macro constants
-    # mag = Magnetometer(mag_type=QMC6310)
-    # mag = Magnetometer(mag_type=QMC5883P)
-    # mag = Magnetometer(mag_type=QMC5883L)
-    # mag = Magnetometer(mag_type=HMC5883L)
+    # Alternative: Specify magnetometer type using enum
+    # mag = Magnetometer(mag_type=MagnetometerType.mag_QMC6310)
+    # mag = Magnetometer(mag_type=MagnetometerType.mag_QMC5883P)
+    # mag = Magnetometer(mag_type=MagnetometerType.mag_QMC5883L)
+    # mag = Magnetometer(mag_type=MagnetometerType.mag_HMC5883L)
     
     print(f"Initialized magnetometer type: {mag.get_type()}")
     
