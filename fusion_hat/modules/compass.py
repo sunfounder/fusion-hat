@@ -3,7 +3,7 @@
 
 from fusion_hat._config import Config
 from fusion_hat.modules import Magnetometer
-from fusion_hat.modules.magnetometers import QMC6310
+from fusion_hat.modules.magnetometers import MagnetometerType
 import time
 from math import pi, atan2, degrees
 
@@ -40,7 +40,7 @@ class Compass(Magnetometer):
             field_range (str, optional): Magnetic field measurement range. Defaults to "8G".
         """
 
-        super().__init__(mag_type=QMC6310, field_range=field_range)
+        super().__init__(mag_type=MagnetometerType.mag_QMC6310, field_range=field_range)
 
         self.placement = placement
         self.x_min = 0

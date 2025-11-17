@@ -5,7 +5,7 @@ from smbus2 import SMBus
 import time
 import math
 from fusion_hat.modules import Magnetometer,MPU6050,BMP180
-
+ 
 I2C_BUS = 1  
 
 # ------------------------ I2C scan function ------------------------
@@ -68,7 +68,7 @@ class GY87:
 
         # Use Magnetometer class for auto-detection of magnetometer type
         self.magnetometer = Magnetometer(mag_type=None, field_range="8G")
-        self.mag = self.magnetometer.mag
+        self.mag = self.magnetometer.active_magnetometer
         self.mpu = self.magnetometer.mpu
 
     def read_all(self):
