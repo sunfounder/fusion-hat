@@ -3,7 +3,7 @@
 
 from fusion_hat._config import Config
 from fusion_hat.modules import Magnetometer
-from fusion_hat.modules.magnetometers import MagnetometerType
+from fusion_hat.modules.magnetometer import MagnetometerType
 import time
 from math import pi, atan2, degrees
 
