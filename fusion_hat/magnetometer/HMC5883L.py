@@ -1,3 +1,6 @@
+from smbus2 import SMBus
+import time
+
 class HMC5883L:
     """
     HMC5883L 3-axis magnetometer sensor driver class

@@ -1,4 +1,5 @@
 from smbus2 import SMBus
+from mag_utils import convert_2_int16
 
 class QMC6310:
     # https://www.qstcorp.com/upload/pdf/202202/%EF%BC%88%E5%B7%B2%E4%BC%A0%EF%BC%8913-52-17%20QMC6310%20Datasheet%20Rev.C(1).pdf

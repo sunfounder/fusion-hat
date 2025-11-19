@@ -1,3 +1,6 @@
 from .magnetometers import Magnetometer, MagnetometerType
-from .magnetometers import QMC6310,QMC5883P,QMC5883L,HMC5883L
-from .modules.bmp180 import BMP180
+from .HMC5883L import HMC5883L
+from .QMC5883L import QMC5883L
+from .QMC5883P import QMC5883P
+from .QMC6310 import QMC6310
+from .mag_utils import convert_2_int16, i2c_ack

@@ -1,3 +1,12 @@
+"""
+QMC5883P magnetometer sensor driver
+
+This module provides an implementation for the QMC5883P 3-axis magnetometer sensor.
+"""
+
+from smbus2 import SMBus
+import time
+
 class QMC5883P:
     """
     QMC5883P 3-axis magnetometer sensor driver class

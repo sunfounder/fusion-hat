@@ -5,6 +5,7 @@ from smbus2 import SMBus
 import time
 import math
 from fusion_hat.modules import Magnetometer,MPU6050,BMP180
+# from fusion_hat.magnetometer import Magnetometer
  
 I2C_BUS = 1  
 

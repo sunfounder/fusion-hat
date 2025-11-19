@@ -1,5 +1,3 @@
-from smbus2 import SMBus
-
 def convert_2_int16(value):
     if value > 32767:
         value = -(65536 - value)
