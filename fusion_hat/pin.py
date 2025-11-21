@@ -334,7 +334,6 @@ class Pin(_Base):
             channel (int): pin number
         """
         value = GPIO.input(channel)
-        print(f"Pin {channel} value: {value}")
         if self._on_activated and self.value() == 1:
             self.log.debug("Pin %d activated", self._pin_num)
             self._on_activated()
