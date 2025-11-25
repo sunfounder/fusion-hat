@@ -3,7 +3,7 @@ import threading
 import warnings
 from typing import Callable, Optional
 import evdev
-from evdev import InputDevice, categorize, ecodes
+from evdev import InputDevice, ecodes
 
 class UserButton:
     """ User button class using evdev for Linux input events
