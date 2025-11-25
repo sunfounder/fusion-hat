@@ -22,8 +22,6 @@ Example:
 from ._base import _Base
 from typing import Optional
 
-timer = [{"arr": 1} for _ in range(7)]
-
 class PWM(_Base):
     """ PWM class to control a single PWM channel
 
