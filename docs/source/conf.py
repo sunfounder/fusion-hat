@@ -67,6 +67,7 @@ autodoc_mock_imports = [
     "RPi",
     "gpiozero",
     "spidev",
+    "evdev",
 ]
 autodoc_default_options = {
     'member-order': 'bysource',

@@ -7,12 +7,9 @@ from evdev import InputDevice, ecodes
 
 class UserButton:
     """ User button class using evdev for Linux input events
-    
-    Args:
-        interval (float, optional): interval time(0.1~1.0), leave it None to use default interval time, defaults to 0.1
     """
 
-    def __init__(self, interval: float=0.1) -> None:
+    def __init__(self) -> None:
         self.pressed = False
         self.pressed_for = 0
         self.pressed_at = time.time()
@@ -64,7 +61,7 @@ class UserButton:
         self.__on_press_released__ = callback
 
     def set_on_long_press(self, callback: Callable[[], None], duration: float=2.0) -> None:
-        """ This function is deprecated and no longer implemented
+        """ [Deprecated] Set the callback function when the user button is pressed for a long time
 
         Args:
             callback (Callable[[], None]): callback function
@@ -72,7 +69,7 @@ class UserButton:
         pass
 
     def set_on_long_press_released(self, callback: Callable[[], None], duration: float=2.0) -> None:
-        """ This function is deprecated and no longer implemented
+        """ [Deprecated] Set the callback function when the user button is pressed for a long time and released
 
         Args:
             callback (Callable[[], None]): callback function
