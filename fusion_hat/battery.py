@@ -23,7 +23,8 @@ Example:
 """
 
 import os
-from fusion_hat._base import _Base
+from ._base import _Base
+from .device import raise_if_fusion_hat_not_ready
 
 class Battery(_Base):
     """ Battery class
@@ -39,6 +40,7 @@ class Battery(_Base):
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        raise_if_fusion_hat_not_ready()
 
         self.present_path = os.path.join(self.PATH, "present")
         self.online_path = os.path.join(self.PATH, "online")

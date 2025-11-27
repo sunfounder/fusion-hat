@@ -4,12 +4,15 @@ import warnings
 from typing import Callable, Optional
 import evdev
 from evdev import InputDevice, ecodes
+from .device import raise_if_fusion_hat_not_ready
 
 class UserButton:
     """ User button class using evdev for Linux input events
     """
 
     def __init__(self) -> None:
+        raise_if_fusion_hat_not_ready()
+
         self.pressed = False
         self.pressed_for = 0
         self.pressed_at = time.time()

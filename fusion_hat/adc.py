@@ -24,6 +24,7 @@ Example:
 """
 
 from ._base import _Base
+from .device import raise_if_fusion_hat_not_ready
 import os
 
 class ADC(_Base):
@@ -42,6 +43,8 @@ class ADC(_Base):
 
     def __init__(self, channel: [int, str], *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
+        raise_if_fusion_hat_not_ready()
+
         if isinstance(channel, int):
             channel = f"{channel}"
         elif isinstance(channel, str) and channel.startswith("A"):

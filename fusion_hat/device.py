@@ -92,7 +92,6 @@ VENDOR = "SunFounder"
 
 DEVICE_PATH = "/sys/class/fusion_hat/fusion_hat/"
 
-
 def is_installed() -> bool:
     """ Check if a Fusion Hat board is installed
 
@@ -111,18 +110,56 @@ def is_installed() -> bool:
                         return True
     return False
 
+def is_connected():
+    """ Check if Fusion HAT is connected
+
+    Returns:
+        bool: True if connected
+    """
+    BASE_PATH = "/sys/class/fusion_hat/"
+    return os.path.exists(BASE_PATH)
+
+def raise_if_fusion_hat_not_ready() -> bool:
+    """ Check if Fusion HAT is ready
+
+    Returns:
+        bool: True if ready
+    """
+    if not is_installed():
+        raise IOError("Fusion HAT not installed, make sure it is inserted on the Raspberry Pi.")
+    
+    if not is_connected():
+        raise IOError("Fusion HAT not connected, check if Fusion Hat is powered on.")
+    
+def require_fusion_hat(func: Callable[..., Any]) -> Callable[..., Any]:
+    """ Decorator to require Fusion HAT
+
+    Args:
+        func (Callable[..., Any]): function to decorate
+
+    Returns:
+        Callable[..., Any]: decorated function
+    """
+    def wrapper(*arg, **kwargs):
+        raise_if_fusion_hat_not_ready()
+        return func(*arg, **kwargs)
+    return wrapper
+
+@require_fusion_hat
 def enable_speaker() -> None:
     """ Enable speaker """
     PATH = DEVICE_PATH + "speaker"
     with open(PATH, "w") as f:
         f.write("1")
 
+@require_fusion_hat
 def disable_speaker() -> None:
     """ Disable speaker """
     PATH = DEVICE_PATH + "speaker"
     with open(PATH, "w") as f:
         f.write("0")
 
+@require_fusion_hat
 def get_speaker_state() -> bool:
     """ Get speaker state
 
@@ -134,6 +171,7 @@ def get_speaker_state() -> bool:
         state = f.read()[:-1] # [:-1] rm \n
         return state == "1"
 
+@require_fusion_hat
 def get_usr_btn() -> bool:
     """ Get user button state
 
@@ -145,6 +183,7 @@ def get_usr_btn() -> bool:
         state = f.read()[:-1] # [:-1] rm \n
         return state == "1"
 
+@require_fusion_hat
 def get_charge_state() -> bool:
     """ [Deprecated] Get charge state
 
@@ -157,6 +196,7 @@ def get_charge_state() -> bool:
         state = f.read()[:-1] # [:-1] rm \n
         return state == "1"
 
+@require_fusion_hat
 def get_battery_voltage() -> float:
     """ [Deprecated] Get battery voltage
 
@@ -174,6 +214,7 @@ def get_shutdown_request() -> None:
     """ [Deprecated] Get shutdown request """
     raise NotImplementedError("get_shutdown_request is deprecated.")
 
+@require_fusion_hat
 def set_led(state: [int, bool]) -> None:
     """ Set led state
 
@@ -184,6 +225,7 @@ def set_led(state: [int, bool]) -> None:
     with open(path, "w") as f:
         f.write(str(int(state)))
 
+@require_fusion_hat
 def get_firmware_version() -> str:
     """ Get firmware version
 
@@ -195,6 +237,7 @@ def get_firmware_version() -> str:
         version = f.read().strip()
     return version
 
+@require_fusion_hat
 def get_driver_version() -> str:
     """ Get driver version
     

@@ -25,6 +25,8 @@ Example:
 
 from .pwm import PWM
 from ._utils import mapping, constrain
+from .device import raise_if_fusion_hat_not_ready
+
 from typing import Optional
 
 class Servo(PWM):
@@ -43,9 +45,9 @@ class Servo(PWM):
     FREQ = 50
 
     def __init__(self, channel: int, offset: Optional[float]=0.0, min: Optional[float]=-90, max: Optional[float]=90, *args, **kwargs):
-        """ Initialize the servo motor class
-        """
         super().__init__(channel, *args, **kwargs)
+        raise_if_fusion_hat_not_ready()
+
         self.freq(self.FREQ)
         self._offset = offset
         self._angle = 0

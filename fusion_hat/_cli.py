@@ -23,6 +23,14 @@ def print_version():
     from ._version import __version__
     print(f"Fusion HAT library version: {__version__}")
 
+def scan_i2c():
+    print(f"Scan I2C bus.")
+    from .i2c import I2C
+    i2c = I2C()
+    devices = i2c.scan()
+    devices = ["0x{:02X}".format(device) for device in devices]
+    print(f"Found devices: {devices}")
+
 def print_info():
     from fusion_hat.device import NAME
     from fusion_hat.device import ID
@@ -30,12 +38,15 @@ def print_info():
     from fusion_hat.device import PRODUCT_ID
     from fusion_hat.device import PRODUCT_VER
     from fusion_hat.device import VENDOR
-    from fusion_hat.device import is_installed
+    from fusion_hat.device import raise_if_fusion_hat_not_ready
     from fusion_hat.device import get_speaker_state
     from fusion_hat.device import get_usr_btn
     from fusion_hat.device import get_firmware_version
     from fusion_hat.device import get_driver_version
     from fusion_hat.battery import Battery
+
+    raise_if_fusion_hat_not_ready()
+
     battery = Battery()
 
     datas = {
@@ -48,7 +59,6 @@ def print_info():
         "Firmware Version": get_firmware_version(),
         "Driver Version": get_driver_version(),
 
-        "Is Installed": is_installed(),
         "User Button State": "Pressed" if get_usr_btn() else "Released",
         "Speaker State": "Enabled" if get_speaker_state() else "Disabled",
         "User LED State": "On" if led_status else "Off",
@@ -71,6 +81,7 @@ def main():
         "disable_speaker": disable_speaker,
         "test_speaker": test_speaker,
         "version": print_version,
+        "scan_i2c": scan_i2c,
         "info": print_info,
     }
 

@@ -27,6 +27,7 @@ Example:
 from .pwm import PWM
 from ._utils import mapping
 from ._base import _Base
+from .device import raise_if_fusion_hat_not_ready
 
 class Motor(_Base):
     """ Motor class
@@ -61,6 +62,8 @@ class Motor(_Base):
     """Motor pins"""
 
     def __init__(self, *args, **kwargs) -> None:
+        raise_if_fusion_hat_not_ready()
+
         self.motor = None
         self.pwm_a = None
         self.pwm_b = None

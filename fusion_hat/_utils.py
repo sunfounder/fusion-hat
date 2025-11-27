@@ -118,82 +118,6 @@ def get_username() -> str:
     """
     return os.popen('echo ${SUDO_USER:-$LOGNAME}').readline().strip()
 
-def i2c_get(reg: int, type: str, count: int=1) -> tuple:
-    """ Simple i2c get command
-
-    Args:
-        reg (int): register address
-        type (str): data type
-        count (int, optional): number of values to read. Defaults to 1.
-
-    Returns:
-        tuple: status, output
-
-    Raises:
-        Exception: I2C get command failed
-    """
-    from .device import I2C_ADDRESS
-    cmd = f"i2cget -y 1 0x{I2C_ADDRESS:02X} 0x{reg:02X} {type} {count}"
-    status, output = run_command(cmd)
-    if status != 0 and status != None:
-        raise Exception(f"I2C get command failed: \n  - command: {cmd}\n  - status: {status}\n  - output: {output}")
-    if count == 1:
-        value = int(output, 16)
-    else:
-        value = output.split(" ")
-        value = [int(v, 16) for v in value]
-        if len(value) == 1:
-            value = value[0]
-    return value
-
-def i2c_set(reg: int, type: str, *args) -> None:
-    """ Simple i2c set command
-
-    Args:
-        reg (int): register address
-        type (str): data type
-        args (int/float): value to set
-
-    Raises:
-        Exception: I2C set command failed
-    """
-    from .device import I2C_ADDRESS
-    args = [str(arg) for arg in args]
-    cmd = f"i2cset -y 1 0x{I2C_ADDRESS:02X} 0x{reg:02X} {type} {' '.join(args)}"
-    status, output = run_command(cmd)
-    if status != 0 and status != None:
-        raise Exception(f"I2C set command failed: \n  - command: {cmd}\n  - status: {status}\n  - output: {output}")
-
-def simple_i2c_command(method: str, reg: int, *args) -> tuple:
-    """ Simple i2c command
-
-    Args:
-        method (str): i2c method, "get" or "set"
-        reg (int): register address
-        type (str): data type
-        args (int/float): value to set, including type and count
-
-    Returns:
-        tuple: status, output
-
-    Raises:
-        ValueError: Invalid method, must be 'get' or 'set'
-    """
-    if method not in ["get", "set"]:
-        raise ValueError(f"Invalid method {method}, must be 'get' or 'set'")
-    from .device import I2C_ADDRESS
-    args = [str(arg) for arg in args]
-    cmd = f"i2c{method} -y 1 0x{I2C_ADDRESS:02X} 0x{reg:02X} {' '.join(args)}"
-    status, output = run_command(cmd)
-    if status != 0 and status != None:
-        raise Exception(f"I2C {method} command failed: \n  - command: {cmd}\n  - status: {status}\n  - output: {output}")
-    if method == "get":
-        value = output.split(" ")
-        value = [int(v, 16) for v in value]
-        if len(value) == 1:
-            value = value[0]
-        return value
-
 def constrain(value: float, min_value: float, max_value: float) -> float:
     """ Constrain value to a range
 
@@ -245,6 +169,5 @@ __all__ = [
     'mapping',
     'get_ip',
     'get_username',
-    'simple_i2c_command',
     'constrain',
 ]
