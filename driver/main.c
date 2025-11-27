@@ -245,16 +245,16 @@ static int fusion_hat_probe(struct i2c_client *client) {
     
     error_adc:
         fusion_hat_adc_remove(fusion_dev);
+    error_battery:
+        fusion_hat_battery_cleanup(fusion_dev);
     error_led:
         fusion_hat_led_cleanup(fusion_dev);
-    error_pwm:
-        fusion_hat_pwm_remove(fusion_dev);
-    error_battery:
-        fusion_hat_button_cleanup(fusion_dev);
     error_button:
         fusion_hat_button_cleanup(fusion_dev);
     error_speaker:
         fusion_hat_speaker_cleanup(fusion_dev);
+    error_pwm:
+        fusion_hat_pwm_remove(fusion_dev);
     error_device:
         device_destroy(fusion_dev->class, MKDEV(0, 0));
         class_destroy(fusion_dev->class);

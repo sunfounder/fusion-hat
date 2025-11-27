@@ -388,18 +388,22 @@ void fusion_hat_pwm_remove(struct fusion_hat_dev *dev)
         fusion_hat_write_pwm_value(dev->client, i, 0);
         dev->pwm_enabled[i] = false;
         mutex_unlock(&dev->lock);
-        
-        // Remove sysfs attributes
-        sysfs_remove_file(&pwm_channels[i].kobj, &pwm_channels[i].enable_attr.attr);
-        sysfs_remove_file(&pwm_channels[i].kobj, &pwm_channels[i].duty_cycle_attr.attr);
-        sysfs_remove_file(&pwm_channels[i].kobj, &pwm_channels[i].period_attr.attr);
-        
-        // Remove channel subdirectory
-        kobject_put(&pwm_channels[i].kobj);
     }
     
-    // Remove pwm subdirectory
+    // Only clean up sysfs entries if pwm_kobj was created
     if (pwm_kobj) {
+        // Remove sysfs attributes and channel subdirectories
+        for (i = 0; i < FUSION_HAT_PWM_CHANNELS; i++) {
+            // Remove sysfs attributes
+            sysfs_remove_file(&pwm_channels[i].kobj, &pwm_channels[i].enable_attr.attr);
+            sysfs_remove_file(&pwm_channels[i].kobj, &pwm_channels[i].duty_cycle_attr.attr);
+            sysfs_remove_file(&pwm_channels[i].kobj, &pwm_channels[i].period_attr.attr);
+            
+            // Remove channel subdirectory
+            kobject_put(&pwm_channels[i].kobj);
+        }
+        
+        // Remove pwm subdirectory
         kobject_put(pwm_kobj);
         pwm_kobj = NULL;
     }
