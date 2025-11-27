@@ -68,6 +68,7 @@ __all__ = [
 ]
 
 import os
+from typing import Callable, Any
 
 HAT_DEVICE_TREE = "/proc/device-tree/"
 

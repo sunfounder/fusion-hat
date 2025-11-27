@@ -25,7 +25,7 @@ def print_version():
 
 def scan_i2c():
     print(f"Scan I2C bus.")
-    from .i2c import I2C
+    from ._i2c import I2C
     i2c = I2C()
     devices = i2c.scan()
     devices = ["0x{:02X}".format(device) for device in devices]
