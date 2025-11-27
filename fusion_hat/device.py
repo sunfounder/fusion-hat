@@ -227,6 +227,18 @@ def set_led(state: [int, bool]) -> None:
         f.write(str(int(state)))
 
 @require_fusion_hat
+def get_led() -> bool:
+    """ Get led state
+
+    Returns:
+        bool: True if on
+    """
+    path = f"{DEVICE_PATH}led"
+    with open(path, "r") as f:
+        state = f.read().strip()
+    return state == "1"
+
+@require_fusion_hat
 def get_firmware_version() -> str:
     """ Get firmware version
 

@@ -43,6 +43,7 @@ def print_info():
     from fusion_hat.device import get_usr_btn
     from fusion_hat.device import get_firmware_version
     from fusion_hat.device import get_driver_version
+    from fusion_hat.device import get_led
     from fusion_hat.battery import Battery
 
     raise_if_fusion_hat_not_ready()
@@ -61,7 +62,7 @@ def print_info():
 
         "User Button State": "Pressed" if get_usr_btn() else "Released",
         "Speaker State": "Enabled" if get_speaker_state() else "Disabled",
-        "User LED State": "On" if led_status else "Off",
+        "User LED State": "On" if get_led() else "Off",
         "Battery level": f"{battery.capacity}%",
         "Battery voltage": f"{battery.voltage} V",
         "Battery charging": "Yes" if battery.is_charging else "No",
