@@ -52,6 +52,7 @@ This board features an onboard MCU, extending the Raspberry Pi’s capabilities 
     About this HAT<self>
     quick_user_guide
     hardware/hardware
+    project/project
     ai_interaction/ai_interaction   
     api/fusion_hat
     faq
