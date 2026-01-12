@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/passive_buzzer.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../project/passive_buzzer.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../project/passive_buzzer.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../project/passive_buzzer.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../project/passive_buzzer.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../project/passive_buzzer.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../project/passive_buzzer.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../project/passive_buzzer.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探索 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../project/passive_buzzer.rst:18
+msgid "Passive Buzzer"
+msgstr "パッシブ ブザー"
+
+#: ../project/passive_buzzer.rst:20
+msgid "**Introduction**"
+msgstr "**はじめに** "
+
+#: ../project/passive_buzzer.rst:22
+msgid ""
+"In this project, we will learn how to make a passive buzzer play music by"
+" driving it with different frequencies. Passive buzzers, unlike active "
+"buzzers, require an external signal to produce sound."
+msgstr ""
+"この プロジェクト では、 異なる 周波数 で 駆動 する こと に より "
+"パッシブ ブザー に 音楽 を 再生 させる 方法 を 学びます。 "
+"パッシブ ブザー は、 アクティブ ブザー と 異なり、 音 を 出す ため に "
+"外部 信号 を 必要 と します。"
+
+#: ../project/passive_buzzer.rst:28
+msgid "**Circuit Diagram**"
+msgstr "**回路 図** "
+
+#: ../project/passive_buzzer.rst:30
+msgid ""
+"The circuit uses a passive buzzer, a NPN transistor, and a 1kΩ resistor. "
+"The resistor protects the transistor from excessive current. By varying "
+"the frequency of the GPIO pin connected to the transistor, the buzzer "
+"produces different sounds, enabling it to play music."
+msgstr ""
+"この 回路 は、 パッシブ ブザー、 NPN トランジスタ、 そして 1kΩ 抵抗 を 使用 します。 "
+"抵抗 は 過大 な 電流 から トランジスタ を 保護 します。 "
+"トランジスタ に 接続 された GPIO ピン の 周波数 を 変化 させる こと で、 "
+"ブザー は 異なる 音 を 発生 し、 音楽 を 再生 できる よう に なります。"
+
+#: ../project/passive_buzzer.rst:37
+msgid "**Wiring Diagram**"
+msgstr "**配線 図** "
+
+#: ../project/passive_buzzer.rst:39
+msgid "Follow these steps to build the circuit:"
+msgstr "以下 の 手順 に 従って 回路 を 組み立てて ください："
+
+#: ../project/passive_buzzer.rst:41
+msgid "Connect the base of the NPN transistor to PWM0 through the resistor."
+msgstr "NPN トランジスタ の ベース を、 抵抗 を 介して PWM0 に 接続 します。"
+
+#: ../project/passive_buzzer.rst:42
+msgid "Connect the emitter of the transistor to the power supply (+)."
+msgstr "トランジスタ の エミッタ を 電源（ + ）に 接続 します。"
+
+#: ../project/passive_buzzer.rst:43
+msgid ""
+"Connect the collector of the transistor to one terminal of the passive "
+"buzzer."
+msgstr ""
+"トランジスタ の コレクタ を、 パッシブ ブザー の 一方 の 端子 に 接続 します。"
+
+#: ../project/passive_buzzer.rst:44
+msgid "Connect the other terminal of the buzzer to the ground (-)."
+msgstr "ブザー の もう 一方 の 端子 を グランド（ - ）に 接続 します。"
+
+#: ../project/passive_buzzer.rst:53
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../project/passive_buzzer.rst:55
+msgid "The following Python code generates musical notes using a passive buzzer:"
+msgstr "以下 の Python コード は、 パッシブ ブザー を 使用 して 音階 を 生成 します："
+
+#: ../project/passive_buzzer.rst:102
+msgid ""
+"This Python script plays a musical tune using a passive buzzer connected "
+"to PWM 0. When executed:"
+msgstr ""
+"この Python スクリプト は、 PWM 0 に 接続 された パッシブ ブザー を 使用 して "
+"メロディー を 再生 します。 実行 すると："
+
+#: ../project/passive_buzzer.rst:104
+msgid ""
+"The script iterates through a predefined sequence of musical notes "
+"(``tune``), playing each note for a specified duration."
+msgstr ""
+"スクリプト は、 あらかじめ 定義 された 音符 の シーケンス（ ``tune`` ）を "
+"順番 に 処理 し、 各 音符 を 指定 された 時間 だけ 再生 します。"
+
+#: ../project/passive_buzzer.rst:105
+msgid ""
+"The notes are output to the console as they are played, providing a "
+"visual reference."
+msgstr ""
+"再生 されて いる 音符 は コンソール に 出力 され、 視覚 的 な 確認 が できます。"
+
+#: ../project/passive_buzzer.rst:106
+msgid ""
+"The tune stops automatically once all notes are played. The buzzer "
+"produces no sound during pauses (when the note is ``None``)."
+msgstr ""
+"すべて の 音符 が 再生 される と、 メロディー は 自動 的 に 停止 します。 "
+"休符（ 音符 が ``None`` の 場合 ）の 間、 ブザー は 音 を 出しません。"
+
+#: ../project/passive_buzzer.rst:107
+msgid "The program can be interrupted gracefully using ``Ctrl+C``."
+msgstr "この プログラム は、 ``Ctrl+C`` を 使用 して 安全 に 中断 できます。"

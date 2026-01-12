@@ -1,0 +1,62 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.modules.rgb_led.rst:2
+msgid "fusion\\_hat.modules.rgb\\_led module"
+msgstr "fusion\\_hat.modules.rgb\\_led モジュール"
+
+#: fusion_hat.modules.rgb_led.RGB_LED:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`object`"
+msgstr "基底 クラス : :py:class:`object` "
+
+#: fusion_hat.modules.rgb_led.RGB_LED:1 of
+msgid "Simple 3 pin RGB LED"
+msgstr "シンプル な 3 ピン RGB LED"
+
+#: ../../docstring fusion_hat.modules.rgb_led.RGB_LED.ANODE:1 of
+msgid "Common anode"
+msgstr "コモン アノード"
+
+#: ../../docstring fusion_hat.modules.rgb_led.RGB_LED.CATHODE:1 of
+msgid "Common cathode"
+msgstr "コモン カソード"
+
+#: fusion_hat.modules.rgb_led.RGB_LED.color:1 of
+msgid "Write color to RGB LED"
+msgstr "RGB LED に 色 を 書き込む"
+
+#: fusion_hat.modules.rgb_led.RGB_LED.color of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.modules.rgb_led.RGB_LED.color:3 of
+msgid ""
+"color to write, hex string starts with \"#\", 24-bit int or tuple of "
+"(red, green, blue)"
+msgstr ""
+"書き込む 色 。 \"#\" で 始まる 16 進 文字列 、 24 ビット 整数 、 または ( red , green , blue ) の "
+"タプル"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+

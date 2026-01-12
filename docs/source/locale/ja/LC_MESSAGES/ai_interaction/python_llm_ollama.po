@@ -1,0 +1,509 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_llm_ollama.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。SunFounder Raspberry Pi & Arduino & ESP32 "
+"Facebook 愛好家コミュニティへようこそ！ "
+"Raspberry Pi、Arduino、ESP32 について、仲間の愛好家と一緒にさらに深く探求しましょう。"
+
+#: ../ai_interaction/python_llm_ollama.rst:5
+msgid "**Why Join?**"
+msgstr "**参加する理由** "
+
+#: ../ai_interaction/python_llm_ollama.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的なサポート** ：コミュニティメンバーや公式チームの支援を受けて、"
+"購入後の問題や技術的な課題を解決できます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学びと共有** ：ヒントやチュートリアルを交換し、スキルを向上させましょう。"
+
+#: ../ai_interaction/python_llm_ollama.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定先行情報** ：新製品の発表やプレビュー情報をいち早く入手できます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別割引** ：最新製品を対象とした限定割引をお楽しみいただけます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**季節限定プロモーションとプレゼント企画** ："
+"プレゼントキャンペーンや祝日限定のプロモーションに参加できます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たちと一緒に探求し、創造する準備はできましたか？ "
+"[|link_sf_facebook|] をクリックして、今すぐ参加しましょう！"
+
+#: ../ai_interaction/python_llm_ollama.rst:16
+msgid "4. Text Vision Talk with Ollama"
+msgstr "4. Ollama で Text / Vision / Talk"
+
+#: ../ai_interaction/python_llm_ollama.rst:18
+msgid ""
+"In this lesson, you will learn how to use **Ollama**, a tool for running "
+"large language and vision models locally. We will show you how to install"
+" Ollama, download a model, and connect Fusion HAT+ to it."
+msgstr ""
+"このレッスンでは、ローカルで大規模言語モデルおよびビジョンモデルを実行できるツールである "
+"**Ollama** の使い方を学びます。"
+"Ollama のインストール、モデルのダウンロード、そして Fusion HAT+ を接続する方法を紹介します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:21
+msgid ""
+"With this setup, Fusion HAT+ can take a camera snapshot and the model "
+"will **see and tell** — you can ask any question about the image, and the"
+" model will reply in natural language."
+msgstr ""
+"この設定により、Fusion HAT+ はカメラでスナップショットを撮影でき、モデルが "
+"**見て説明** します。"
+"画像についてどんな質問でもでき、モデルは自然言語で返信します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:27
+msgid "1. Install Ollama (LLM) and Download Model"
+msgstr "1. Ollama（ LLM ）をインストールしてモデルをダウンロードする"
+
+#: ../ai_interaction/python_llm_ollama.rst:29
+msgid "You can choose where to install **Ollama**:"
+msgstr "**Ollama** をインストールする場所を選べます："
+
+#: ../ai_interaction/python_llm_ollama.rst:31
+msgid "On your Raspberry Pi (local run)"
+msgstr "Raspberry Pi 上（ローカル実行）"
+
+#: ../ai_interaction/python_llm_ollama.rst:32
+msgid "Or on another computer (Mac/Windows/Linux) in the **same local network**"
+msgstr "または **同一ローカルネットワーク** 内の別のコンピュータ（ Mac / Windows / Linux ）"
+
+#: ../ai_interaction/python_llm_ollama.rst:34
+msgid "**Recommended models vs hardware**"
+msgstr "**推奨モデルとハードウェアの目安** "
+
+#: ../ai_interaction/python_llm_ollama.rst:36
+msgid ""
+"You can choose any model available on |link_ollama_hub|. Models come in "
+"different sizes (3B, 7B, 13B, 70B...). Smaller models run faster and "
+"require less memory, while larger models provide better quality but need "
+"powerful hardware."
+msgstr ""
+"|link_ollama_hub| で提供されている任意のモデルを選択できます。"
+"モデルにはさまざまなサイズ（ 3B、7B、13B、70B... ）があり、"
+"小さいモデルほど高速に動作し、必要なメモリも少なくなります。"
+"一方で、大きいモデルは品質が向上しますが、より強力なハードウェアが必要です。"
+
+#: ../ai_interaction/python_llm_ollama.rst:40
+msgid "Check the table below to decide which model size fits your device."
+msgstr "以下の表を確認して、デバイスに合うモデルサイズを選んでください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:46
+msgid "Model size"
+msgstr "モデルサイズ"
+
+#: ../ai_interaction/python_llm_ollama.rst:47
+msgid "Min RAM Required"
+msgstr "必要最小 RAM"
+
+#: ../ai_interaction/python_llm_ollama.rst:48
+msgid "Recommended Hardware"
+msgstr "推奨ハードウェア"
+
+#: ../ai_interaction/python_llm_ollama.rst:49
+msgid "~3B parameters"
+msgstr "約 3B パラメータ"
+
+#: ../ai_interaction/python_llm_ollama.rst:50
+msgid "8GB (16GB better)"
+msgstr "8GB（ 16GB 推奨 ）"
+
+#: ../ai_interaction/python_llm_ollama.rst:51
+msgid "Raspberry Pi 5 (16GB) or mid-range PC/Mac"
+msgstr "Raspberry Pi 5（ 16GB ）またはミドルレンジの PC / Mac"
+
+#: ../ai_interaction/python_llm_ollama.rst:52
+msgid "~7B parameters"
+msgstr "約 7B パラメータ"
+
+#: ../ai_interaction/python_llm_ollama.rst:53
+msgid "16GB+"
+msgstr "16GB 以上"
+
+#: ../ai_interaction/python_llm_ollama.rst:54
+msgid "Pi 5 (16GB, just usable) or mid-range PC/Mac"
+msgstr "Pi 5（ 16GB、ギリギリ動作 ）またはミドルレンジの PC / Mac"
+
+#: ../ai_interaction/python_llm_ollama.rst:55
+msgid "~13B parameters"
+msgstr "約 13B パラメータ"
+
+#: ../ai_interaction/python_llm_ollama.rst:56
+msgid "32GB+"
+msgstr "32GB 以上"
+
+#: ../ai_interaction/python_llm_ollama.rst:57
+msgid "Desktop PC / Mac with high RAM"
+msgstr "大容量 RAM を搭載したデスクトップ PC / Mac"
+
+#: ../ai_interaction/python_llm_ollama.rst:58
+msgid "30B+ parameters"
+msgstr "30B 以上のパラメータ"
+
+#: ../ai_interaction/python_llm_ollama.rst:59
+msgid "64GB+"
+msgstr "64GB 以上"
+
+#: ../ai_interaction/python_llm_ollama.rst:60
+msgid "Workstation / Server / GPU recommended"
+msgstr "ワークステーション／サーバー（ GPU 推奨 ）"
+
+#: ../ai_interaction/python_llm_ollama.rst:61
+msgid "70B+ parameters"
+msgstr "70B 以上のパラメータ"
+
+#: ../ai_interaction/python_llm_ollama.rst:62
+msgid "128GB+"
+msgstr "128GB 以上"
+
+#: ../ai_interaction/python_llm_ollama.rst:63
+msgid "High-end server with multiple GPUs"
+msgstr "複数 GPU を搭載したハイエンドサーバー"
+
+#: ../ai_interaction/python_llm_ollama.rst:65
+msgid "**Install on Raspberry Pi**"
+msgstr "**Raspberry Pi にインストール** "
+
+#: ../ai_interaction/python_llm_ollama.rst:67
+msgid "If you want to run Ollama directly on your Raspberry Pi:"
+msgstr "Raspberry Pi で Ollama を直接動かしたい場合："
+
+#: ../ai_interaction/python_llm_ollama.rst:69
+msgid "Use a **64-bit Raspberry Pi OS**"
+msgstr "**64 ビット版 Raspberry Pi OS** を使用する"
+
+#: ../ai_interaction/python_llm_ollama.rst:70
+msgid "Strongly recommended: **Raspberry Pi 5 (16GB RAM)**"
+msgstr "強く推奨： **Raspberry Pi 5（ 16GB RAM ）** "
+
+#: ../ai_interaction/python_llm_ollama.rst:72
+msgid "Run the following commands:"
+msgstr "以下のコマンドを実行してください："
+
+#: ../ai_interaction/python_llm_ollama.rst:89
+msgid "**Install on Mac / Windows / Linux (Desktop App)**"
+msgstr "**Mac / Windows / Linux（デスクトップアプリ）にインストール** "
+
+#: ../ai_interaction/python_llm_ollama.rst:91
+msgid "Download and install Ollama from |link_ollama|"
+msgstr "|link_ollama| から Ollama をダウンロードしてインストールします。"
+
+#: ../ai_interaction/python_llm_ollama.rst:95
+msgid ""
+"Open the Ollama app, go to the **Model Selector**, and use the search bar"
+" to find a model. For example, type ``llama3.2:3b`` (a small and "
+"lightweight model to start with)."
+msgstr ""
+"Ollama アプリを開き、 **Model Selector** に移動して検索バーでモデルを探します。"
+"例えば、 ``llama3.2:3b`` と入力します（小さく軽量で、最初に試すのに適したモデルです）。"
+
+#: ../ai_interaction/python_llm_ollama.rst:99
+msgid ""
+"After the download is complete, type something simple like “Hi” in the "
+"chat window, Ollama will automatically start downloading it when you "
+"first use it."
+msgstr ""
+"ダウンロードが完了したら、チャットウィンドウに「Hi」などの簡単な文章を入力してみてください。"
+"初回利用時には、Ollama が自動的に必要なデータのダウンロードを開始します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:103
+msgid ""
+"Go to **Settings** → enable **Expose Ollama to the network**. This allows"
+" your Raspberry Pi to connect to it over LAN."
+msgstr ""
+" **Settings** → **Expose Ollama to the network** を有効にします。"
+"これにより、Raspberry Pi が LAN 経由で Ollama に接続できるようになります。"
+
+#: ../ai_interaction/python_llm_ollama.rst:109
+msgid "If you see an error like:"
+msgstr "次のようなエラーが表示される場合："
+
+#: ../ai_interaction/python_llm_ollama.rst:111
+msgid "``Error: model requires more system memory ...``"
+msgstr "``Error: model requires more system memory ...`` "
+
+#: ../ai_interaction/python_llm_ollama.rst:113
+msgid ""
+"The model is too large for your machine. Use a **smaller model** or "
+"switch to a computer with more RAM."
+msgstr ""
+"モデルがマシンに対して大きすぎます。"
+"**より小さいモデル** を使用するか、RAM の多いコンピュータに切り替えてください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:117
+msgid "2. Test Ollama"
+msgstr "2. Ollama をテストする"
+
+#: ../ai_interaction/python_llm_ollama.rst:119
+msgid ""
+"Once Ollama is installed and your model is ready, you can quickly test it"
+" with a minimal chat loop."
+msgstr ""
+"Ollama のインストールが完了し、モデルの準備ができたら、"
+"最小限のチャットループで素早く動作確認できます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:121
+msgid "**Run the program**"
+msgstr "**プログラムを実行** "
+
+#: ../ai_interaction/python_llm_ollama.rst:128
+msgid "Now you can chat with Fusion HAT+ directly from the terminal."
+msgstr "これで、ターミナルから Fusion HAT+ と直接チャットできます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:130
+msgid ""
+"You can choose **any model** available on |link_ollama_hub|, but smaller "
+"models (e.g. ``moondream:1.8b``, ``phi3:mini``) are recommended if you "
+"only have 8–16GB RAM."
+msgstr ""
+"|link_ollama_hub| で提供されている **任意のモデル** を選べますが、"
+"RAM が 8～16GB しかない場合は、"
+"小さいモデル（例： ``moondream:1.8b`` 、 ``phi3:mini`` ）がおすすめです。"
+
+#: ../ai_interaction/python_llm_ollama.rst:131
+msgid ""
+"Make sure the model you specify in the code matches the model you have "
+"already pulled in Ollama."
+msgstr ""
+"コードで指定するモデル名が、Ollama ですでに pull 済みのモデルと一致していることを確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:132
+msgid "Type ``exit`` or ``quit`` to stop the program."
+msgstr "``exit`` または ``quit`` を入力すると、プログラムを終了します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:133
+msgid ""
+"If you cannot connect, ensure that Ollama is running and that both "
+"devices are on the same LAN if you are using a remote host."
+msgstr ""
+"接続できない場合は、Ollama が起動していることを確認してください。"
+"リモートホストを使用している場合は、両方のデバイスが同じ LAN 上にあることも確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:135
+#: ../ai_interaction/python_llm_ollama.rst:211
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../ai_interaction/python_llm_ollama.rst:175
+msgid "3. Vision Talk with Ollama"
+msgstr "3. Ollama で Vision Talk"
+
+#: ../ai_interaction/python_llm_ollama.rst:177
+msgid ""
+"In this demo, the Pi camera takes a snapshot **each time you type a "
+"question**. The program sends **your typed text + the new photo** to a "
+"local vision model via Ollama, and then streams the model’s reply in "
+"plain English. This is a minimal “see & tell” baseline you can later "
+"extend with color/face/QR checks."
+msgstr ""
+"このデモでは、質問を **入力するたびに** Pi カメラがスナップショットを撮影します。"
+"プログラムは、 **入力したテキスト + 新しい写真** を Ollama 経由でローカルのビジョンモデルに送信し、"
+"モデルの回答を平易な英語でストリーミング表示します。"
+"これは最小限の「 see & tell 」のベースラインで、後から色／顔／QR のチェックなどに拡張できます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:182
+msgid "**Before You Start**"
+msgstr "**始める前に** "
+
+#: ../ai_interaction/python_llm_ollama.rst:184
+msgid ""
+"Open the **Ollama** app (or run the service) and make sure a **vision-"
+"capable model** is pulled."
+msgstr ""
+" **Ollama** アプリを開く（またはサービスを起動する）し、"
+"**ビジョン対応モデル** が pull 済みであることを確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:186
+msgid "If you have enough memory (≥16GB RAM), you may try ``llava:7b``."
+msgstr "十分なメモリ（ 16GB RAM 以上）がある場合は、 ``llava:7b`` を試すこともできます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:187
+msgid ""
+"If you only have **8GB RAM**, prefer a smaller model such as "
+"``moondream:1.8b`` or ``granite3.2-vision:2b``."
+msgstr ""
+"RAM が **8GB** のみの場合は、"
+"``moondream:1.8b`` または ``granite3.2-vision:2b`` のような小さいモデルを推奨します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:191
+msgid "**Run the Demo**"
+msgstr "**デモを実行** "
+
+#: ../ai_interaction/python_llm_ollama.rst:193
+msgid "Go to the example folder and run the script:"
+msgstr "サンプルフォルダに移動し、スクリプトを実行します："
+
+#: ../ai_interaction/python_llm_ollama.rst:200
+msgid "What happens when it runs:"
+msgstr "実行時の動作："
+
+#: ../ai_interaction/python_llm_ollama.rst:202
+msgid "The program prints a welcome line and waits for your input (``>>>``)."
+msgstr "プログラムがウェルカムメッセージを表示し、入力（ ``>>>`` ）を待ちます。"
+
+#: ../ai_interaction/python_llm_ollama.rst:203
+msgid ""
+"**Every time you type anything** (e.g., “hello”, “Is there yellow?”, “Any"
+" faces?”, “What is on the desk?”), it:"
+msgstr ""
+"**何かを入力するたびに** （例：「hello」、「Is there yellow?」、「Any faces?」、「What is on the desk?」）"
+"次を実行します："
+
+#: ../ai_interaction/python_llm_ollama.rst:205
+msgid "**captures a photo** from the Pi camera (saved to ``/tmp/llm-img.jpg``),"
+msgstr "Pi カメラから **写真を撮影** し（ ``/tmp/llm-img.jpg`` に保存）、"
+
+#: ../ai_interaction/python_llm_ollama.rst:206
+msgid "**sends your text + the photo** to the vision model via Ollama,"
+msgstr "Ollama 経由で **テキスト + 写真** をビジョンモデルへ送信し、"
+
+#: ../ai_interaction/python_llm_ollama.rst:207
+msgid "**streams back** the model’s answer to the terminal."
+msgstr "モデルの回答をターミナルへ **ストリーミング表示** します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:209
+msgid "Type ``exit`` or ``quit`` to end the program."
+msgstr "``exit`` または ``quit`` を入力すると、プログラムを終了します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:271
+msgid "Troubleshooting"
+msgstr "トラブルシューティング"
+
+#: ../ai_interaction/python_llm_ollama.rst:274
+msgid "**I get an error like: `model requires more system memory ...`.**"
+msgstr "**`model requires more system memory ...` のようなエラーが出ます。** "
+
+#: ../ai_interaction/python_llm_ollama.rst:276
+msgid "This means the model is too large for your device."
+msgstr "これは、モデルがデバイスに対して大きすぎることを意味します。"
+
+#: ../ai_interaction/python_llm_ollama.rst:277
+msgid ""
+"Use a smaller model such as ``moondream:1.8b`` or "
+"``granite3.2-vision:2b``."
+msgstr ""
+"``moondream:1.8b`` または ``granite3.2-vision:2b`` のような小さいモデルを使用してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:278
+msgid "Or switch to a machine with more RAM and expose Ollama to the network."
+msgstr "または、より多くの RAM を搭載したマシンに切り替え、Ollama をネットワークに公開してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:280
+msgid "**The code cannot connect to Ollama (connection refused).**"
+msgstr "**コードが Ollama に接続できません（ connection refused ）。** "
+
+#: ../ai_interaction/python_llm_ollama.rst:282
+msgid "Check the following:"
+msgstr "以下を確認してください："
+
+#: ../ai_interaction/python_llm_ollama.rst:284
+msgid "Make sure Ollama is running (``ollama serve`` or the desktop app is open)."
+msgstr "Ollama が起動していることを確認してください（ ``ollama serve`` またはデスクトップアプリが開いていること）。"
+
+#: ../ai_interaction/python_llm_ollama.rst:285
+msgid ""
+"If using a remote computer, enable **Expose to network** in Ollama "
+"settings."
+msgstr ""
+"リモートコンピュータを使用する場合は、Ollama の設定で **Expose to network** を有効にしてください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:286
+msgid ""
+"Double-check that the ``ip=\"...\"`` in your code matches the correct LAN"
+" IP."
+msgstr ""
+"コード内の ``ip=\"...\"`` が正しい LAN の IP と一致しているか再確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:287
+msgid "Confirm both devices are on the same local network."
+msgstr "両方のデバイスが同じローカルネットワーク上にあることを確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:289
+msgid "**My Pi camera does not capture anything.**"
+msgstr "**Pi カメラで何も撮影できません。** "
+
+#: ../ai_interaction/python_llm_ollama.rst:291
+msgid ""
+"Verify that ``Picamera2`` is installed and working with a simple test "
+"script."
+msgstr ""
+"``Picamera2`` がインストールされており、簡単なテストスクリプトで動作することを確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:292
+msgid ""
+"Check that the camera cable is properly connected and enabled in ``raspi-"
+"config``."
+msgstr ""
+"カメラケーブルが正しく接続されていること、そして ``raspi-config`` で有効になっていることを確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:293
+msgid ""
+"Ensure your script has permission to write to the target path (``/tmp"
+"/llm-img.jpg``)."
+msgstr ""
+"スクリプトが保存先パス（ ``/tmp/llm-img.jpg`` ）に書き込む権限を持っていることを確認してください。"
+
+#: ../ai_interaction/python_llm_ollama.rst:295
+msgid "**The output is too slow.**"
+msgstr "**出力が遅すぎます。** "
+
+#: ../ai_interaction/python_llm_ollama.rst:297
+msgid "Smaller models reply faster, but with simpler answers."
+msgstr "小さいモデルほど応答は速くなりますが、回答はより簡潔になります。"
+
+#: ../ai_interaction/python_llm_ollama.rst:298
+msgid ""
+"You can lower the camera resolution (e.g., 640×480 instead of 1280×720) "
+"to speed up image processing."
+msgstr ""
+"画像処理を高速化するために、カメラ解像度を下げることができます"
+"（例： 1280×720 ではなく 640×480 ）。"
+
+#: ../ai_interaction/python_llm_ollama.rst:299
+msgid "Close other programs on your Pi to free up CPU and RAM."
+msgstr "Pi 上で他のプログラムを閉じて、CPU と RAM を確保してください。"

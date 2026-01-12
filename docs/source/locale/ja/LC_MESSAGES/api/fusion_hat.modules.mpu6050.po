@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.modules.mpu6050.rst:2
+msgid "fusion\\_hat.modules.mpu6050 module"
+msgstr "fusion\\_hat.modules.mpu6050 モジュール"
+
+#: fusion_hat.modules.mpu6050:1 of
+msgid ""
+"This code is based on Martijn's(martijn@mrtijn.nl) project mpu6050. "
+"Follow the MIT protocol."
+msgstr ""
+"この コード は Martijn ( martijn@mrtijn.nl ) の プロジェクト mpu6050 を 基に して います 。 MIT"
+" ライセンス に 従い ます 。"
+
+#: fusion_hat.modules.mpu6050:4 of
+msgid "https://github.com/m-rtijn/mpu6050"
+msgstr "https://github.com/m-rtijn/mpu6050"
+
+#: fusion_hat.modules.mpu6050.MPU6050:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`object`"
+msgstr "基底 クラス : :py:class:`object` "
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_i2c_word:1 of
+msgid "Read two i2c registers and combine them."
+msgstr "2 つ の I2C レジスタ を 読み取り 、 それら を 結合 します 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_i2c_word:3 of
+msgid ""
+"register -- the first register to read from. Returns the combined read "
+"results."
+msgstr "register -- 読み取り を 開始 する 最初 の レジスタ 。 読み取り 結果 を 結合 して 返し ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_temp:1 of
+msgid "Reads the temperature from the onboard temperature sensor of the MPU-6050."
+msgstr "MPU-6050 に 搭載 されて いる 温度 センサー から 温度 を 読み取り ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_temp:3 of
+msgid "Returns the temperature in degrees Celcius."
+msgstr "摂氏 度 ( °C ) で の 温度 を 返し ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_accel_range:1 of
+msgid "Sets the range of the accelerometer to range."
+msgstr "加速度 センサー の レンジ を 指定 された 範囲 に 設定 します 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_accel_range:3 of
+msgid ""
+"accel_range -- the range to set the accelerometer to. Using a pre-defined"
+" range is advised."
+msgstr "accel_range -- 加速度 センサー に 設定 する レンジ 。 事前 定義 された レンジ を 使用 する こと を 推奨 します 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_accel_range:1 of
+msgid "Reads the range the accelerometer is set to."
+msgstr "現在 設定 されて いる 加速度 センサー の レンジ を 読み取り ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_accel_range:3 of
+msgid ""
+"If raw is True, it will return the raw value from the ACCEL_CONFIG "
+"register If raw is False, it will return an integer: -1, 2, 4, 8 or 16. "
+"When it returns -1 something went wrong."
+msgstr ""
+"raw が True の 場合 、 ACCEL_CONFIG レジスタ から の 生 の 値 を 返し ます 。 raw が False の 場合"
+" 、 -1 、 2 、 4 、 8 、 16 の いずれか の 整数 を 返し ます 。 -1 が 返る 場合 は 何らか の エラー が 発生 "
+"して います 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_accel_data:1 of
+msgid "Gets and returns the X, Y and Z values from the accelerometer."
+msgstr "加速度 センサー から X 、 Y 、 Z の 値 を 取得 して 返し ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_accel_data:3 of
+msgid ""
+"If g is True, it will return the data in g If g is False, it will return "
+"the data in m/s^2 Returns a dictionary with the measurement results."
+msgstr ""
+"g が True の 場合 、 データ を g 単位 で 返し ます 。 g が False の 場合 、 データ を m/s^2 単位 で 返し"
+" ます 。 測定 結果 を 含む 辞書 を 返し ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_gyro_range:1 of
+msgid "Sets the range of the gyroscope to range."
+msgstr "ジャイロ スコープ の レンジ を 指定 された 範囲 に 設定 します 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_gyro_range:3 of
+msgid ""
+"gyro_range -- the range to set the gyroscope to. Using a pre-defined "
+"range is advised."
+msgstr "gyro_range -- ジャイロ スコープ に 設定 する レンジ 。 事前 定義 された レンジ を 使用 する こと を 推奨 します 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_filter_range:1 of
+msgid "Sets the low-pass bandpass filter frequency"
+msgstr "ローパス / バンドパス フィルタ の 周波数 を 設定 します"
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_gyro_range:1 of
+msgid "Reads the range the gyroscope is set to."
+msgstr "現在 設定 されて いる ジャイロ スコープ の レンジ を 読み取り ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_gyro_range:3 of
+msgid ""
+"If raw is True, it will return the raw value from the GYRO_CONFIG "
+"register. If raw is False, it will return 250, 500, 1000, 2000 or -1. If "
+"the returned value is equal to -1 something went wrong."
+msgstr ""
+"raw が True の 場合 、 GYRO_CONFIG レジスタ から の 生 の 値 を 返し ます 。 raw が False の 場合 "
+"、 250 、 500 、 1000 、 2000 、 または -1 を 返し ます 。 -1 が 返る 場合 は 何らか の エラー が 発生 "
+"して います 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_gyro_data:1 of
+msgid "Gets and returns the X, Y and Z values from the gyroscope."
+msgstr "ジャイロ スコープ から X 、 Y 、 Z の 値 を 取得 して 返し ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_gyro_data:3 of
+msgid "Returns the read values in a dictionary."
+msgstr "読み取っ た 値 を 辞書 として 返し ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_all_data:1 of
+msgid "Reads and returns all the available data."
+msgstr "利用 可能 な すべて の データ を 読み取り 、 返し ます 。"
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass:1 of
+msgid "Enable MPU6050 bypass mode"
+msgstr "MPU6050 の バイパス モード を 有効 に します"
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass:3 of
+msgid "USER_CTRL and INT_PIN_CFG register values"
+msgstr "USER_CTRL および INT_PIN_CFG レジスタ の 値"
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass of
+msgid "戻り値の型"
+msgstr ""
+
+#~ msgid "Returns"
+#~ msgstr "戻り値"
+
+#~ msgid "Return type"
+#~ msgstr "戻り値 の 型"
+

@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/speaker.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../project/speaker.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../project/speaker.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../project/speaker.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 交換 し、 スキル を 向上 させましょう。"
+
+#: ../project/speaker.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../project/speaker.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../project/speaker.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../project/speaker.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探索 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../project/speaker.rst:18
+msgid "Fusion HAT+ Speaker"
+msgstr "Fusion HAT+ スピーカー"
+
+#: ../project/speaker.rst:20
+msgid "**Introduction**"
+msgstr "**概要** "
+
+#: ../project/speaker.rst:22
+msgid ""
+"The Fusion HAT+ includes a built-in speaker, making it ideal for voice "
+"prompts, alarms, and other AI/IoT audio applications. This lesson shows "
+"you how to enable, test, and use the speaker with text-to-speech."
+msgstr ""
+"Fusion HAT+ には 内蔵 スピーカー が 搭載 されて おり、 音声 プロンプト、 アラーム、 "
+"その他 の AI / IoT オーディオ アプリケーション に 最適 です。 "
+"この レッスン では、 スピーカー を 有効 化 し、 テスト し、 "
+"テキスト 音声 変換 で 使用 する 方法 を 紹介 します。"
+
+#: ../project/speaker.rst:26
+msgid ""
+"This guide assumes Raspberry Pi OS is installed and the Fusion HAT+ "
+"drivers are properly set up."
+msgstr ""
+"この ガイド は、 Raspberry Pi OS が インストール され、 Fusion HAT+ の "
+"ドライバー が 正しく 設定 されて いる こと を 前提 と して います。"
+
+#: ../project/speaker.rst:37
+msgid "Speaker Setup"
+msgstr "スピーカー の セットアップ"
+
+#: ../project/speaker.rst:39
+msgid "**1. Check if the Speaker Is Recognized**"
+msgstr "**1. スピーカー が 認識 されて いる か 確認** "
+
+#: ../project/speaker.rst:41
+msgid "Run the following command:"
+msgstr "次 の コマンド を 実行 して ください："
+
+#: ../project/speaker.rst:51
+msgid "You should see a sound device similar to:"
+msgstr "以下 の よう な サウンド デバイス が 表示 される はず です："
+
+#: ../project/speaker.rst:57
+msgid ""
+"If a device appears under **card 0** or another card number, the Fusion "
+"HAT+ audio hardware is detected."
+msgstr ""
+"**card 0** または 他 の カード 番号 の 下 に デバイス が 表示 される 場合、 "
+"Fusion HAT+ の オーディオ ハードウェア は 正しく 認識 されて います。"
+
+#: ../project/speaker.rst:59
+msgid "**2. Testing the Speaker**"
+msgstr "**2. スピーカー の テスト** "
+
+#: ../project/speaker.rst:61
+msgid "Play a stereo test sound:"
+msgstr "ステレオ の テスト 音 を 再生 します："
+
+#: ../project/speaker.rst:71
+msgid "You should hear “Front Left / Front Right”. Press **Ctrl+C** to stop."
+msgstr ""
+"「 Front Left / Front Right 」 と 聞こえる はず です。 停止 する に は **Ctrl+C** を 押して ください。"
+
+#: ../project/speaker.rst:138
+msgid "Troubleshooting"
+msgstr "トラブルシューティング"
+
+#: ../project/speaker.rst:140
+msgid "**No sound output**"
+msgstr "**音 が 出ない 場合** "
+
+#: ../project/speaker.rst:142
+msgid "Check audio volume with:"
+msgstr "次 の 方法 で オーディオ 音量 を 確認 して ください："
+
+#: ../project/speaker.rst:148
+msgid "Confirm your Pi sees the audio device:"
+msgstr "Raspberry Pi が オーディオ デバイス を 認識 して いる か 確認 します："
+
+#: ../project/speaker.rst:154
+msgid "**Speaker not recognized**"
+msgstr "**スピーカー が 認識 されない 場合** "
+
+#: ../project/speaker.rst:156
+msgid "Reseat the Fusion HAT+"
+msgstr "Fusion HAT+ を 差し直し て ください。"
+
+#: ../project/speaker.rst:157
+msgid "Reboot the Raspberry Pi"
+msgstr "Raspberry Pi を 再起動 して ください。"
+
+#: ../project/speaker.rst:158
+msgid "Ensure drivers are installed"
+msgstr "ドライバー が インストール されて いる こと を 確認 して ください。"
+
+#: ../project/speaker.rst:159
+msgid "Or rerun:"
+msgstr "または、 次 を 再 実行 して ください："

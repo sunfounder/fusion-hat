@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.motor.rst:2
+msgid "fusion\\_hat.motor module"
+msgstr "fusion\\_hat.motor モジュール"
+
+#: fusion_hat.motor:1 of
+msgid "Motor"
+msgstr "モーター"
+
+#: fusion_hat.motor:3 of
+msgid "This module provides a class for controlling motors on the Fusion Hat."
+msgstr "この モジュール は Fusion Hat 上 の モーター を 制御 する ため の クラス を 提供 します 。"
+
+#: fusion_hat.motor:6 of
+msgid "サンプル"
+msgstr ""
+
+#: fusion_hat.motor:7 of
+msgid "Simple usage"
+msgstr "簡単 な 使用 例"
+
+#: fusion_hat.motor:13 of
+msgid "Change the direction of the motor."
+msgstr "モーター の 回転 方向 を 変更 します 。"
+
+#: fusion_hat.motor:18 of
+msgid "Spin the motor in the other direction."
+msgstr "モーター を 反対 方向 に 回転 させます 。"
+
+#: fusion_hat.motor:22 of
+msgid "Stop the motor"
+msgstr "モーター を 停止 します"
+
+#: fusion_hat.motor.Motor:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`~fusion_hat._base._Base`"
+msgstr "基底 クラス : :py:class:`~fusion_hat._base._Base`"
+
+#: fusion_hat.motor.Motor:1 of
+msgid "Motor class"
+msgstr "モーター クラス"
+
+#: fusion_hat.motor.Motor:3 of
+msgid "There are two ways to initialize a motor:"
+msgstr "モーター を 初期化 する 方法 は 2 つ あります :"
+
+#: fusion_hat.motor.Motor:5 of
+msgid "Method 1: Pass a motor name as a string."
+msgstr "方法 1 : モーター 名 を 文字列 として 渡します 。"
+
+#: fusion_hat.motor.Motor fusion_hat.motor.Motor.power
+#: fusion_hat.motor.Motor.set_is_reverse fusion_hat.motor.Motor.speed of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.motor.Motor:7 of
+msgid "Motor name"
+msgstr "モーター 名"
+
+#: fusion_hat.motor.Motor:10 of
+msgid "Method 2: Pass two pwm pins as PWM objects."
+msgstr "方法 2 : 2 つ の PWM ピン を PWM オブジェクト として 渡します 。"
+
+#: fusion_hat.motor.Motor:12 of
+msgid "Motor speed control pwm pin a"
+msgstr "モーター 速度 制御 用 PWM ピン a"
+
+#: fusion_hat.motor.Motor:14 of
+msgid "Motor speed control pwm pin b"
+msgstr "モーター 速度 制御 用 PWM ピン b"
+
+#: ../../docstring fusion_hat.motor.Motor.DEFAULT_FREQ:1 of
+msgid "Default PWM frequency"
+msgstr "デフォルト の PWM 周波数"
+
+#: ../../docstring fusion_hat.motor.Motor.DEFAULT_MAX:1 of
+msgid "Default maximum motor power"
+msgstr "デフォルト の モーター 最大 出力"
+
+#: ../../docstring fusion_hat.motor.Motor.DEFAULT_MIN:1 of
+msgid "Default minimum motor power"
+msgstr "デフォルト の モーター 最小 出力"
+
+#: ../../docstring fusion_hat.motor.Motor.MOTOR_PINS:1 of
+msgid "Motor pins"
+msgstr "モーター ピン"
+
+#: fusion_hat.motor.Motor.speed:1 of
+msgid "[DEPRECATED] Get or set motor power"
+msgstr "[ 非推奨 ] モーター 出力 を 取得 または 設定 します"
+
+#: fusion_hat.motor.Motor.power:3 fusion_hat.motor.Motor.speed:3 of
+msgid "Motor power(-100.0~100.0). Defaults to None."
+msgstr "モーター 出力 ( -100.0 ~ 100.0 ) 。 デフォルト は None です 。"
+
+#: fusion_hat.motor.Motor.power:1 of
+msgid "Get or set motor power"
+msgstr "モーター 出力 を 取得 または 設定 します"
+
+#: fusion_hat.motor.Motor.set_is_reverse:1 of
+msgid "Set motor is reversed or not"
+msgstr "モーター の 回転 方向 を 反転 する か どうか を 設定 します"
+
+#: fusion_hat.motor.Motor.set_is_reverse:3 of
+msgid "True or False"
+msgstr "True または False"
+
+#: fusion_hat.motor.Motor.stop:1 of
+msgid "Stop motor"
+msgstr "モーター を 停止 します"
+
+#~ msgid "Example"
+#~ msgstr "例"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+

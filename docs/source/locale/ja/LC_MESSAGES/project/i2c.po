@@ -1,0 +1,179 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/i2c.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../project/i2c.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../project/i2c.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../project/i2c.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../project/i2c.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../project/i2c.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../project/i2c.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../project/i2c.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探索 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../project/i2c.rst:18
+msgid "I2C (LCD1602)"
+msgstr "I2C（ LCD1602 ）"
+
+#: ../project/i2c.rst:20
+msgid "**Introduction**"
+msgstr "**はじめに** "
+
+#: ../project/i2c.rst:22
+msgid ""
+"The Fusion HAT+ have two different I2C ports, which can be used to "
+"connect multiple I2C devices. In this project, we will use the I2C port "
+"to connect an LCD1602 display."
+msgstr ""
+"Fusion HAT+ には 2 種類 の I2C ポート が あり、 複数 の I2C デバイス を 接続 する こと が できます。 "
+"この プロジェクト では、 I2C ポート を 使用 して LCD1602 ディスプレイ を 接続 します。"
+
+#: ../project/i2c.rst:26
+msgid ""
+"The LCD1602 is a 16x2 character-type liquid crystal display capable of "
+"displaying up to 32 characters at a time. It uses the I2C communication "
+"protocol, reducing the number of GPIO pins required for control. This "
+"project demonstrates how to interface with the LCD1602 to display text "
+"messages."
+msgstr ""
+"LCD1602 は 16×2 文字 表示 が 可能 な キャラクタ 型 液晶 ディスプレイ で、 最大 32 文字 を 同時 に 表示 できます。 "
+"I2C 通信 プロトコル を 使用 する ため、 制御 に 必要 な GPIO ピン の 数 を 削減 できます。 "
+"この プロジェクト では、 LCD1602 と 接続 して テキスト メッセージ を 表示 する 方法 を 紹介 します。"
+
+#: ../project/i2c.rst:32
+msgid "**Circuit Diagram**"
+msgstr "**回路 図** "
+
+#: ../project/i2c.rst:34
+msgid ""
+"The circuit diagram below shows how to connect the LCD1602 to the "
+"Raspberry Pi using the I2C interface."
+msgstr ""
+"以下 の 回路 図 は、 I2C インターフェース を 使用 して LCD1602 を Raspberry Pi に 接続 する 方法 を 示しています。"
+
+#: ../project/i2c.rst:42
+msgid "**Wiring Diagram**"
+msgstr "**配線 図** "
+
+#: ../project/i2c.rst:44
+msgid "Follow these steps to build the circuit:"
+msgstr "以下 の 手順 に 従って 回路 を 構築 して ください："
+
+#: ../project/i2c.rst:46
+msgid ""
+"Connect the I2C interface pins (SDA and SCL) of the LCD1602 to the "
+"corresponding pins on the Fusiuon HAT."
+msgstr ""
+"LCD1602 の I2C インターフェース ピン（ SDA と SCL ） を Fusion HAT の 対応 する ピン に 接続 します。"
+
+#: ../project/i2c.rst:47
+msgid "Ensure proper power supply connections to the LCD1602."
+msgstr "LCD1602 に 正しく 電源 が 供給 されて いる こと を 確認 して ください。"
+
+#: ../project/i2c.rst:48
+msgid "Verify the wiring to avoid errors."
+msgstr "配線 ミス を 防ぐ ため、 配線 を 再度 確認 して ください。"
+
+#: ../project/i2c.rst:56
+msgid "**Writing the Code**"
+msgstr "**コード の 作成** "
+
+#: ../project/i2c.rst:58
+msgid ""
+"The following Python code initializes the LCD1602 and displays a simple "
+"greeting message:"
+msgstr ""
+"以下 の Python コード は LCD1602 を 初期化 し、 簡単 な あいさつ メッセージ を 表示 します："
+
+#: ../project/i2c.rst:81
+msgid ""
+"This Python script interfaces with an LCD1602 display module to present a"
+" brief message. When executed:"
+msgstr ""
+"この Python スクリプト は LCD1602 ディスプレイ モジュール と 通信 し、 簡単 な メッセージ を 表示 します。 "
+"実行 すると："
+
+#: ../project/i2c.rst:83
+msgid ""
+"It initializes the LCD1602 display with I2C communication (default "
+"address ``0x27``)."
+msgstr ""
+"I2C 通信（ デフォルト アドレス ``0x27`` ） を 使用 して LCD1602 ディスプレイ を 初期化 します。"
+
+#: ../project/i2c.rst:84
+msgid "The first line of the display shows the text \"Greetings!\"."
+msgstr "ディスプレイ の 1 行目 に \"Greetings!\" と 表示 されます。"
+
+#: ../project/i2c.rst:85
+msgid "The second line displays the text \"From SunFounder\"."
+msgstr "2 行目 に \"From SunFounder\" と 表示 されます。"
+
+#: ../project/i2c.rst:86
+msgid "The messages remain visible for 1 seconds before the next text."
+msgstr "メッセージ は 次 の テキスト が 表示 される まで 1 秒間 表示 されます。"
+
+#: ../project/i2c.rst:88
+msgid ""
+"The display clears if the user interrupts the script by pressing "
+"``Ctrl+C``."
+msgstr ""
+"ユーザー が ``Ctrl+C`` を 押して スクリプト を 中断 すると、 ディスプレイ は クリア されます。"

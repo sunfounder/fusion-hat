@@ -1,0 +1,329 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.pin.rst:2
+msgid "fusion\\_hat.pin module"
+msgstr "fusion\\_hat.pin モジュール"
+
+#: fusion_hat.pin:1 fusion_hat.pin.Pin:1 of
+msgid "Pin manipulation class"
+msgstr "ピン 操作 クラス"
+
+#: fusion_hat.pin:4 of
+msgid "サンプル"
+msgstr ""
+
+#: fusion_hat.pin:5 of
+msgid "Simple example with auto mode"
+msgstr "自動 モード を 使用 した 簡単 な 例"
+
+#: fusion_hat.pin:14 of
+msgid "Output mode"
+msgstr "出力 モード"
+
+#: fusion_hat.pin:29 of
+msgid "Input mode"
+msgstr "入力 モード"
+
+#: fusion_hat.pin:35 of
+msgid ""
+"Active state, If your LED active LOW, you can set active_state make "
+"things easier."
+msgstr "アクティブ 状態 。 LED が LOW で 有効 な 場合 、 active_state を 設定 する ことで 操作 が 簡単 に なります 。"
+
+#: fusion_hat.pin:47 of
+msgid ""
+"And also if your button active LOW, you can set active_state to "
+"Pin.ACTIVE_LOW. you can also do the same."
+msgstr ""
+"また 、 ボタン が LOW で 有効 な 場合 は 、 active_state を Pin.ACTIVE_LOW に 設定 できます 。 同様"
+" に 設定 可能 です 。"
+
+#: fusion_hat.pin:55 of
+msgid "You can also set interrupts on activated or deactivated state."
+msgstr "アクティブ または 非 アクティブ 状態 に 割り込み を 設定 する こと も できます 。"
+
+#: fusion_hat.pin.Active:1 fusion_hat.pin.Mode:1 fusion_hat.pin.Pull:1
+#: fusion_hat.pin.Trigger:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`~enum.Enum`"
+msgstr "基底 クラス : :py:class:`~enum.Enum` "
+
+#: fusion_hat.pin.Mode:1 of
+msgid "Pin direction"
+msgstr "ピン の 方向"
+
+#: ../../docstring fusion_hat.pin.Mode.AUTO:1 of
+msgid "Pin direction auto"
+msgstr "ピン 方向 自動"
+
+#: ../../docstring RPi.GPIO.IN:1 of
+msgid "Pin direction input"
+msgstr "ピン 方向 入力"
+
+#: ../../docstring RPi.GPIO.OUT:1 of
+msgid "Pin direction output"
+msgstr "ピン 方向 出力"
+
+#: fusion_hat.pin.Pull:1 of
+msgid "Pin pull up/down"
+msgstr "ピン プルアップ / プルダウン"
+
+#: ../../docstring RPi.GPIO.PUD_UP:1 of
+msgid "Pin internal pull up"
+msgstr "ピン 内部 プルアップ"
+
+#: ../../docstring RPi.GPIO.PUD_DOWN:1 of
+msgid "Pin internal pull down"
+msgstr "ピン 内部 プルダウン"
+
+#: ../../docstring RPi.GPIO.PUD_OFF:1 of
+msgid "Pin internal pull none"
+msgstr "ピン 内部 プル なし"
+
+#: fusion_hat.pin.Active:1 of
+msgid "Pin active state"
+msgstr "ピン アクティブ 状態"
+
+#: ../../docstring fusion_hat.pin.Active.HIGH:1
+#: fusion_hat.pin.Pin.ACTIVE_HIGH:1 of
+msgid "Pin active state high"
+msgstr "ピン アクティブ 状態 HIGH"
+
+#: ../../docstring fusion_hat.pin.Active.LOW:1 fusion_hat.pin.Pin.ACTIVE_LOW:1
+#: of
+msgid "Pin active state low"
+msgstr "ピン アクティブ 状態 LOW"
+
+#: fusion_hat.pin.Trigger:1 of
+msgid "Pin interrupt"
+msgstr "ピン 割り込み"
+
+#: ../../docstring RPi.GPIO.FALLING:1 of
+msgid "Pin interrupt falling"
+msgstr "ピン 割り込み 立ち下がり"
+
+#: ../../docstring RPi.GPIO.RISING:1 of
+msgid "Pin interrupt rising"
+msgstr "ピン 割り込み 立ち上がり"
+
+#: ../../docstring RPi.GPIO.BOTH:1 of
+msgid "Pin interrupt both rising and falling"
+msgstr "ピン 割り込み 立ち上がり / 立ち下がり 両方"
+
+#: fusion_hat.pin.Pin:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`~fusion_hat._base._Base`"
+msgstr "基底 クラス : :py:class:`~fusion_hat._base._Base`"
+
+#: fusion_hat.pin.Pin:3 of
+msgid ""
+"a pin wraping class of RPi.GPIO. you need to install rpi.lgpio instead of"
+" RPi.GPIO on Pi 5"
+msgstr ""
+"RPi.GPIO の ピン ラッパー クラス です 。 Pi 5 では RPi.GPIO の 代わり に rpi.lgpio を インストール "
+"する 必要 が あります 。"
+
+#: fusion_hat.pin.Pin fusion_hat.pin.Pin.__call__ fusion_hat.pin.Pin.irq
+#: fusion_hat.pin.Pin.irq_handler fusion_hat.pin.Pin.raw
+#: fusion_hat.pin.Pin.setup fusion_hat.pin.Pin.value of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.pin.Pin:5 of
+msgid "pin number of Raspberry Pi"
+msgstr "Raspberry Pi の ピン 番号"
+
+#: fusion_hat.pin.Pin:7 fusion_hat.pin.Pin.setup:3 of
+msgid "pin mode(IN/OUT/AUTO). Defaults to Mode.AUTO."
+msgstr "ピン モード ( IN / OUT / AUTO ) 。 デフォルト は Mode.AUTO です 。"
+
+#: fusion_hat.pin.Pin:9 fusion_hat.pin.Pin.setup:5 of
+msgid "pin pull (Pull.UP/Pull.DOWN/Pull.NONE). Defaults to Pull.NONE."
+msgstr "ピン プル ( Pull.UP / Pull.DOWN / Pull.NONE ) 。 デフォルト は Pull.NONE です 。"
+
+#: fusion_hat.pin.Pin:11 fusion_hat.pin.Pin.setup:7 of
+msgid ""
+"active state of pin, If True, when the hardware pin state is HIGH, the "
+"software pin is HIGH. If False, the input polarity is reversed. Defaults "
+"to Active.HIGH."
+msgstr ""
+"ピン の アクティブ 状態 。 True の 場合 、 ハードウェア ピン が HIGH の とき ソフトウェア ピン も HIGH に なります"
+" 。 False の 場合 、 入力 極性 が 反転 します 。 デフォルト は Active.HIGH です 。"
+
+#: fusion_hat.pin.Pin:15 fusion_hat.pin.Pin.setup:11 of
+msgid "bounce time of pin interrupt in seconds. Defaults to 0.02."
+msgstr "ピン 割り込み の バウンス 時間 ( 秒 ) 。 デフォルト は 0.02 です 。"
+
+#: fusion_hat.pin.Pin:17 of
+msgid "Additional arguments for :class:`fusion_hat._base._Base`"
+msgstr ":class:`fusion_hat._base._Base` 用 の 追加 引数"
+
+#: fusion_hat.pin.Pin:18 of
+msgid "Additional keyword arguments for :class:`fusion_hat._base._Base`"
+msgstr ":class:`fusion_hat._base._Base` 用 の 追加 キーワード 引数"
+
+#: ../../docstring RPi.GPIO.OUT:1 of
+#, fuzzy
+msgid "Pin mode output"
+msgstr "ピン 方向 出力"
+
+#: ../../docstring RPi.GPIO.IN:1 of
+#, fuzzy
+msgid "Pin mode input"
+msgstr "ピン 方向 入力"
+
+#: ../../docstring fusion_hat.pin.Pin.AUTO:1 of
+#, fuzzy
+msgid "Pin mode auto"
+msgstr "ピン 方向 自動"
+
+#: fusion_hat.pin.Pin.close:1 of
+msgid "Close the pin"
+msgstr "ピン を クローズ します"
+
+#: fusion_hat.pin.Pin.deinit:1 of
+msgid "Deinitialize the pin"
+msgstr "ピン を 初期化 解除 します"
+
+#: fusion_hat.pin.Pin.setup:1 of
+msgid "Setup the pin"
+msgstr "ピン を 設定 します"
+
+#: fusion_hat.pin.Pin.__call__:1 fusion_hat.pin.Pin.value:1 of
+msgid "Set/get the pin value"
+msgstr "ピン の 値 を 設定 / 取得 します"
+
+#: fusion_hat.pin.Pin.__call__:3 fusion_hat.pin.Pin.raw:3
+#: fusion_hat.pin.Pin.value:3 of
+msgid "pin value, leave it empty to get the value(0/1). Defaults to None."
+msgstr "ピン 値 。 空 の 場合 は 値 ( 0 / 1 ) を 取得 します 。 デフォルト は None です 。"
+
+#: fusion_hat.pin.Pin.__call__ fusion_hat.pin.Pin.high fusion_hat.pin.Pin.low
+#: fusion_hat.pin.Pin.off fusion_hat.pin.Pin.on fusion_hat.pin.Pin.raw
+#: fusion_hat.pin.Pin.value fusion_hat.pin.Pin.when_activated
+#: fusion_hat.pin.Pin.when_deactivated of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat.pin.Pin.__call__:6 fusion_hat.pin.Pin.raw:6
+#: fusion_hat.pin.Pin.value:6 of
+msgid "pin value(0/1)"
+msgstr "ピン 値 ( 0 / 1 )"
+
+#: fusion_hat.pin.Pin.__call__ fusion_hat.pin.Pin.high fusion_hat.pin.Pin.low
+#: fusion_hat.pin.Pin.off fusion_hat.pin.Pin.on fusion_hat.pin.Pin.raw
+#: fusion_hat.pin.Pin.value fusion_hat.pin.Pin.when_activated
+#: fusion_hat.pin.Pin.when_deactivated of
+msgid "戻り値の型"
+msgstr ""
+
+#: fusion_hat.pin.Pin.raw:1 of
+msgid "Set/get the pin raw value"
+msgstr "ピン の 生 値 を 設定 / 取得 します"
+
+#: fusion_hat.pin.Pin.irq fusion_hat.pin.Pin.raw fusion_hat.pin.Pin.value of
+msgid "例外"
+msgstr ""
+
+#: fusion_hat.pin.Pin.raw:9 fusion_hat.pin.Pin.value:9 of
+msgid "if pin mode is IN"
+msgstr "ピン モード が IN の 場合"
+
+#: fusion_hat.pin.Pin.on:1 of
+msgid "Set pin on(high)"
+msgstr "ピン を オン ( HIGH ) に 設定 します"
+
+#: fusion_hat.pin.Pin.high:3 fusion_hat.pin.Pin.on:3 of
+#, fuzzy
+msgid "pin value(1)"
+msgstr "ピン 値 ( 0 / 1 )"
+
+#: fusion_hat.pin.Pin.off:1 of
+msgid "Set pin off(low)"
+msgstr "ピン を オフ ( LOW ) に 設定 します"
+
+#: fusion_hat.pin.Pin.low:3 fusion_hat.pin.Pin.off:3 of
+#, fuzzy
+msgid "pin value(0)"
+msgstr "ピン 値 ( 0 / 1 )"
+
+#: fusion_hat.pin.Pin.high:1 of
+msgid "Set pin high(1)"
+msgstr "ピン を HIGH ( 1 ) に 設定 します"
+
+#: fusion_hat.pin.Pin.low:1 of
+msgid "Set pin low(0)"
+msgstr "ピン を LOW ( 0 ) に 設定 します"
+
+#: fusion_hat.pin.Pin.irq:1 of
+msgid "Set the pin interrupt"
+msgstr "ピン 割り込み を 設定 します"
+
+#: fusion_hat.pin.Pin.irq:3 of
+msgid "interrupt handler callback function"
+msgstr "割り込み ハンドラ の コールバック 関数"
+
+#: fusion_hat.pin.Pin.irq:5 of
+msgid ""
+"interrupt trigger(RISING, FALLING, RISING_FALLING). Defaults to "
+"Trigger.BOTH."
+msgstr "割り込み トリガ ( RISING 、 FALLING 、 RISING_FALLING ) 。 デフォルト は Trigger.BOTH です 。"
+
+#: fusion_hat.pin.Pin.irq:8 of
+msgid "if trigger is not valid"
+msgstr ""
+
+#: fusion_hat.pin.Pin.init_irq:1 of
+msgid "Initialize the pin interrupt"
+msgstr "ピン 割り込み を 初期化 します"
+
+#: fusion_hat.pin.Pin.irq_handler:1 of
+msgid "Handle the pin interrupt"
+msgstr "ピン 割り込み を 処理 します"
+
+#: fusion_hat.pin.Pin.irq_handler:3 of
+msgid "pin number"
+msgstr "ピン 番号"
+
+#: fusion_hat.pin.Pin.when_activated:1 of
+msgid "Get the pressed handler"
+msgstr "押下 時 の ハンドラ を 取得 します"
+
+#: fusion_hat.pin.Pin.when_activated:3 of
+msgid "pressed handler"
+msgstr "押下 ハンドラ"
+
+#: fusion_hat.pin.Pin.when_deactivated:1 of
+msgid "Get the released handler"
+msgstr "解放 時 の ハンドラ を 取得 します"
+
+#: fusion_hat.pin.Pin.when_deactivated:3 of
+msgid "released handler"
+msgstr "解放 ハンドラ"
+
+#~ msgid "Example"
+#~ msgstr "例"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+

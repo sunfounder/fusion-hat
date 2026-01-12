@@ -1,0 +1,39 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.modules.led_matrix.rst:2
+msgid "fusion\\_hat.modules.led\\_matrix module"
+msgstr "fusion\\_hat.modules.led\\_matrix モジュール"
+
+#: fusion_hat.modules.led_matrix.LedMatrix:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`object`"
+msgstr "基底 クラス : :py:class:`object` "
+
+#: fusion_hat.modules.led_matrix.LedMatrix:1 of
+msgid "SPI RGB Matrix class"
+msgstr "SPI RGB マトリクス クラス"
+
+#: fusion_hat.modules.led_matrix.LedMatrix.display_pattern:1 of
+msgid "Display a pattern on the matrix"
+msgstr "マトリクス 上 に パターン を 表示 します"
+

@@ -1,0 +1,151 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.adc.rst:2
+msgid "fusion\\_hat.adc module"
+msgstr "fusion\\_hat.adc モジュール"
+
+#: fusion_hat.adc:1 of
+msgid "Fusion Hat on-board analog to digital converter"
+msgstr "Fusion Hat 搭載のアナログ・デジタル変換器"
+
+#: fusion_hat.adc:4 of
+msgid "サンプル"
+msgstr ""
+
+#: fusion_hat.adc:5 of
+msgid "Import ADC"
+msgstr "ADC をインポート"
+
+#: fusion_hat.adc:9 of
+msgid "Init ADC channel 0"
+msgstr "ADC チャンネル 0 を初期化"
+
+#: fusion_hat.adc:13 of
+msgid "Read ADC channel 0 value"
+msgstr "ADC チャンネル 0 の値を読み取る"
+
+#: fusion_hat.adc:18 of
+msgid "Read ADC channel 0 voltage"
+msgstr "ADC チャンネル 0 の電圧を読み取る"
+
+#: fusion_hat.adc.ADC:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`~fusion_hat._base._Base`"
+msgstr "基底クラス： :py:class:`~fusion_hat._base._Base` "
+
+#: fusion_hat.adc.ADC:1 of
+msgid "ADC class"
+msgstr "ADC クラス"
+
+#: fusion_hat.adc.ADC of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.adc.ADC:3 of
+msgid "channel number or Str start with A"
+msgstr "チャンネル番号、または A で始まる文字列"
+
+#: fusion_hat.adc.ADC:5 fusion_hat.adc.ADC:6 of
+msgid "pass to :class:`fusion_hat._base._base`"
+msgstr ":class:`fusion_hat._base._base` に渡されます"
+
+#: fusion_hat.adc.ADC of
+msgid "例外"
+msgstr ""
+
+#: fusion_hat.adc.ADC:8 of
+msgid "channel must be channel number or Str start with A"
+msgstr "channel はチャンネル番号、または A で始まる文字列である必要があります"
+
+#: fusion_hat.adc.ADC.find_device:1 of
+msgid "find adc device"
+msgstr "ADC デバイスを検出"
+
+#: fusion_hat.adc.ADC.channel fusion_hat.adc.ADC.find_device
+#: fusion_hat.adc.ADC.raw fusion_hat.adc.ADC.read fusion_hat.adc.ADC.read_raw
+#: fusion_hat.adc.ADC.read_voltage fusion_hat.adc.ADC.voltage of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat.adc.ADC.find_device:3 of
+msgid "adc device index"
+msgstr "ADC デバイスのインデックス"
+
+#: fusion_hat.adc.ADC.channel fusion_hat.adc.ADC.find_device
+#: fusion_hat.adc.ADC.raw fusion_hat.adc.ADC.read fusion_hat.adc.ADC.read_raw
+#: fusion_hat.adc.ADC.read_voltage fusion_hat.adc.ADC.voltage of
+msgid "戻り値の型"
+msgstr ""
+
+#: fusion_hat.adc.ADC.read:1 fusion_hat.adc.ADC.read_raw:1 of
+msgid "read raw value"
+msgstr "生データ値を読み取る"
+
+#: fusion_hat.adc.ADC.raw:3 fusion_hat.adc.ADC.read:3
+#: fusion_hat.adc.ADC.read_raw:3 of
+msgid "raw value"
+msgstr "生データ値"
+
+#: fusion_hat.adc.ADC.read_voltage:1 of
+msgid "read voltage value in V"
+msgstr "電圧値（V）を読み取る"
+
+#: fusion_hat.adc.ADC.read_voltage:3 of
+msgid "voltage value in V"
+msgstr "電圧値（V）"
+
+#: fusion_hat.adc.ADC.channel:1 of
+msgid "get channel"
+msgstr "チャンネルを取得"
+
+#: fusion_hat.adc.ADC.channel:3 of
+msgid "channel number"
+msgstr "チャンネル番号"
+
+#: fusion_hat.adc.ADC.voltage:1 of
+msgid "get voltage"
+msgstr "電圧を取得"
+
+#: fusion_hat.adc.ADC.voltage:3 of
+msgid "voltage value in mV"
+msgstr "電圧値（mV）"
+
+#: fusion_hat.adc.ADC.raw:1 of
+msgid "get raw value"
+msgstr "生データ値を取得"
+
+#~ msgid "Example"
+#~ msgstr "例"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+
+#~ msgid "Raises"
+#~ msgstr "例外"
+
+#~ msgid "Returns"
+#~ msgstr "戻り値"
+
+#~ msgid "Return type"
+#~ msgstr "戻り値の型"
+

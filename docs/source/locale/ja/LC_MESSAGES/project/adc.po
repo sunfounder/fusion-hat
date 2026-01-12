@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/adc.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../project/adc.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../project/adc.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../project/adc.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../project/adc.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../project/adc.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../project/adc.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../project/adc.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探求 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../project/adc.rst:19
+msgid "ADC"
+msgstr "ADC"
+
+#: ../project/adc.rst:21
+msgid "**Introduction**"
+msgstr "**はじめに** "
+
+#: ../project/adc.rst:23
+msgid ""
+"A photoresistor, also known as a light-dependent resistor (LDR), is a "
+"component that detects light intensity. Its resistance decreases as the "
+"light intensity increases, making it useful in devices like automatic "
+"night lamps and ambient light controllers."
+msgstr ""
+"フォトレジスタ（ 光 依存 抵抗、 LDR ） は、 光 の 強さ を 検出 する 部品 です。 "
+"光 の 強さ が 増える と 抵抗 は 低下 する ため、 自動 ナイト ランプ や 周囲 光 コントローラ など の デバイス で 役立ちます。"
+
+#: ../project/adc.rst:25
+msgid ""
+"This project demonstrates how to use a photoresistor with Fusion HAT+ to "
+"adjust an LED's brightness based on ambient light levels. The working "
+"principle is similar to a potentiometer, except the input is light "
+"instead of manual adjustment."
+msgstr ""
+"この プロジェクト では、 Fusion HAT+ と フォトレジスタ を 使用 して、 周囲 の 明るさ に 応じて LED の 明るさ を 調整 する 方法 を 示します。 "
+"動作 原理 は 可変 抵抗（ ポテンショメータ ） と 似ています が、 手動 調整 の 代わり に 入力 が 光 に なる 点 が 異なります。"
+
+#: ../project/adc.rst:31
+msgid "**Circuit Diagram**"
+msgstr "**回路 図** "
+
+#: ../project/adc.rst:33
+msgid ""
+"Below are the schematic diagrams illustrating how to connect the "
+"components:"
+msgstr ""
+"以下 は、 部品 の 接続 方法 を 示す 回路 図 です："
+
+#: ../project/adc.rst:42
+msgid "**Wiring Diagram**"
+msgstr "**配線 図** "
+
+#: ../project/adc.rst:44
+msgid "Build the circuit as shown in the diagram below:"
+msgstr "以下 の 図 の とおり に 回路 を 組み立てて ください："
+
+#: ../project/adc.rst:52
+msgid "Ensure that:"
+msgstr "次 の 点 を 確認 してください："
+
+#: ../project/adc.rst:54
+msgid ""
+"The photoresistor is connected to the Fusion HAT+ to convert analog "
+"signals into digital values."
+msgstr ""
+"フォトレジスタ は Fusion HAT+ に 接続 され、 アナログ 信号 を デジタル 値 に 変換 できる よう に なっている こと。"
+
+#: ../project/adc.rst:55
+msgid "The LED is connected to a GPIO pin for PWM control."
+msgstr "LED は PWM 制御 の ため に GPIO ピン に 接続 されている こと。"
+
+#: ../project/adc.rst:56
+msgid ""
+"All connections are secure, and power and ground connections are properly"
+" set."
+msgstr ""
+"すべて の 配線 が しっかり 接続 され、 電源 と GND の 接続 が 正しく 設定 されている こと。"
+
+#: ../project/adc.rst:61
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../project/adc.rst:63
+msgid "Below is the Python code used in this project:"
+msgstr "以下 は、 この プロジェクト で 使用 する Python コード です："
+
+#: ../project/adc.rst:107
+msgid ""
+"This Python script continuously reads the photoresistor's value, maps it "
+"to a suitable range for setting the LED brightness, and adjusts the LED's"
+" brightness accordingly. The script also includes a graceful exit "
+"mechanism to turn off the LED when interrupted by the user. When "
+"executed:"
+msgstr ""
+"この Python スクリプト は、 フォトレジスタ の 値 を 継続 的 に 読み取り、 LED の 明るさ を 設定 する ため の 適切 な 範囲 に マッピング し、 "
+"それ に 応じて LED の 明るさ を 調整 します。 また、 ユーザー に より 割り込み された 場合 に LED を 消灯 する、 安全 な 終了 処理 も 含まれています。 "
+"実行 すると："
+
+#: ../project/adc.rst:109
+msgid ""
+"The Fusion HAT+ continuously reads photoresistor values from its input "
+"channel (ranging from 0 to 4095)."
+msgstr ""
+"Fusion HAT+ は 入力 チャネル から フォトレジスタ の 値（ 0〜4095 ） を 継続 的 に 読み取ります。"
+
+#: ../project/adc.rst:110
+msgid ""
+"The analog value, representing light intensity or another variable input,"
+" is printed to the console as ``result =  <value>``."
+msgstr ""
+"光 の 強さ（ または 他 の 可変 入力 ） を 表す アナログ 値 が、 コンソール に ``result =  <value>`` として 表示 されます。"
+
+#: ../project/adc.rst:111
+msgid ""
+"The script maps the analog value to a PWM signal to adjust the brightness"
+" of the LED."
+msgstr ""
+"スクリプト は アナログ 値 を PWM 信号 に マッピング し、 LED の 明るさ を 調整 します。"
+
+#: ../project/adc.rst:112
+msgid ""
+"The LED brightness dynamically changes based on the ADC input, with "
+"updates every 0.2 seconds."
+msgstr ""
+"LED の 明るさ は ADC 入力 に 基づいて 動的 に 変化 し、 0.2 秒 ごと に 更新 されます。"
+
+#: ../project/adc.rst:113
+msgid ""
+"The program runs indefinitely until interrupted with ``Ctrl+C``, at which"
+" point the LED turns off."
+msgstr ""
+"プログラム は ``Ctrl+C`` で 中断 される まで 無期限 に 実行 され、 中断 された 時点 で LED は 消灯 します。"

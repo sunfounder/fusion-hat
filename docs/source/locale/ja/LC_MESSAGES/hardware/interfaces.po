@@ -1,0 +1,1081 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../hardware/interfaces.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../hardware/interfaces.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../hardware/interfaces.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../hardware/interfaces.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../hardware/interfaces.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../hardware/interfaces.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../hardware/interfaces.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../hardware/interfaces.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探求 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../hardware/interfaces.rst:16
+msgid "Interfaces"
+msgstr "インターフェース"
+
+#: ../hardware/interfaces.rst:19
+msgid "Pinout"
+msgstr "ピン配置"
+
+#: ../hardware/interfaces.rst:28
+msgid "**Battery Port**"
+msgstr "**バッテリー ポート** "
+
+#: ../hardware/interfaces.rst:27
+msgid "6.0V-8.4V XH2.54 3pin power input."
+msgstr "6.0V～8.4V の XH2.54 3 ピン 電源 入力。"
+
+#: ../hardware/interfaces.rst:28
+msgid "Powering the Raspberry Pi and Fusion HAT+ at the same time."
+msgstr "Raspberry Pi と Fusion HAT+ を 同時 に 給電 します。"
+
+#: ../hardware/interfaces.rst:31
+msgid "**Power Switch**"
+msgstr "**電源 スイッチ** "
+
+#: ../hardware/interfaces.rst:31
+msgid "Turn on/off the power of the Fusion HAT+."
+msgstr "Fusion HAT+ の 電源 を オン / オフ します。"
+
+#: ../hardware/interfaces.rst:36
+msgid "**Type-C Charging Port**"
+msgstr "**Type-C 充電 ポート** "
+
+#: ../hardware/interfaces.rst:34
+msgid "Insert the Type-C cable to charge the battery."
+msgstr "Type-C ケーブル を 接続 して バッテリー を 充電 します。"
+
+#: ../hardware/interfaces.rst:35
+msgid "During charging, the corresponding battery indicator light will flash."
+msgstr "充電 中 は、 対応 する バッテリー インジケーター ライト が 点滅 します。"
+
+#: ../hardware/interfaces.rst:36
+msgid ""
+"It takes approximately 2 hours to fully charge. Once fully charged, if "
+"the Fusion HAT is powered on, both battery indicator lights will stay on "
+"continuously. If the Fusion HAT is powered off, both battery indicator "
+"lights will turn off."
+msgstr ""
+"満充電 まで は 約 2 時間 かかります。 満充電 後、 Fusion HAT の 電源 が オン の 場合 は、 "
+"両方 の バッテリー インジケーター ライト が 点灯 し 続けます。 "
+"Fusion HAT の 電源 が オフ の 場合 は、 両方 の バッテリー インジケーター ライト は 消灯 します。"
+
+#: ../hardware/interfaces.rst:41
+msgid "**Digital Pin**"
+msgstr "**デジタル ピン** "
+
+#: ../hardware/interfaces.rst:39
+msgid "4-channel digital pins, 17, 4, 27, 22."
+msgstr "4 チャンネル の デジタル ピン（ 17、 4、 27、 22 ）。"
+
+#: ../hardware/interfaces.rst:40
+msgid "Pin: :ref:`fh_pin_v0_digital`."
+msgstr "ピン : :ref:`fh_pin_v0_digital` 。"
+
+#: ../hardware/interfaces.rst:41
+msgid "API: :class:`fusion_hat.pin.Pin`."
+msgstr "API : :class:`fusion_hat.pin.Pin` 。"
+
+#: ../hardware/interfaces.rst:46
+msgid "**ADC Pin**"
+msgstr "**ADC ピン** "
+
+#: ../hardware/interfaces.rst:44
+msgid "4-channel ADC pins, A0-A3."
+msgstr "4 チャンネル の ADC ピン（ A0～A3 ）。"
+
+#: ../hardware/interfaces.rst:45
+msgid "Pin: :ref:`fh_pin_v0_adc`."
+msgstr "ピン : :ref:`fh_pin_v0_adc` 。"
+
+#: ../hardware/interfaces.rst:46
+msgid "API: :class:`fusion_hat.adc.ADC`."
+msgstr "API : :class:`fusion_hat.adc.ADC` 。"
+
+#: ../hardware/interfaces.rst:51
+msgid "**PWM Pin**"
+msgstr "**PWM ピン** "
+
+#: ../hardware/interfaces.rst:49
+msgid "12-channel PWM pins, P0-P11."
+msgstr "12 チャンネル の PWM ピン（ P0～P11 ）。"
+
+#: ../hardware/interfaces.rst:50
+msgid "Pin: :ref:`fh_pin_v0_pwm`."
+msgstr "ピン : :ref:`fh_pin_v0_pwm` 。"
+
+#: ../hardware/interfaces.rst:51
+msgid "API: :class:`fusion_hat.pwm.PWM`."
+msgstr "API : :class:`fusion_hat.pwm.PWM` 。"
+
+#: ../hardware/interfaces.rst:56
+msgid "**Motor Port**"
+msgstr "**モーター ポート** "
+
+#: ../hardware/interfaces.rst:54
+msgid "4-channel XH2.54 motor ports."
+msgstr "4 チャンネル の XH2.54 モーター ポート。"
+
+#: ../hardware/interfaces.rst:55
+msgid "Pin: :ref:`fh_pin_v0_motor`."
+msgstr "ピン : :ref:`fh_pin_v0_motor` 。"
+
+#: ../hardware/interfaces.rst:56
+msgid "API: :class:`fusion_hat.motor.Motor`."
+msgstr "API : :class:`fusion_hat.motor.Motor` 。"
+
+#: ../hardware/interfaces.rst:63
+msgid "**I2C Pin and I2C Port**"
+msgstr "**I2C ピン と I2C ポート**"
+
+#: ../hardware/interfaces.rst:59
+msgid "**I2C Pin**: P2.54 4-pin interface."
+msgstr "**I2C ピン** : P2.54 4 ピン インターフェース。"
+
+#: ../hardware/interfaces.rst:60
+msgid ""
+"**I2C Port**: SH1.0 4-pin interface, which is compatible with QWIIC and "
+"STEMMA QT."
+msgstr ""
+"**I2C ポート** : SH1.0 4 ピン インターフェース（ QWIIC と STEMMA QT に 互換 ）。"
+
+#: ../hardware/interfaces.rst:61
+msgid ""
+"These I2C interfaces are connected to the Raspberry Pi's I2C interface "
+"via GPIO2 (SDA) and GPIO3 (SCL)."
+msgstr ""
+"これら の I2C インターフェース は、 GPIO2（ SDA ） と GPIO3（ SCL ） を 介して "
+"Raspberry Pi の I2C インターフェース に 接続 されています。"
+
+#: ../hardware/interfaces.rst:62
+msgid "Pin: :ref:`fh_pin_v0_i2c`."
+msgstr "ピン : :ref:`fh_pin_v0_i2c` 。"
+
+#: ../hardware/interfaces.rst:63
+msgid "API: :class:`fusion_hat._i2c.I2C`."
+msgstr "API : :class:`fusion_hat._i2c.I2C` 。"
+
+#: ../hardware/interfaces.rst:67
+msgid "**SPI Pin**"
+msgstr "**SPI ピン** "
+
+#: ../hardware/interfaces.rst:66
+msgid "P2.54 7-pin SPI interface."
+msgstr "P2.54 7 ピン SPI インターフェース。"
+
+#: ../hardware/interfaces.rst:67
+msgid "Pin: :ref:`fh_pin_v0_spi`."
+msgstr "ピン : :ref:`fh_pin_v0_spi` 。"
+
+#: ../hardware/interfaces.rst:71
+msgid "**UART Pin**"
+msgstr "**UART ピン** "
+
+#: ../hardware/interfaces.rst:70
+msgid "P2.54 4-pin interface."
+msgstr "P2.54 4 ピン インターフェース。"
+
+#: ../hardware/interfaces.rst:71
+msgid "Pin: :ref:`fh_pin_v0_uart`."
+msgstr "ピン : :ref:`fh_pin_v0_uart` 。"
+
+#: ../hardware/interfaces.rst:75
+msgid "**WS2812 Port**"
+msgstr "**WS2812 ポート** "
+
+#: ../hardware/interfaces.rst:74
+msgid "1-channel WS2812 port."
+msgstr "1 チャンネル の WS2812 ポート。"
+
+#: ../hardware/interfaces.rst:75
+msgid "Pin: :ref:`fh_pin_v0_ws2812`."
+msgstr "ピン : :ref:`fh_pin_v0_ws2812` 。"
+
+#: ../hardware/interfaces.rst:80
+msgid "**User LED**"
+msgstr "**ユーザー LED** "
+
+#: ../hardware/interfaces.rst:78
+msgid "The functions of User LED can be set by your programming."
+msgstr "ユーザー LED の 機能 は プログラム に よって 設定 できます。"
+
+#: ../hardware/interfaces.rst:79 ../hardware/interfaces.rst:85
+msgid "Pin: :ref:`fh_pin_v0_button`."
+msgstr "ピン : :ref:`fh_pin_v0_button` 。"
+
+#: ../hardware/interfaces.rst:80
+msgid "API: :class:`fusion_hat.device.set_led`."
+msgstr "API : :class:`fusion_hat.device.set_led` 。"
+
+#: ../hardware/interfaces.rst:85
+msgid "**USR Button**"
+msgstr "**USR ボタン** "
+
+#: ../hardware/interfaces.rst:83
+msgid ""
+"The functions of USR Button can be set by your programming. (Pressing "
+"down leads to a input “0”; releasing produces a input “1”. )"
+msgstr ""
+"USR ボタン の 機能 は プログラム に よって 設定 できます。"
+"（ 押下 すると 入力 “0” 、 離す と 入力 “1” に なります。 ）"
+
+#: ../hardware/interfaces.rst:84
+msgid "API: :meth:`fusion_hat.device.get_usr_btn`"
+msgstr "API : :meth:`fusion_hat.device.get_usr_btn` "
+
+#: ../hardware/interfaces.rst:91
+msgid "**Battery Indicator**"
+msgstr "**バッテリー インジケーター** "
+
+#: ../hardware/interfaces.rst:88
+msgid "Two LEDs light up when the voltage is higher than 7.6V."
+msgstr "電圧 が 7.6V より 高い 場合、 2 つ の LED が 点灯 します。"
+
+#: ../hardware/interfaces.rst:89
+msgid "One LED lights up in the 7.15V to 7.6V range."
+msgstr "7.15V～7.6V の 範囲 では、 1 つ の LED が 点灯 します。"
+
+#: ../hardware/interfaces.rst:90
+msgid "Below 7.15V, both LEDs turn off."
+msgstr "7.15V 未満 では、 両方 の LED が 消灯 します。"
+
+#: ../hardware/interfaces.rst:91
+msgid ":ref:`battery_indicator`."
+msgstr ":ref:`battery_indicator` 。"
+
+#: ../hardware/interfaces.rst:101
+msgid "**Speaker and MIC**"
+msgstr "**スピーカー と MIC** "
+
+#: ../hardware/interfaces.rst:94
+msgid "**Speaker**: This is a 2030 audio chamber speaker."
+msgstr "**スピーカー** : これは 2030 オーディオ チャンバー スピーカー です。"
+
+#: ../hardware/interfaces.rst:95
+msgid ""
+"**Speaker Port**: The Fusion HAT+ is equipped with onboard I2S audio "
+"output, along with a 2030 audio chamber speaker, providing a mono sound "
+"output."
+msgstr ""
+"**スピーカー ポート** : Fusion HAT+ は オンボード I2S オーディオ 出力 を 搭載 して おり、 "
+"2030 オーディオ チャンバー スピーカー と 組み合わせる こと で、 モノラル 音声 出力 を 提供 します。"
+
+#: ../hardware/interfaces.rst:96
+msgid ""
+"**MIC**: The Fusion HAT+ is equipped with a MEMS microphone, which can be"
+" used to collect ambient sound."
+msgstr ""
+"**MIC** : Fusion HAT+ は MEMS マイク を 搭載 して おり、 周囲 の 音 を 収音 する ため に 使用 できます。"
+
+#: ../hardware/interfaces.rst:97
+msgid "Pin: :ref:`fh_pin_v0_speaker`."
+msgstr "ピン : :ref:`fh_pin_v0_speaker` 。"
+
+#: ../hardware/interfaces.rst:98
+msgid "API: :class:`fusion_hat.music.Music`."
+msgstr "API : :class:`fusion_hat.music.Music` 。"
+
+#: ../hardware/interfaces.rst:104
+msgid "Pin Mapping"
+msgstr "ピン マッピング"
+
+#: ../hardware/interfaces.rst:106
+msgid "Raspberry Pi IO"
+msgstr "Raspberry Pi IO"
+
+#: ../hardware/interfaces.rst:110 ../hardware/interfaces.rst:113
+#: ../hardware/interfaces.rst:208 ../hardware/interfaces.rst:284
+msgid "Fusion HAT+"
+msgstr "Fusion HAT+"
+
+#: ../hardware/interfaces.rst:111 ../hardware/interfaces.rst:112
+#: ../hardware/interfaces.rst:209 ../hardware/interfaces.rst:285
+#: ../hardware/interfaces.rst:352
+msgid "Raspberry Pi"
+msgstr "Raspberry Pi"
+
+#: ../hardware/interfaces.rst:114 ../hardware/interfaces.rst:186
+msgid "POWER OFF DETECT*"
+msgstr "POWER OFF DETECT* "
+
+#: ../hardware/interfaces.rst:115 ../hardware/interfaces.rst:147
+#: ../hardware/interfaces.rst:296
+msgid "3V3"
+msgstr "3V3"
+
+#: ../hardware/interfaces.rst:116 ../hardware/interfaces.rst:117
+#: ../hardware/interfaces.rst:120 ../hardware/interfaces.rst:121
+msgid "5V"
+msgstr "5V"
+
+#: ../hardware/interfaces.rst:118 ../hardware/interfaces.rst:119
+msgid "SDA"
+msgstr "SDA"
+
+#: ../hardware/interfaces.rst:122 ../hardware/interfaces.rst:123
+msgid "SCL"
+msgstr "SCL"
+
+#: ../hardware/interfaces.rst:124 ../hardware/interfaces.rst:125
+#: ../hardware/interfaces.rst:130 ../hardware/interfaces.rst:131
+#: ../hardware/interfaces.rst:140 ../hardware/interfaces.rst:141
+#: ../hardware/interfaces.rst:152 ../hardware/interfaces.rst:153
+#: ../hardware/interfaces.rst:162 ../hardware/interfaces.rst:163
+#: ../hardware/interfaces.rst:172 ../hardware/interfaces.rst:173
+#: ../hardware/interfaces.rst:180 ../hardware/interfaces.rst:181
+#: ../hardware/interfaces.rst:190 ../hardware/interfaces.rst:191
+#: ../hardware/interfaces.rst:298
+msgid "GND"
+msgstr "GND"
+
+#: ../hardware/interfaces.rst:126
+msgid "DIGITAL 4"
+msgstr "DIGITAL 4"
+
+#: ../hardware/interfaces.rst:127 ../hardware/interfaces.rst:215
+msgid "GPIO4"
+msgstr "GPIO4"
+
+#: ../hardware/interfaces.rst:128 ../hardware/interfaces.rst:129
+msgid "TXD"
+msgstr "TXD"
+
+#: ../hardware/interfaces.rst:132 ../hardware/interfaces.rst:133
+msgid "RXD"
+msgstr "RXD"
+
+#: ../hardware/interfaces.rst:134
+msgid "DIGITAL 17"
+msgstr "DIGITAL 17"
+
+#: ../hardware/interfaces.rst:135 ../hardware/interfaces.rst:212
+msgid "GPIO17"
+msgstr "GPIO17"
+
+#: ../hardware/interfaces.rst:136 ../hardware/interfaces.rst:356
+msgid "GPIO18"
+msgstr "GPIO18"
+
+#: ../hardware/interfaces.rst:137
+msgid "I2S BCLK"
+msgstr "I2S BCLK"
+
+#: ../hardware/interfaces.rst:138
+msgid "DIGITAL 27"
+msgstr "DIGITAL 27"
+
+#: ../hardware/interfaces.rst:139 ../hardware/interfaces.rst:218
+msgid "GPIO27"
+msgstr "GPIO27"
+
+#: ../hardware/interfaces.rst:142
+msgid "DIGITAL 22"
+msgstr "DIGITAL 22"
+
+#: ../hardware/interfaces.rst:143 ../hardware/interfaces.rst:221
+msgid "GPIO22"
+msgstr "GPIO22"
+
+#: ../hardware/interfaces.rst:144
+msgid "GPIO23"
+msgstr "GPIO23"
+
+#: ../hardware/interfaces.rst:145 ../hardware/interfaces.rst:149
+#: ../hardware/interfaces.rst:157 ../hardware/interfaces.rst:165
+#: ../hardware/interfaces.rst:166 ../hardware/interfaces.rst:169
+#: ../hardware/interfaces.rst:170 ../hardware/interfaces.rst:177
+#: ../hardware/interfaces.rst:178 ../hardware/interfaces.rst:185
+msgid "NC"
+msgstr "NC"
+
+#: ../hardware/interfaces.rst:146
+msgid "ID EEPROM"
+msgstr "ID EEPROM"
+
+#: ../hardware/interfaces.rst:148
+msgid "GPIO24"
+msgstr "GPIO24"
+
+#: ../hardware/interfaces.rst:150
+msgid "SPI MOSI / WS2812 DOUT"
+msgstr "SPI MOSI / WS2812 DOUT"
+
+#: ../hardware/interfaces.rst:151
+msgid "MOSI"
+msgstr "MOSI"
+
+#: ../hardware/interfaces.rst:154
+msgid "SPI MISO"
+msgstr "SPI MISO"
+
+#: ../hardware/interfaces.rst:155
+msgid "MISO"
+msgstr "MISO"
+
+#: ../hardware/interfaces.rst:156
+msgid "GPIO25"
+msgstr "GPIO25"
+
+#: ../hardware/interfaces.rst:158
+msgid "SPI SCLK"
+msgstr "SPI SCLK"
+
+#: ../hardware/interfaces.rst:159 ../hardware/interfaces.rst:355
+msgid "SCLK"
+msgstr "SCLK"
+
+#: ../hardware/interfaces.rst:160
+msgid "CE0"
+msgstr "CE0"
+
+#: ../hardware/interfaces.rst:161
+msgid "SPI CE0"
+msgstr "SPI CE0"
+
+#: ../hardware/interfaces.rst:164
+msgid "CE1"
+msgstr "CE1"
+
+#: ../hardware/interfaces.rst:167
+msgid "ID_SD"
+msgstr "ID_SD"
+
+#: ../hardware/interfaces.rst:168
+msgid "ID_SC"
+msgstr "ID_SC"
+
+#: ../hardware/interfaces.rst:171
+msgid "GPIO5"
+msgstr "GPIO5"
+
+#: ../hardware/interfaces.rst:174
+msgid "(SPI)BSY"
+msgstr "(SPI)BSY"
+
+#: ../hardware/interfaces.rst:175 ../hardware/interfaces.rst:287
+msgid "GPIO6"
+msgstr "GPIO6"
+
+#: ../hardware/interfaces.rst:176
+msgid "GPIO12"
+msgstr "GPIO12"
+
+#: ../hardware/interfaces.rst:179
+msgid "GPIO13"
+msgstr "GPIO13"
+
+#: ../hardware/interfaces.rst:182
+msgid "I2S LRCLK"
+msgstr "I2S LRCLK"
+
+#: ../hardware/interfaces.rst:183 ../hardware/interfaces.rst:354
+msgid "GPIO19"
+msgstr "GPIO19"
+
+#: ../hardware/interfaces.rst:184
+msgid "GPIO16"
+msgstr "GPIO16"
+
+#: ../hardware/interfaces.rst:187
+msgid "GPIO26"
+msgstr "GPIO26"
+
+#: ../hardware/interfaces.rst:188 ../hardware/interfaces.rst:360
+msgid "GPIO20"
+msgstr "GPIO20"
+
+#: ../hardware/interfaces.rst:189
+msgid "I2S Speaker Enable"
+msgstr "I2S Speaker Enable"
+
+#: ../hardware/interfaces.rst:192 ../hardware/interfaces.rst:358
+msgid "GPIO21"
+msgstr "GPIO21"
+
+#: ../hardware/interfaces.rst:193
+msgid "I2S DATAOUT"
+msgstr "I2S DATAOUT"
+
+#: ../hardware/interfaces.rst:198 ../hardware/interfaces.rst:204
+msgid "Digital IO"
+msgstr "デジタル IO"
+
+#: ../hardware/interfaces.rst:200
+msgid "Fusion HAT+ has 4 sets of P2.54 3Pin digital pins."
+msgstr "Fusion HAT+ には、 P2.54 3 ピン の デジタル ピン が 4 セット あります。"
+
+#: ../hardware/interfaces.rst:211
+msgid "17"
+msgstr "17"
+
+#: ../hardware/interfaces.rst:214
+msgid "4"
+msgstr "4"
+
+#: ../hardware/interfaces.rst:217
+msgid "27"
+msgstr "27"
+
+#: ../hardware/interfaces.rst:220
+msgid "22"
+msgstr "22"
+
+#: ../hardware/interfaces.rst:229
+msgid "ADC"
+msgstr "ADC"
+
+#: ../hardware/interfaces.rst:233
+msgid ""
+"The Fusion HAT+ features four sets of 3 Pin ADC (Analog to Digital "
+"Converter) pins, each spaced 2.54mm apart. These pins operate at a 3.3V "
+"power supply. The ADC function, offering 12-bit precision, is facilitated"
+" by an onboard microcontroller. Detailed instructions for reading ADC "
+"values are provided in the :ref:`on_board_mcu` section."
+msgstr ""
+"Fusion HAT+ は、 2.54mm ピッチ の 3 ピン ADC（ アナログ - デジタル 変換 ） ピン を 4 セット 備えています。 "
+"これら の ピン は 3.3V 電源 で 動作 します。 "
+"12 ビット 精度 の ADC 機能 は オンボード マイクロコントローラ に よって 提供 されます。 "
+"ADC 値 の 読み取り に 関する 詳細 な 手順 は :ref:`on_board_mcu` セクション を 参照 してください。"
+
+#: ../hardware/interfaces.rst:237
+msgid ""
+"Also, ADC channel A4 is connected to the battery through a voltage "
+"divider using resistors, which will be used to measure the battery "
+"voltage to estimate the approximate battery charge."
+msgstr ""
+"また、 ADC チャンネル A4 は 抵抗 に よる 分圧 回路 を 介して バッテリー に 接続 されて おり、 "
+"バッテリー 電圧 を 測定 して おおよその 残量 を 推定 する ため に 使用 されます。"
+
+#: ../hardware/interfaces.rst:240
+msgid "The voltage divider ratio is 200K/100K, so:"
+msgstr "分圧 比 は 200K/100K の ため、 次 の ように なります："
+
+#: ../hardware/interfaces.rst:242
+msgid "A4 voltage (Va4) = value_A4 / 4095.0 * 3.3"
+msgstr "A4 電圧（ Va4 ） = value_A4 / 4095.0 * 3.3"
+
+#: ../hardware/interfaces.rst:243
+msgid "Battery voltage (Vbat) = Va4*3"
+msgstr "バッテリー 電圧（ Vbat ） = Va4 * 3"
+
+#: ../hardware/interfaces.rst:244
+msgid "Battery voltage (Vbat) = value_A4 / 4095.0 * 3.3 * 3"
+msgstr "バッテリー 電圧（ Vbat ） = value_A4 / 4095.0 * 3.3 * 3"
+
+#: ../hardware/interfaces.rst:249 ../hardware/interfaces.rst:383
+msgid "PWM"
+msgstr "PWM"
+
+#: ../hardware/interfaces.rst:253
+msgid ""
+"Fusion HAT+ has 4 sets of 3 Pin PWM pins, each spaced 2.54mm apart, and "
+"the power supply is 5V. The method of using the PWM is described in "
+"detail in :ref:`on_board_mcu`."
+msgstr ""
+"Fusion HAT+ には、 2.54mm ピッチ の 3 ピン PWM ピン が 4 セット あり、 電源 は 5V です。 "
+"PWM の 使用 方法 は :ref:`on_board_mcu` で 詳しく 説明 しています。"
+
+#: ../hardware/interfaces.rst:256
+msgid "PWM4 ~ 11 channels are used for motor drive."
+msgstr "PWM4～11 チャンネル は モーター 駆動 に 使用 されます。"
+
+#: ../hardware/interfaces.rst:261
+msgid "I2C"
+msgstr "I2C"
+
+#: ../hardware/interfaces.rst:265
+msgid ""
+"The Fusion HAT+ has two I2C interfaces. One is the P2.54 4-pin interface,"
+" and the other is the SH1.0 4-pin interface, which is compatible with "
+"QWIIC and STEMMA QT. These I2C interfaces are connected to the Raspberry "
+"Pi's I2C interface via GPIO2 (SDA) and GPIO3 (SCL). The board also "
+"features an :ref:`on_board_mcu`, and the two signal lines have 10K pull-"
+"up resistors."
+msgstr ""
+"Fusion HAT+ には 2 つ の I2C インターフェース が あります。 "
+"1 つ は P2.54 4 ピン インターフェース、 もう 1 つ は QWIIC と STEMMA QT に 互換 の SH1.0 4 ピン "
+"インターフェース です。 "
+"これら の I2C インターフェース は、 GPIO2（ SDA ） と GPIO3（ SCL ） を 介して "
+"Raspberry Pi の I2C インターフェース に 接続 されています。 "
+"ボード に は :ref:`on_board_mcu` も 搭載 されて おり、 2 本 の 信号 ライン に は 10K の プルアップ 抵抗 が "
+"入っています。"
+
+#: ../hardware/interfaces.rst:272 ../hardware/interfaces.rst:280
+msgid "SPI"
+msgstr "SPI"
+
+#: ../hardware/interfaces.rst:276
+msgid ""
+"The SPI interface of the Fusion HAT+ is a 7-pin P2.54 interface. It "
+"connects to the SPI interface of the Raspberry Pi and includes an "
+"additional I/O pin that can be used for purposes such as interrupts or "
+"resets."
+msgstr ""
+"Fusion HAT+ の SPI インターフェース は、 7 ピン の P2.54 インターフェース です。 "
+"Raspberry Pi の SPI インターフェース に 接続 され、 割り込み や リセット など の 用途 に 使える 追加 の I/O ピン も "
+"含まれています。"
+
+#: ../hardware/interfaces.rst:286
+msgid "BSY"
+msgstr "BSY"
+
+#: ../hardware/interfaces.rst:288
+msgid "CS"
+msgstr "CS"
+
+#: ../hardware/interfaces.rst:289
+msgid "CE0(GPIO8)"
+msgstr "CE0（ GPIO8 ）"
+
+#: ../hardware/interfaces.rst:290
+msgid "SCK"
+msgstr "SCK"
+
+#: ../hardware/interfaces.rst:291
+msgid "SCLK(GPIO11)"
+msgstr "SCLK（ GPIO11 ）"
+
+#: ../hardware/interfaces.rst:292
+msgid "MI"
+msgstr "MI"
+
+#: ../hardware/interfaces.rst:293
+msgid "MISO(GPIO9)"
+msgstr "MISO（ GPIO9 ）"
+
+#: ../hardware/interfaces.rst:294
+msgid "MO"
+msgstr "MO"
+
+#: ../hardware/interfaces.rst:295
+msgid "MOSI(GPIO10)"
+msgstr "MOSI（ GPIO10 ）"
+
+#: ../hardware/interfaces.rst:297
+msgid "3.3V Power"
+msgstr "3.3V 電源"
+
+#: ../hardware/interfaces.rst:299
+msgid "Ground"
+msgstr "GND（ グランド ）"
+
+#: ../hardware/interfaces.rst:304
+msgid "UART"
+msgstr "UART"
+
+#: ../hardware/interfaces.rst:308
+msgid ""
+"The UART interface of the Fusion HAT+ is a 4-pin P2.54 interface. It "
+"connects to the Raspberry Pi's GPIO14 (TXD) and GPIO15 (RXD) pins."
+msgstr ""
+"Fusion HAT+ の UART インターフェース は、 4 ピン の P2.54 インターフェース です。 "
+"Raspberry Pi の GPIO14（ TXD ） および GPIO15（ RXD ） ピン に 接続 されます。"
+
+#: ../hardware/interfaces.rst:316
+msgid "WS2812 Port"
+msgstr "WS2812 ポート"
+
+#: ../hardware/interfaces.rst:320
+msgid ""
+"The Fusion HAT+ comes with 1 WS2812 port (ZH1.5 3 Pin), which can be used"
+" to control 1 WS2812 LED strip."
+msgstr ""
+"Fusion HAT+ には 1 つ の WS2812 ポート（ ZH1.5 3 ピン ） が あり、 "
+"WS2812 LED ストリップ を 1 本 制御 できます。"
+
+#: ../hardware/interfaces.rst:322
+msgid ""
+"This Pin is shared with SPI MOSI, so it can not be used as SPI MOSI at "
+"the same time."
+msgstr ""
+"この ピン は SPI MOSI と 共有 されて いる ため、 同時 に SPI MOSI として 使用 する こと は できません。"
+
+#: ../hardware/interfaces.rst:328
+msgid "User Button & LED"
+msgstr "ユーザー ボタン と LED"
+
+#: ../hardware/interfaces.rst:332
+msgid ""
+"The Fusion HAT+ comes with 1 LED and 1 button which are connected to and "
+"controlled by the I2C chip."
+msgstr ""
+"Fusion HAT+ には 1 つ の LED と 1 つ の ボタン が 搭載 されて おり、 これら は I2C チップ に 接続 され、 "
+"制御 されます。"
+
+#: ../hardware/interfaces.rst:338
+msgid "Speaker and MIC"
+msgstr "スピーカー と MIC"
+
+#: ../hardware/interfaces.rst:343
+msgid ""
+"The Fusion HAT+ is equipped with onboard I2S audio output/input, along "
+"with a 2030 audio chamber speaker, providing a mono sound output. The "
+"onboard microphone can be used to receive audio signals."
+msgstr ""
+"Fusion HAT+ は オンボード I2S オーディオ 出力 / 入力 を 搭載 して おり、 "
+"2030 オーディオ チャンバー スピーカー と ともに モノラル 音声 出力 を 提供 します。 "
+"オンボード マイク は 音声 信号 の 入力 に 使用 できます。"
+
+#: ../hardware/interfaces.rst:347 ../hardware/interfaces.rst:351
+msgid "I2S"
+msgstr "I2S"
+
+#: ../hardware/interfaces.rst:353
+msgid "WS"
+msgstr "WS"
+
+#: ../hardware/interfaces.rst:357
+msgid "Audio OUT (Speaker)"
+msgstr "Audio OUT（ Speaker ）"
+
+#: ../hardware/interfaces.rst:359
+msgid "Aduio IN (MIC)"
+msgstr "Audio IN（ MIC ）"
+
+#: ../hardware/interfaces.rst:363
+msgid ""
+"If you intend to repurpose the GPIO pins without using the audio "
+"functionality, you can simply disconnect the integrated speaker and "
+"microphone via a switch. It is crucial to ensure that this disconnection "
+"is performed only when the audio components are inactive. Furthermore, "
+"you should never manipulate the WS and SCLK pins while any audio "
+"component is active."
+msgstr ""
+"音声 機能 を 使用 せず に GPIO ピン を 別用途 に 使いたい 場合 は、 "
+"スイッチ に よって 内蔵 スピーカー と マイク を 切り離す だけ で 対応 できます。 "
+"この 切り離し は、 音声 コンポーネント が 非アクティブ の とき に のみ 行う こと が 重要 です。 "
+"さらに、 いずれか の 音声 コンポーネント が 動作 中 は、 WS と SCLK ピン を 絶対 に 操作 しない で ください。"
+
+#: ../hardware/interfaces.rst:372
+msgid "Motor Port"
+msgstr "モーター ポート"
+
+#: ../hardware/interfaces.rst:374
+msgid ""
+"The motor driver of the Fusion HAT+ supports 4 channels and can be "
+"controlled using 8 PWM signals for direction and speed control."
+msgstr ""
+"Fusion HAT+ の モーター ドライバ は 4 チャンネル を サポート し、 "
+"方向 と 速度 制御 の ため に 8 本 の PWM 信号 で 制御 できます。"
+
+#: ../hardware/interfaces.rst:378
+msgid "Motor Driver"
+msgstr "モーター ドライバ"
+
+#: ../hardware/interfaces.rst:382
+msgid "Motor"
+msgstr "モーター"
+
+#: ../hardware/interfaces.rst:384
+msgid "Motor0 A"
+msgstr "Motor0 A"
+
+#: ../hardware/interfaces.rst:385
+msgid "PWM11"
+msgstr "PWM11"
+
+#: ../hardware/interfaces.rst:386
+msgid "Motor0 B"
+msgstr "Motor0 B"
+
+#: ../hardware/interfaces.rst:387
+msgid "PWM10"
+msgstr "PWM10"
+
+#: ../hardware/interfaces.rst:388
+msgid "Motor1 A"
+msgstr "Motor1 A"
+
+#: ../hardware/interfaces.rst:389
+msgid "PWM9"
+msgstr "PWM9"
+
+#: ../hardware/interfaces.rst:390
+msgid "Motor1 B"
+msgstr "Motor1 B"
+
+#: ../hardware/interfaces.rst:391
+msgid "PWM8"
+msgstr "PWM8"
+
+#: ../hardware/interfaces.rst:392
+msgid "Motor2 A"
+msgstr "Motor2 A"
+
+#: ../hardware/interfaces.rst:393
+msgid "PWM7"
+msgstr "PWM7"
+
+#: ../hardware/interfaces.rst:394
+msgid "Motor2 B"
+msgstr "Motor2 B"
+
+#: ../hardware/interfaces.rst:395
+msgid "PWM6"
+msgstr "PWM6"
+
+#: ../hardware/interfaces.rst:396
+msgid "Motor3 A"
+msgstr "Motor3 A"
+
+#: ../hardware/interfaces.rst:397
+msgid "PWM5"
+msgstr "PWM5"
+
+#: ../hardware/interfaces.rst:398
+msgid "Motor3 B"
+msgstr "Motor3 B"
+
+#: ../hardware/interfaces.rst:399
+msgid "PWM4"
+msgstr "PWM4"
+
+#: ../hardware/interfaces.rst:402
+msgid "The motor drive mode is as follow."
+msgstr "モーター 駆動 モード は 次 の とおり です。"
+
+#: ../hardware/interfaces.rst:404
+msgid "Motor Drive Mode"
+msgstr "モーター 駆動 モード"
+
+#: ../hardware/interfaces.rst:408
+msgid "A"
+msgstr "A"
+
+#: ../hardware/interfaces.rst:409
+msgid "B"
+msgstr "B"
+
+#: ../hardware/interfaces.rst:410
+msgid "Direction"
+msgstr "方向"
+
+#: ../hardware/interfaces.rst:411 ../hardware/interfaces.rst:412
+#: ../hardware/interfaces.rst:415 ../hardware/interfaces.rst:417
+msgid "0"
+msgstr "0"
+
+#: ../hardware/interfaces.rst:413
+msgid "Standby"
+msgstr "スタンバイ"
+
+#: ../hardware/interfaces.rst:414 ../hardware/interfaces.rst:418
+#: ../hardware/interfaces.rst:420 ../hardware/interfaces.rst:421
+msgid "PWM Value"
+msgstr "PWM 値"
+
+#: ../hardware/interfaces.rst:416
+msgid "Forward"
+msgstr "前進"
+
+#: ../hardware/interfaces.rst:419
+msgid "Reverse"
+msgstr "逆転"
+
+#: ../hardware/interfaces.rst:422
+msgid "Brake"
+msgstr "ブレーキ"
+
+#: ../hardware/interfaces.rst:427
+msgid "Power Button & PWR Indicator"
+msgstr "電源 ボタン と PWR インジケーター"
+
+#: ../hardware/interfaces.rst:432
+msgid ""
+"Pressing the power button once will turn on the Raspberry Pi, and the PWR"
+" indicator will light up."
+msgstr ""
+"電源 ボタン を 1 回 押す と Raspberry Pi が 起動 し、 PWR インジケーター が 点灯 します。"
+
+#: ../hardware/interfaces.rst:433
+msgid ""
+"Holding the power button for 2 seconds sends a shutdown signal to the "
+"Raspberry Pi. If it is properly configured, the Raspberry Pi will shut "
+"down and the PWR indicator will turn off."
+msgstr ""
+"電源 ボタン を 2 秒 間 長押し すると Raspberry Pi に シャットダウン 信号 が 送られます。 "
+"適切 に 設定 されて いれば、 Raspberry Pi は シャットダウン し、 PWR インジケーター は 消灯 します。"
+
+#: ../hardware/interfaces.rst:434
+msgid ""
+"Holding the power button for 5 seconds forces a shutdown, and the PWR "
+"indicator will turn off immediately."
+msgstr ""
+"電源 ボタン を 5 秒 間 長押し すると 強制 シャットダウン が 行われ、 PWR インジケーター は 直ちに 消灯 します。"
+
+#: ../hardware/interfaces.rst:436
+msgid ""
+"Additionally, the Fusion HAT+ features a :ref:`safe_shutdown` mechanism. "
+"It performs a software shutdown by reading the microcontroller’s register"
+" status via I2C. To enable this feature, you need to configure the "
+"Raspberry Pi's shutdown signal pin and run the corresponding code on the "
+"Raspberry Pi."
+msgstr ""
+"さらに、 Fusion HAT+ には :ref:`safe_shutdown` 機構 が 搭載 されています。 "
+"I2C を 介して マイクロコントローラ の レジスタ 状態 を 読み取り、 ソフトウェア シャットダウン を 実行 します。 "
+"この 機能 を 有効 に する に は、 Raspberry Pi の シャットダウン 信号 ピン を 設定 し、 "
+"Raspberry Pi 上 で 対応 する コード を 実行 する 必要 が あります。"
+
+#: ../hardware/interfaces.rst:443
+msgid "Battery Level Indicator"
+msgstr "バッテリー 残量 インジケーター"
+
+#: ../hardware/interfaces.rst:448
+msgid ""
+"The battery level indicator on the Fusion HAT+ monitors the battery "
+"voltage using a voltage divider method and serves as a reference for "
+"estimating the battery level. The relationship between the LED and "
+"voltage is as follows:"
+msgstr ""
+"Fusion HAT+ の バッテリー 残量 インジケーター は、 分圧 方式 を 用いて バッテリー 電圧 を 監視 し、 "
+"残量 推定 の 目安 として 使用 されます。 LED と 電圧 の 関係 は 次 の とおり です："
+
+#: ../hardware/interfaces.rst:451
+msgid "Battery Level"
+msgstr "バッテリー 残量"
+
+#: ../hardware/interfaces.rst:455
+msgid "LED Battery"
+msgstr "LED（ バッテリー ）"
+
+#: ../hardware/interfaces.rst:456
+msgid "Total Voltage"
+msgstr "合計 電圧"
+
+#: ../hardware/interfaces.rst:457
+msgid "2 LEDs on"
+msgstr "LED 2 個 点灯"
+
+#: ../hardware/interfaces.rst:458
+msgid "Greater than 7.4V"
+msgstr "7.4V より 大きい"
+
+#: ../hardware/interfaces.rst:459
+msgid "1 LED on"
+msgstr "LED 1 個 点灯"
+
+#: ../hardware/interfaces.rst:460
+msgid "Greater than 6.5V"
+msgstr "6.5V より 大きい"
+
+#: ../hardware/interfaces.rst:461
+msgid "Both LEDs off"
+msgstr "両方 の LED 消灯"
+
+#: ../hardware/interfaces.rst:462
+msgid "Less than 6.5V"
+msgstr "6.5V 未満"
+
+#: ../hardware/interfaces.rst:464
+msgid ""
+"When charging, the battery indicator lights will flash. The charging "
+"status can be read via I2C by accessing the microcontroller. See "
+":ref:`charging_status` for details."
+msgstr ""
+"充電 中 は、 バッテリー インジケーター ライト が 点滅 します。 "
+"充電 状態 は、 マイクロコントローラ に アクセス する こと で I2C 経由 で 読み取れます。 "
+"詳しく は :ref:`charging_status` を 参照 してください。"
+
+#: ../hardware/interfaces.rst:467
+msgid ""
+"When any one of the batteries reaches or exceeds 4.1V while the others "
+"are below that threshold, the charging current of that specific battery "
+"will be reduced."
+msgstr ""
+"いずれか 1 本 の バッテリー が 4.1V に 達する、 または 4.1V を 超え、 ほか の バッテリー が その 閾値 未満 の 場合、 "
+"その バッテリー の 充電 電流 は 低減 されます。"
+
+#: ../hardware/interfaces.rst:475
+msgid "Servo Zeroing Button"
+msgstr "サーボ ゼロ 調整 ボタン"
+
+#: ../hardware/interfaces.rst:479
+msgid "The servo zeroing button is used to calibrate the servo's zero position."
+msgstr "サーボ ゼロ 調整 ボタン は、 サーボ の ゼロ 位置 を キャリブレーション する ため に 使用 します。"
+
+#: ../hardware/interfaces.rst:481
+msgid ""
+"The PWM interface supports servo zeroing control, making it convenient "
+"for robot assembly. Servo zeroing sets all PWM interfaces to a 1500 µs "
+"pulse width with a 20,000 µs period, which moves the servos to the 90° "
+"position. It is recommended to disconnect other PWM devices before "
+"entering the servo zeroing mode."
+msgstr ""
+"PWM インターフェース は サーボ の ゼロ 調整 制御 を サポート して おり、 ロボット 組み立て に 便利 です。 "
+"サーボ ゼロ 調整 では、 すべて の PWM インターフェース を 周期 20,000 µs、 パルス 幅 1500 µs に 設定 し、 "
+"サーボ を 90° 位置 に 移動 させます。 "
+"サーボ ゼロ 調整 モード に 入る 前 に、 ほか の PWM デバイス を 切り離す こと を 推奨 します。"
+
+#: ../hardware/interfaces.rst:483
+msgid ""
+"When you press the button twice, all the PWM signals will be set to "
+"1500us pulse, 20000us period. That is, the servo will be in the middle "
+"position. You should secure the servo arm to the servo in this state."
+msgstr ""
+"ボタン を 2 回 押す と、 すべて の PWM 信号 が パルス 幅 1500us、 周期 20000us に 設定 されます。 "
+"つまり、 サーボ は 中央 位置 に なります。 この 状態 で サーボ アーム を サーボ に 固定 してください。"
+
+#: ../hardware/interfaces.rst:484
+msgid "Press the button twice again, all the PWM signals will be set to 0 pulse."
+msgstr "もう一度 ボタン を 2 回 押す と、 すべて の PWM 信号 は 0 パルス に 設定 されます。"

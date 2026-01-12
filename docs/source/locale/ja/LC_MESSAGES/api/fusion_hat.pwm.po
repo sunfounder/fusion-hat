@@ -1,0 +1,221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.pwm.rst:2
+msgid "fusion\\_hat.pwm module"
+msgstr "fusion\\_hat.pwm モジュール"
+
+#: fusion_hat.pwm:1 fusion_hat.pwm.PWM:1 of
+msgid "PWM class to control a single PWM channel"
+msgstr "単一 の PWM チャンネル を 制御 する PWM クラス"
+
+#: fusion_hat.pwm:4 of
+msgid "サンプル"
+msgstr ""
+
+#: fusion_hat.pwm:5 of
+#, python-format
+msgid "Simple example to control PWM channel 0 at 50Hz with 50% duty cycle."
+msgstr "50Hz 、 デューティ サイクル 50% で PWM チャンネル 0 を 制御 する シンプル な 例 。"
+
+#: fusion_hat.pwm:12 of
+msgid ""
+"Advanced example to control PWM channel with 50 Hz frequency, 20000us and"
+" pulse width 500-2500us for servos."
+msgstr ""
+"サーボ 用 に 周波数 50 Hz 、 周期 20000us 、 パルス 幅 500-2500us で PWM チャンネル を 制御 する 高度 "
+"な 例 。"
+
+#: fusion_hat.pwm.PWM:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`~fusion_hat._base._Base`"
+msgstr "基底 クラス : :py:class:`~fusion_hat._base._Base`"
+
+#: fusion_hat.pwm.PWM fusion_hat.pwm.PWM.duty_cycle fusion_hat.pwm.PWM.enable
+#: fusion_hat.pwm.PWM.freq fusion_hat.pwm.PWM.period
+#: fusion_hat.pwm.PWM.pulse_width fusion_hat.pwm.PWM.pulse_width_percent
+#: fusion_hat.pwm.PWM.write_duty_cycle fusion_hat.pwm.PWM.write_period of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.pwm.PWM:3 of
+msgid "PWM channel number(0-11/P0-P11)"
+msgstr "PWM チャンネル 番号 (0-11 / P0-P11)"
+
+#: fusion_hat.pwm.PWM:5 of
+msgid "PWM frequency, default is 50Hz"
+msgstr "PWM 周波数 。 デフォルト は 50Hz"
+
+#: fusion_hat.pwm.PWM:7 of
+msgid "I2C address, default is 0x17"
+msgstr "I2C アドレス 。 デフォルト は 0x17"
+
+#: fusion_hat.pwm.PWM:9 of
+msgid "Additional arguments for :class:`fusion_hat._i2c.I2C`"
+msgstr ":class:`fusion_hat._i2c.I2C` へ 渡す 追加 引数"
+
+#: fusion_hat.pwm.PWM:10 of
+msgid "Additional keyword arguments for :class:`fusion_hat._i2c.I2C`"
+msgstr ":class:`fusion_hat._i2c.I2C` へ 渡す 追加 キーワード 引数"
+
+#: fusion_hat.pwm.PWM of
+msgid "例外"
+msgstr ""
+
+#: fusion_hat.pwm.PWM:12 of
+msgid "Invalid channel number"
+msgstr "無効 な チャンネル 番号"
+
+#: fusion_hat.pwm.PWM.enable:1 of
+msgid "Enable/disable PWM channel"
+msgstr "PWM チャンネル を 有効 / 無効 に する"
+
+#: fusion_hat.pwm.PWM.enable:3 of
+msgid "enable or disable, default is True"
+msgstr "有効 または 無効 。 デフォルト は True"
+
+#: fusion_hat.pwm.PWM.read_period:1 of
+msgid "Get period in ms"
+msgstr "周期 を ms 単位 で 取得 する"
+
+#: fusion_hat.pwm.PWM.duty_cycle fusion_hat.pwm.PWM.freq
+#: fusion_hat.pwm.PWM.period fusion_hat.pwm.PWM.pulse_width
+#: fusion_hat.pwm.PWM.pulse_width_percent fusion_hat.pwm.PWM.read_duty_cycle
+#: fusion_hat.pwm.PWM.read_period of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat.pwm.PWM.read_period:3 fusion_hat.pwm.PWM.write_period:3 of
+msgid "period in ms"
+msgstr "ms 単位 の 周期"
+
+#: fusion_hat.pwm.PWM.duty_cycle fusion_hat.pwm.PWM.freq
+#: fusion_hat.pwm.PWM.period fusion_hat.pwm.PWM.pulse_width
+#: fusion_hat.pwm.PWM.pulse_width_percent fusion_hat.pwm.PWM.read_duty_cycle
+#: fusion_hat.pwm.PWM.read_period of
+msgid "戻り値の型"
+msgstr ""
+
+#: fusion_hat.pwm.PWM.write_period:1 of
+msgid "Set period in ms"
+msgstr "周期 を ms 単位 で 設定 する"
+
+#: fusion_hat.pwm.PWM.read_duty_cycle:1 of
+msgid "Get duty cycle in ms"
+msgstr "デューティ サイクル を ms 単位 で 取得 する"
+
+#: fusion_hat.pwm.PWM.read_duty_cycle:3 fusion_hat.pwm.PWM.write_duty_cycle:3
+#: of
+msgid "duty cycle in ms"
+msgstr "ms 単位 の デューティ サイクル"
+
+#: fusion_hat.pwm.PWM.write_duty_cycle:1 of
+msgid "Set duty cycle in ms"
+msgstr "デューティ サイクル を ms 単位 で 設定 する"
+
+#: fusion_hat.pwm.PWM.freq:1 of
+msgid "Set/get frequency, leave blank to get frequency"
+msgstr "周波数 を 設定 / 取得 する 。 空欄 の 場合 は 周波数 を 取得"
+
+#: fusion_hat.pwm.PWM.freq:3 of
+msgid "frequency(0-65535)(Hz), default is 50Hz"
+msgstr "周波数 (0-65535) (Hz) 。 デフォルト は 50Hz"
+
+#: fusion_hat.pwm.PWM.freq:6 of
+msgid "frequency"
+msgstr "周波数"
+
+#: fusion_hat.pwm.PWM.prescaler:1 of
+msgid "[Deprecated] Set/get prescaler, leave blank to get prescaler"
+msgstr "[非推奨] プリスケーラ を 設定 / 取得 する 。 空欄 の 場合 は プリスケーラ を 取得"
+
+#: fusion_hat.pwm.PWM.period:1 of
+msgid "Set/get period, leave blank to get period"
+msgstr "周期 を 設定 / 取得 する 。 空欄 の 場合 は 周期 を 取得"
+
+#: fusion_hat.pwm.PWM.period:3 of
+msgid "period(0-65535), default is 0"
+msgstr "周期 (0-65535) 。 デフォルト は 0"
+
+#: fusion_hat.pwm.PWM.period:5 of
+msgid "Whether to write period directly, default is False"
+msgstr "周期 を 直接 書き込む か どうか 。 デフォルト は False"
+
+#: fusion_hat.pwm.PWM.period:8 of
+msgid "period"
+msgstr "周期"
+
+#: fusion_hat.pwm.PWM.duty_cycle:1 of
+msgid "Set/get duty cycle, in ms"
+msgstr "デューティ サイクル を ms 単位 で 設定 / 取得 する"
+
+#: fusion_hat.pwm.PWM.duty_cycle:3 fusion_hat.pwm.PWM.duty_cycle:6 of
+msgid "duty cycle"
+msgstr "デューティ サイクル"
+
+#: fusion_hat.pwm.PWM.pulse_width:1 of
+msgid "Set/get pulse width, in ms"
+msgstr "パルス 幅 を ms 単位 で 設定 / 取得 する"
+
+#: fusion_hat.pwm.PWM.pulse_width:3 of
+msgid "pulse width in ms"
+msgstr "ms 単位 の パルス 幅"
+
+#: fusion_hat.pwm.PWM.pulse_width:6 of
+msgid "pulse width"
+msgstr "パルス 幅"
+
+#: fusion_hat.pwm.PWM.pulse_width_percent:1 of
+msgid "Set/get pulse width percentage, leave blank to get pulse width percentage"
+msgstr "パルス 幅 の 割合 を 設定 / 取得 する 。 空欄 の 場合 は 割合 を 取得"
+
+#: fusion_hat.pwm.PWM.pulse_width_percent:3 of
+msgid "pulse width percentage(0-100), default is 0"
+msgstr "パルス 幅 の 割合 (0-100) 。 デフォルト は 0"
+
+#: fusion_hat.pwm.PWM.pulse_width_percent:6 of
+msgid "pulse width percentage"
+msgstr "パルス 幅 の 割合"
+
+#: fusion_hat.pwm.PWM.close:1 of
+msgid "Close PWM channel"
+msgstr "PWM チャンネル を クローズ する"
+
+#: fusion_hat.pwm.PWM.__del__:1 of
+msgid "Close PWM channel when object is deleted"
+msgstr "オブジェクト が 削除 さ れ た 際 に PWM チャンネル を クローズ する"
+
+#~ msgid "Example"
+#~ msgstr "例"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+
+#~ msgid "Raises"
+#~ msgstr "例外"
+
+#~ msgid "Returns"
+#~ msgstr "戻り値"
+
+#~ msgid "Return type"
+#~ msgstr "戻り値 の 型"
+

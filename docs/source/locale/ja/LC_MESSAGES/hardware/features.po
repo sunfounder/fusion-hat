@@ -1,0 +1,396 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../hardware/features.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../hardware/features.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？**"
+
+#: ../hardware/features.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../hardware/features.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../hardware/features.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../hardware/features.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../hardware/features.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../hardware/features.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探求 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../hardware/features.rst:16
+msgid "Features"
+msgstr "特長"
+
+#: ../hardware/features.rst:18
+msgid "Shutdown Current: 40mA"
+msgstr "シャットダウン 電流 : 40mA"
+
+#: ../hardware/features.rst:19
+msgid "Power Input: USB Type-C, 5V/3A"
+msgstr "電源 入力 : USB Type-C、 5V/3A"
+
+#: ../hardware/features.rst:20
+msgid "Charging Power: 7.4V/1.5A 15W"
+msgstr "充電 電力 : 7.4V/1.5A 15W"
+
+#: ../hardware/features.rst:21
+msgid "Output Power: 5V/5A, 3.3V/1A"
+msgstr "出力 電力 : 5V/5A、 3.3V/1A"
+
+#: ../hardware/features.rst:22
+msgid ""
+"Included Batteries: 2 x 3.7V 18650 Lithium-ion Batteries, XH2.54 3P "
+"Interface"
+msgstr ""
+"付属 バッテリー : 3.7V 18650 リチウム イオン バッテリー 2 本、 XH2.54 3P インターフェース"
+
+#: ../hardware/features.rst:23
+msgid "Battery Protection: Reverse polarity protection"
+msgstr "バッテリー 保護 : 逆 極性 保護"
+
+#: ../hardware/features.rst:24
+msgid ""
+"Charging Protection: Input undervoltage protection, input overvoltage "
+"protection, charging balance, overheat protection"
+msgstr ""
+"充電 保護 : 入力 低 電圧 保護、 入力 過 電圧 保護、 充電 バランス、 過熱 保護"
+
+#: ../hardware/features.rst:25
+msgid "Onboard Power Indicator Light: PWR"
+msgstr "オンボード 電源 インジケーター ライト : PWR"
+
+#: ../hardware/features.rst:26
+msgid "Onboard 2 Battery Level Indicator LEDs"
+msgstr "オンボード バッテリー レベル インジケーター LED 2 個"
+
+#: ../hardware/features.rst:27
+msgid "Onboard User LED, 2 tactile switches"
+msgstr "オンボード ユーザー LED、 タクト スイッチ 2 個"
+
+#: ../hardware/features.rst:28
+msgid "Motor Driver: 5V/1.8A x 4"
+msgstr "モーター ドライバ : 5V/1.8A × 4"
+
+#: ../hardware/features.rst:29
+msgid "4-channel 12-bit ADC"
+msgstr "4 チャンネル 12 ビット ADC"
+
+#: ../hardware/features.rst:30
+msgid "12-channel PWM (8-channel shared with motor)"
+msgstr "12 チャンネル PWM （ 8 チャンネル は モーター と 共有 ）"
+
+#: ../hardware/features.rst:31
+msgid "4-channel digital signals"
+msgstr "4 チャンネル デジタル 信号"
+
+#: ../hardware/features.rst:32
+msgid "Onboard SPI interface, UART interface, I2C interface, WS2812 interface"
+msgstr "オンボード SPI インターフェース、 UART インターフェース、 I2C インターフェース、 WS2812 インターフェース"
+
+#: ../hardware/features.rst:33
+msgid "Mono Speaker: 4Ω2.5W"
+msgstr "モノ スピーカー : 4Ω 2.5W"
+
+#: ../hardware/features.rst:34
+msgid "Power Button: Safe shutdown"
+msgstr "電源 ボタン : 安全 シャットダウン"
+
+#: ../hardware/features.rst:35
+msgid "Microphone: Onboard I2S microphone"
+msgstr "マイク : オンボード I2S マイク"
+
+#: ../hardware/features.rst:39
+msgid "Compatibility and Power Notes"
+msgstr "互換性 と 電源 に関する 注意"
+
+#: ../hardware/features.rst:41
+msgid ""
+"The **Fusion HAT+** supports a wide range of commonly used servos and DC "
+"motors, including:"
+msgstr ""
+"**Fusion HAT+** は、 次 の よう な 一般的 に 使用 される サーボ や DC モーター を 幅広く サポート します。"
+
+#: ../hardware/features.rst:43
+msgid "**Micro servos:** SG90, MG90S"
+msgstr "**マイクロ サーボ** : SG90、 MG90S"
+
+#: ../hardware/features.rst:44
+msgid "**Standard servos:** MG996R, DS3218"
+msgstr "**標準 サーボ** : MG996R、 DS3218"
+
+#: ../hardware/features.rst:45
+msgid "**SunFounder custom servos**"
+msgstr "**SunFounder カスタム サーボ** "
+
+#: ../hardware/features.rst:46
+msgid "**Low-current DC motors:** 130 series, N20 series"
+msgstr "**低 電流 DC モーター** : 130 シリーズ、 N20 シリーズ"
+
+#: ../hardware/features.rst:47
+msgid "**SunFounder custom DC motors** with **XH2.54 2-pin connectors**"
+msgstr "**XH2.54 2 ピン コネクタ** 付き の **SunFounder カスタム DC モーター** "
+
+#: ../hardware/features.rst:49
+msgid "**Servo Power (PWM Interface)**"
+msgstr "**サーボ 電源（ PWM インターフェース ）** "
+
+#: ../hardware/features.rst:51
+msgid ""
+"The PWM interface provides up to **5V/5A** maximum output, which is "
+"shared with the Raspberry Pi."
+msgstr ""
+"PWM インターフェース は 最大 **5V/5A** の 出力 を 提供 し、 Raspberry Pi と 共有 されます。"
+
+#: ../hardware/features.rst:53
+msgid "When connecting multiple servos, carefully account for their current draw."
+msgstr "複数 の サーボ を 接続 する 場合 は、 消費 電流 を 十分 に 考慮 してください。"
+
+#: ../hardware/features.rst:54
+msgid ""
+"If the total servo current exceeds 5A, use an **external power supply "
+"(BEC)** to avoid overload and ensure stable operation."
+msgstr ""
+"サーボ の 合計 電流 が 5A を 超える 場合 は、 過負荷 を 防ぎ 安定 動作 を 確保 する ため に "
+"**外部 電源（ BEC ）** を 使用 してください。"
+
+#: ../hardware/features.rst:56
+msgid "**DC Motor Power**"
+msgstr "**DC モーター 電源**"
+
+#: ../hardware/features.rst:58
+msgid "DC motors are powered **directly from the onboard batteries (6–8.4V)**."
+msgstr "DC モーター は **オンボード バッテリー（ 6～8.4V ）** から 直接 電源 供給 されます。"
+
+#: ../hardware/features.rst:60
+msgid "Each motor channel supports up to **1.8A maximum current**."
+msgstr "各 モーター チャンネル は 最大 **1.8A** の 電流 を サポート します。"
+
+#: ../hardware/features.rst:61
+msgid ""
+"Do **not** connect motors with higher current requirements, as this may "
+"damage the motor driver chip."
+msgstr ""
+"より 高い 電流 を 必要 と する モーター は **接続 しない でください**。 "
+"モーター ドライバ チップ が 損傷 する 可能性 が あります。"
+
+#: ../hardware/features.rst:64 ../hardware/features.rst:66
+msgid "Electrical Characteristics"
+msgstr "電気 的 特性"
+
+#: ../hardware/features.rst:70
+msgid "Parameters:"
+msgstr "項目 :"
+
+#: ../hardware/features.rst:71
+msgid "Minimum Value:"
+msgstr "最小 値 :"
+
+#: ../hardware/features.rst:72
+msgid "Typical Value:"
+msgstr "標準 値 :"
+
+#: ../hardware/features.rst:73
+msgid "Maximum Value:"
+msgstr "最大 値 :"
+
+#: ../hardware/features.rst:74
+msgid "Unit:"
+msgstr "単位 :"
+
+#: ../hardware/features.rst:75
+msgid "Input Voltage:"
+msgstr "入力 電圧 :"
+
+#: ../hardware/features.rst:76 ../hardware/features.rst:92
+msgid "4.25"
+msgstr "4.25"
+
+#: ../hardware/features.rst:77
+msgid "5"
+msgstr "5"
+
+#: ../hardware/features.rst:78 ../hardware/features.rst:83
+#: ../hardware/features.rst:87 ../hardware/features.rst:97
+msgid "8.4"
+msgstr "8.4"
+
+#: ../hardware/features.rst:79 ../hardware/features.rst:84
+#: ../hardware/features.rst:89 ../hardware/features.rst:94
+#: ../hardware/features.rst:99 ../hardware/features.rst:114
+#: ../hardware/features.rst:134
+msgid "V"
+msgstr "V"
+
+#: ../hardware/features.rst:80
+msgid "Battery Input Voltage:"
+msgstr "バッテリー 入力 電圧 :"
+
+#: ../hardware/features.rst:81
+msgid "6.0"
+msgstr "6.0"
+
+#: ../hardware/features.rst:82
+msgid "7.4"
+msgstr "7.4"
+
+#: ../hardware/features.rst:85
+msgid "Overcharge Protection (Battery):"
+msgstr "過充電 保護（ バッテリー ）:"
+
+#: ../hardware/features.rst:90
+msgid "Input Undervoltage Protection:"
+msgstr "入力 低 電圧 保護 :"
+
+#: ../hardware/features.rst:91
+msgid "4.15"
+msgstr "4.15"
+
+#: ../hardware/features.rst:93
+msgid "4.35"
+msgstr "4.35"
+
+#: ../hardware/features.rst:95
+msgid "Input Overvoltage Protection:"
+msgstr "入力 過 電圧 保護 :"
+
+#: ../hardware/features.rst:96
+msgid "8.3"
+msgstr "8.3"
+
+#: ../hardware/features.rst:98
+msgid "8.5"
+msgstr "8.5"
+
+#: ../hardware/features.rst:100
+msgid "Charging Current (5V):"
+msgstr "充電 電流（ 5V ）:"
+
+#: ../hardware/features.rst:103
+msgid "1.5"
+msgstr "1.5"
+
+#: ../hardware/features.rst:104 ../hardware/features.rst:109
+#: ../hardware/features.rst:129
+msgid "A"
+msgstr "A"
+
+#: ../hardware/features.rst:105
+msgid "Output Current (5V):"
+msgstr "出力 電流（ 5V ）:"
+
+#: ../hardware/features.rst:108
+msgid "5.0"
+msgstr "5.0"
+
+#: ../hardware/features.rst:110
+msgid "Output Voltage:"
+msgstr "出力 電圧 :"
+
+#: ../hardware/features.rst:111
+msgid "5.197"
+msgstr "5.197"
+
+#: ../hardware/features.rst:112
+msgid "5.285"
+msgstr "5.285"
+
+#: ../hardware/features.rst:113
+msgid "5.376"
+msgstr "5.376"
+
+#: ../hardware/features.rst:115
+msgid "Charging Overheat Protection:"
+msgstr "充電 過熱 保護 :"
+
+#: ../hardware/features.rst:116
+msgid "125"
+msgstr "125"
+
+#: ../hardware/features.rst:117
+msgid "135"
+msgstr "135"
+
+#: ../hardware/features.rst:118
+msgid "145"
+msgstr "145"
+
+#: ../hardware/features.rst:119 ../hardware/features.rst:124
+msgid "°C"
+msgstr "°C"
+
+#: ../hardware/features.rst:120
+msgid "DC-DC Overheat Protection:"
+msgstr "DC-DC 過熱 保護 :"
+
+#: ../hardware/features.rst:123
+msgid "150"
+msgstr "150"
+
+#: ../hardware/features.rst:125
+msgid "Motor Output Current:"
+msgstr "モーター 出力 電流 :"
+
+#: ../hardware/features.rst:128
+msgid "1.8"
+msgstr "1.8"
+
+#: ../hardware/features.rst:130
+msgid "Overdischarge Protectiont:"
+msgstr "過放電 保護 :"
+
+#: ../hardware/features.rst:132
+msgid "6"
+msgstr "6"

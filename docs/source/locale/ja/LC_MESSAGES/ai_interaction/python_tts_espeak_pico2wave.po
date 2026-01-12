@@ -1,0 +1,338 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。SunFounder Raspberry Pi & Arduino & ESP32 "
+"Facebook 愛好家コミュニティへようこそ！ "
+"Raspberry Pi、Arduino、ESP32 について、仲間の愛好家と一緒にさらに深く探求しましょう。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:5
+msgid "**Why Join?**"
+msgstr "**参加する理由** "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的なサポート** ：コミュニティメンバーや公式チームの支援を受けて、"
+"購入後の問題や技術的な課題を解決できます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学びと共有** ：ヒントやチュートリアルを交換し、スキルを向上させましょう。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定先行情報** ：新製品の発表やプレビュー情報をいち早く入手できます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別割引** ：最新製品を対象とした限定割引をお楽しみいただけます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**季節限定プロモーションとプレゼント企画** ："
+"プレゼントキャンペーンや祝日限定のプロモーションに参加できます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たちと一緒に探求し、創造する準備はできましたか？ "
+"[|link_sf_facebook|] をクリックして、今すぐ参加しましょう！"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:16
+msgid "1. TTS with Espeak and Pico2Wave"
+msgstr "1. Espeak と Pico2Wave で TTS"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:18
+msgid ""
+"In this lesson, we'll use two built-in text-to-speech (TTS) engines on "
+"Raspberry Pi — **Espeak** and **Pico2Wave** — to make the Fusion HAT+ "
+"talk."
+msgstr ""
+"このレッスンでは、Raspberry Pi に内蔵されている 2 つのテキスト読み上げ（ TTS ）エンジン — "
+"**Espeak** と **Pico2Wave** — を使って、Fusion HAT+ に話させます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:20
+msgid ""
+"These two engines are both simple and run offline, but they sound quite "
+"different:"
+msgstr ""
+"この 2 つのエンジンはいずれもシンプルでオフライン動作しますが、音声の印象は大きく異なります："
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:22
+msgid ""
+"**Espeak**: very lightweight and fast, but the voice is robotic. You can "
+"adjust speed, pitch, and volume."
+msgstr ""
+"**Espeak** ：非常に軽量で高速ですが、声はロボットのように聞こえます。"
+"速度、ピッチ、音量を調整できます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:23
+msgid ""
+"**Pico2Wave**: produces a smoother and more natural voice than Espeak, "
+"but has fewer options to configure."
+msgstr ""
+"**Pico2Wave** ：Espeak よりも滑らかで自然な音声を生成しますが、設定できるオプションは少なめです。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:25
+msgid "You'll hear the difference in **voice quality** and **features**."
+msgstr "**音質** と **機能** の違いを実際に聞き比べられます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:30
+msgid "1. Testing Espeak"
+msgstr "1. Espeak をテストする"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:32
+msgid ""
+"Espeak is a lightweight TTS engine included in Raspberry Pi OS. Its voice"
+" sounds robotic, but it is highly configurable: you can adjust volume, "
+"pitch, speed, and more."
+msgstr ""
+"Espeak は Raspberry Pi OS に含まれる軽量な TTS エンジンです。"
+"音声はロボットっぽく聞こえますが、設定の自由度が高く、音量、ピッチ、速度などを調整できます。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:35
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:84
+msgid "**Run the program**"
+msgstr "**プログラムを実行する**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:42
+msgid "You should hear the Fusion HAT+ say: “Hello! I'm Espeak TTS.”"
+msgstr "Fusion HAT+ から「Hello! I'm Espeak TTS.」と聞こえるはずです。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:43
+msgid ""
+"Try changing the tuning parameters in the code to experiment with how "
+"``amp``, ``speed``, ``gap``, and ``pitch`` affect the sound."
+msgstr ""
+"コード内の調整パラメータを変更して、 ``amp`` 、 ``speed`` 、 ``gap`` 、 ``pitch`` が音にどのように影響するか試してみましょう。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:45
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:94
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:64
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:109
+msgid "**Code explanation:**"
+msgstr "**コードの説明：** "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:66
+msgid "``tts.set_amp()`` — Controls the volume (0–200)."
+msgstr "``tts.set_amp()`` — 音量を制御します（ 0～200 ）。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:67
+msgid "``tts.set_speed()`` — Adjusts the speaking speed (80–260)."
+msgstr "``tts.set_speed()`` — 読み上げ速度を調整します（ 80～260 ）。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:68
+msgid "``tts.set_gap()`` — Sets the word gap (0–200)."
+msgstr "``tts.set_gap()`` — 単語間の間隔を設定します（ 0～200 ）。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:69
+msgid "``tts.set_pitch()`` — Sets the pitch (0–99)."
+msgstr "``tts.set_pitch()`` — ピッチを設定します（ 0～99 ）。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:70
+msgid "``tts.say()`` — Converts text to speech and plays it."
+msgstr "``tts.say()`` — テキストを音声に変換して再生します。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:72
+msgid ""
+"💡 **Tip:** Try increasing the pitch and speed to make the robot sound "
+"cheerful, or lowering them to make it sound serious."
+msgstr ""
+"💡 **ヒント：** ピッチと速度を上げるとロボットが明るい声になり、下げると落ち着いた（真面目な）声になります。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:78
+msgid "2. Testing Pico2Wave"
+msgstr "2. Pico2Wave をテストする"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:80
+msgid ""
+"Pico2Wave produces a **more natural and human-like voice** compared to "
+"Espeak. It’s very easy to use, but less flexible — you can only **change "
+"the language**, not the pitch, speed, or volume. This makes Pico2Wave a "
+"great choice when you want clear and smooth speech without too much "
+"configuration."
+msgstr ""
+"Pico2Wave は Espeak と比べて、 **より自然で人間らしい声** を生成します。"
+"使い方はとても簡単ですが柔軟性は低く、変更できるのは **言語** のみで、ピッチ、速度、音量は変更できません。"
+"そのため、複雑な設定なしでクリアで滑らかな音声が欲しい場合に Pico2Wave は最適です。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:91
+msgid "You should hear the Fusion HAT+ say: “Hello! I'm Pico2Wave TTS.”"
+msgstr "Fusion HAT+ から「Hello! I'm Pico2Wave TTS.」と聞こえるはずです。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:92
+msgid ""
+"Try changing the language (for example, ``es-ES`` for Spanish) and listen"
+" to how the voice changes."
+msgstr ""
+"言語を変更して（例：スペイン語は ``es-ES`` ）、声がどのように変わるか聞いてみましょう。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:111
+msgid "``tts.set_lang()`` — Sets the output language for speech synthesis."
+msgstr "``tts.set_lang()`` — 音声合成の出力言語を設定します。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:113
+msgid "``en-US`` (default)"
+msgstr "``en-US``（デフォルト）"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:114
+msgid "``en-GB``"
+msgstr "``en-GB`` "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:115
+msgid "``de-DE``"
+msgstr "``de-DE`` "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:116
+msgid "``es-ES``"
+msgstr "``es-ES`` "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:117
+msgid "``fr-FR``"
+msgstr "``fr-FR`` "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:118
+msgid "``it-IT``"
+msgstr "``it-IT`` "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:120
+msgid "``tts.say()`` — Converts the text to speech and plays it immediately."
+msgstr "``tts.say()`` — テキストを音声に変換し、すぐに再生します。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:126
+msgid "Troubleshooting"
+msgstr "トラブルシューティング"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:128
+msgid "**No sound when running Espeak or Pico2Wave**"
+msgstr "**Espeak または Pico2Wave を実行しても音が出ない** "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:130
+msgid "Check that your speakers/headphones are connected and volume is not muted."
+msgstr "スピーカー／ヘッドホンが接続されていること、音量がミュートになっていないことを確認してください。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:131
+msgid "Run a quick test in terminal:"
+msgstr "ターミナルで簡単なテストを実行します："
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:138
+msgid "If you hear nothing, the issue is with audio output, not your Python code."
+msgstr "何も聞こえない場合、問題は Python コードではなくオーディオ出力側にあります。"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:140
+msgid "**Espeak voice sounds too fast or too robotic**"
+msgstr "**Espeak の声が速すぎる／ロボットっぽすぎる** "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:142
+msgid "Try adjusting the parameters in your code:"
+msgstr "コード内のパラメータを調整してみてください："
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:149
+msgid "**Permission denied when running code**"
+msgstr "**コード実行時に Permission denied が出る** "
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:151
+msgid "Try running with ``sudo``:"
+msgstr "``sudo`` を付けて実行してみてください："
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:158
+msgid "Comparison: Espeak vs Pico2Wave"
+msgstr "比較：Espeak vs Pico2Wave"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:164
+msgid "Feature"
+msgstr "機能"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:165
+msgid "Espeak"
+msgstr "Espeak"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:166
+msgid "Pico2Wave"
+msgstr "Pico2Wave"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:167
+msgid "Voice quality"
+msgstr "音質"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:168
+msgid "Robotic, synthetic"
+msgstr "ロボット的、合成音声"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:169
+msgid "More natural, human-like"
+msgstr "より自然で人間らしい"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:170
+msgid "Languages"
+msgstr "言語"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:171
+msgid "Default English"
+msgstr "デフォルトは英語"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:172
+msgid "Fewer, but common ones"
+msgstr "少なめだが主要なものに対応"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:173
+msgid "Adjustable"
+msgstr "調整可能"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:174
+msgid "Yes (speed, pitch, etc.)"
+msgstr "可（速度、ピッチなど）"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:175
+msgid "No (only language)"
+msgstr "不可（言語のみ）"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:176
+msgid "Performance"
+msgstr "パフォーマンス"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:177
+msgid "Very fast, lightweight"
+msgstr "非常に高速、軽量"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:178
+msgid "Slightly slower, heavier"
+msgstr "やや遅く、重め"

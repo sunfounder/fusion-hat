@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/ai_interaction.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。SunFounder Raspberry Pi & Arduino & ESP32 "
+"Facebook 愛好家コミュニティへようこそ！ "
+"Raspberry Pi、Arduino、ESP32 について、仲間の愛好家と一緒にさらに深く探求しましょう。"
+
+#: ../ai_interaction/ai_interaction.rst:5
+msgid "**Why Join?**"
+msgstr "**参加する理由** "
+
+#: ../ai_interaction/ai_interaction.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的なサポート** ：コミュニティメンバーや公式チームの支援を受けて、"
+"購入後の問題や技術的な課題を解決できます。"
+
+#: ../ai_interaction/ai_interaction.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学びと共有** ：ヒントやチュートリアルを共有し、スキルを向上させましょう。"
+
+#: ../ai_interaction/ai_interaction.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定先行情報** ：新製品の発表やプレビュー情報をいち早く入手できます。"
+
+#: ../ai_interaction/ai_interaction.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別割引** ：最新製品を対象とした限定割引をお楽しみいただけます。"
+
+#: ../ai_interaction/ai_interaction.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**季節限定プロモーションとプレゼント企画** ："
+"プレゼントキャンペーンや祝日限定のプロモーションに参加できます。"
+
+#: ../ai_interaction/ai_interaction.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たちと一緒に探求し、創造する準備はできましたか？ "
+"[|link_sf_facebook|] をクリックして、今すぐ参加しましょう！"
+
+#: ../ai_interaction/ai_interaction.rst:16
+msgid "Think · Talk · Drive —  AI-Powered with Multi-LLMs"
+msgstr "考える · 話す · 動かす —  マルチ LLM による AI 駆動"
+
+#: ../ai_interaction/ai_interaction.rst:18
+msgid ""
+"Go beyond movement and vision by adding **speech** and **AI**. Here you "
+"will explore text-to-speech (TTS), speech-to-text (STT), and large "
+"language models (LLMs) to make your Fusion HAT+ talk, listen, and even "
+"chat with you like a smart robot."
+msgstr ""
+"**音声** と **AI** を追加することで、動きや視覚の枠を超えた体験を実現します。"
+"このセクションでは、テキスト読み上げ（ TTS ）、音声認識（ STT ）、"
+"および大規模言語モデル（ LLM ）を学び、"
+"Fusion HAT+ をまるでスマートロボットのように話し、聞き、"
+"さらには会話できるようにします。"

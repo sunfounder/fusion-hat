@@ -1,0 +1,732 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../hardware/onboard_mcu.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../hardware/onboard_mcu.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../hardware/onboard_mcu.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../hardware/onboard_mcu.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../hardware/onboard_mcu.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../hardware/onboard_mcu.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../hardware/onboard_mcu.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../hardware/onboard_mcu.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探求 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../hardware/onboard_mcu.rst:18
+msgid "On-Board MCU"
+msgstr "オンボード MCU"
+
+#: ../hardware/onboard_mcu.rst:20
+msgid ""
+"The Fusion HAT+ comes with an GD32E203C8T6 microcontroller. It is an ARM "
+"Cortex-M23 processor with a maximum clock frequency of 72MHz. The "
+"microcontroller has 64KB of Flash memory and 8KB of SRAM."
+msgstr ""
+"Fusion HAT+ には GD32E203C8T6 マイクロコントローラ が 搭載 されています。 "
+"これは 最大 クロック 周波数 72MHz の ARM Cortex-M23 プロセッサ です。 "
+"マイクロコントローラ は 64KB の Flash メモリ と 8KB の SRAM を 搭載 しています。"
+
+#: ../hardware/onboard_mcu.rst:24
+msgid ""
+"The onboard PWM and ADC are driven by the microcontroller. Communication "
+"between the Raspberry Pi and the microcontroller is established via the "
+"I2C interface. **The I2C address used for communication is 0x17.**"
+msgstr ""
+"オンボード の PWM と ADC は マイクロコントローラ に よって 駆動 されます。 "
+"Raspberry Pi と マイクロコントローラ 間 の 通信 は I2C インターフェース を 介して 行われます。 "
+"**通信 に 使用 される I2C アドレス は 0x17 です。**"
+
+#: ../hardware/onboard_mcu.rst:31
+msgid "ADC"
+msgstr "ADC"
+
+#: ../hardware/onboard_mcu.rst:33
+msgid ""
+"Register addresses is 1 byte, 0x10 to 0x19 are ADC channels 0 to 3. The "
+"ADC precision is 12 bit, and the value is 0 to 4095. See more details in "
+":py:class:`fusion_hat.adc.ADC`."
+msgstr ""
+"レジスタ アドレス は 1 バイト です。 0x10～0x19 は ADC チャンネル 0～3 に 対応 します。 "
+"ADC の 分解能 は 12 ビット で、 値 の 範囲 は 0～4095 です。 "
+"詳細 は :py:class:`fusion_hat.adc.ADC` を 参照 してください。"
+
+#: ../hardware/onboard_mcu.rst:41 ../hardware/onboard_mcu.rst:130
+#: ../hardware/onboard_mcu.rst:132 ../hardware/onboard_mcu.rst:193
+#: ../hardware/onboard_mcu.rst:218 ../hardware/onboard_mcu.rst:242
+#: ../hardware/onboard_mcu.rst:269 ../hardware/onboard_mcu.rst:295
+#: ../hardware/onboard_mcu.rst:314
+msgid "Address"
+msgstr "アドレス"
+
+#: ../hardware/onboard_mcu.rst:41 ../hardware/onboard_mcu.rst:131
+#: ../hardware/onboard_mcu.rst:133 ../hardware/onboard_mcu.rst:194
+#: ../hardware/onboard_mcu.rst:219 ../hardware/onboard_mcu.rst:243
+#: ../hardware/onboard_mcu.rst:270
+msgid "Description"
+msgstr "説明"
+
+#: ../hardware/onboard_mcu.rst:43
+msgid "``0x10``"
+msgstr "``0x10`` "
+
+#: ../hardware/onboard_mcu.rst:43
+msgid "ADC channel 0 H"
+msgstr "ADC チャンネル 0 H"
+
+#: ../hardware/onboard_mcu.rst:45
+msgid "``0x11``"
+msgstr "``0x11`` "
+
+#: ../hardware/onboard_mcu.rst:45
+msgid "ADC channel 0 L"
+msgstr "ADC チャンネル 0 L"
+
+#: ../hardware/onboard_mcu.rst:47
+msgid "``0x12``"
+msgstr "``0x12`` "
+
+#: ../hardware/onboard_mcu.rst:47
+msgid "ADC channel 1 H"
+msgstr "ADC チャンネル 1 H"
+
+#: ../hardware/onboard_mcu.rst:49
+msgid "``0x13``"
+msgstr "``0x13`` "
+
+#: ../hardware/onboard_mcu.rst:49
+msgid "ADC channel 1 L"
+msgstr "ADC チャンネル 1 L"
+
+#: ../hardware/onboard_mcu.rst:51
+msgid "``0x14``"
+msgstr "``0x14`` "
+
+#: ../hardware/onboard_mcu.rst:51
+msgid "ADC channel 2 H"
+msgstr "ADC チャンネル 2 H"
+
+#: ../hardware/onboard_mcu.rst:53
+msgid "``0x15``"
+msgstr "``0x15`` "
+
+#: ../hardware/onboard_mcu.rst:53
+msgid "ADC channel 2 L"
+msgstr "ADC チャンネル 2 L"
+
+#: ../hardware/onboard_mcu.rst:55
+msgid "``0x16``"
+msgstr "``0x16`` "
+
+#: ../hardware/onboard_mcu.rst:55
+msgid "ADC channel 3 H"
+msgstr "ADC チャンネル 3 H"
+
+#: ../hardware/onboard_mcu.rst:57
+msgid "``0x17``"
+msgstr "``0x17`` "
+
+#: ../hardware/onboard_mcu.rst:57
+msgid "ADC channel 3 L"
+msgstr "ADC チャンネル 3 L"
+
+#: ../hardware/onboard_mcu.rst:59
+msgid "``0x18``"
+msgstr "``0x18`` "
+
+#: ../hardware/onboard_mcu.rst:59
+msgid "ADC 4 H  (Battery Level)"
+msgstr "ADC 4 H（ バッテリー 残量 ）"
+
+#: ../hardware/onboard_mcu.rst:61
+msgid "``0x19``"
+msgstr "``0x19`` "
+
+#: ../hardware/onboard_mcu.rst:61
+msgid "ADC channel 4 L"
+msgstr "ADC チャンネル 4 L"
+
+#: ../hardware/onboard_mcu.rst:81
+msgid "PWM"
+msgstr "PWM"
+
+#: ../hardware/onboard_mcu.rst:84
+msgid "Frequency and Period Settings"
+msgstr "周波数 と 周期 の 設定"
+
+#: ../hardware/onboard_mcu.rst:86
+msgid ""
+"The PWM frequency is determined by the period value (ARR) and the "
+"prescaler (PSC). The principle is that the microcontroller’s internal "
+"clock runs at 72 MHz. Through prescaling, the clock is divided to obtain "
+"a frequency Fp, which is then further divided by the period count to get "
+"the PWM output frequency F. Therefore,"
+msgstr ""
+"PWM 周波数 は、 周期 値（ ARR ） と プリスケーラ（ PSC ） に よって 決まります。 "
+"原理 として は、 マイクロコントローラ の 内部 クロック は 72 MHz で 動作 します。 "
+"プリスケーリング に よって クロック を 分周 して 周波数 Fp を 得て、 さらに 周期 カウント で 分割 する こと で "
+"PWM 出力 周波数 F を 得ます。 したがって、"
+
+#: ../hardware/onboard_mcu.rst:92
+msgid ""
+"In general, by specifying the desired frequency and period, you can "
+"calculate the required prescaler. For example, to drive a servo motor, "
+"you need a 50 Hz frequency and a desired resolution of 12 bits (i.e., a "
+"period of 2¹² = 4096). The prescaler PSC can be calculated as:"
+msgstr ""
+"一般 に、 目的 の 周波数 と 周期 を 指定 する こと で、 必要 な プリスケーラ を 計算 できます。 "
+"たとえば、 サーボ モーター を 駆動 する に は 50 Hz の 周波数 と、 12 ビット の 分解能（ つまり 2¹² = 4096 の 周期 ）が "
+"必要 です。 プリスケーラ PSC は 次 の ように 計算 できます："
+
+#: ../hardware/onboard_mcu.rst:102
+msgid ""
+"Since PSC must be an integer, it is approximated to 351. Therefore, by "
+"setting PSC = 351 and ARR = 4096, you get an actual PWM frequency of:"
+msgstr ""
+"PSC は 整数 で なければ ならない ため、 351 に 近似 します。 "
+"したがって、 PSC = 351 と ARR = 4096 を 設定 すると、 実際 の PWM 周波数 は 次 の とおり です："
+
+#: ../hardware/onboard_mcu.rst:108
+msgid ""
+"By default, the PWM prescaler (PSC) and period (ARR) are set to 351 and "
+"4095, respectively, resulting in a default frequency of approximately 50 "
+"Hz."
+msgstr ""
+"デフォルト では、 PWM プリスケーラ（ PSC ） と 周期（ ARR ） は それぞれ 351 と 4095 に 設定 されて おり、 "
+"約 50 Hz の 既定 周波数 に なります。"
+
+#: ../hardware/onboard_mcu.rst:110
+msgid ""
+"The pulse width corresponds to the duty cycle value within the period. "
+"For example, with the configuration above where the period (ARR) is 4096,"
+" setting the pulse width (CCR) to 2048 yields a 50% PWM output."
+msgstr ""
+"パルス 幅 は、 周期 内 の デューティ 比 の 値 に 対応 します。 "
+"たとえば、 上記 の 設定 で 周期（ ARR ） が 4096 の 場合、 パルス 幅（ CCR ） を 2048 に 設定 すると "
+"50% の PWM 出力 に なります。"
+
+#: ../hardware/onboard_mcu.rst:118
+msgid "Pulse width"
+msgstr "パルス 幅"
+
+#: ../hardware/onboard_mcu.rst:120
+msgid ""
+"To control the channel pulse width is rather simple, just write the value"
+" to the register."
+msgstr ""
+"チャンネル の パルス 幅 を 制御 する の は とても 簡単 で、 値 を レジスタ に 書き込む だけ です。"
+
+#: ../hardware/onboard_mcu.rst:122
+msgid ""
+"**But** what is the value? If you want to set the PWM to 50% pulse width,"
+" you need to know exactly what the period is. Base on the above "
+"calculation, if you set the period to 4095, then set pulse value to 2048 "
+"is about 50% pulse width."
+msgstr ""
+"**しかし** 、 値 は いくつ に すれば よい のでしょう か？ "
+"PWM を 50% の パルス 幅 に 設定 したい 場合、 周期 が 正確 に いくつ か を 知る 必要 が あります。 "
+"上記 の 計算 に 基づく と、 周期 を 4095 に 設定 した 場合、 パルス 値 を 2048 に 設定 すると "
+"約 50% の パルス 幅 に なります。"
+
+#: ../hardware/onboard_mcu.rst:134
+msgid "``0x60``"
+msgstr "``0x60`` "
+
+#: ../hardware/onboard_mcu.rst:135
+msgid "PWM0_CCR_H"
+msgstr "PWM0_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:136
+msgid "``0x6C``"
+msgstr "``0x6C`` "
+
+#: ../hardware/onboard_mcu.rst:137
+msgid "PWM6_CCR_H"
+msgstr "PWM6_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:138
+msgid "``0x61``"
+msgstr "``0x61`` "
+
+#: ../hardware/onboard_mcu.rst:139
+msgid "PWM0_CCR_L"
+msgstr "PWM0_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:140
+msgid "``0x6D``"
+msgstr "``0x6D`` "
+
+#: ../hardware/onboard_mcu.rst:141
+msgid "PWM6_CCR_L"
+msgstr "PWM6_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:142
+msgid "``0x62``"
+msgstr "``0x62`` "
+
+#: ../hardware/onboard_mcu.rst:143
+msgid "PWM1_CCR_H"
+msgstr "PWM1_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:144
+msgid "``0x6E``"
+msgstr "``0x6E`` "
+
+#: ../hardware/onboard_mcu.rst:145
+msgid "PWM7_CCR_H"
+msgstr "PWM7_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:146
+msgid "``0x63``"
+msgstr "``0x63`` "
+
+#: ../hardware/onboard_mcu.rst:147
+msgid "PWM1_CCR_L"
+msgstr "PWM1_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:148
+msgid "``0x6F``"
+msgstr "``0x6F`` "
+
+#: ../hardware/onboard_mcu.rst:149
+msgid "PWM7_CCR_L"
+msgstr "PWM7_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:150
+msgid "``0x64``"
+msgstr "``0x64`` "
+
+#: ../hardware/onboard_mcu.rst:151
+msgid "PWM2_CCR_H"
+msgstr "PWM2_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:152
+msgid "``0x70``"
+msgstr "``0x70`` "
+
+#: ../hardware/onboard_mcu.rst:153
+msgid "PWM8_CCR_H"
+msgstr "PWM8_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:154
+msgid "``0x65``"
+msgstr "``0x65`` "
+
+#: ../hardware/onboard_mcu.rst:155
+msgid "PWM2_CCR_L"
+msgstr "PWM2_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:156
+msgid "``0x71``"
+msgstr "``0x71`` "
+
+#: ../hardware/onboard_mcu.rst:157
+msgid "PWM8_CCR_L"
+msgstr "PWM8_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:158
+msgid "``0x66``"
+msgstr "``0x66`` "
+
+#: ../hardware/onboard_mcu.rst:159
+msgid "PWM3_CCR_H"
+msgstr "PWM3_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:160
+msgid "``0x72``"
+msgstr "``0x72`` "
+
+#: ../hardware/onboard_mcu.rst:161
+msgid "PWM9_CCR_H"
+msgstr "PWM9_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:162
+msgid "``0x67``"
+msgstr "``0x67`` "
+
+#: ../hardware/onboard_mcu.rst:163
+msgid "PWM3_CCR_L"
+msgstr "PWM3_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:164
+msgid "``0x73``"
+msgstr "``0x73`` "
+
+#: ../hardware/onboard_mcu.rst:165
+msgid "PWM9_CCR_L"
+msgstr "PWM9_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:166
+msgid "``0x68``"
+msgstr "``0x68`` "
+
+#: ../hardware/onboard_mcu.rst:167
+msgid "PWM4_CCR_H"
+msgstr "PWM4_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:168
+msgid "``0x74``"
+msgstr "``0x74`` "
+
+#: ../hardware/onboard_mcu.rst:169
+msgid "PWM10_CCR_H"
+msgstr "PWM10_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:170
+msgid "``0x69``"
+msgstr "``0x69`` "
+
+#: ../hardware/onboard_mcu.rst:171
+msgid "PWM4_CCR_L"
+msgstr "PWM4_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:172
+msgid "``0x75``"
+msgstr "``0x75`` "
+
+#: ../hardware/onboard_mcu.rst:173
+msgid "PWM10_CCR_L"
+msgstr "PWM10_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:174
+msgid "``0x6A``"
+msgstr "``0x6A`` "
+
+#: ../hardware/onboard_mcu.rst:175
+msgid "PWM5_CCR_H"
+msgstr "PWM5_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:176
+msgid "``0x76``"
+msgstr "``0x76`` "
+
+#: ../hardware/onboard_mcu.rst:177
+msgid "PWM11_CCR_H"
+msgstr "PWM11_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:178
+msgid "``0x6B``"
+msgstr "``0x6B`` "
+
+#: ../hardware/onboard_mcu.rst:179
+msgid "PWM5_CCR_L"
+msgstr "PWM5_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:180
+msgid "``0x77``"
+msgstr "``0x77`` "
+
+#: ../hardware/onboard_mcu.rst:181
+msgid "PWM11_CCR_L"
+msgstr "PWM11_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:185
+msgid "Prescaler"
+msgstr "プリスケーラ"
+
+#: ../hardware/onboard_mcu.rst:187
+msgid "Registers from 0x40 are used to set the PWM prescaler (range: 0–65535)."
+msgstr "0x40 から の レジスタ は、 PWM プリスケーラ（ 範囲 : 0～65535 ） を 設定 する ため に 使用 されます。"
+
+#: ../hardware/onboard_mcu.rst:195
+msgid "``0x40``"
+msgstr "``0x40`` "
+
+#: ../hardware/onboard_mcu.rst:196
+msgid "PWM_TIM0_PSC_H"
+msgstr "PWM_TIM0_PSC_H"
+
+#: ../hardware/onboard_mcu.rst:197
+msgid "``0x41``"
+msgstr "``0x41`` "
+
+#: ../hardware/onboard_mcu.rst:198
+msgid "PWM_TIM0_PSC_L"
+msgstr "PWM_TIM0_PSC_L"
+
+#: ../hardware/onboard_mcu.rst:199
+msgid "``0x42``"
+msgstr "``0x42`` "
+
+#: ../hardware/onboard_mcu.rst:200
+msgid "PWM_TIM1_PSC_H"
+msgstr "PWM_TIM1_PSC_H"
+
+#: ../hardware/onboard_mcu.rst:201
+msgid "``0x43``"
+msgstr "``0x43`` "
+
+#: ../hardware/onboard_mcu.rst:202
+msgid "PWM_TIM1_PSC_L"
+msgstr "PWM_TIM1_PSC_L"
+
+#: ../hardware/onboard_mcu.rst:203
+msgid "``0x44``"
+msgstr "``0x44`` "
+
+#: ../hardware/onboard_mcu.rst:204
+msgid "PWM_TIM2_PSC_H"
+msgstr "PWM_TIM2_PSC_H"
+
+#: ../hardware/onboard_mcu.rst:205
+msgid "``0x45``"
+msgstr "``0x45`` "
+
+#: ../hardware/onboard_mcu.rst:206
+msgid "PWM_TIM2_PSC_L"
+msgstr "PWM_TIM2_PSC_L"
+
+#: ../hardware/onboard_mcu.rst:210
+msgid "Period"
+msgstr "周期"
+
+#: ../hardware/onboard_mcu.rst:212
+msgid "Registers from 0x50 are used to set the PWM period (range: 0–65535)."
+msgstr "0x50 から の レジスタ は、 PWM 周期（ 範囲 : 0～65535 ） を 設定 する ため に 使用 されます。"
+
+#: ../hardware/onboard_mcu.rst:220
+msgid "``0x50``"
+msgstr "``0x50`` "
+
+#: ../hardware/onboard_mcu.rst:221
+msgid "PWM_TIM0_ARR_H"
+msgstr "PWM_TIM0_ARR_H"
+
+#: ../hardware/onboard_mcu.rst:222
+msgid "``0x51``"
+msgstr "``0x51`` "
+
+#: ../hardware/onboard_mcu.rst:223
+msgid "PWM_TIM0_ARR_L"
+msgstr "PWM_TIM0_ARR_L"
+
+#: ../hardware/onboard_mcu.rst:224
+msgid "``0x52``"
+msgstr "``0x52`` "
+
+#: ../hardware/onboard_mcu.rst:225
+msgid "PWM_TIM1_ARR_H"
+msgstr "PWM_TIM1_ARR_H"
+
+#: ../hardware/onboard_mcu.rst:226
+msgid "``0x53``"
+msgstr "``0x53``"
+
+#: ../hardware/onboard_mcu.rst:227
+msgid "PWM_TIM1_ARR_L"
+msgstr "PWM_TIM1_ARR_L"
+
+#: ../hardware/onboard_mcu.rst:228
+msgid "``0x54``"
+msgstr "``0x54`` "
+
+#: ../hardware/onboard_mcu.rst:229
+msgid "PWM_TIM2_ARR_H"
+msgstr "PWM_TIM2_ARR_H"
+
+#: ../hardware/onboard_mcu.rst:230
+msgid "``0x55``"
+msgstr "``0x55`` "
+
+#: ../hardware/onboard_mcu.rst:231
+msgid "PWM_TIM2_ARR_L"
+msgstr "PWM_TIM2_ARR_L"
+
+#: ../hardware/onboard_mcu.rst:235
+msgid "Button and LED Control"
+msgstr "ボタン と LED の 制御"
+
+#: ../hardware/onboard_mcu.rst:241 ../hardware/onboard_mcu.rst:268
+msgid "Item"
+msgstr "項目"
+
+#: ../hardware/onboard_mcu.rst:244
+msgid "**USR Button (r/-)**"
+msgstr "**USR ボタン（ r/- ）** "
+
+#: ../hardware/onboard_mcu.rst:245
+msgid "0x24"
+msgstr "0x24"
+
+#: ../hardware/onboard_mcu.rst:246
+msgid "Read the level state of the USR button:"
+msgstr "USR ボタン の レベル 状態 を 読み取ります："
+
+#: ../hardware/onboard_mcu.rst:248
+msgid "0: Low level"
+msgstr "0 : Low レベル"
+
+#: ../hardware/onboard_mcu.rst:250
+msgid "1: High level"
+msgstr "1 : High レベル"
+
+#: ../hardware/onboard_mcu.rst:251
+msgid "**LED (r/w)**"
+msgstr "**LED（ r/w ）** "
+
+#: ../hardware/onboard_mcu.rst:252
+msgid "0x30"
+msgstr "0x30"
+
+#: ../hardware/onboard_mcu.rst:253
+msgid "Read or control the LED:"
+msgstr "LED を 読み取り または 制御 します："
+
+#: ../hardware/onboard_mcu.rst:255 ../hardware/onboard_mcu.rst:275
+msgid "0: off"
+msgstr "0 : off"
+
+#: ../hardware/onboard_mcu.rst:257 ../hardware/onboard_mcu.rst:277
+msgid "1: on"
+msgstr "1 : on"
+
+#: ../hardware/onboard_mcu.rst:259
+msgid "2: toggle"
+msgstr "2 : toggle"
+
+#: ../hardware/onboard_mcu.rst:262
+msgid "Buzzer Switch Control"
+msgstr "ブザー スイッチ の 制御"
+
+#: ../hardware/onboard_mcu.rst:271
+msgid "**Buzzer Switch (r/w)**"
+msgstr "**ブザー スイッチ（ r/w ）** "
+
+#: ../hardware/onboard_mcu.rst:272
+msgid "0x31"
+msgstr "0x31"
+
+#: ../hardware/onboard_mcu.rst:273
+msgid "Read or control the buzzer switch:"
+msgstr "ブザー スイッチ を 読み取り または 制御 します："
+
+#: ../hardware/onboard_mcu.rst:281
+msgid "Servo Zeroing"
+msgstr "サーボ ゼロ 調整"
+
+#: ../hardware/onboard_mcu.rst:283
+msgid ""
+"When you press the button twice, all the PWM signals will be set to "
+"1500us pulse, 20000us period. That is, the servo will be in the middle "
+"position. You should secure the servo arm to the servo in this state."
+msgstr ""
+"ボタン を 2 回 押す と、 すべて の PWM 信号 が パルス 幅 1500us、 周期 20000us に 設定 されます。 "
+"つまり、 サーボ は 中央 位置 に なります。 この 状態 で サーボ アーム を サーボ に 固定 してください。"
+
+#: ../hardware/onboard_mcu.rst:284
+msgid "Press the button twice again, all the PWM signals will be set to 0 pulse."
+msgstr "もう一度 ボタン を 2 回 押す と、 すべて の PWM 信号 は 0 パルス に 設定 されます。"
+
+#: ../hardware/onboard_mcu.rst:289
+msgid "Charging Status"
+msgstr "充電 状態"
+
+#: ../hardware/onboard_mcu.rst:296 ../hardware/onboard_mcu.rst:315
+msgid "Value"
+msgstr "値"
+
+#: ../hardware/onboard_mcu.rst:297
+msgid "``0x25``"
+msgstr "``0x25`` "
+
+#: ../hardware/onboard_mcu.rst:298
+msgid "0: Not Charging"
+msgstr "0 : 充電 して いません"
+
+#: ../hardware/onboard_mcu.rst:300
+msgid "1: Charging"
+msgstr "1 : 充電 中"
+
+#: ../hardware/onboard_mcu.rst:306
+msgid "Safe Shutdown"
+msgstr "安全 な シャットダウン"
+
+#: ../hardware/onboard_mcu.rst:308
+msgid ""
+"The Fusion HAT+ includes a built-in safe shutdown mechanism. It performs "
+"a software-based shutdown by reading the microcontroller’s register "
+"status via I2C."
+msgstr ""
+"Fusion HAT+ には 内蔵 の 安全 シャットダウン 機構 が あります。 "
+"I2C を 介して マイクロコントローラ の レジスタ 状態 を 読み取り、 ソフトウェア ベース の シャットダウン を 実行 します。"
+
+#: ../hardware/onboard_mcu.rst:316
+msgid "``0x26``"
+msgstr "``0x26`` "
+
+#: ../hardware/onboard_mcu.rst:317
+msgid "0: No request"
+msgstr "0 : 要求 なし"
+
+#: ../hardware/onboard_mcu.rst:319
+msgid "1: Low battery, shutdown requested"
+msgstr "1 : バッテリー 残量 低下、 シャットダウン 要求"
+
+#: ../hardware/onboard_mcu.rst:321
+msgid "2: Shutdown requested by power button"
+msgstr "2 : 電源 ボタン に よる シャットダウン 要求"
+
+#: ../hardware/onboard_mcu.rst:323
+msgid ""
+"To configure the Raspberry Pi shutdown signal, please refer to "
+":ref:`shutdown_behavior` for detailed instructions."
+msgstr ""
+"Raspberry Pi の シャットダウン 信号 を 設定 する に は、 詳細 な 手順 として "
+":ref:`shutdown_behavior` を 参照 してください。"

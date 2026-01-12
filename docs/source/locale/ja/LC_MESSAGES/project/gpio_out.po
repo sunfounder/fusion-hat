@@ -1,0 +1,152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../project/gpio_out.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ "
+"ようこそ！ 仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../../project/gpio_out.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../../project/gpio_out.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr "**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../../project/gpio_out.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../../project/gpio_out.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr "**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../../project/gpio_out.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../../project/gpio_out.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr "**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../../project/gpio_out.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探索 と 創作 を 始める 準備 は できました か？ [|link_sf_facebook|] を クリック して、 "
+"今すぐ 参加 しましょう！"
+
+#: ../../project/gpio_out.rst:19
+msgid "GPIO Output"
+msgstr "GPIO 出力"
+
+#: ../../project/gpio_out.rst:21
+msgid "**Introduction**"
+msgstr "**はじめに** "
+
+#: ../../project/gpio_out.rst:24
+msgid ""
+"In this tutorial, we’ll connect an LED to a GPIO pin and write a Python "
+"program to make it blink. Let’s get started!"
+msgstr ""
+"この チュートリアル では、 LED を GPIO ピン に 接続 し、 点滅 させる ため の Python プログラム を 作成 します。 "
+"さっそく 始めましょう！"
+
+#: ../../project/gpio_out.rst:31
+msgid "**Circuit Diagram**"
+msgstr "**回路図** "
+
+#: ../../project/gpio_out.rst:33
+msgid "Here’s how the circuit should look:"
+msgstr "回路 は 次 の よう に なります："
+
+#: ../../project/gpio_out.rst:35
+msgid "**GPIO Pin 17** connects to the anode (long pin) of the LED."
+msgstr "**GPIO ピン 17** を LED の アノード（ 長い ピン ） に 接続 します。"
+
+#: ../../project/gpio_out.rst:36
+msgid "The cathode (short pin) of the LED connects to one leg of the resistor."
+msgstr "LED の カソード（ 短い ピン ） を 抵抗 の 一方 の 足 に 接続 します。"
+
+#: ../../project/gpio_out.rst:37
+#, fuzzy
+msgid "The other leg of the resistor connects to the **GND** (Ground) pin."
+msgstr "抵抗 の もう 一方 の 足 を **GND** （ グラウンド ） ピン に 接続 します。"
+
+#: ../../project/gpio_out.rst:39
+msgid ""
+"The resistor limits the current flowing through the LED, preventing it "
+"from burning out. Without a resistor, the LED may draw too much current, "
+"which can damage both the LED and the Raspberry Pi."
+msgstr ""
+"抵抗 は LED に 流れる 電流 を 制限 し、 焼損 を 防ぎます。 抵抗 が ない 場合、 LED に 過剰 な 電流 が 流れ、 LED "
+"や Raspberry Pi の 両方 を 損傷 する 可能性 が あります。"
+
+#: ../../project/gpio_out.rst:49
+msgid "**Wiring Diagram**"
+msgstr "**配線図** "
+
+#: ../../project/gpio_out.rst:51
+msgid "Follow the wiring diagram below to connect your components:"
+msgstr "以下 の 配線 図 に 従って 各 コンポーネント を 接続 して ください："
+
+#: ../../project/gpio_out.rst:59
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../../project/gpio_out.rst:61
+msgid ""
+"Let’s write the Python code to control the LED. You’ll create a script "
+"that turns the LED on and off at regular intervals."
+msgstr ""
+"LED を 制御 する Python コード を 作成 しましょう。 一定 の 間隔 で LED を オン / オフ する スクリプト を 作成 "
+"します。"
+
+#: ../../project/gpio_out.rst:64
+msgid "Here’s the complete Python script for this project:"
+msgstr "以下 が この プロジェクト の 完全 な Python スクリプト です："
+
+#: ../../project/gpio_out.rst:102
+msgid ""
+"This Python script controls an LED connected to GPIO pin 17 of a "
+"Raspberry Pi. When executed, the LED alternates between turning on and "
+"off in half-second intervals. Simultaneously, the console prints \"LED is"
+" ON\" and \"LED is OFF\" to indicate the LED's current state. The program"
+" runs indefinitely until interrupted by a user pressing ``Ctrl+C``."
+msgstr ""
+"この Python スクリプト は、 Raspberry Pi の GPIO ピン 17 に 接続 された LED を 制御 します。 実行 "
+"すると、 LED は 0.5 秒 ごと に オン と オフ を 繰り返します。 同時 に、 コンソール には LED の 状態 を 示す "
+"\"LED is ON\" と \"LED is OFF\" が 表示 されます。 プログラム は、 ユーザー が ``Ctrl+C`` を "
+"押して 中断 する まで 無期限 に 実行 されます。"
+

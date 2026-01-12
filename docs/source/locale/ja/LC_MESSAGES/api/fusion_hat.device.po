@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.device.rst:2
+msgid "fusion\\_hat.device module"
+msgstr "fusion\\_hat.device モジュール"
+
+#: fusion_hat.device:1 of
+msgid "Fusion Hat device related functions"
+msgstr "Fusion Hat デバイス関連の関数"
+
+#: fusion_hat.device:4 of
+msgid "サンプル"
+msgstr ""
+
+#: fusion_hat.device:5 of
+msgid "Import device module"
+msgstr "device モジュールをインポートします"
+
+#: fusion_hat.device:9 of
+msgid "Enable speaker"
+msgstr "スピーカーを有効にします"
+
+#: fusion_hat.device:15 of
+msgid "Disable speaker"
+msgstr "スピーカーを無効にします"
+
+#: fusion_hat.device:21 of
+msgid "Get user button state"
+msgstr "ユーザーボタンの状態を取得します"
+
+#: fusion_hat.device:26 of
+msgid "Get shutdown request state"
+msgstr "シャットダウン要求の状態を取得します"
+
+#: fusion_hat.device:31 of
+msgid "Toggle user LED"
+msgstr "ユーザー LED を切り替えます"
+
+#: fusion_hat.device:38 of
+msgid "Get firmware version"
+msgstr "ファームウェアのバージョンを取得します"
+
+#: fusion_hat.device:43 fusion_hat.device.set_volume:1 of
+msgid "Set volume"
+msgstr "音量を設定します"
+
+#: fusion_hat.device:47 of
+msgid "Get battery voltage"
+msgstr "バッテリー電圧を取得します"
+
+#: ../../docstring fusion_hat.device.NAME:1 of
+msgid "Name of the board"
+msgstr "ボード名"
+
+#: ../../docstring fusion_hat.device.ID:1 of
+msgid "ID of the board"
+msgstr "ボード ID"
+
+#: ../../docstring fusion_hat.device.UUID:1 of
+msgid "UUID of the board"
+msgstr "ボードの UUID"
+
+#: ../../docstring fusion_hat.device.PRODUCT_ID:1 of
+msgid "Product ID of the board"
+msgstr "ボードの製品 ID"
+
+#: ../../docstring fusion_hat.device.PRODUCT_VER:1 of
+msgid "Product version of the board"
+msgstr "ボードの製品バージョン"
+
+#: ../../docstring fusion_hat.device.VENDOR:1 of
+msgid "Vendor of the board"
+msgstr "ボードのベンダー"
+
+#: fusion_hat.device.is_installed:1 of
+msgid "Check if a Fusion Hat board is installed"
+msgstr "Fusion Hat ボードがインストールされているかを確認します"
+
+#: fusion_hat.device.is_installed of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat.device.is_installed:3 of
+msgid "True if installed, False otherwise"
+msgstr "インストールされている場合は True、そうでない場合は False"
+
+#: fusion_hat.device.is_installed of
+msgid "戻り値の型"
+msgstr ""
+
+#: fusion_hat.device.set_volume of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.device.set_volume:3 of
+msgid "volume(0~100)"
+msgstr "音量（0～100）"
+
+#~ msgid "Example"
+#~ msgstr "例"
+
+#~ msgid "Returns"
+#~ msgstr "戻り値"
+
+#~ msgid "Return type"
+#~ msgstr "戻り値の型"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+

@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat._utils.rst:2
+msgid "fusion\\_hat.\\_utils module"
+msgstr "fusion\\_hat.\\_utils モジュール"
+
+#: fusion_hat._utils.retry:1 of
+msgid "Retry decorator retry specified times if any error occurs"
+msgstr "エラーが発生した場合に、指定した回数だけ再試行するためのデコレータ"
+
+#: fusion_hat._utils.command_exists fusion_hat._utils.constrain
+#: fusion_hat._utils.get_ip fusion_hat._utils.is_installed
+#: fusion_hat._utils.mapping fusion_hat._utils.retry
+#: fusion_hat._utils.run_command of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat._utils.retry:3 of
+msgid "number of times to retry. Defaults to 5."
+msgstr "再試行回数。デフォルトは 5 です。"
+
+#: fusion_hat._utils.command_exists fusion_hat._utils.constrain
+#: fusion_hat._utils.get_ip fusion_hat._utils.get_username
+#: fusion_hat._utils.is_installed fusion_hat._utils.mapping
+#: fusion_hat._utils.retry fusion_hat._utils.run_command of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat._utils.retry:6 of
+msgid "wrapper function"
+msgstr "ラッパー関数"
+
+#: fusion_hat._utils.command_exists fusion_hat._utils.constrain
+#: fusion_hat._utils.get_ip fusion_hat._utils.get_username
+#: fusion_hat._utils.is_installed fusion_hat._utils.mapping
+#: fusion_hat._utils.retry fusion_hat._utils.run_command of
+msgid "戻り値の型"
+msgstr ""
+
+#: fusion_hat._utils.command_exists:1 of
+msgid "Check if command exists"
+msgstr "コマンドが存在するかを確認します"
+
+#: fusion_hat._utils.command_exists:3 fusion_hat._utils.is_installed:3 of
+msgid "command to check"
+msgstr "確認するコマンド"
+
+#: fusion_hat._utils.command_exists:6 of
+msgid "True if exists"
+msgstr "存在する場合は True"
+
+#: fusion_hat._utils.run_command:1 of
+msgid "Run command and return status and output"
+msgstr "コマンドを実行し、ステータスと出力を返します"
+
+#: fusion_hat._utils.run_command:3 of
+msgid "command to run"
+msgstr "実行するコマンド"
+
+#: fusion_hat._utils.run_command:6 of
+msgid "status, output"
+msgstr "ステータス、出力"
+
+#: fusion_hat._utils.is_installed:1 of
+msgid "Check if command is installed"
+msgstr "コマンドがインストールされているかを確認します"
+
+#: fusion_hat._utils.is_installed:6 of
+msgid "True if installed"
+msgstr "インストールされている場合は True"
+
+#: fusion_hat._utils.mapping:1 of
+msgid "Map value from one range to another range"
+msgstr "値をある範囲から別の範囲へマッピングします"
+
+#: fusion_hat._utils.mapping:3 of
+msgid "value to map"
+msgstr "マッピングする値"
+
+#: fusion_hat._utils.mapping:5 of
+msgid "input minimum"
+msgstr "入力の最小値"
+
+#: fusion_hat._utils.mapping:7 of
+msgid "input maximum"
+msgstr "入力の最大値"
+
+#: fusion_hat._utils.mapping:9 of
+msgid "output minimum"
+msgstr "出力の最小値"
+
+#: fusion_hat._utils.mapping:11 of
+msgid "output maximum"
+msgstr "出力の最大値"
+
+#: fusion_hat._utils.mapping:14 of
+msgid "mapped value"
+msgstr "マッピング後の値"
+
+#: fusion_hat._utils.get_ip:1 of
+msgid "Get IP address"
+msgstr "IP アドレスを取得します"
+
+#: fusion_hat._utils.get_ip:3 of
+msgid "interfaces to check, defaults to ['wlan0', 'eth0']"
+msgstr "確認するインターフェース。デフォルトは ['wlan0', 'eth0'] です。"
+
+#: fusion_hat._utils.get_ip:6 of
+msgid "IP address or False if not found"
+msgstr "IP アドレス。見つからない場合は False"
+
+#: fusion_hat._utils.get_username:1 of
+msgid "Get username"
+msgstr "ユーザー名を取得します"
+
+#: fusion_hat._utils.get_username:3 of
+msgid "username"
+msgstr "ユーザー名"
+
+#: fusion_hat._utils.constrain:1 of
+msgid "Constrain value to a range"
+msgstr "値を指定した範囲内に制限します"
+
+#: fusion_hat._utils.constrain:3 of
+msgid "value to constrain"
+msgstr "制限する値"
+
+#: fusion_hat._utils.constrain:5 of
+msgid "minimum value"
+msgstr "最小値"
+
+#: fusion_hat._utils.constrain:7 of
+msgid "maximum value"
+msgstr "最大値"
+
+#: fusion_hat._utils.constrain:10 of
+msgid "constrained value"
+msgstr "制限後の値"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+
+#~ msgid "Returns"
+#~ msgstr "戻り値"
+
+#~ msgid "Return type"
+#~ msgstr "戻り値の型"
+

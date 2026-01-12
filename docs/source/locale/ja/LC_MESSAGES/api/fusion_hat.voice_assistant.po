@@ -1,0 +1,260 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.voice_assistant.rst:2
+msgid "fusion\\_hat.voice\\_assistant module"
+msgstr "fusion\\_hat.voice\\_assistant モジュール"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:1
+msgid "ベースクラス: :py:class:`object`"
+msgstr "ベースクラス : :py:class:`object` "
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:1
+msgid "Voice assistant class"
+msgstr "音声アシスタントクラス"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.add_trigger
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_listen
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_say
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_say
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.capture_image
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_heard
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think
+msgid "パラメータ"
+msgstr "パラメーター"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:3
+msgid "Language model"
+msgstr "言語モデル"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:5
+msgid "Robot name, default is NAME"
+msgstr "ロボット名、デフォルトは NAME です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:7
+msgid ""
+"Enable image, need to set up a multimodal language model, default is "
+"WITH_IMAGE"
+msgstr ""
+"画像を有効化するにはマルチモーダル言語モデルを設定する必要があります。デフォルトは "
+"WITH_IMAGE です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:9
+msgid "Text-to-speech model, default is TTS_MODEL"
+msgstr "テキスト読み上げモデル、デフォルトは TTS_MODEL です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:11
+msgid "Speech-to-text language, default is STT_LANGUAGE"
+msgstr "音声認識言語、デフォルトは STT_LANGUAGE です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:13
+msgid "Enable keyboard input, default is KEYBOARD_ENABLE"
+msgstr "キーボード入力を有効化、デフォルトは KEYBOARD_ENABLE です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:15
+msgid "Enable wake word, default is WAKE_ENABLE"
+msgstr "ウェイクワードを有効化、デフォルトは WAKE_ENABLE です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:17
+msgid "Wake word, default is WAKE_WORD"
+msgstr "ウェイクワード、デフォルトは WAKE_WORD です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:19
+msgid "Answer on wake word, default is ANSWER_ON_WAKE"
+msgstr "ウェイクワードで応答、デフォルトは ANSWER_ON_WAKE です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:21
+msgid "Welcome message, default is WELCOME"
+msgstr "ウェルカムメッセージ、デフォルトは WELCOME です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:23
+msgid "Set instructions, default is INSTRUCTIONS"
+msgstr "指示を設定、デフォルトは INSTRUCTIONS です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:25
+msgid "Disable think, default is False"
+msgstr "思考を無効化、デフォルトは False です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_listen:1
+msgid "Before listen"
+msgstr "リッスン前"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_listen:1
+msgid "After listen"
+msgstr "リッスン後"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_listen:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen:3
+msgid "Speech-to-text result"
+msgstr "音声認識結果"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_think:1
+msgid "Before think"
+msgstr "思考前"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_think:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_think:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:3
+msgid "Text to think"
+msgstr "思考するテキスト"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_think:1
+msgid "After think"
+msgstr "思考後"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_start:1
+msgid "On start"
+msgstr "開始時"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_wake:1
+msgid "On wake"
+msgstr "ウェイク時"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_heard:1
+msgid "On heard"
+msgstr "音声認識時"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_heard:3
+msgid "Text heard"
+msgstr "認識されたテキスト"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response:1
+msgid "Parse response"
+msgstr "レスポンスを解析"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response:3
+msgid "Text to parse"
+msgstr "解析するテキスト"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word
+msgid "戻り値"
+msgstr "戻り値"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response:6
+msgid "Parsed text"
+msgstr "解析されたテキスト"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word
+msgid "戻り値の型"
+msgstr "戻り値の型"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.add_trigger:1
+msgid "Add trigger function"
+msgstr "トリガー関数を追加"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.add_trigger:3
+msgid "Trigger function"
+msgstr "トリガー関数"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_say:1
+msgid "Before say"
+msgstr "発話前"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_say:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_say:3
+msgid "Text to say"
+msgstr "発話するテキスト"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_say:1
+msgid "After say"
+msgstr "発話後"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_stop:1
+msgid "On stop"
+msgstr "停止時"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_finish_a_round:1
+msgid "On finish a round"
+msgstr "1 ラウンド終了時"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.capture_image:1
+msgid "Capture image"
+msgstr "画像をキャプチャ"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.capture_image:3
+msgid "Path to save image"
+msgstr "画像の保存パス"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word:1
+msgid "Trigger wake word"
+msgstr "ウェイクワードをトリガー"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word:3
+msgid "Triggered, disable image, message"
+msgstr "トリガーされました。画像を無効化、メッセージ"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input:1
+msgid "Trigger keyboard input"
+msgstr "キーボード入力をトリガー"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.init_camera:1
+msgid "Initialize camera"
+msgstr "カメラを初期化"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.close_camera:1
+msgid "Close camera"
+msgstr "カメラを閉じる"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen:1
+msgid "Listen"
+msgstr "リッスン"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:1
+msgid "Think"
+msgstr "思考"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:5
+msgid "Disable image, defaults to False"
+msgstr "画像を無効化、デフォルトは False です"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:8
+msgid "LLM response"
+msgstr "LLM の応答"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.main:1
+msgid "Main loop"
+msgstr "メインループ"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.run:1
+msgid "Run"
+msgstr "実行"
+

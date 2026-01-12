@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/gpio_in.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../project/gpio_in.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../project/gpio_in.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../project/gpio_in.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../project/gpio_in.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../project/gpio_in.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../project/gpio_in.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../project/gpio_in.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探索 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../project/gpio_in.rst:18
+msgid "GPIO Input"
+msgstr "GPIO 入力"
+
+#: ../project/gpio_in.rst:20
+msgid "**Introduction**"
+msgstr "**はじめに** "
+
+#: ../project/gpio_in.rst:22
+msgid ""
+"In this project, we will learn how to use a button to control an LED. "
+"Buttons are fundamental input devices used in various electronic projects"
+" to interact with circuits and systems."
+msgstr ""
+"この プロジェクト では、 ボタン を 使用 して LED を 制御 する 方法 を 学びます。 "
+"ボタン は、 回路 や システム と 相互作用 する ため に さまざま な 電子 プロジェクト で 使用 される 基本 的 な 入力 デバイス です。"
+
+#: ../project/gpio_in.rst:28
+msgid "**Circuit Diagram**"
+msgstr "**回路 図** "
+
+#: ../project/gpio_in.rst:30
+msgid ""
+"We will use a normally open button as an input for the Raspberry Pi. When"
+" the button is pressed, GPIO17 will receive a high-level signal (3.3V). "
+"The Raspberry Pi will detect this signal and turn the LED on. The circuit"
+" connections are shown in the diagrams below:"
+msgstr ""
+"Raspberry Pi の 入力 として、 通常 開（ ノーマリー オープン ） の ボタン を 使用 します。 "
+"ボタン が 押される と、 GPIO17 は 高 レベル 信号（ 3.3V ） を 受信 します。 "
+"Raspberry Pi は この 信号 を 検出 し、 LED を 点灯 させます。 回路 の 接続 は 以下 の 図 に 示されています："
+
+#: ../project/gpio_in.rst:40
+msgid "**Wiring Diagram**"
+msgstr "**配線図  **"
+
+#: ../project/gpio_in.rst:42
+msgid "Follow these steps to build the circuit:"
+msgstr "次 の 手順 に 従って 回路 を 組み立てて ください："
+
+#: ../project/gpio_in.rst:44
+msgid ""
+"Connect the anode (long pin) of the LED to a GPIO pin (GPIO22) through a "
+"current-limiting resistor."
+msgstr ""
+"LED の アノード（ 長い ピン ） を、 電流 制限 抵抗 を 介して GPIO ピン（ GPIO22 ） に 接続 します。"
+
+#: ../project/gpio_in.rst:45
+msgid "Connect the cathode (short pin) of the LED to the ground (GND)."
+msgstr "LED の カソード（ 短い ピン ） を GND（ グラウンド ） に 接続 します。"
+
+#: ../project/gpio_in.rst:46
+msgid ""
+"Connect one terminal of the button to GPIO17 and the other terminal to "
+"the ground (GND)."
+msgstr ""
+"ボタン の 一方 の 端子 を GPIO17 に、 もう 一方 の 端子 を GND（ グラウンド ） に 接続 します。"
+
+#: ../project/gpio_in.rst:56
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../project/gpio_in.rst:58
+msgid ""
+"The following Python code toggles the LED based on button presses and "
+"releases:"
+msgstr ""
+"以下 の Python コード は、 ボタン の 押下 と 解放 に 応じて LED を オン / オフ します："
+
+#: ../project/gpio_in.rst:86
+msgid ""
+"This Python script demonstrates an interactive setup where a button "
+"controls an LED. When executed:"
+msgstr ""
+"この Python スクリプト は、 ボタン で LED を 制御 する 対話 的 な セットアップ を 示します。 実行 すると："
+
+#: ../project/gpio_in.rst:88
+msgid ""
+"Pressing the button (connected to GPIO pin 17) turns the LED (connected "
+"to GPIO pin 22) on."
+msgstr ""
+"ボタン（ GPIO ピン 17 に 接続 ） を 押す と、 LED（ GPIO ピン 22 に 接続 ） が 点灯 します。"
+
+#: ../project/gpio_in.rst:89
+msgid "Releasing the button turns the LED off."
+msgstr "ボタン を 離す と、 LED は 消灯 します。"
+
+#: ../project/gpio_in.rst:90
+msgid ""
+"The program runs indefinitely, listening for button press and release "
+"events to control the LED."
+msgstr ""
+"プログラム は 無期限 に 実行 され、 ボタン の 押下 および 解放 イベント を 監視 して LED を 制御 します。"

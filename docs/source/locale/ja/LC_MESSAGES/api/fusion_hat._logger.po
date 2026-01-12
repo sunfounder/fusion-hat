@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat._logger.rst:2
+msgid "fusion\\_hat.\\_logger module"
+msgstr "fusion\\_hat.\\_logger モジュール"
+
+#: fusion_hat._logger.ColoredFormatter:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`~logging.Formatter`"
+msgstr "ベースクラス： :py:class:`~logging.Formatter` "
+
+#: fusion_hat._logger.ColoredFormatter.format:1 of
+msgid "Format the specified record as text."
+msgstr "指定されたレコードをテキストとして整形します。"
+
+#: fusion_hat._logger.ColoredFormatter.format:3 of
+msgid ""
+"The record's attribute dictionary is used as the operand to a string "
+"formatting operation which yields the returned string. Before formatting "
+"the dictionary, a couple of preparatory steps are carried out. The "
+"message attribute of the record is computed using LogRecord.getMessage()."
+" If the formatting string uses the time (as determined by a call to "
+"usesTime(), formatTime() is called to format the event time. If there is "
+"exception information, it is formatted using formatException() and "
+"appended to the message."
+msgstr ""
+"レコードの属性辞書は、文字列フォーマット処理のオペランドとして使用され、その結果として整形済みの文字列が返されます。辞書を整形する前に、いくつかの準備処理が行われます。まず、レコードの"
+" message 属性は LogRecord.getMessage() を使用して計算されます。フォーマット文字列で時刻が使用されている場合（ "
+"usesTime() の呼び出しによって判定されます）、formatTime() "
+"が呼び出されてイベント時刻が整形されます。例外情報が存在する場合は、 formatException() "
+"を使用して整形され、メッセージに追加されます。"
+
+#: fusion_hat._logger.Logger:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`~logging.Logger`"
+msgstr "ベースクラス： :py:class:`~logging.Logger` "
+
+#: fusion_hat._logger.Logger:1 of
+msgid "Logger class"
+msgstr "Logger クラス"
+
+#: fusion_hat._logger.Logger.setLevel:1 of
+msgid "Set log level"
+msgstr "ログレベルを設定します"
+
+#: fusion_hat._logger.Logger.setLevel of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat._logger.Logger.setLevel:3 of
+msgid "Log level"
+msgstr "ログレベル"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+

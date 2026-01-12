@@ -1,0 +1,152 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/pwm.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../project/pwm.rst:5
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../project/pwm.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../project/pwm.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 共有 し、 スキル を 向上 させましょう。"
+
+#: ../project/pwm.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../project/pwm.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../project/pwm.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../project/pwm.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探索 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../project/pwm.rst:18
+msgid "PWM"
+msgstr "PWM"
+
+#: ../project/pwm.rst:20
+msgid "**Introduction**"
+msgstr "**概要** "
+
+#: ../project/pwm.rst:22
+msgid ""
+"In this project, we will explore how to control an RGB LED to display "
+"various colors by using a Raspberry Pi and GPIO programming. RGB LEDs are"
+" versatile components that can emit a spectrum of colors by mixing red, "
+"green, and blue light at different intensities."
+msgstr ""
+"この プロジェクト では、 Raspberry Pi と GPIO プログラミング を 使用 して、 "
+"RGB LED を 制御 し、 さまざま な 色 を 表示 する 方法 を 学びます。 "
+"RGB LED は、 赤・ 緑・ 青 の 光 を 異なる 強さ で 混合 する こと に より、 "
+"幅広い 色 を 表現 できる 多用途 な コンポーネント です。"
+
+#: ../project/pwm.rst:27
+msgid "**Circuit Diagram**"
+msgstr "**回路図** "
+
+#: ../project/pwm.rst:29
+msgid ""
+"After connecting the R, G, and B pins of the RGB LED to current-limiting "
+"resistors, connect these resistors to PWM0, PWM1, and PWM2, respectively."
+" The longest pin of the LED (GND) is connected to the GND pin of the "
+"Raspberry Pi. Different PWM values for the three pins produce various "
+"colors."
+msgstr ""
+"RGB LED の R、 G、 B ピン を 電流 制限 抵抗 に 接続 した 後、 "
+"それぞれ の 抵抗 を PWM0、 PWM1、 PWM2 に 接続 します。 "
+"LED の 最も 長い ピン（ GND ）は、 Raspberry Pi の GND ピン に 接続 します。 "
+"3 つ の ピン に 設定 する PWM 値 を 変える こと で、 さまざま な 色 を 生成 できます。"
+
+#: ../project/pwm.rst:37
+msgid "**Wiring Diagram**"
+msgstr "**配線図** "
+
+#: ../project/pwm.rst:39
+msgid "Follow the steps below to build the circuit:"
+msgstr "以下 の 手順 に 従って 回路 を 作成 します："
+
+#: ../project/pwm.rst:41
+msgid "Place the RGB LED on the breadboard."
+msgstr "RGB LED を ブレッドボード に 配置 します。"
+
+#: ../project/pwm.rst:42
+msgid ""
+"Connect the red, green, and blue pins of the LED to P0, P1, and P2 "
+"through resistors."
+msgstr ""
+"LED の 赤、 緑、 青 の ピン を、 抵抗 を 介して P0、 P1、 P2 に 接続 します。"
+
+#: ../project/pwm.rst:43
+msgid "Connect the longest pin (GND) of the LED to the GND of the Raspberry Pi."
+msgstr "LED の 最も 長い ピン（ GND ）を Raspberry Pi の GND に 接続 します。"
+
+#: ../project/pwm.rst:54
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../project/pwm.rst:56
+msgid ""
+"The following Python code cycles through various colors on the RGB LED by"
+" setting different PWM values for the red, green, and blue components:"
+msgstr ""
+"以下 の Python コード は、 赤・ 緑・ 青 の 各 成分 に 異なる PWM 値 を 設定 する こと で、 "
+"RGB LED の 色 を 順番 に 切り替え ます："
+
+#: ../project/pwm.rst:95
+msgid ""
+"This script demonstrates how to control an RGB LED using the Fusion Hat "
+"library. It initializes the RGB LED with specific PWM pins and sets "
+"different colors sequentially."
+msgstr ""
+"この スクリプト は、 Fusion HAT ライブラリ を 使用 して RGB LED を 制御 する 方法 を 示し ます。 "
+"特定 の PWM ピン で RGB LED を 初期化 し、 さまざま な 色 を 順番 に 設定 します。"

@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.modules.gy87.rst:2
+msgid "fusion\\_hat.modules.gy87 module"
+msgstr "fusion\\_hat.modules.gy87 モジュール"
+
+#: fusion_hat.modules.gy87.scan_i2c_addr:1 of
+msgid "Scan the I2C bus for all responding device addresses"
+msgstr "応答する すべて の デバイス アドレス を 対象 に I2C バス を スキャン する"
+
+#: fusion_hat.modules.gy87.scan_i2c_addr
+#: fusion_hat.modules.gy87.tilt_comp_heading of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.modules.gy87.scan_i2c_addr:3 of
+msgid "I2C bus number, defaults to I2C_BUS (1)"
+msgstr "I2C バス 番号 。 デフォルト は I2C_BUS ( 1 )"
+
+#: fusion_hat.modules.gy87.GY87.read_all fusion_hat.modules.gy87.scan_i2c_addr
+#: fusion_hat.modules.gy87.tilt_comp_heading of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat.modules.gy87.scan_i2c_addr:5 of
+msgid "list of all detected I2C device addresses"
+msgstr "検出 された すべて の I2C デバイス アドレス の リスト"
+
+#: fusion_hat.modules.gy87.GY87.read_all fusion_hat.modules.gy87.scan_i2c_addr
+#: fusion_hat.modules.gy87.tilt_comp_heading of
+msgid "戻り値の型"
+msgstr ""
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:1 of
+msgid ""
+"Calculate tilt-compensated heading: Use accelerometer data to calculate "
+"roll/pitch angles, then compensate magnetometer data"
+msgstr ""
+"傾斜 補正 された 方位角 を 計算 する : 加速度 センサー の データ を 使用 して ロール / ピッチ 角 を 計算 し 、 その後 "
+"磁気 センサー の データ を 補正 する"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:3
+#: fusion_hat.modules.gy87.tilt_comp_heading:4
+#: fusion_hat.modules.gy87.tilt_comp_heading:5 of
+msgid "Three-axis data from the magnetometer (Gauss)"
+msgstr "磁気 センサー から の 3 軸 データ ( ガウス )"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:6
+#: fusion_hat.modules.gy87.tilt_comp_heading:7
+#: fusion_hat.modules.gy87.tilt_comp_heading:8 of
+msgid "Three-axis data from the accelerometer (g)"
+msgstr "加速度 センサー から の 3 軸 データ ( g )"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:9 of
+msgid ""
+"Magnetic declination (degrees), used to convert magnetic north to true "
+"north"
+msgstr "磁気 偏角 ( 度 ) 。 磁北 を 真北 に 変換 する ため に 使用 される"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:11 of
+msgid "Compensated heading angle, range 0-360 degrees"
+msgstr "補正 後 の 方位角 。 範囲 は 0 〜 360 度"
+
+#: fusion_hat.modules.gy87.GY87:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`object`"
+msgstr "基底 クラス : :py:class:`object`"
+
+#: fusion_hat.modules.gy87.GY87:1 of
+msgid ""
+"GY-87 sensor module main class Integrate MPU6050 (accelerometer + "
+"gyroscope), BMP180 (barometer), and magnetometer (support multiple "
+"models) Provide complete sensor data reading functionality, including "
+"self-recovery mechanism"
+msgstr ""
+"GY-87 センサー モジュール の メイン クラス 。 MPU6050 ( 加速度 + ジャイロ ) 、 BMP180 ( 気圧 センサー ) "
+"、 および 磁気 センサー ( 複数 モデル を サポート ) を 統合 し 、 自己 回復 メカニズム を 含む 完全 な センサー データ "
+"読み取り 機能 を 提供 する"
+
+#: fusion_hat.modules.gy87.GY87.read_all:1 of
+msgid ""
+"Read all sensor data Include automatic error handling and self-recovery "
+"mechanism to ensure system stability"
+msgstr ""
+"すべて の センサー データ を 読み取る 。 システム の 安定性 を 確保 する ため に 、 自動 エラー 処理 および 自己 回復 "
+"メカニズム を 含む"
+
+#: fusion_hat.modules.gy87.GY87.read_all:4 of
+msgid ""
+"Dictionary containing all sensor data       {accel_g: (x,y,z), gyro_dps: "
+"(x,y,z), temp_mpu_c: float,        temp_bmp_c: float, pressure_pa: float,"
+" altitude_m: float,        mag_gauss: (x,y,z), heading_deg: float}"
+msgstr ""
+"すべて の センサー データ を 含む 辞書 {accel_g: (x, y, z), gyro_dps: (x, y, z), "
+"temp_mpu_c: float, temp_bmp_c: float, pressure_pa: float, altitude_m: "
+"float, mag_gauss: (x, y, z), heading_deg: float}"
+
+#: fusion_hat.modules.gy87.demo_loop:1 of
+msgid "GY-87 sensor module demo loop function"
+msgstr "GY-87 センサー モジュール の デモ ループ 関数"
+
+#: fusion_hat.modules.gy87.demo_loop:7 of
+msgid "Functions:"
+msgstr "機能 :"
+
+#: fusion_hat.modules.gy87.demo_loop:4 of
+msgid "Scan and display connected I2C devices"
+msgstr "接続 されている I2C デバイス を スキャン して 表示 する"
+
+#: fusion_hat.modules.gy87.demo_loop:5 of
+msgid "Initialize the GY87 sensor module"
+msgstr "GY87 センサー モジュール を 初期化 する"
+
+#: fusion_hat.modules.gy87.demo_loop:6 of
+msgid "Continuously read and display all sensor data"
+msgstr "すべて の センサー データ を 継続 的 に 読み取り 表示 する"
+
+#: fusion_hat.modules.gy87.demo_loop:7 of
+msgid "Adjust output format based on magnetometer presence"
+msgstr "磁気 センサー の 有無 に 応じて 出力 フォーマット を 調整 する"
+
+#: fusion_hat.modules.gy87.demo_loop:11 of
+msgid "Output format:"
+msgstr "出力 フォーマット :"
+
+#: fusion_hat.modules.gy87.demo_loop:10 of
+msgid ""
+"With magnetometer: displays acceleration, angular velocity, magnetic "
+"field strength, heading, temperature, pressure, and altitude"
+msgstr "磁気 センサー あり : 加速度 、 角速度 、 磁場 強度 、 方位 、 温度 、 気圧 、 高度 を 表示 する"
+
+#: fusion_hat.modules.gy87.demo_loop:11 of
+msgid ""
+"Without magnetometer: displays all data except magnetic field strength "
+"and heading"
+msgstr "磁気 センサー なし : 磁場 強度 と 方位 を 除く すべて の データ を 表示 する"
+
+#: fusion_hat.modules.gy87.demo_loop:13 of
+msgid "Sampling frequency:"
+msgstr "サンプリング 周波数 :"
+
+#: fusion_hat.modules.gy87.demo_loop:14 of
+msgid "~5 Hz (0.2 s pause after each read)"
+msgstr "約 5 Hz ( 各 読み取り 後 に 0.2 秒 の 待機 )"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+
+#~ msgid "Returns"
+#~ msgstr "戻り値"
+
+#~ msgid "Return type"
+#~ msgstr "戻り値 の 型"
+
+#~ msgid "Dictionary containing all sensor data"
+#~ msgstr "すべて の センサー データ を 含む 辞書"
+
+#~ msgid "{accel_g: (x,y,z), gyro_dps: (x,y,z), temp_mpu_c: float,"
+#~ msgstr "{accel_g: (x, y, z), gyro_dps: (x, y, z), temp_mpu_c: float,"
+
+#~ msgid ""
+#~ "temp_bmp_c: float, pressure_pa: float, "
+#~ "altitude_m: float, mag_gauss: (x,y,z), "
+#~ "heading_deg: float}"
+#~ msgstr ""
+#~ "temp_bmp_c: float, pressure_pa: float, "
+#~ "altitude_m: float, mag_gauss: (x, y, z),"
+#~ " heading_deg: float}"
+

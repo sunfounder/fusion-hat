@@ -1,0 +1,403 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../quick_user_guide.rst:4
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。 Facebook の SunFounder Raspberry Pi & Arduino & ESP32 愛好者 コミュニティ へ ようこそ！ "
+"仲間 の 愛好者 と 一緒 に Raspberry Pi、 Arduino、 ESP32 を さらに 深く 探求 しましょう。"
+
+#: ../quick_user_guide.rst:6
+msgid "**Why Join?**"
+msgstr "**なぜ 参加 する の です か？** "
+
+#: ../quick_user_guide.rst:8
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的 な サポート** : コミュニティ と チーム の 支援 に より、 購入 後 の 問題 や 技術的 な 課題 を 解決 できます。"
+
+#: ../quick_user_guide.rst:9
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学習 と 共有** : ヒント や チュートリアル を 交換 し、 スキル を 向上 させましょう。"
+
+#: ../quick_user_guide.rst:10
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定 プレビュー** : 新製品 の 発表 や 先行 情報 に いち早く アクセス できます。"
+
+#: ../quick_user_guide.rst:11
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別 割引** : 最新 製品 を 対象 に した 限定 割引 を 利用 できます。"
+
+#: ../quick_user_guide.rst:12
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**イベント プロモーション と プレゼント** : プレゼント 企画 や 祝日 キャンペーン に 参加 できます。"
+
+#: ../quick_user_guide.rst:14
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たち と 一緒 に 探索 と 創作 を 始める 準備 は できました か？ "
+"[|link_sf_facebook|] を クリック して、 今すぐ 参加 しましょう！"
+
+#: ../quick_user_guide.rst:20
+msgid "Quick User Guide"
+msgstr "クイック ユーザー ガイド"
+
+#: ../quick_user_guide.rst:22
+msgid "This guide will help you set up everything quickly."
+msgstr "この ガイド は、 すべて を 迅速 に セットアップ する ため の 手助け を します。"
+
+#: ../quick_user_guide.rst:24
+msgid "We'll walk through:"
+msgstr "以下 の 内容 を 順 に 説明 します："
+
+#: ../quick_user_guide.rst:26
+msgid "How to assemble the hardware"
+msgstr "ハードウェア の 組み立て 方法"
+
+#: ../quick_user_guide.rst:27
+msgid "Setting up the shutdown function"
+msgstr "シャットダウン 機能 の 設定"
+
+#: ../quick_user_guide.rst:28
+msgid "Installing necessary software"
+msgstr "必要 な ソフトウェア の インストール"
+
+#: ../quick_user_guide.rst:30
+msgid ""
+"Just follow the simple steps - you'll be up and running in no time. Let's"
+" begin!"
+msgstr ""
+"簡単 な 手順 に 従う だけ で、 すぐ に 使用 を 開始 できます。 さあ、 始めましょう！"
+
+#: ../quick_user_guide.rst:34
+msgid "Assembling the Fusion HAT"
+msgstr "Fusion HAT の 組み立て"
+
+#: ../quick_user_guide.rst:45
+msgid "Charge"
+msgstr "充電"
+
+#: ../quick_user_guide.rst:47
+msgid ""
+"Before the first use, it is recommended to fully charge the battery. You "
+"can use the included USB Type-C charging cable, or your own USB-C "
+"charger."
+msgstr ""
+"初回 使用 前 に、 バッテリー を 完全 に 充電 する こと を 推奨 します。 "
+"付属 の USB Type-C 充電 ケーブル、 または お手持ち の USB-C 充電器 を 使用 できます。"
+
+#: ../quick_user_guide.rst:49
+msgid ""
+"We recommend using a **5V 3A power supply**, such as the official "
+"Raspberry Pi 15W adapter."
+msgstr ""
+"公式 Raspberry Pi 15W アダプター など の **5V 3A 電源** の 使用 を 推奨 します。"
+
+#: ../quick_user_guide.rst:50
+msgid ""
+"You can also use a **USB-C PD (Power Delivery)** charger or a **QC 2.0 "
+"fast charger**."
+msgstr ""
+"**USB-C PD（ Power Delivery ）** 充電器 や **QC 2.0 急速 充電器** も 使用 できます。"
+
+#: ../quick_user_guide.rst:51
+msgid "Charging from 0% to full typically takes about **2 hours**."
+msgstr "0% から 満充電 まで は、 通常 **約 2 時間** かかります。"
+
+#: ../quick_user_guide.rst:57
+msgid ""
+"The Fusion HAT includes **two battery indicator LEDs**, showing the "
+"battery voltage level:"
+msgstr ""
+"Fusion HAT に は **2 つ の バッテリー インジケーター LED** が 搭載 されて おり、 "
+"バッテリー 電圧 レベル を 表示 します："
+
+#: ../quick_user_guide.rst:63 ../quick_user_guide.rst:78
+msgid "LED Status"
+msgstr "LED 状態"
+
+#: ../quick_user_guide.rst:64 ../quick_user_guide.rst:79
+msgid "Battery Voltage"
+msgstr "バッテリー 電圧"
+
+#: ../quick_user_guide.rst:65
+msgid "2 LEDs ON"
+msgstr "LED 2 個 点灯"
+
+#: ../quick_user_guide.rst:66 ../quick_user_guide.rst:81
+msgid "> 7.4V"
+msgstr "> 7.4V"
+
+#: ../quick_user_guide.rst:67
+msgid "1 LED ON"
+msgstr "LED 1 個 点灯"
+
+#: ../quick_user_guide.rst:68 ../quick_user_guide.rst:83
+msgid "< 7.4V"
+msgstr "< 7.4V"
+
+#: ../quick_user_guide.rst:69
+msgid "Both LEDs OFF"
+msgstr "LED 両方 消灯"
+
+#: ../quick_user_guide.rst:70
+msgid "< 6.5V"
+msgstr "< 6.5V"
+
+#: ../quick_user_guide.rst:72
+msgid "When charging, one of the LEDs will blink to indicate charging progress:"
+msgstr "充電 中 は、 いずれか の LED が 点滅 し、 充電 状態 を 示します："
+
+#: ../quick_user_guide.rst:80
+msgid "1 LED ON, 1 LED Blinking"
+msgstr "LED 1 個 点灯、 LED 1 個 点滅"
+
+#: ../quick_user_guide.rst:82
+msgid "Only 1 LED Blinking"
+msgstr "LED 1 個 のみ 点滅"
+
+#: ../quick_user_guide.rst:86
+msgid "After fully charged:"
+msgstr "満充電 後："
+
+#: ../quick_user_guide.rst:88
+msgid "**If the Fusion HAT is ON**, both LEDs will remain lit."
+msgstr "**Fusion HAT が ON の 場合** 、 両方 の LED が 点灯 し 続けます。"
+
+#: ../quick_user_guide.rst:89
+msgid "**If the Fusion HAT is OFF**, both LEDs will turn off."
+msgstr "**Fusion HAT が OFF の 場合** 、 両方 の LED は 消灯 します。"
+
+#: ../quick_user_guide.rst:93
+msgid ""
+"For extended programming or debugging sessions, you can keep the Fusion "
+"HAT powered by connecting the USB-C cable, which will charge the battery "
+"and run the Fusion HAT at the same time."
+msgstr ""
+"長時間 の プログラミング や デバッグ 作業 の 場合、 USB-C ケーブル を 接続 した まま に する ことで、 "
+"バッテリー を 充電 し ながら Fusion HAT を 同時 に 動作 させる こと が できます。"
+
+#: ../quick_user_guide.rst:97
+msgid "Power ON"
+msgstr "電源 ON"
+
+#: ../quick_user_guide.rst:99
+msgid ""
+"When the battery has sufficient charge, press the **power button** on the"
+" Fusion HAT briefly."
+msgstr ""
+"バッテリー 残量 が 十分 な 場合、 Fusion HAT の **電源 ボタン** を 短く 押して ください。"
+
+#: ../quick_user_guide.rst:101
+msgid "The **PWR LED** will turn on."
+msgstr "**PWR LED** が 点灯 します。"
+
+#: ../quick_user_guide.rst:102
+msgid "The **battery LEDs** will also light up."
+msgstr "**バッテリー LED** も 点灯 します。"
+
+#: ../quick_user_guide.rst:103
+msgid "The Raspberry Pi will power on automatically."
+msgstr "Raspberry Pi は 自動 的 に 起動 します。"
+
+#: ../quick_user_guide.rst:111
+msgid "Configure Shutdown Behavior"
+msgstr "シャットダウン 動作 の 設定"
+
+#: ../quick_user_guide.rst:113
+msgid ""
+"The Fusion HAT relies on the Raspberry Pi shutdown signal to manage the "
+"full system power. Therefore, you need to configure shutdown behavior "
+"properly."
+msgstr ""
+"Fusion HAT は、 Raspberry Pi の シャットダウン 信号 を 利用 して システム 全体 の 電源 を 管理 します。 "
+"そのため、 シャットダウン 動作 を 正しく 設定 する 必要 が あります。"
+
+#: ../quick_user_guide.rst:116
+msgid "**For Raspberry Pi 5 and 4B**"
+msgstr "**Raspberry Pi 5 および 4B の 場合**"
+
+#: ../quick_user_guide.rst:118
+msgid ""
+"These models support complete power-off after shutdown. The Fusion HAT "
+"monitors the 3.3V line to detect the Pi’s power state."
+msgstr ""
+"これら の モデル は、 シャットダウン 後 の 完全 な 電源 オフ を サポート しています。 "
+"Fusion HAT は 3.3V ライン を 監視 し、 Pi の 電源 状態 を 検出 します。"
+
+#: ../quick_user_guide.rst:120
+msgid "Place the jumper on **RPI State → Pi3V3**."
+msgstr "ジャンパー を **RPI State → Pi3V3** に 設定 して ください。"
+
+#: ../quick_user_guide.rst:125
+msgid "Open the EEPROM configuration tool:"
+msgstr "EEPROM 設定 ツール を 起動 します："
+
+#: ../quick_user_guide.rst:131
+msgid "Navigate to **Advanced Options → A12 Shutdown Behaviour**."
+msgstr "**Advanced Options → A12 Shutdown Behaviour** に 移動 します。"
+
+#: ../quick_user_guide.rst:135
+msgid "Select **B1 Full Power Off**."
+msgstr "**B1 Full Power Off** を 選択 します。"
+
+#: ../quick_user_guide.rst:139
+msgid ""
+"Save the changes. You will be prompted to reboot for the new settings to "
+"take effect."
+msgstr ""
+"変更 を 保存 します。 新しい 設定 を 有効 に する ため、 再起動 を 求められます。"
+
+#: ../quick_user_guide.rst:142
+msgid "**For Raspberry Pi Zero 2W, 3B, 3B+**"
+msgstr "**Raspberry Pi Zero 2W、 3B、 3B+ の 場合** "
+
+#: ../quick_user_guide.rst:144
+msgid ""
+"These models do **not** support full power-off using 3.3V. Instead, "
+"GPIO26 must be configured as a shutdown state indicator."
+msgstr ""
+"これら の モデル は、 3.3V を 使用 した 完全 な 電源 オフ を **サポート して いません** 。 "
+"代わり に、 GPIO26 を シャットダウン 状態 インジケーター として 設定 する 必要 が あります。"
+
+#: ../quick_user_guide.rst:146
+msgid "Place the jumper on **RPI_STATE → IO26**."
+msgstr "ジャンパー を **RPI_STATE → IO26** に 設定 して ください。"
+
+#: ../quick_user_guide.rst:151
+msgid "Edit the ``/boot/firmware/config.txt`` file:"
+msgstr "``/boot/firmware/config.txt`` ファイル を 編集 します："
+
+#: ../quick_user_guide.rst:157
+msgid ""
+"Add the following line at the end to set GPIO26 as low on shutdown and "
+"high on power-up:"
+msgstr ""
+"シャットダウン 時 に GPIO26 を Low、 起動 時 に High に 設定 する ため、 "
+"以下 の 行 を ファイル 末尾 に 追加 します："
+
+#: ../quick_user_guide.rst:163
+msgid "Reboot to apply changes:"
+msgstr "変更 を 反映 する ため 再起動 します："
+
+#: ../quick_user_guide.rst:172
+msgid "Install the ``fusion-hat`` Module"
+msgstr "``fusion-hat`` モジュール の インストール"
+
+#: ../quick_user_guide.rst:174
+msgid ""
+"The ``fusion-hat`` package provides the necessary libraries and tools for"
+" operating the Fusion HAT hardware."
+msgstr ""
+"``fusion-hat`` パッケージ は、 Fusion HAT ハードウェア を 操作 する ため に 必要 な "
+"ライブラリ と ツール を 提供 します。"
+
+#: ../quick_user_guide.rst:176
+msgid "Run the following installation command:"
+msgstr "以下 の インストール コマンド を 実行 します："
+
+#: ../quick_user_guide.rst:182
+msgid ""
+"After installation completes, reboot the Raspberry Pi. Then execute the "
+"audio setup script:"
+msgstr ""
+"インストール 完了 後、 Raspberry Pi を 再起動 します。 その後、 オーディオ 設定 スクリプト を 実行 します："
+
+#: ../quick_user_guide.rst:188
+msgid "This completes the software installation process for the Fusion HAT."
+msgstr "これで Fusion HAT 用 ソフトウェア の インストール は 完了 です。"
+
+#: ../quick_user_guide.rst:191
+msgid "Safe Shutdown"
+msgstr "安全 な シャットダウン"
+
+#: ../quick_user_guide.rst:193
+msgid ""
+"After the above setup, you can safely shut down your Fusion HAT using the"
+" onboard power button. This step is only to show you how to shut down "
+"when needed—you don’t have to power off now and can continue to the next "
+"step."
+msgstr ""
+"上記 の 設定 が 完了 した 後、 オンボード 電源 ボタン を 使用 して "
+"Fusion HAT を 安全 に シャットダウン できます。 "
+"この 手順 は 必要 な とき の シャットダウン 方法 を 示す もの で、 "
+"今すぐ 電源 を 切る 必要 は なく、 次 の 手順 に 進む こと が できます。"
+
+#: ../quick_user_guide.rst:196
+msgid "**Soft Shutdown**"
+msgstr "**ソフト シャットダウン** "
+
+#: ../quick_user_guide.rst:198
+msgid "Press and hold the power button for **2 seconds**."
+msgstr "電源 ボタン を **2 秒間** 押し 続けます。"
+
+#: ../quick_user_guide.rst:199
+msgid "The two power LEDs will flash rapidly."
+msgstr "2 つ の 電源 LED が 高速 に 点滅 します。"
+
+#: ../quick_user_guide.rst:200
+msgid "Release the button → Fusion HAT triggers Raspberry Pi shutdown."
+msgstr "ボタン を 離す と → Fusion HAT が Raspberry Pi の シャットダウン を 開始 します。"
+
+#: ../quick_user_guide.rst:201
+msgid "Once the Pi finishes shutting down, Fusion HAT cuts power automatically."
+msgstr "Pi の シャットダウン 完了 後、 Fusion HAT は 自動 的 に 電源 を 切断 します。"
+
+#: ../quick_user_guide.rst:202
+msgid "This protects your SD card and files."
+msgstr "これ に より、 SD カード や ファイル が 保護 されます。"
+
+#: ../quick_user_guide.rst:204
+msgid "**Hard Shutdown**"
+msgstr "**ハード シャットダウン** "
+
+#: ../quick_user_guide.rst:206
+msgid ""
+"If the system freezes or crashes, press and hold the power button for "
+"**5+ seconds**."
+msgstr ""
+"システム が フリーズ または クラッシュ した 場合、 電源 ボタン を **5 秒 以上** 押し 続けて ください。"
+
+#: ../quick_user_guide.rst:207
+msgid "Fusion HAT will force power-off."
+msgstr "Fusion HAT は 強制 的 に 電源 を オフ に します。"
+
+#: ../quick_user_guide.rst:208
+msgid ""
+"⚠️ Warning: This may corrupt the SD card or system files. Use only when "
+"necessary."
+msgstr ""
+"⚠️ 警告 : この 操作 は、 SD カード や システム ファイル を 破損 させる 可能性 が あります。 "
+"必要 な 場合 に のみ 使用 して ください。"

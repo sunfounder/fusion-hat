@@ -1,0 +1,387 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_ai_assistant.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。SunFounder Raspberry Pi & Arduino & ESP32 "
+"Facebook 愛好家コミュニティへようこそ！ "
+"Raspberry Pi、Arduino、ESP32 について、仲間の愛好家と一緒にさらに深く探求しましょう。"
+
+#: ../ai_interaction/python_ai_assistant.rst:5
+msgid "**Why Join?**"
+msgstr "**参加する理由** "
+
+#: ../ai_interaction/python_ai_assistant.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的なサポート** ：コミュニティメンバーや公式チームの支援を受けて、"
+"購入後の問題や技術的な課題を解決できます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学びと共有** ：ヒントやチュートリアルを交換し、スキルを向上させましょう。"
+
+#: ../ai_interaction/python_ai_assistant.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定先行情報** ：新製品の発表やプレビュー情報をいち早く入手できます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別割引** ：最新製品を対象とした限定割引をお楽しみいただけます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**季節限定プロモーションとプレゼント企画** ："
+"プレゼントキャンペーンや祝日限定のプロモーションに参加できます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たちと一緒に探求し、創造する準備はできましたか？ "
+"[|link_sf_facebook|] をクリックして、今すぐ参加しましょう！"
+
+#: ../ai_interaction/python_ai_assistant.rst:18
+msgid "7. AI Voice Assistant"
+msgstr "7. AI 音声アシスタント"
+
+#: ../ai_interaction/python_ai_assistant.rst:20
+msgid ""
+"This lesson turns your Fusion HAT+ into a **voice-first AI assistant**. "
+"With the provided code, the robot will: **wait for a wake word**, "
+"**transcribe your speech** with Vosk, send it to an **OpenAI LLM**, and "
+"**speak back** using Piper TTS."
+msgstr ""
+"このレッスンでは、Fusion HAT+ を **音声ファースト AI アシスタント** に変身させます。"
+"提供されているコードを使用すると、ロボットは **ウェイクワードを待機** し、"
+"Vosk を使って **音声を文字起こし** し、"
+"それを **OpenAI LLM** に送信し、"
+"Piper TTS を使って **音声で応答** します。"
+
+#: ../ai_interaction/python_ai_assistant.rst:26
+msgid "Before You Start"
+msgstr "始める前に"
+
+#: ../ai_interaction/python_ai_assistant.rst:28
+msgid "Make sure you have:"
+msgstr "以下を確認してください："
+
+#: ../ai_interaction/python_ai_assistant.rst:30
+msgid ":ref:`test_piper` — Piper voice works (e.g., you can play “Hello”)."
+msgstr ":ref:`test_piper` — Piper の音声が正常に動作していること（例：「Hello」を再生できる）。"
+
+#: ../ai_interaction/python_ai_assistant.rst:31
+msgid ":ref:`test_vosk` — Vosk STT works for your language (e.g., ``en-us``)."
+msgstr ":ref:`test_vosk` — 使用する言語（例： ``en-us`` ）で Vosk STT が動作していること。"
+
+#: ../ai_interaction/python_ai_assistant.rst:32
+msgid ""
+":ref:`py_online_llm` — Your **OpenAI API key** saved in ``secret.py`` as "
+"``OPENAI_API_KEY``."
+msgstr ""
+":ref:`py_online_llm` — **OpenAI API キー** が ``secret.py`` に "
+"``OPENAI_API_KEY`` として保存されていること。"
+
+#: ../ai_interaction/python_ai_assistant.rst:33
+msgid "A working **microphone** and **speaker** on Fusion HAT."
+msgstr "Fusion HAT に接続された **マイク** と **スピーカー** が正常に動作すること。"
+
+#: ../ai_interaction/python_ai_assistant.rst:34
+msgid "A stable network connection (LLM is online)."
+msgstr "安定したネットワーク接続（ LLM はオンラインです）。"
+
+#: ../ai_interaction/python_ai_assistant.rst:39
+msgid "Run the Example"
+msgstr "サンプルを実行する"
+
+#: ../ai_interaction/python_ai_assistant.rst:46
+msgid "**Configuration used by the code:**"
+msgstr "**コードで使用されている設定：** "
+
+#: ../ai_interaction/python_ai_assistant.rst:48
+msgid "LLM: **OpenAI** (``gpt-4o-mini``)"
+msgstr "LLM： **OpenAI** （ ``gpt-4o-mini`` ）"
+
+#: ../ai_interaction/python_ai_assistant.rst:49
+msgid "TTS: **Piper** (``en_US-ryan-low``)"
+msgstr "TTS： **Piper** （ ``en_US-ryan-low`` ）"
+
+#: ../ai_interaction/python_ai_assistant.rst:50
+msgid "STT: **Vosk** (``en-us``)"
+msgstr "STT： **Vosk** （ ``en-us`` ）"
+
+#: ../ai_interaction/python_ai_assistant.rst:51
+msgid "Wake word: ``\"hey buddy\"``"
+msgstr "ウェイクワード： ``\"hey buddy\"`` "
+
+#: ../ai_interaction/python_ai_assistant.rst:52
+msgid "Keyboard input: **enabled** (optional manual input)"
+msgstr "キーボード入力： **有効** （任意の手動入力）"
+
+#: ../ai_interaction/python_ai_assistant.rst:53
+msgid ""
+"Image mode: **enabled** (``WITH_IMAGE=True``) — requires a multimodal-"
+"capable LLM if you decide to use images later"
+msgstr ""
+"画像モード： **有効** （ ``WITH_IMAGE=True`` ）— "
+"後で画像を使用する場合は、マルチモーダル対応の LLM が必要です。"
+
+#: ../ai_interaction/python_ai_assistant.rst:55
+msgid "**What happens:**"
+msgstr "**動作内容：** "
+
+#: ../ai_interaction/python_ai_assistant.rst:57
+msgid "The assistant shows a welcome message with the wake phrase."
+msgstr "アシスタントがウェイクフレーズ付きのウェルカムメッセージを表示します。"
+
+#: ../ai_interaction/python_ai_assistant.rst:58
+msgid "It listens for **“hey buddy”**."
+msgstr "**「hey buddy」** を待ち受けます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:59
+msgid "After wake, your speech is transcribed (Vosk → text)."
+msgstr "起動後、音声が文字に変換されます（ Vosk → テキスト ）。"
+
+#: ../ai_interaction/python_ai_assistant.rst:60
+msgid "The text is sent to **OpenAI (gpt-4o-mini)** for a response."
+msgstr "テキストは **OpenAI（ gpt-4o-mini ）** に送信され、応答が生成されます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:61
+msgid "The answer is spoken with **Piper** (``en_US-ryan-low``)."
+msgstr "回答は **Piper** （ ``en_US-ryan-low`` ）によって音声で再生されます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:63
+msgid "**Example interaction**"
+msgstr "**対話例** "
+
+#: ../ai_interaction/python_ai_assistant.rst:74
+msgid "Code"
+msgstr "コード"
+
+#: ../ai_interaction/python_ai_assistant.rst:132
+msgid "**Code explanation:**"
+msgstr "**コードの説明：** "
+
+#: ../ai_interaction/python_ai_assistant.rst:134
+msgid ""
+"``OpenAI(..., model=\"gpt-4o-mini\")`` — Uses **OpenAI** as the only LLM "
+"in this lesson."
+msgstr ""
+"``OpenAI(..., model=\"gpt-4o-mini\")`` — "
+"このレッスンでは **OpenAI** のみを LLM として使用します。"
+
+#: ../ai_interaction/python_ai_assistant.rst:135
+msgid ""
+"``NAME`` / ``WAKE_WORD`` — Personalize the assistant (“Buddy”, “hey "
+"buddy”)."
+msgstr ""
+"``NAME`` / ``WAKE_WORD`` — "
+"アシスタント名やウェイクワード（「Buddy」、「hey buddy」など）をカスタマイズします。"
+
+#: ../ai_interaction/python_ai_assistant.rst:136
+msgid ""
+"``WITH_IMAGE=True`` — Enables image mode in the assistant (no image I/O "
+"logic included here)."
+msgstr ""
+"``WITH_IMAGE=True`` — アシスタントの画像モードを有効にします"
+"（このコードには画像入出力処理は含まれていません）。"
+
+#: ../ai_interaction/python_ai_assistant.rst:137
+msgid "``TTS_MODEL=\"en_US-ryan-low\"`` — Piper voice used for replies."
+msgstr "``TTS_MODEL=\"en_US-ryan-low\"`` — 応答に使用される Piper の音声モデルです。"
+
+#: ../ai_interaction/python_ai_assistant.rst:138
+msgid "``STT_LANGUAGE=\"en-us\"`` — Vosk language for recognition."
+msgstr "``STT_LANGUAGE=\"en-us\"`` — 音声認識に使用される Vosk の言語設定です。"
+
+#: ../ai_interaction/python_ai_assistant.rst:139
+msgid ""
+"``KEYBOARD_ENABLE=True`` — Allows optional manual text input during "
+"debugging."
+msgstr ""
+"``KEYBOARD_ENABLE=True`` — "
+"デバッグ時に任意で手動のテキスト入力を可能にします。"
+
+#: ../ai_interaction/python_ai_assistant.rst:140
+msgid ""
+"``WELCOME`` / ``INSTRUCTIONS`` — Startup message and assistant "
+"persona/system prompt."
+msgstr ""
+"``WELCOME`` / ``INSTRUCTIONS`` — "
+"起動時メッセージおよびアシスタントの人格／システムプロンプトです。"
+
+#: ../ai_interaction/python_ai_assistant.rst:141
+msgid "``va.run()`` — Starts the loop: **wake → listen → LLM → speak**."
+msgstr "``va.run()`` — **起動 → 聞き取り → LLM → 音声応答** のループを開始します。"
+
+#: ../ai_interaction/python_ai_assistant.rst:145
+msgid "Switching to Other LLMs or TTS"
+msgstr "他の LLM や TTS への切り替え"
+
+#: ../ai_interaction/python_ai_assistant.rst:147
+msgid ""
+"You can easily switch to other LLMs, TTS, or STT languages with just a "
+"few edits:"
+msgstr ""
+"いくつかの設定を変更するだけで、"
+"他の LLM、TTS、STT 言語に簡単に切り替えることができます。"
+
+#: ../ai_interaction/python_ai_assistant.rst:149
+msgid "Supported LLMs:"
+msgstr "対応している LLM："
+
+#: ../ai_interaction/python_ai_assistant.rst:151
+msgid "OpenAI"
+msgstr "OpenAI"
+
+#: ../ai_interaction/python_ai_assistant.rst:152
+msgid "Doubao"
+msgstr "Doubao"
+
+#: ../ai_interaction/python_ai_assistant.rst:153
+msgid "Deepseek"
+msgstr "Deepseek"
+
+#: ../ai_interaction/python_ai_assistant.rst:154
+msgid "Gemini"
+msgstr "Gemini"
+
+#: ../ai_interaction/python_ai_assistant.rst:155
+msgid "Qwen"
+msgstr "Qwen"
+
+#: ../ai_interaction/python_ai_assistant.rst:156
+msgid "Grok"
+msgstr "Grok"
+
+#: ../ai_interaction/python_ai_assistant.rst:158
+msgid ":ref:`test_piper` — Check the supported languages of **Piper TTS**."
+msgstr ":ref:`test_piper` — **Piper TTS** が対応している言語を確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:159
+msgid ":ref:`test_vosk` — Check the supported languages of **Vosk STT**."
+msgstr ":ref:`test_vosk` — **Vosk STT** が対応している言語を確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:161
+msgid "To switch, simply modify the initialization part in the code:"
+msgstr "切り替えるには、コード内の初期化部分を変更するだけです："
+
+#: ../ai_interaction/python_ai_assistant.rst:177
+msgid "Troubleshooting"
+msgstr "トラブルシューティング"
+
+#: ../ai_interaction/python_ai_assistant.rst:179
+msgid "**Robot doesn’t respond to wake word**"
+msgstr "**ロボットがウェイクワードに反応しない**"
+
+#: ../ai_interaction/python_ai_assistant.rst:181
+msgid "Check if the microphone works."
+msgstr "マイクが正常に動作しているか確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:182
+msgid "Make sure ``WAKE_ENABLE = True``."
+msgstr "``WAKE_ENABLE = True`` になっていることを確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:183
+msgid "Adjust the wake word to match your pronunciation."
+msgstr "発音に合うようにウェイクワードを調整してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:184
+msgid "Reduce background noise and speak clearly."
+msgstr "周囲のノイズを減らし、はっきりと話してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:186
+msgid "**No sound from the speaker**"
+msgstr "**スピーカーから音が出ない** "
+
+#: ../ai_interaction/python_ai_assistant.rst:188
+msgid "Check the TTS model name (e.g., ``en_US-ryan-low``)."
+msgstr "TTS モデル名（例： ``en_US-ryan-low`` ）を確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:189
+msgid "Test Piper or Espeak manually."
+msgstr "Piper または Espeak を手動でテストしてください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:190
+msgid "Verify speaker connection and volume."
+msgstr "スピーカーの接続と音量を確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:192
+msgid "**API key error or timeout**"
+msgstr "**API キーエラーまたはタイムアウト** "
+
+#: ../ai_interaction/python_ai_assistant.rst:194
+msgid "Check your key in ``secret.py``."
+msgstr "``secret.py`` 内の API キーを確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:195
+msgid "Make sure your network connection is stable."
+msgstr "ネットワーク接続が安定していることを確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:196
+msgid "Confirm the LLM model is supported (e.g., ``gpt-4o-mini``)."
+msgstr "LLM モデルが対応していること（例： ``gpt-4o-mini`` ）を確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:198
+msgid "**Wake word works but no response**"
+msgstr "**ウェイクワードは反応するが応答がない** "
+
+#: ../ai_interaction/python_ai_assistant.rst:200
+msgid "Check if the STT language matches your accent."
+msgstr "STT の言語設定が発音に合っているか確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:201
+msgid "Make sure the model downloaded correctly."
+msgstr "モデルが正しくダウンロードされていることを確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:202
+msgid "Try printing debug logs to confirm STT is running."
+msgstr "デバッグログを出力し、STT が動作しているか確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:204
+msgid "**TTS works but no LLM reply**"
+msgstr "**TTS は動作するが LLM の応答がない** "
+
+#: ../ai_interaction/python_ai_assistant.rst:206
+msgid "Check if the API key is valid."
+msgstr "API キーが有効か確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:207
+msgid "Verify model name and LLM settings."
+msgstr "モデル名および LLM の設定を確認してください。"
+
+#: ../ai_interaction/python_ai_assistant.rst:208
+msgid "Ensure internet connectivity."
+msgstr "インターネット接続を確認してください。"

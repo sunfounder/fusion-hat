@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_stt_vosk.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。SunFounder Raspberry Pi & Arduino & ESP32 "
+"Facebook 愛好家コミュニティへようこそ！ "
+"Raspberry Pi、Arduino、ESP32 について、仲間の愛好家と一緒にさらに深く探求しましょう。"
+
+#: ../ai_interaction/python_stt_vosk.rst:5
+msgid "**Why Join?**"
+msgstr "**参加する理由** "
+
+#: ../ai_interaction/python_stt_vosk.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的なサポート** ：コミュニティメンバーや公式チームの支援を受けて、"
+"購入後の問題や技術的な課題を解決できます。"
+
+#: ../ai_interaction/python_stt_vosk.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学びと共有** ：ヒントやチュートリアルを交換し、スキルを向上させましょう。"
+
+#: ../ai_interaction/python_stt_vosk.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定先行情報** ：新製品の発表やプレビュー情報をいち早く入手できます。"
+
+#: ../ai_interaction/python_stt_vosk.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別割引** ：最新製品を対象とした限定割引をお楽しみいただけます。"
+
+#: ../ai_interaction/python_stt_vosk.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**季節限定プロモーションとプレゼント企画** ："
+"プレゼントキャンペーンや祝日限定のプロモーションに参加できます。"
+
+#: ../ai_interaction/python_stt_vosk.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たちと一緒に探求し、創造する準備はできましたか？ "
+"[|link_sf_facebook|] をクリックして、今すぐ参加しましょう！"
+
+#: ../ai_interaction/python_stt_vosk.rst:16
+msgid "3. STT with Vosk (Offline)"
+msgstr "3. Vosk で STT（オフライン）"
+
+#: ../ai_interaction/python_stt_vosk.rst:18
+msgid ""
+"Vosk is a lightweight speech-to-text (STT) engine that supports many "
+"languages and runs fully **offline** on Raspberry Pi. You only need "
+"internet access once to download a language model. After that, everything"
+" works without a network connection."
+msgstr ""
+"Vosk は軽量な音声認識（ STT ）エンジンで、多くの言語に対応し、Raspberry Pi 上で完全に "
+"**オフライン** で動作します。言語モデルのダウンロードには最初の 1 回だけインターネット接続が必要です。"
+"その後は、ネットワーク接続なしですべてが動作します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:21
+msgid "In this lesson, we will:"
+msgstr "このレッスンでは、次を行います："
+
+#: ../ai_interaction/python_stt_vosk.rst:23
+msgid "Check the microphone on Raspberry Pi."
+msgstr "Raspberry Pi でマイクを確認する"
+
+#: ../ai_interaction/python_stt_vosk.rst:24
+msgid "Install and test Vosk with a chosen language model."
+msgstr "選択した言語モデルで Vosk をインストールしてテストする"
+
+#: ../ai_interaction/python_stt_vosk.rst:27
+msgid "1. Check Your Microphone"
+msgstr "1. マイクを確認する"
+
+#: ../ai_interaction/python_stt_vosk.rst:29
+msgid ""
+"Before using speech recognition, make sure your USB microphone works "
+"correctly."
+msgstr ""
+"音声認識を使用する前に、USB マイクが正しく動作していることを確認してください。"
+
+#: ../ai_interaction/python_stt_vosk.rst:31
+msgid "List available recording devices:"
+msgstr "利用可能な録音デバイスを一覧表示します："
+
+#: ../ai_interaction/python_stt_vosk.rst:37
+msgid "Look for a line like ``card 1: ... device 0``."
+msgstr "``card 1: ... device 0`` のような行を探してください。"
+
+#: ../ai_interaction/python_stt_vosk.rst:39
+msgid "Record a short sample (replace ``1,0`` with the numbers you found):"
+msgstr "短いサンプルを録音します（ ``1,0`` を見つけた番号に置き換えてください）："
+
+#: ../ai_interaction/python_stt_vosk.rst:45
+msgid "Example: if your device is ``card 2, device 0``, use:"
+msgstr "例：デバイスが ``card 2, device 0`` の場合は次を使用します："
+
+#: ../ai_interaction/python_stt_vosk.rst:51
+msgid "Play it back to confirm the recording:"
+msgstr "再生して録音を確認します："
+
+#: ../ai_interaction/python_stt_vosk.rst:57
+msgid "Adjust microphone volume if needed:"
+msgstr "必要に応じてマイク音量を調整します："
+
+#: ../ai_interaction/python_stt_vosk.rst:63
+msgid "Press **F6** to select your USB microphone."
+msgstr "**F6** を押して USB マイクを選択します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:64
+msgid "Find the **Mic** or **Capture** channel."
+msgstr "**Mic** または **Capture** チャンネルを探します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:65
+msgid ""
+"Make sure it is not muted (**[MM]** means mute, press ``M`` to unmute → "
+"should show **[OO]**)."
+msgstr ""
+"ミュートになっていないことを確認します（ **[MM]** はミュートを意味します。"
+"``M`` を押してミュート解除すると → **[OO]** と表示されます）。"
+
+#: ../ai_interaction/python_stt_vosk.rst:66
+msgid "Use ↑ / ↓ arrow keys to change the recording volume."
+msgstr "↑ / ↓ キーで録音音量を変更します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:72
+msgid "2. Test Vosk"
+msgstr "2. Vosk をテストする"
+
+#: ../ai_interaction/python_stt_vosk.rst:74
+msgid "**Run the program**"
+msgstr "**プログラムを実行する** "
+
+#: ../ai_interaction/python_stt_vosk.rst:81
+msgid "The first time you run this code with a new language, Vosk will:"
+msgstr "新しい言語でこのコードを初めて実行すると、Vosk は次を行います："
+
+#: ../ai_interaction/python_stt_vosk.rst:83
+msgid ""
+"**Automatically download the language model** (by default, the small "
+"version)."
+msgstr ""
+"**言語モデルを自動的にダウンロード** します（デフォルトでは small 版）。"
+
+#: ../ai_interaction/python_stt_vosk.rst:84
+msgid "**Print out the list of supported languages**."
+msgstr "**対応言語の一覧を表示** します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:85
+msgid "Start **listening** for audio input through the microphone."
+msgstr "マイクからの音声入力の **待受（ listening ）** を開始します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:87
+msgid "You’ll see something like this in the terminal:"
+msgstr "ターミナルには次のような表示が出ます："
+
+#: ../ai_interaction/python_stt_vosk.rst:95
+msgid "This means:"
+msgstr "これは次を意味します："
+
+#: ../ai_interaction/python_stt_vosk.rst:97
+msgid "The model file (``vosk-model-small-en-us-0.15``) has been downloaded."
+msgstr "モデルファイル（ ``vosk-model-small-en-us-0.15`` ）がダウンロードされました。"
+
+#: ../ai_interaction/python_stt_vosk.rst:98
+msgid "The list of supported languages has been printed."
+msgstr "対応言語の一覧が表示されました。"
+
+#: ../ai_interaction/python_stt_vosk.rst:99
+msgid ""
+"The system is now listening — say something into the Fusion HAT+ "
+"microphone, and the recognized text will appear in the terminal."
+msgstr ""
+"システムは現在待受中です — Fusion HAT+ のマイクに向かって話すと、認識されたテキストがターミナルに表示されます。"
+
+#: ../ai_interaction/python_stt_vosk.rst:101
+msgid "**Tips:**"
+msgstr "**ヒント：** "
+
+#: ../ai_interaction/python_stt_vosk.rst:103
+msgid "Keep the microphone about **15–30 cm** away for better accuracy."
+msgstr "精度を上げるため、マイクは **15～30 cm** 程度の距離に保ってください。"
+
+#: ../ai_interaction/python_stt_vosk.rst:104
+msgid "Choose a **model that matches your language and accent**."
+msgstr "**言語とアクセントに合ったモデル** を選択してください。"
+
+#: ../ai_interaction/python_stt_vosk.rst:105
+msgid "Use a quiet environment to improve recognition."
+msgstr "静かな環境で使用すると認識が向上します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:107
+msgid "**Code**"
+msgstr "**コード** "
+
+#: ../ai_interaction/python_stt_vosk.rst:124
+msgid "**Code explanation:**"
+msgstr "**コードの説明：** "
+
+#: ../ai_interaction/python_stt_vosk.rst:126
+msgid ""
+"``stt.listen(stream=True)`` — Starts streaming speech recognition and "
+"yields intermediate results as you speak."
+msgstr ""
+"``stt.listen(stream=True)`` — 音声認識のストリーミングを開始し、話している間は中間結果を返します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:127
+msgid ""
+"``result[\"partial\"]`` — Displays the **real-time recognized text** "
+"(updated continuously)."
+msgstr ""
+"``result[\"partial\"]`` — **リアルタイムの認識テキスト** を表示します（継続的に更新されます）。"
+
+#: ../ai_interaction/python_stt_vosk.rst:128
+msgid ""
+"``result[\"final\"]`` — Displays the **final recognized sentence** when "
+"you stop speaking."
+msgstr ""
+"``result[\"final\"]`` — 話し終えたときに **最終的に認識された文** を表示します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:129
+msgid ""
+"The loop runs continuously, allowing **hands-free real-time "
+"transcription**."
+msgstr ""
+"ループは継続的に動作し、 **ハンズフリーのリアルタイム文字起こし** が可能になります。"
+
+#: ../ai_interaction/python_stt_vosk.rst:131
+msgid ""
+"Tip: This streaming mode is perfect for **voice assistants**, **command "
+"control**, or **live transcription**."
+msgstr ""
+"ヒント：このストリーミングモードは、 **音声アシスタント** 、 **コマンド操作** 、"
+"または **ライブ文字起こし** に最適です。"
+
+#: ../ai_interaction/python_stt_vosk.rst:134
+msgid "Troubleshooting"
+msgstr "トラブルシューティング"
+
+#: ../ai_interaction/python_stt_vosk.rst:136
+msgid "**No such file or directory (when running `arecord`)**"
+msgstr "**No such file or directory（ `arecord` 実行時）** "
+
+#: ../ai_interaction/python_stt_vosk.rst:138
+msgid "You may have used the wrong card/device number. Run:"
+msgstr "card/device の番号が間違っている可能性があります。次を実行します："
+
+#: ../ai_interaction/python_stt_vosk.rst:145
+msgid "and replace ``1,0`` with the numbers shown for your USB microphone."
+msgstr "そして、 ``1,0`` を USB マイクに表示された番号に置き換えてください。"
+
+#: ../ai_interaction/python_stt_vosk.rst:147
+msgid "**Recorded file has no sound**"
+msgstr "**録音ファイルに音が入っていない** "
+
+#: ../ai_interaction/python_stt_vosk.rst:149
+msgid "Open the mixer and check the microphone volume:"
+msgstr "ミキサーを開き、マイク音量を確認します："
+
+#: ../ai_interaction/python_stt_vosk.rst:155
+msgid "Press **F6** to select your USB mic."
+msgstr "**F6** を押して USB マイクを選択します。"
+
+#: ../ai_interaction/python_stt_vosk.rst:156
+msgid "Make sure **Mic/Capture** is not muted (**[OO]** instead of **[MM]**)."
+msgstr "**Mic/Capture** がミュートになっていないことを確認します（ **[MM]** ではなく **[OO]** ）。"
+
+#: ../ai_interaction/python_stt_vosk.rst:157
+msgid "Increase the level with ↑."
+msgstr "↑ キーでレベルを上げます。"
+
+#: ../ai_interaction/python_stt_vosk.rst:159
+msgid "**Vosk does not recognize speech**"
+msgstr "**Vosk が音声を認識しない** "
+
+#: ../ai_interaction/python_stt_vosk.rst:161
+msgid ""
+"Make sure the **language code** matches your model (e.g. ``en-us`` for "
+"English, ``zh-cn`` for Chinese)."
+msgstr ""
+"**言語コード** がモデルと一致していることを確認してください"
+"（例：英語は ``en-us`` 、中国語は ``zh-cn`` ）。"
+
+#: ../ai_interaction/python_stt_vosk.rst:162
+msgid "Keep the microphone 15–30 cm away and avoid background noise."
+msgstr "マイクは 15～30 cm 離し、背景ノイズを避けてください。"
+
+#: ../ai_interaction/python_stt_vosk.rst:163
+msgid "Speak clearly and slowly."
+msgstr "はっきり、ゆっくり話してください。"
+
+#: ../ai_interaction/python_stt_vosk.rst:165
+msgid "**High latency / slow recognition**"
+msgstr "**遅延が大きい／認識が遅い** "
+
+#: ../ai_interaction/python_stt_vosk.rst:167
+msgid ""
+"The default auto-download is a **small model** (faster, but less "
+"accurate)."
+msgstr ""
+"デフォルトの自動ダウンロードは **small モデル** です（高速ですが、精度は低めです）。"
+
+#: ../ai_interaction/python_stt_vosk.rst:168
+msgid "If it’s still slow, close other programs to free CPU."
+msgstr "それでも遅い場合は、他のプログラムを閉じて CPU を空けてください。"

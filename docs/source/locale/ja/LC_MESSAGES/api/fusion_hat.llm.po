@@ -1,0 +1,432 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.llm.rst:2
+msgid "fusion\\_hat.llm module"
+msgstr "fusion\\_hat.llm モジュール"
+
+#: fusion_hat.llm:1 of
+msgid "Large Language Model (LLM) module"
+msgstr ""
+
+#: fusion_hat.llm:3 of
+msgid ""
+"This module provides a base class for large language models (LLMs) and "
+"preset LLM classes."
+msgstr ""
+
+#: fusion_hat.llm:6 of
+msgid "サンプル"
+msgstr ""
+
+#: fusion_hat.llm:7 of
+msgid "import a preset LLM class"
+msgstr ""
+
+#: fusion_hat.llm:15 of
+msgid "initialize the LLM instance"
+msgstr ""
+
+#: fusion_hat.llm:21 of
+msgid "For Ollama, you don't need api_key, but you might need to set ip."
+msgstr ""
+
+#: fusion_hat.llm:26 of
+msgid "You can also import a basic LLM class."
+msgstr ""
+
+#: fusion_hat.llm:30 of
+msgid ""
+"You will need to set the base url which compatible with OpenAI completion"
+" API."
+msgstr ""
+
+#: fusion_hat.llm:38 of
+msgid "Or set the whole url if it's not ends with \"/v1/chat/completions\""
+msgstr ""
+
+#: fusion_hat.llm:46 of
+#: sunfounder_voice_assistant.llm.llm.LLM.set_instructions:1
+msgid "Set instructions"
+msgstr ""
+
+#: fusion_hat.llm:50 of
+msgid "Set welcome message"
+msgstr ""
+
+#: fusion_hat.llm:54 of
+msgid "Prompt the LLM with input text"
+msgstr ""
+
+#: fusion_hat.llm:63 of
+msgid "Prompt with image"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:1
+msgid "ベースクラス: :py:class:`object`"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:1
+msgid "LLM class"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Deepseek
+#: sunfounder_voice_assistant.llm.Doubao sunfounder_voice_assistant.llm.Gemini
+#: sunfounder_voice_assistant.llm.Grok sunfounder_voice_assistant.llm.Ollama
+#: sunfounder_voice_assistant.llm.Ollama.add_message
+#: sunfounder_voice_assistant.llm.Ollama.decode_stream_response
+#: sunfounder_voice_assistant.llm.OpenAI sunfounder_voice_assistant.llm.Qwen
+#: sunfounder_voice_assistant.llm.llm.LLM
+#: sunfounder_voice_assistant.llm.llm.LLM._non_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM._stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM.add_message
+#: sunfounder_voice_assistant.llm.llm.LLM.chat
+#: sunfounder_voice_assistant.llm.llm.LLM.decode_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM.get_base64_from_image
+#: sunfounder_voice_assistant.llm.llm.LLM.get_base_64_url_from_image
+#: sunfounder_voice_assistant.llm.llm.LLM.print_stream
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt
+#: sunfounder_voice_assistant.llm.llm.LLM.set
+#: sunfounder_voice_assistant.llm.llm.LLM.set_api_key
+#: sunfounder_voice_assistant.llm.llm.LLM.set_base_url
+#: sunfounder_voice_assistant.llm.llm.LLM.set_instructions
+#: sunfounder_voice_assistant.llm.llm.LLM.set_max_messages
+#: sunfounder_voice_assistant.llm.llm.LLM.set_model
+#: sunfounder_voice_assistant.llm.llm.LLM.set_welcome
+msgid "パラメータ"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:3
+msgid "API key, default is None"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:5
+msgid "Model name, default is None"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:7
+msgid "URL, default is None"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:9
+msgid "Base URL, default is None"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:11
+msgid "Max messages, default is DEFAULTMAX_MESSAGES"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM:13
+msgid "Authorization, default is Authorization.BEARER"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_api_key:1
+msgid "Set API key"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_api_key:3
+msgid "API key"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_base_url:1
+msgid "Set base URL"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_base_url:3
+msgid "Base URL"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_model:1
+msgid "Set model"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_model:3
+msgid "Model name"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_max_messages:1
+msgid "Set max messages"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_max_messages:3
+msgid "Max messages"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set:1
+msgid "Set parameter"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set:3
+msgid "Parameter name"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set:5
+msgid "Parameter value"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.add_message:1
+msgid "Add message"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.add_message:3
+msgid "Role"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.add_message:5
+#: sunfounder_voice_assistant.llm.llm.LLM.decode_stream_response:6
+msgid "Content"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.add_message:7
+#: sunfounder_voice_assistant.llm.llm.LLM.add_message:7
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt:5
+msgid "Image path, default is None"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.get_base64_from_image:1
+msgid "Get base64 from image"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.get_base64_from_image:3
+#: sunfounder_voice_assistant.llm.llm.LLM.get_base_64_url_from_image:3
+msgid "Image path"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.decode_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM._non_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM.chat
+#: sunfounder_voice_assistant.llm.llm.LLM.decode_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM.get_base64_from_image
+#: sunfounder_voice_assistant.llm.llm.LLM.get_base_64_url_from_image
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt
+msgid "戻り値"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.get_base64_from_image:6
+msgid "Base64 string"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.decode_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM._non_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM.chat
+#: sunfounder_voice_assistant.llm.llm.LLM.decode_stream_response
+#: sunfounder_voice_assistant.llm.llm.LLM.get_base64_from_image
+#: sunfounder_voice_assistant.llm.llm.LLM.get_base_64_url_from_image
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt
+msgid "戻り値の型"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.get_base_64_url_from_image:1
+msgid "Get base64 url from image"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.get_base_64_url_from_image:6
+msgid "Base64 url"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_instructions:3
+msgid "Instructions"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_welcome:1
+msgid "Set welcome"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.set_welcome:3
+msgid "Welcome"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.chat:1
+msgid "Chat with LLM"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.chat:3
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt:7
+msgid "Stream, default is False"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.chat:5
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt:9
+msgid "Additional arguments"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM._non_stream_response:3
+#: sunfounder_voice_assistant.llm.llm.LLM._stream_response:3
+#: sunfounder_voice_assistant.llm.llm.LLM.chat:7
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt:11
+msgid "Response"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.prompt:1
+msgid "Prompt LLM"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.prompt:3
+msgid "Message"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.add_message
+#: sunfounder_voice_assistant.llm.llm.LLM.prompt
+msgid "例外"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.prompt:14
+msgid "Model not set"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.prompt:15
+msgid "API key not set"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.prompt:16
+msgid "URL not set"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.prompt:17
+msgid "Prompt must be a string or a list of messages"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.decode_stream_response:1
+msgid "Decode stream response"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.decode_stream_response:3
+msgid "Line"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM._stream_response:1
+msgid "Stream response"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM._stream_response
+msgid "列挙"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM._stream_response:6
+msgid "*str* -- Content"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM._non_stream_response:1
+msgid "Non-stream response"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM._non_stream_response:6
+msgid "Response text"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.print_stream:1
+msgid "Print stream"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.llm.LLM.print_stream:3
+msgid "Stream"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Deepseek:1
+#: sunfounder_voice_assistant.llm.Doubao:1
+#: sunfounder_voice_assistant.llm.Gemini:1
+#: sunfounder_voice_assistant.llm.Grok:1
+#: sunfounder_voice_assistant.llm.Ollama:1
+#: sunfounder_voice_assistant.llm.OpenAI:1
+#: sunfounder_voice_assistant.llm.Qwen:1
+msgid "ベースクラス: :py:class:`~sunfounder_voice_assistant.llm.llm.LLM`"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Deepseek:1
+msgid "Deepseek preset LLM class"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Deepseek:3
+#: sunfounder_voice_assistant.llm.Deepseek:4
+#: sunfounder_voice_assistant.llm.Doubao:3
+#: sunfounder_voice_assistant.llm.Doubao:4
+#: sunfounder_voice_assistant.llm.Gemini:3
+#: sunfounder_voice_assistant.llm.Gemini:4
+#: sunfounder_voice_assistant.llm.Grok:3 sunfounder_voice_assistant.llm.Grok:4
+#: sunfounder_voice_assistant.llm.Ollama:5
+#: sunfounder_voice_assistant.llm.Ollama:8
+#: sunfounder_voice_assistant.llm.OpenAI:3
+#: sunfounder_voice_assistant.llm.OpenAI:4
+#: sunfounder_voice_assistant.llm.Qwen:3 sunfounder_voice_assistant.llm.Qwen:4
+msgid "Passed to :class:`sunfounder_voice_assistant.llm.llm.LLM`"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Grok:1
+msgid "Grok preset LLM class"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Doubao:1
+msgid "Doubao preset LLM class"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Qwen:1
+msgid "Qwen preset LLM class"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.OpenAI:1
+msgid "OpenAI preset LLM class"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama:1
+msgid "Ollama preset LLM class"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama:3
+msgid "IP address of Ollama server. Defaults to \"localhost\"."
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama:6
+msgid "API key of Ollama server. Defaults to \"ollama\"."
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.add_message:1
+msgid "Add message to messages list"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.add_message:3
+msgid "Role of message, e.g. \"user\", \"assistant\""
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.add_message:5
+msgid "Content of message"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.add_message:10
+msgid "Role must be 'user' or 'assistant'"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.decode_stream_response:1
+msgid "Decode stream response line"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.decode_stream_response:3
+msgid "Stream response line"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Ollama.decode_stream_response:6
+msgid "Decoded content, None if error"
+msgstr ""
+
+#: of sunfounder_voice_assistant.llm.Gemini:1
+msgid "Gemini preset LLM class"
+msgstr ""
+

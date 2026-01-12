@@ -1,0 +1,707 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-08 09:43+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_online_llms.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"こんにちは。SunFounder Raspberry Pi & Arduino & ESP32 "
+"Facebook 愛好家コミュニティへようこそ！ "
+"Raspberry Pi、Arduino、ESP32 について、仲間の愛好家と一緒にさらに深く探求しましょう。"
+
+#: ../ai_interaction/python_online_llms.rst:5
+msgid "**Why Join?**"
+msgstr "**参加する理由** "
+
+#: ../ai_interaction/python_online_llms.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**専門的なサポート** ：コミュニティメンバーや公式チームの支援を受けて、"
+"購入後の問題や技術的な課題を解決できます。"
+
+#: ../ai_interaction/python_online_llms.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**学びと共有** ：ヒントやチュートリアルを交換し、スキルを向上させましょう。"
+
+#: ../ai_interaction/python_online_llms.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**限定先行情報** ：新製品の発表やプレビュー情報をいち早く入手できます。"
+
+#: ../ai_interaction/python_online_llms.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**特別割引** ：最新製品を対象とした限定割引をお楽しみいただけます。"
+
+#: ../ai_interaction/python_online_llms.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**季節限定プロモーションとプレゼント企画** ："
+"プレゼントキャンペーンや祝日限定のプロモーションに参加できます。"
+
+#: ../ai_interaction/python_online_llms.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 私たちと一緒に探求し、創造する準備はできましたか？ "
+"[|link_sf_facebook|] をクリックして、今すぐ参加しましょう！"
+
+#: ../ai_interaction/python_online_llms.rst:18
+msgid "5. Connecting to Online LLMs"
+msgstr "5. オンライン LLM への接続"
+
+#: ../ai_interaction/python_online_llms.rst:20
+msgid ""
+"In this lesson, we'll learn how to connect your Fusion HAT+ (or Raspberry"
+" Pi) to different **online Large Language Models (LLMs)**. Each provider "
+"requires an API key and offers different models you can choose from."
+msgstr ""
+"このレッスンでは、Fusion HAT+（または Raspberry Pi ）を、さまざまな "
+"**オンライン大規模言語モデル（ LLM ）** に接続する方法を学びます。"
+"各プロバイダーは API キーを必要とし、選択できるモデルも異なります。"
+
+#: ../ai_interaction/python_online_llms.rst:23
+msgid "We'll cover how to:"
+msgstr "以下の内容を扱います："
+
+#: ../ai_interaction/python_online_llms.rst:25
+msgid "Create and save your API keys safely."
+msgstr "API キーを安全に作成して保存する"
+
+#: ../ai_interaction/python_online_llms.rst:26
+msgid "Pick a model that fits your needs."
+msgstr "目的に合ったモデルを選ぶ"
+
+#: ../ai_interaction/python_online_llms.rst:27
+msgid "Run our example code to chat with the models."
+msgstr "サンプルコードを実行してモデルとチャットする"
+
+#: ../ai_interaction/python_online_llms.rst:29
+msgid "Let's go step by step for each provider."
+msgstr "各プロバイダーごとに、手順を順番に進めていきましょう。"
+
+#: ../ai_interaction/python_online_llms.rst:34
+msgid "OpenAI"
+msgstr "OpenAI"
+
+#: ../ai_interaction/python_online_llms.rst:36
+msgid ""
+"OpenAI provides powerful models like **GPT-4o** and **GPT-4.1** that can "
+"be used for both text and vision tasks."
+msgstr ""
+"OpenAI は、テキストとビジョンの両方のタスクに利用できる "
+"**GPT-4o** や **GPT-4.1** などの強力なモデルを提供しています。"
+
+#: ../ai_interaction/python_online_llms.rst:38
+msgid "Here's how to set it up:"
+msgstr "設定手順は次のとおりです："
+
+#: ../ai_interaction/python_online_llms.rst:40
+#: ../ai_interaction/python_online_llms.rst:119
+#: ../ai_interaction/python_online_llms.rst:290
+#: ../ai_interaction/python_online_llms.rst:365
+#: ../ai_interaction/python_online_llms.rst:441
+msgid "**Get and Save your API Key**"
+msgstr "**API キーを取得して保存する** "
+
+#: ../ai_interaction/python_online_llms.rst:42
+msgid ""
+"Go to |link_openai_platform| and log in. On the **API keys** page, click "
+"**Create new secret key**."
+msgstr ""
+"|link_openai_platform| にアクセスしてログインします。"
+"**API keys** ページで **Create new secret key** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:46
+msgid ""
+"Fill in the details (Owner, Name, Project, and permissions if needed), "
+"then click **Create secret key**."
+msgstr ""
+"（ Owner、Name、Project、必要に応じて権限など）を入力し、"
+"**Create secret key** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:50
+msgid ""
+"Once the key is created, copy it right away — you won't be able to see it"
+" again. If you lose it, you'll need to generate a new one."
+msgstr ""
+"キーを作成したらすぐにコピーしてください — 後から再表示できません。"
+"紛失した場合は、新しいキーを作成する必要があります。"
+
+#: ../ai_interaction/python_online_llms.rst:54
+msgid ""
+"In your project folder (for example: ``/``), create a file called "
+"``secret.py``:"
+msgstr ""
+"プロジェクトフォルダ（例： ``/`` ）内に、 ``secret.py`` というファイルを作成します："
+
+#: ../ai_interaction/python_online_llms.rst:61
+msgid "Paste your key into the file like this:"
+msgstr "次のようにキーを貼り付けます："
+
+#: ../ai_interaction/python_online_llms.rst:69
+msgid "**Enable billing and check models**"
+msgstr "**課金を有効にしてモデルを確認する** "
+
+#: ../ai_interaction/python_online_llms.rst:71
+msgid ""
+"Before using the key, go to the **Billing** page in your OpenAI account, "
+"add your payment details, and top up a small amount of credits."
+msgstr ""
+"キーを使用する前に、OpenAI アカウントの **Billing** ページへ移動し、"
+"支払い情報を追加して、少額のクレジットをチャージしてください。"
+
+#: ../ai_interaction/python_online_llms.rst:75
+msgid ""
+"Then go to the **Limits** page to check which models are available for "
+"your account and copy the exact model ID to use in your code."
+msgstr ""
+"次に **Limits** ページで、アカウントで利用可能なモデルを確認し、"
+"コードで使用する正確なモデル ID をコピーしてください。"
+
+#: ../ai_interaction/python_online_llms.rst:79
+#: ../ai_interaction/python_online_llms.rst:158
+#: ../ai_interaction/python_online_llms.rst:256
+#: ../ai_interaction/python_online_llms.rst:328
+#: ../ai_interaction/python_online_llms.rst:404
+#: ../ai_interaction/python_online_llms.rst:493
+msgid "**Test with example code**"
+msgstr "**サンプルコードでテストする** "
+
+#: ../ai_interaction/python_online_llms.rst:81
+msgid "Open our sample code:"
+msgstr "サンプルコードを開きます："
+
+#: ../ai_interaction/python_online_llms.rst:88
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``gpt-4o``):"
+msgstr ""
+"内容を以下のコードに置き換え、 ``model=\"xxx\"`` を使用したいモデルに更新します"
+"（例： ``gpt-4o`` ）："
+
+#: ../ai_interaction/python_online_llms.rst:103
+msgid "Save and exit (``Ctrl+X``, then ``Y``, then ``Enter``)."
+msgstr "保存して終了します（ ``Ctrl+X`` → ``Y`` → ``Enter`` ）。"
+
+#: ../ai_interaction/python_online_llms.rst:105
+msgid "Finally, run the test:"
+msgstr "最後に、テストを実行します："
+
+#: ../ai_interaction/python_online_llms.rst:115
+msgid "Gemini"
+msgstr "Gemini"
+
+#: ../ai_interaction/python_online_llms.rst:117
+msgid ""
+"Gemini is Google's family of AI models. It's fast and great for general-"
+"purpose tasks."
+msgstr ""
+"Gemini は Google の AI モデルファミリーです。"
+"高速で、一般用途のタスクに適しています。"
+
+#: ../ai_interaction/python_online_llms.rst:121
+msgid "Log in to |link_google_ai|, then go to the API Keys page."
+msgstr "|link_google_ai| にログインし、API Keys ページへ移動します。"
+
+#: ../ai_interaction/python_online_llms.rst:125
+msgid "Click the **Create API key** button in the top-right corner."
+msgstr "右上の **Create API key** ボタンをクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:129
+msgid "You can create a key for an existing project or a new one."
+msgstr "既存のプロジェクトまたは新規プロジェクトに対してキーを作成できます。"
+
+#: ../ai_interaction/python_online_llms.rst:133
+msgid "Copy the generated API key."
+msgstr "生成された API キーをコピーします。"
+
+#: ../ai_interaction/python_online_llms.rst:137
+#: ../ai_interaction/python_online_llms.rst:240
+#: ../ai_interaction/python_online_llms.rst:306
+#: ../ai_interaction/python_online_llms.rst:377
+#: ../ai_interaction/python_online_llms.rst:457
+msgid "In your project folder:"
+msgstr "プロジェクトフォルダで："
+
+#: ../ai_interaction/python_online_llms.rst:144
+msgid "Paste the key:"
+msgstr "キーを貼り付けます："
+
+#: ../ai_interaction/python_online_llms.rst:152
+#: ../ai_interaction/python_online_llms.rst:322
+msgid "**Check available models**"
+msgstr "**利用可能なモデルを確認する** "
+
+#: ../ai_interaction/python_online_llms.rst:154
+msgid ""
+"Go to the official |link_gemini_model| page, here you’ll see the list of "
+"models, their exact API IDs, and which use case each one is optimized "
+"for."
+msgstr ""
+"公式の |link_gemini_model| ページへ移動します。"
+"ここではモデル一覧、正確な API ID、各モデルが最適化されている用途を確認できます。"
+
+#: ../ai_interaction/python_online_llms.rst:160
+#: ../ai_interaction/python_online_llms.rst:258
+#: ../ai_interaction/python_online_llms.rst:330
+#: ../ai_interaction/python_online_llms.rst:406
+#: ../ai_interaction/python_online_llms.rst:495
+#: ../ai_interaction/python_online_llms.rst:564
+msgid "Open the test file:"
+msgstr "テスト用ファイルを開きます："
+
+#: ../ai_interaction/python_online_llms.rst:167
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``gemini-2.5-flash``):"
+msgstr ""
+"内容を以下のコードに置き換え、 ``model=\"xxx\"`` を使用したいモデルに更新します"
+"（例： ``gemini-2.5-flash`` ）："
+
+#: ../ai_interaction/python_online_llms.rst:182
+msgid "Save and run:"
+msgstr "保存して実行します："
+
+#: ../ai_interaction/python_online_llms.rst:191
+msgid "Qwen"
+msgstr "Qwen"
+
+#: ../ai_interaction/python_online_llms.rst:193
+msgid ""
+"Qwen is a family of large language and multimodal models provided by "
+"Alibaba Cloud. These models support text generation, reasoning, and "
+"multimodal understanding (such as image analysis)."
+msgstr ""
+"Qwen は Alibaba Cloud が提供する大規模言語モデルおよびマルチモーダルモデルのファミリーです。"
+"これらのモデルは、テキスト生成、推論、マルチモーダル理解（例：画像解析）に対応しています。"
+
+#: ../ai_interaction/python_online_llms.rst:196
+msgid "**Get an API Key**"
+msgstr "**API キーを取得する** "
+
+#: ../ai_interaction/python_online_llms.rst:198
+msgid ""
+"To call Qwen models, you need an **API Key**. Most international users "
+"should use the **DashScope International (Model Studio)** console. "
+"Mainland China users can instead use the **Bailian (百炼)** console."
+msgstr ""
+"Qwen モデルを呼び出すには **API キー** が必要です。"
+"多くの海外ユーザーは **DashScope International（ Model Studio ）** コンソールを使用してください。"
+"中国本土のユーザーは、代わりに **Bailian（ 百炼 ）** コンソールを利用できます。"
+
+#: ../ai_interaction/python_online_llms.rst:202
+msgid "**For International Users**"
+msgstr "**海外ユーザー向け** "
+
+#: ../ai_interaction/python_online_llms.rst:204
+msgid "Go to the official |link_qwen_inter| page on **Alibaba Cloud**."
+msgstr "**Alibaba Cloud** の公式 |link_qwen_inter| ページへ移動します。"
+
+#: ../ai_interaction/python_online_llms.rst:205
+msgid "Sign in or create an **Alibaba Cloud** account."
+msgstr "**Alibaba Cloud** アカウントでサインインするか、新規作成します。"
+
+#: ../ai_interaction/python_online_llms.rst:206
+msgid "Navigate to **Model Studio** (choose Singapore or Beijing region)."
+msgstr "**Model Studio** に移動します（ Singapore または Beijing リージョンを選択）。"
+
+#: ../ai_interaction/python_online_llms.rst:208
+msgid ""
+"If an “Activate Now” prompt appears at the top of the page, click it to "
+"activate Model Studio and receive the free quota (Singapore only)."
+msgstr ""
+"ページ上部に「Activate Now」の表示が出る場合は、それをクリックして Model Studio を有効化し、"
+"無料枠を受け取ります（ Singapore のみ）。"
+
+#: ../ai_interaction/python_online_llms.rst:209
+msgid ""
+"Activation is free — you will only be charged after your free quota is "
+"used."
+msgstr ""
+"有効化は無料です — 無料枠を使い切った後にのみ課金されます。"
+
+#: ../ai_interaction/python_online_llms.rst:210
+msgid "If no activation prompt appears, the service is already active."
+msgstr "有効化の表示が出ない場合、サービスはすでに有効です。"
+
+#: ../ai_interaction/python_online_llms.rst:212
+msgid ""
+"Go to the **Key Management** page. On the **API Key** tab, click **Create"
+" API Key**."
+msgstr ""
+"**Key Management** ページへ移動します。"
+"**API Key** タブで **Create API Key** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:213
+msgid "After creation, copy your API Key and keep it safe."
+msgstr "作成後、API キーをコピーして安全に保管してください。"
+
+#: ../ai_interaction/python_online_llms.rst:219
+msgid ""
+"Users in Hong Kong, Macau, and Taiwan should also choose the "
+"**International (Model Studio)** option."
+msgstr ""
+"香港、マカオ、台湾のユーザーも **International（ Model Studio ）** オプションを選択してください。"
+
+#: ../ai_interaction/python_online_llms.rst:221
+msgid "**For Mainland China Users**"
+msgstr "**中国本土ユーザー向け** "
+
+#: ../ai_interaction/python_online_llms.rst:223
+msgid ""
+"If you are in Mainland China, you can use the **Alibaba Cloud Bailian "
+"(百炼)** console instead:"
+msgstr ""
+"中国本土にいる場合は、代わりに **Alibaba Cloud Bailian（ 百炼 ）** コンソールを使用できます："
+
+#: ../ai_interaction/python_online_llms.rst:225
+msgid ""
+"Log in to |link_aliyun| (Bailian console) and complete account "
+"verification."
+msgstr ""
+"|link_aliyun| （ Bailian コンソール）にログインし、アカウント認証を完了します。"
+
+#: ../ai_interaction/python_online_llms.rst:226
+msgid ""
+"Select **Create API Key**. If prompted that model services are not "
+"activated, click **Activate**, agree to the terms, and claim your free "
+"quota. After activation, the **Create API Key** button will be enabled."
+msgstr ""
+"**Create API Key** を選択します。"
+"モデルサービスが未有効である旨の表示が出た場合は **Activate** をクリックし、規約に同意して無料枠を取得します。"
+"有効化後、 **Create API Key** ボタンが利用可能になります。"
+
+#: ../ai_interaction/python_online_llms.rst:230
+msgid ""
+"Click **Create API Key** again, check your account, and then click "
+"**Confirm**."
+msgstr ""
+"再度 **Create API Key** をクリックし、アカウントを確認してから **Confirm** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:234
+msgid "Once created, copy your API Key."
+msgstr "作成できたら、API キーをコピーします。"
+
+#: ../ai_interaction/python_online_llms.rst:238
+msgid "**Save your API Key**"
+msgstr "**API キーを保存する**"
+
+#: ../ai_interaction/python_online_llms.rst:247
+#: ../ai_interaction/python_online_llms.rst:313
+msgid "Paste your key like this:"
+msgstr "次のようにキーを貼り付けます："
+
+#: ../ai_interaction/python_online_llms.rst:265
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``qwen-plus``):"
+msgstr ""
+"内容を以下のコードに置き換え、 ``model=\"xxx\"`` を使用したいモデルに更新します"
+"（例： ``qwen-plus`` ）："
+
+#: ../ai_interaction/python_online_llms.rst:280
+#: ../ai_interaction/python_online_llms.rst:352
+#: ../ai_interaction/python_online_llms.rst:517
+msgid "Run with:"
+msgstr "次で実行します："
+
+#: ../ai_interaction/python_online_llms.rst:287
+msgid "Grok (xAI)"
+msgstr "Grok（ xAI ）"
+
+#: ../ai_interaction/python_online_llms.rst:288
+msgid ""
+"Grok is xAI’s conversational AI, created by Elon Musk’s team. You can "
+"connect to it through the xAI API."
+msgstr ""
+"Grok は xAI の会話型 AI で、Elon Musk のチームによって開発されています。"
+"xAI API を通じて接続できます。"
+
+#: ../ai_interaction/python_online_llms.rst:292
+msgid ""
+"Sign up for an account here: |link_grok_ai|. Add some credits to your "
+"account first — otherwise the API won’t work."
+msgstr ""
+"こちらからアカウント登録します： |link_grok_ai|。"
+"事前にアカウントへクレジットを追加してください — 追加しないと API は利用できません。"
+
+#: ../ai_interaction/python_online_llms.rst:294
+msgid "Go to the API Keys page, click **Create API key**."
+msgstr "API Keys ページへ移動し、 **Create API key** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:298
+msgid "Enter a name for the key, then click **Create API key**."
+msgstr "キーの名前を入力し、 **Create API key** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:302
+msgid "Copy the generated key and keep it safe."
+msgstr "生成されたキーをコピーして安全に保管してください。"
+
+#: ../ai_interaction/python_online_llms.rst:324
+msgid ""
+"Go to the Models page in the xAI console. Here you can see all the models"
+" available to your team, along with their exact API IDs — use these IDs "
+"in your code."
+msgstr ""
+"xAI コンソールの Models ページへ移動します。"
+"ここで、チームで利用可能なすべてのモデルと、その正確な API ID を確認できます — "
+"これらの ID をコードで使用してください。"
+
+#: ../ai_interaction/python_online_llms.rst:337
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``grok-4-latest``):"
+msgstr ""
+"内容を以下のコードに置き換え、 ``model=\"xxx\"`` を使用したいモデルに更新します"
+"（例： ``grok-4-latest`` ）："
+
+#: ../ai_interaction/python_online_llms.rst:361
+msgid "DeepSeek"
+msgstr "DeepSeek"
+
+#: ../ai_interaction/python_online_llms.rst:363
+msgid ""
+"DeepSeek is a Chinese LLM provider that offers affordable and capable "
+"models."
+msgstr ""
+"DeepSeek は中国の LLM プロバイダーで、手頃で高性能なモデルを提供しています。"
+
+#: ../ai_interaction/python_online_llms.rst:367
+msgid "Log in to |link_deepseek|."
+msgstr "|link_deepseek| にログインします。"
+
+#: ../ai_interaction/python_online_llms.rst:369
+msgid "In the top-right menu, select **API Keys → Create API Key**."
+msgstr "右上のメニューで、 **API Keys → Create API Key** を選択します。"
+
+#: ../ai_interaction/python_online_llms.rst:373
+msgid "Enter a name, click **Create**, then copy the key."
+msgstr "名前を入力し、 **Create** をクリックしてからキーをコピーします。"
+
+#: ../ai_interaction/python_online_llms.rst:384
+#: ../ai_interaction/python_online_llms.rst:464
+msgid "Add your key:"
+msgstr "キーを追加します："
+
+#: ../ai_interaction/python_online_llms.rst:391
+msgid "**Enable billing**"
+msgstr "**課金を有効にする**"
+
+#: ../ai_interaction/python_online_llms.rst:393
+msgid ""
+"You'll need to recharge your account first. Start with a small amount "
+"(like ¥10 RMB)."
+msgstr ""
+"まずアカウントにチャージする必要があります。"
+"最初は少額（例：人民元 ¥10 ）から始めてください。"
+
+#: ../ai_interaction/python_online_llms.rst:397
+msgid "**Available models**"
+msgstr "**利用可能なモデル**"
+
+#: ../ai_interaction/python_online_llms.rst:399
+msgid "At the time of writing (2025-09-12), DeepSeek offers:"
+msgstr "執筆時点（ 2025-09-12 ）では、DeepSeek は次を提供しています："
+
+#: ../ai_interaction/python_online_llms.rst:401
+msgid "``deepseek-chat``"
+msgstr "``deepseek-chat``"
+
+#: ../ai_interaction/python_online_llms.rst:402
+msgid "``deepseek-reasoner``"
+msgstr "``deepseek-reasoner``"
+
+#: ../ai_interaction/python_online_llms.rst:413
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``deepseek-chat``):"
+msgstr ""
+"内容を以下のコードに置き換え、 ``model=\"xxx\"`` を使用したいモデルに更新します"
+"（例： ``deepseek-chat`` ）："
+
+#: ../ai_interaction/python_online_llms.rst:429
+msgid "Run:"
+msgstr "実行："
+
+#: ../ai_interaction/python_online_llms.rst:438
+msgid "Doubao"
+msgstr "Doubao"
+
+#: ../ai_interaction/python_online_llms.rst:439
+msgid "Doubao is ByteDance's AI model platform (Volcengine Ark)."
+msgstr "Doubao は ByteDance の AI モデルプラットフォーム（ Volcengine Ark ）です。"
+
+#: ../ai_interaction/python_online_llms.rst:443
+msgid "Log in to |link_doubao|."
+msgstr "|link_doubao| にログインします。"
+
+#: ../ai_interaction/python_online_llms.rst:445
+msgid "In the left menu, scroll down to **API Key Management → Create API Key**."
+msgstr "左メニューを下へスクロールし、 **API Key Management → Create API Key** を選択します。"
+
+#: ../ai_interaction/python_online_llms.rst:449
+msgid "Choose a name and click **Create**."
+msgstr "名前を選択し、 **Create** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:453
+msgid "Click the **Show API Key** icon and copy it."
+msgstr "**Show API Key** アイコンをクリックして表示し、コピーします。"
+
+#: ../ai_interaction/python_online_llms.rst:471
+msgid "**Choose a model**"
+msgstr "**モデルを選ぶ**"
+
+#: ../ai_interaction/python_online_llms.rst:473
+msgid "Go to the model marketplace and pick a model."
+msgstr "モデルマーケットプレイスへ移動し、モデルを選択します。"
+
+#: ../ai_interaction/python_online_llms.rst:477
+msgid "For example, choose **Doubao-seed-1.6**, then click **API 接入**."
+msgstr "例： **Doubao-seed-1.6** を選択し、 **API 接入** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:481
+msgid "Select your API Key and click **Use API**."
+msgstr "API キーを選択し、 **Use API** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:485
+msgid "Click **Enable Model**."
+msgstr "**Enable Model** をクリックします。"
+
+#: ../ai_interaction/python_online_llms.rst:489
+msgid "Hover over the model ID to copy it."
+msgstr "モデル ID にカーソルを合わせてコピーします。"
+
+#: ../ai_interaction/python_online_llms.rst:502
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``doubao-seed-1-6-250615``):"
+msgstr ""
+"内容を以下のコードに置き換え、 ``model=\"xxx\"`` を使用したいモデルに更新します"
+"（例： ``doubao-seed-1-6-250615`` ）："
+
+#: ../ai_interaction/python_online_llms.rst:525
+msgid "General"
+msgstr "一般"
+
+#: ../ai_interaction/python_online_llms.rst:527
+msgid ""
+"This project supports connecting to multiple LLM platforms through a "
+"unified interface. We have built-in compatibility with:"
+msgstr ""
+"このプロジェクトは、統一されたインターフェースを通じて複数の LLM プラットフォームに接続できます。"
+"以下のプラットフォームに標準対応しています："
+
+#: ../ai_interaction/python_online_llms.rst:530
+msgid "**OpenAI** (ChatGPT / GPT-4o, GPT-4, GPT-3.5)"
+msgstr "**OpenAI** （ ChatGPT / GPT-4o、GPT-4、GPT-3.5 ）"
+
+#: ../ai_interaction/python_online_llms.rst:531
+msgid "**Gemini** (Google AI Studio / Vertex AI)"
+msgstr "**Gemini** （ Google AI Studio / Vertex AI ）"
+
+#: ../ai_interaction/python_online_llms.rst:532
+msgid "**Grok** (xAI)"
+msgstr "**Grok** （ xAI ）"
+
+#: ../ai_interaction/python_online_llms.rst:533
+msgid "**DeepSeek**"
+msgstr "**DeepSeek** "
+
+#: ../ai_interaction/python_online_llms.rst:534
+msgid "**Qwen (通义千问)**"
+msgstr "**Qwen（ 通义千问 ）** "
+
+#: ../ai_interaction/python_online_llms.rst:535
+msgid "**Doubao (豆包)**"
+msgstr "**Doubao（ 豆包 ）** "
+
+#: ../ai_interaction/python_online_llms.rst:537
+msgid ""
+"In addition, you can connect to **any other LLM service that is "
+"compatible with the OpenAI API format**. For those platforms, you will "
+"need to manually obtain your **API Key** and the correct **base_url**."
+msgstr ""
+"さらに、 **OpenAI API 形式と互換性のある任意の LLM サービス** にも接続できます。"
+"その場合は、 **API キー** と正しい **base_url** を手動で取得する必要があります。"
+
+#: ../ai_interaction/python_online_llms.rst:540
+msgid "**Get and Save Your API Key**"
+msgstr "**API キーを取得して保存する**"
+
+#: ../ai_interaction/python_online_llms.rst:542
+msgid ""
+"Obtain an **API Key** from the platform you want to use. (See each "
+"platform’s official console for details.)"
+msgstr ""
+"使用したいプラットフォームから **API キー** を取得します。"
+"（詳細は各プラットフォームの公式コンソールを参照してください。）"
+
+#: ../ai_interaction/python_online_llms.rst:544
+msgid "In your project folder, create a new file:"
+msgstr "プロジェクトフォルダで、新しいファイルを作成します："
+
+#: ../ai_interaction/python_online_llms.rst:551
+msgid "Add your key into ``secret.py``:"
+msgstr "``secret.py`` にキーを追加します："
+
+#: ../ai_interaction/python_online_llms.rst:560
+msgid ""
+"Keep your API Key private. Do not upload ``secret.py`` to public "
+"repositories."
+msgstr ""
+"API キーは機密情報として扱ってください。"
+"``secret.py`` を公開リポジトリにアップロードしないでください。"
+
+#: ../ai_interaction/python_online_llms.rst:562
+msgid "**Test With Example Code**"
+msgstr "**サンプルコードでテストする** "
+
+#: ../ai_interaction/python_online_llms.rst:571
+msgid ""
+"Replace the content of a Python file with the following example, and fill"
+" in the correct ``base_url`` and ``model`` for your platform:"
+msgstr ""
+"Python ファイルの内容を次の例に置き換え、使用するプラットフォームに合わせて "
+"正しい ``base_url`` と ``model`` を入力してください："
+
+#: ../ai_interaction/python_online_llms.rst:575
+msgid ""
+"About ``base_url``: We support the **OpenAI API format**, as well as any "
+"API that is **compatible** with it. Each provider has its own "
+"``base_url``. Please check their documentation."
+msgstr ""
+"``base_url`` について：本プロジェクトは **OpenAI API 形式** と、"
+"それと **互換性のある** API をサポートします。"
+"プロバイダーごとに ``base_url`` は異なるため、各社ドキュメントを確認してください。"
+
+#: ../ai_interaction/python_online_llms.rst:593
+msgid "Run the program:"
+msgstr "プログラムを実行します："

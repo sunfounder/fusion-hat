@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-09 18:24+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../api/fusion_hat.modules.bmp180.rst:2
+msgid "fusion\\_hat.modules.bmp180 module"
+msgstr "fusion\\_hat.modules.bmp180 モジュール"
+
+#: fusion_hat.modules.bmp180.BMP180:1 of
+#, fuzzy
+msgid "ベースクラス: :py:class:`object`"
+msgstr "基底クラス: :py:class:`object` "
+
+#: fusion_hat.modules.bmp180.BMP180:1 of
+msgid ""
+"BMP180 pressure/temperature sensor driver class Used to measure "
+"atmospheric pressure and temperature, and can calculate altitude This is "
+"a concise implementation version that uses floating-point calculations to"
+" improve accuracy"
+msgstr ""
+"BMP180 気圧 / 温度センサーのドライバークラスです。 大気圧および温度の測定に使用でき、さらに高度を計算できます。 "
+"本実装は、精度向上のために浮動小数点計算を使用した簡潔な実装バージョンです"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16:1 of
+msgid "Read a signed 16-bit integer from the specified register"
+msgstr "指定したレジスタから符号付き 16 ビット整数を読み取ります"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16
+#: fusion_hat.modules.bmp180.BMP180._readU16 of
+msgid "パラメータ"
+msgstr ""
+
+#: fusion_hat.modules.bmp180.BMP180._readS16:3
+#: fusion_hat.modules.bmp180.BMP180._readU16:3 of
+msgid "register address"
+msgstr "レジスタアドレス"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16
+#: fusion_hat.modules.bmp180.BMP180._readU16
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp
+#: fusion_hat.modules.bmp180.BMP180.read of
+msgid "戻り値"
+msgstr ""
+
+#: fusion_hat.modules.bmp180.BMP180._readS16:5 of
+msgid "converted signed 16-bit integer value"
+msgstr "変換後の符号付き 16 ビット整数値"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16
+#: fusion_hat.modules.bmp180.BMP180._readU16
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp
+#: fusion_hat.modules.bmp180.BMP180.read of
+msgid "戻り値の型"
+msgstr ""
+
+#: fusion_hat.modules.bmp180.BMP180._readU16:1 of
+msgid "Read an unsigned 16-bit integer from the specified register"
+msgstr "指定したレジスタから符号なし 16 ビット整数を読み取ります"
+
+#: fusion_hat.modules.bmp180.BMP180._readU16:5 of
+msgid "converted unsigned 16-bit integer value"
+msgstr "変換後の符号なし 16 ビット整数値"
+
+#: fusion_hat.modules.bmp180.BMP180._read_calibration:1 of
+msgid ""
+"Read calibration parameters of the sensor Each BMP180 chip has unique "
+"calibration parameters stored in internal EEPROM These parameters are "
+"used to compensate for individual differences of the sensor"
+msgstr ""
+"センサーのキャリブレーションパラメータを読み取ります。 各 BMP180 チップには、内部 EEPROM "
+"に固有のキャリブレーションパラメータが保存されています。 これらのパラメータは、センサー個体差を補正するために使用されます"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp:1 of
+msgid ""
+"Read raw temperature value Trigger temperature conversion and wait for "
+"completion, then read the result"
+msgstr "生の温度値を読み取ります。 温度変換をトリガーし、完了を待ってから結果を読み取ります"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp:4 of
+msgid "raw temperature value (16-bit unsigned integer)"
+msgstr "生の温度値 ( 16 ビット符号なし整数 )"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure:1 of
+msgid ""
+"Read raw pressure value Trigger pressure conversion and wait for "
+"completion, then read the result"
+msgstr "生の気圧値を読み取ります。 気圧変換をトリガーし、完了を待ってから結果を読み取ります"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure:4 of
+msgid "raw pressure value (16-bit unsigned integer)"
+msgstr "生の気圧値 ( 16 ビット符号なし整数 )"
+
+#: fusion_hat.modules.bmp180.BMP180.read:1 of
+msgid ""
+"Read and calculate temperature, pressure, and altitude Use standard "
+"formulas provided in BMP180 datasheet"
+msgstr "温度、気圧、高度を読み取り計算します。 BMP180 データシートに記載されている標準的な計算式を使用します"
+
+#: fusion_hat.modules.bmp180.BMP180.read:4 of
+msgid "(temperature(°C), pressure(Pa), altitude(m))"
+msgstr "( 温度 ( °C )、 気圧 ( Pa )、 高度 ( m ) )"
+
+#~ msgid "Parameters"
+#~ msgstr "パラメータ"
+
+#~ msgid "Returns"
+#~ msgstr "戻り値"
+
+#~ msgid "Return type"
+#~ msgstr "戻り値の型"
+
