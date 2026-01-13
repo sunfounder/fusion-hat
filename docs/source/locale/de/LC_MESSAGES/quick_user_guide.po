@@ -1,0 +1,422 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../quick_user_guide.rst:4
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../quick_user_guide.rst:6
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../quick_user_guide.rst:8
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../quick_user_guide.rst:9
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../quick_user_guide.rst:10
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../quick_user_guide.rst:11
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten "
+"Produkte."
+
+#: ../quick_user_guide.rst:12
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../quick_user_guide.rst:14
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../quick_user_guide.rst:20
+msgid "Quick User Guide"
+msgstr "Kurzanleitung"
+
+#: ../quick_user_guide.rst:22
+msgid "This guide will help you set up everything quickly."
+msgstr "Diese Anleitung hilft dir, alles schnell einzurichten."
+
+#: ../quick_user_guide.rst:24
+msgid "We'll walk through:"
+msgstr "Wir führen dich durch:"
+
+#: ../quick_user_guide.rst:26
+msgid "How to assemble the hardware"
+msgstr "Wie die Hardware zusammengebaut wird"
+
+#: ../quick_user_guide.rst:27
+msgid "Setting up the shutdown function"
+msgstr "Einrichten der Herunterfahrfunktion"
+
+#: ../quick_user_guide.rst:28
+msgid "Installing necessary software"
+msgstr "Installation der erforderlichen Software"
+
+#: ../quick_user_guide.rst:30
+msgid ""
+"Just follow the simple steps - you'll be up and running in no time. Let's"
+" begin!"
+msgstr ""
+"Folge einfach den einfachen Schritten – du bist in kürzester Zeit startklar. "
+"Lass uns beginnen!"
+
+#: ../quick_user_guide.rst:34
+msgid "Assembling the Fusion HAT"
+msgstr "Zusammenbau des Fusion HAT"
+
+#: ../quick_user_guide.rst:45
+msgid "Charge"
+msgstr "Aufladen"
+
+#: ../quick_user_guide.rst:47
+msgid ""
+"Before the first use, it is recommended to fully charge the battery. You "
+"can use the included USB Type-C charging cable, or your own USB-C "
+"charger."
+msgstr ""
+"Vor der ersten Nutzung wird empfohlen, den Akku vollständig aufzuladen. "
+"Du kannst das mitgelieferte USB-Typ-C-Ladekabel oder dein eigenes USB-C-"
+"Ladegerät verwenden."
+
+#: ../quick_user_guide.rst:49
+msgid ""
+"We recommend using a **5V 3A power supply**, such as the official "
+"Raspberry Pi 15W adapter."
+msgstr ""
+"Wir empfehlen die Verwendung eines **5V 3A Netzteils**, wie z. B. des "
+"offiziellen Raspberry Pi 15W-Adapters."
+
+#: ../quick_user_guide.rst:50
+msgid ""
+"You can also use a **USB-C PD (Power Delivery)** charger or a **QC 2.0 "
+"fast charger**."
+msgstr ""
+"Du kannst auch ein **USB-C PD (Power Delivery)**-Ladegerät oder ein "
+"**QC 2.0 Schnellladegerät** verwenden."
+
+#: ../quick_user_guide.rst:51
+msgid "Charging from 0% to full typically takes about **2 hours**."
+msgstr "Das Laden von 0 % bis voll dauert in der Regel etwa **2 Stunden**."
+
+#: ../quick_user_guide.rst:57
+msgid ""
+"The Fusion HAT includes **two battery indicator LEDs**, showing the "
+"battery voltage level:"
+msgstr ""
+"Der Fusion HAT verfügt über **zwei Batterieanzeige-LEDs**, die den "
+"Batteriespannungsstand anzeigen:"
+
+#: ../quick_user_guide.rst:63 ../quick_user_guide.rst:78
+msgid "LED Status"
+msgstr "LED-Status"
+
+#: ../quick_user_guide.rst:64 ../quick_user_guide.rst:79
+msgid "Battery Voltage"
+msgstr "Batteriespannung"
+
+#: ../quick_user_guide.rst:65
+msgid "2 LEDs ON"
+msgstr "2 LEDs EIN"
+
+#: ../quick_user_guide.rst:66 ../quick_user_guide.rst:81
+msgid "> 7.4V"
+msgstr "> 7.4V"
+
+#: ../quick_user_guide.rst:67
+msgid "1 LED ON"
+msgstr "1 LED EIN"
+
+#: ../quick_user_guide.rst:68 ../quick_user_guide.rst:83
+msgid "< 7.4V"
+msgstr "< 7.4V"
+
+#: ../quick_user_guide.rst:69
+msgid "Both LEDs OFF"
+msgstr "Beide LEDs AUS"
+
+#: ../quick_user_guide.rst:70
+msgid "< 6.5V"
+msgstr "< 6.5V"
+
+#: ../quick_user_guide.rst:72
+msgid "When charging, one of the LEDs will blink to indicate charging progress:"
+msgstr "Beim Laden blinkt eine der LEDs, um den Ladefortschritt anzuzeigen:"
+
+#: ../quick_user_guide.rst:80
+msgid "1 LED ON, 1 LED Blinking"
+msgstr "1 LED EIN, 1 LED blinkt"
+
+#: ../quick_user_guide.rst:82
+msgid "Only 1 LED Blinking"
+msgstr "Nur 1 LED blinkt"
+
+#: ../quick_user_guide.rst:86
+msgid "After fully charged:"
+msgstr "Nach vollständigem Laden:"
+
+#: ../quick_user_guide.rst:88
+msgid "**If the Fusion HAT is ON**, both LEDs will remain lit."
+msgstr "**Wenn der Fusion HAT eingeschaltet ist**, bleiben beide LEDs an."
+
+#: ../quick_user_guide.rst:89
+msgid "**If the Fusion HAT is OFF**, both LEDs will turn off."
+msgstr "**Wenn der Fusion HAT ausgeschaltet ist**, gehen beide LEDs aus."
+
+#: ../quick_user_guide.rst:93
+msgid ""
+"For extended programming or debugging sessions, you can keep the Fusion "
+"HAT powered by connecting the USB-C cable, which will charge the battery "
+"and run the Fusion HAT at the same time."
+msgstr ""
+"Für längere Programmier- oder Debugging-Sitzungen kannst du den Fusion HAT "
+"über das USB-C-Kabel mit Strom versorgen, wodurch der Akku geladen wird und "
+"der Fusion HAT gleichzeitig betrieben wird."
+
+#: ../quick_user_guide.rst:97
+msgid "Power ON"
+msgstr "Einschalten"
+
+#: ../quick_user_guide.rst:99
+msgid ""
+"When the battery has sufficient charge, press the **power button** on the"
+" Fusion HAT briefly."
+msgstr ""
+"Wenn der Akku ausreichend geladen ist, drücke kurz die **Ein-/Aus-Taste** "
+"auf dem Fusion HAT."
+
+#: ../quick_user_guide.rst:101
+msgid "The **PWR LED** will turn on."
+msgstr "Die **PWR-LED** leuchtet auf."
+
+#: ../quick_user_guide.rst:102
+msgid "The **battery LEDs** will also light up."
+msgstr "Die **Batterie-LEDs** leuchten ebenfalls auf."
+
+#: ../quick_user_guide.rst:103
+msgid "The Raspberry Pi will power on automatically."
+msgstr "Der Raspberry Pi wird automatisch eingeschaltet."
+
+#: ../quick_user_guide.rst:111
+msgid "Configure Shutdown Behavior"
+msgstr "Herunterfahrverhalten konfigurieren"
+
+#: ../quick_user_guide.rst:113
+msgid ""
+"The Fusion HAT relies on the Raspberry Pi shutdown signal to manage the "
+"full system power. Therefore, you need to configure shutdown behavior "
+"properly."
+msgstr ""
+"Der Fusion HAT verwendet das Herunterfahrsignal des Raspberry Pi zur "
+"Steuerung der gesamten Systemstromversorgung. Daher musst du das "
+"Herunterfahrverhalten korrekt konfigurieren."
+
+#: ../quick_user_guide.rst:116
+msgid "**For Raspberry Pi 5 and 4B**"
+msgstr "**Für Raspberry Pi 5 und 4B**"
+
+#: ../quick_user_guide.rst:118
+msgid ""
+"These models support complete power-off after shutdown. The Fusion HAT "
+"monitors the 3.3V line to detect the Pi’s power state."
+msgstr ""
+"Diese Modelle unterstützen ein vollständiges Ausschalten nach dem "
+"Herunterfahren. Der Fusion HAT überwacht die 3,3-V-Leitung, um den "
+"Stromstatus des Pi zu erkennen."
+
+#: ../quick_user_guide.rst:120
+msgid "Place the jumper on **RPI State → Pi3V3**."
+msgstr "Setze den Jumper auf **RPI State → Pi3V3**."
+
+#: ../quick_user_guide.rst:125
+msgid "Open the EEPROM configuration tool:"
+msgstr "Öffne das EEPROM-Konfigurationstool:"
+
+#: ../quick_user_guide.rst:131
+msgid "Navigate to **Advanced Options → A12 Shutdown Behaviour**."
+msgstr "Navigiere zu **Advanced Options → A12 Shutdown Behaviour**."
+
+#: ../quick_user_guide.rst:135
+msgid "Select **B1 Full Power Off**."
+msgstr "Wähle **B1 Full Power Off**."
+
+#: ../quick_user_guide.rst:139
+msgid ""
+"Save the changes. You will be prompted to reboot for the new settings to "
+"take effect."
+msgstr ""
+"Speichere die Änderungen. Du wirst aufgefordert, neu zu starten, damit die "
+"neuen Einstellungen wirksam werden."
+
+#: ../quick_user_guide.rst:142
+msgid "**For Raspberry Pi Zero 2W, 3B, 3B+**"
+msgstr "**Für Raspberry Pi Zero 2W, 3B, 3B+**"
+
+#: ../quick_user_guide.rst:144
+msgid ""
+"These models do **not** support full power-off using 3.3V. Instead, "
+"GPIO26 must be configured as a shutdown state indicator."
+msgstr ""
+"Diese Modelle unterstützen **kein** vollständiges Ausschalten über 3,3 V. "
+"Stattdessen muss GPIO26 als Herunterfahr-Statusanzeige konfiguriert werden."
+
+#: ../quick_user_guide.rst:146
+msgid "Place the jumper on **RPI_STATE → IO26**."
+msgstr "Setze den Jumper auf **RPI_STATE → IO26**."
+
+#: ../quick_user_guide.rst:151
+msgid "Edit the ``/boot/firmware/config.txt`` file:"
+msgstr "Bearbeite die Datei ``/boot/firmware/config.txt``:"
+
+#: ../quick_user_guide.rst:157
+msgid ""
+"Add the following line at the end to set GPIO26 as low on shutdown and "
+"high on power-up:"
+msgstr ""
+"Füge am Ende die folgende Zeile hinzu, um GPIO26 beim Herunterfahren auf "
+"Low und beim Einschalten auf High zu setzen:"
+
+#: ../quick_user_guide.rst:163
+msgid "Reboot to apply changes:"
+msgstr "Starte neu, um die Änderungen anzuwenden:"
+
+#: ../quick_user_guide.rst:172
+msgid "Install the ``fusion-hat`` Module"
+msgstr "Installiere das ``fusion-hat``-Modul"
+
+#: ../quick_user_guide.rst:174
+msgid ""
+"The ``fusion-hat`` package provides the necessary libraries and tools for"
+" operating the Fusion HAT hardware."
+msgstr ""
+"Das ``fusion-hat``-Paket stellt die erforderlichen Bibliotheken und Tools "
+"zur Bedienung der Fusion-HAT-Hardware bereit."
+
+#: ../quick_user_guide.rst:176
+msgid "Run the following installation command:"
+msgstr "Führe den folgenden Installationsbefehl aus:"
+
+#: ../quick_user_guide.rst:182
+msgid ""
+"After installation completes, reboot the Raspberry Pi. Then execute the "
+"audio setup script:"
+msgstr ""
+"Nachdem die Installation abgeschlossen ist, starte den Raspberry Pi neu. "
+"Führe anschließend das Audio-Einrichtungsskript aus:"
+
+#: ../quick_user_guide.rst:188
+msgid "This completes the software installation process for the Fusion HAT."
+msgstr "Damit ist die Softwareinstallation für den Fusion HAT abgeschlossen."
+
+#: ../quick_user_guide.rst:191
+msgid "Safe Shutdown"
+msgstr "Sicheres Herunterfahren"
+
+#: ../quick_user_guide.rst:193
+msgid ""
+"After the above setup, you can safely shut down your Fusion HAT using the"
+" onboard power button. This step is only to show you how to shut down "
+"when needed—you don’t have to power off now and can continue to the next "
+"step."
+msgstr ""
+"Nach der obigen Einrichtung kannst du deinen Fusion HAT sicher über die "
+"integrierte Ein-/Aus-Taste herunterfahren. Dieser Schritt dient nur dazu, "
+"dir zu zeigen, wie du bei Bedarf herunterfährst – du musst jetzt nicht "
+"ausschalten und kannst mit dem nächsten Schritt fortfahren."
+
+#: ../quick_user_guide.rst:196
+msgid "**Soft Shutdown**"
+msgstr "**Sanftes Herunterfahren**"
+
+#: ../quick_user_guide.rst:198
+msgid "Press and hold the power button for **2 seconds**."
+msgstr "Halte die Ein-/Aus-Taste für **2 Sekunden** gedrückt."
+
+#: ../quick_user_guide.rst:199
+msgid "The two power LEDs will flash rapidly."
+msgstr "Die beiden Strom-LEDs blinken schnell."
+
+#: ../quick_user_guide.rst:200
+msgid "Release the button → Fusion HAT triggers Raspberry Pi shutdown."
+msgstr "Lasse die Taste los → der Fusion HAT löst das Herunterfahren des Raspberry Pi aus."
+
+#: ../quick_user_guide.rst:201
+msgid "Once the Pi finishes shutting down, Fusion HAT cuts power automatically."
+msgstr "Sobald der Pi vollständig heruntergefahren ist, trennt der Fusion HAT automatisch die Stromversorgung."
+
+#: ../quick_user_guide.rst:202
+msgid "This protects your SD card and files."
+msgstr "Dies schützt deine SD-Karte und Dateien."
+
+#: ../quick_user_guide.rst:204
+msgid "**Hard Shutdown**"
+msgstr "**Hartes Herunterfahren**"
+
+#: ../quick_user_guide.rst:206
+msgid ""
+"If the system freezes or crashes, press and hold the power button for "
+"**5+ seconds**."
+msgstr ""
+"Wenn das System einfriert oder abstürzt, halte die Ein-/Aus-Taste für "
+"**mehr als 5 Sekunden** gedrückt."
+
+#: ../quick_user_guide.rst:207
+msgid "Fusion HAT will force power-off."
+msgstr "Der Fusion HAT erzwingt ein Ausschalten."
+
+#: ../quick_user_guide.rst:208
+msgid ""
+"⚠️ Warning: This may corrupt the SD card or system files. Use only when "
+"necessary."
+msgstr ""
+"⚠️ Warnung: Dies kann die SD-Karte oder Systemdateien beschädigen. Nur bei "
+"Bedarf verwenden."

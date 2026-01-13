@@ -1,0 +1,259 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.voice_assistant.rst:2
+msgid "fusion\\_hat.voice\\_assistant module"
+msgstr "fusion\\_hat.voice\\_assistant Modul"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:1
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklassen: :py:class:`object`"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:1
+msgid "Voice assistant class"
+msgstr "Sprachassistenten-Klasse"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.add_trigger
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_listen
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_say
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_say
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.capture_image
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_heard
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think
+msgid "Parameters"
+msgstr "Parameter"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:3
+msgid "Language model"
+msgstr "Sprachmodell"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:5
+msgid "Robot name, default is NAME"
+msgstr "Robotername, Standard ist NAME"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:7
+msgid ""
+"Enable image, need to set up a multimodal language model, default is "
+"WITH_IMAGE"
+msgstr ""
+"Bilder aktivieren, ein multimodales Sprachmodell muss eingerichtet werden, "
+"Standard ist WITH_IMAGE"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:9
+msgid "Text-to-speech model, default is TTS_MODEL"
+msgstr "Text-to-Speech-Modell, Standard ist TTS_MODEL"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:11
+msgid "Speech-to-text language, default is STT_LANGUAGE"
+msgstr "Speech-to-Text-Sprache, Standard ist STT_LANGUAGE"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:13
+msgid "Enable keyboard input, default is KEYBOARD_ENABLE"
+msgstr "Tastatureingabe aktivieren, Standard ist KEYBOARD_ENABLE"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:15
+msgid "Enable wake word, default is WAKE_ENABLE"
+msgstr "Aktivierungswort aktivieren, Standard ist WAKE_ENABLE"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:17
+msgid "Wake word, default is WAKE_WORD"
+msgstr "Aktivierungswort, Standard ist WAKE_WORD"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:19
+msgid "Answer on wake word, default is ANSWER_ON_WAKE"
+msgstr "Auf Aktivierungswort antworten, Standard ist ANSWER_ON_WAKE"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:21
+msgid "Welcome message, default is WELCOME"
+msgstr "Begrüßungsnachricht, Standard ist WELCOME"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:23
+msgid "Set instructions, default is INSTRUCTIONS"
+msgstr "Anweisungen festlegen, Standard ist INSTRUCTIONS"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant:25
+msgid "Disable think, default is False"
+msgstr "Den Denkprozess deaktivieren, Standard ist False"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_listen:1
+msgid "Before listen"
+msgstr "Vor dem Zuhören"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_listen:1
+msgid "After listen"
+msgstr "Nach dem Zuhören"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_listen:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen:3
+msgid "Speech-to-text result"
+msgstr "Speech-to-Text-Ergebnis"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_think:1
+msgid "Before think"
+msgstr "Vor dem Denken"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_think:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_think:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:3
+msgid "Text to think"
+msgstr "Text zum Denken"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_think:1
+msgid "After think"
+msgstr "Nach dem Denken"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_start:1
+msgid "On start"
+msgstr "Beim Start"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_wake:1
+msgid "On wake"
+msgstr "Bei Aktivierung"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_heard:1
+msgid "On heard"
+msgstr "Bei Gehört"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_heard:3
+msgid "Text heard"
+msgstr "Gehörter Text"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response:1
+msgid "Parse response"
+msgstr "Antwort analysieren"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response:3
+msgid "Text to parse"
+msgstr "Zu analysierender Text"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response:6
+msgid "Parsed text"
+msgstr "Analysierter Text"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.parse_response
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.add_trigger:1
+msgid "Add trigger function"
+msgstr "Trigger-Funktion hinzufügen"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.add_trigger:3
+msgid "Trigger function"
+msgstr "Trigger-Funktion"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_say:1
+msgid "Before say"
+msgstr "Vor dem Sprechen"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_say:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.before_say:3
+msgid "Text to say"
+msgstr "Zu sprechender Text"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.after_say:1
+msgid "After say"
+msgstr "Nach dem Sprechen"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_stop:1
+msgid "On stop"
+msgstr "Beim Stoppen"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.on_finish_a_round:1
+msgid "On finish a round"
+msgstr "Beim Abschluss einer Runde"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.capture_image:1
+msgid "Capture image"
+msgstr "Bild aufnehmen"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.capture_image:3
+msgid "Path to save image"
+msgstr "Pfad zum Speichern des Bildes"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word:1
+msgid "Trigger wake word"
+msgstr "Aktivierungswort auslösen"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input:3
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_wake_word:3
+msgid "Triggered, disable image, message"
+msgstr "Ausgelöst, Bild deaktivieren, Nachricht"
+
+#: of
+#: sunfounder_voice_assistant.voice_assistant.VoiceAssistant.trigger_keyboard_input:1
+msgid "Trigger keyboard input"
+msgstr "Tastatureingabe auslösen"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.init_camera:1
+msgid "Initialize camera"
+msgstr "Kamera initialisieren"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.close_camera:1
+msgid "Close camera"
+msgstr "Kamera schließen"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.listen:1
+msgid "Listen"
+msgstr "Zuhören"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:1
+msgid "Think"
+msgstr "Denken"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:5
+msgid "Disable image, defaults to False"
+msgstr "Bild deaktivieren, Standard ist False"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.think:8
+msgid "LLM response"
+msgstr "LLM-Antwort"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.main:1
+msgid "Main loop"
+msgstr "Hauptschleife"
+
+#: of sunfounder_voice_assistant.voice_assistant.VoiceAssistant.run:1
+msgid "Run"
+msgstr "Ausführen"

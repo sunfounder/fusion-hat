@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.pwm.rst:2
+msgid "fusion\\_hat.pwm module"
+msgstr "fusion\\_hat.pwm Modul"
+
+#: fusion_hat.pwm:1 fusion_hat.pwm.PWM:1 of
+msgid "PWM class to control a single PWM channel"
+msgstr "PWM-Klasse zur Steuerung eines einzelnen PWM-Kanals"
+
+#: fusion_hat.pwm:4 of
+msgid "Example"
+msgstr "Beispiel"
+
+#: fusion_hat.pwm:5 of
+#, python-format
+msgid "Simple example to control PWM channel 0 at 50Hz with 50% duty cycle."
+msgstr "Einfaches Beispiel zur Steuerung des PWM-Kanals 0 mit 50 Hz und 50 % Tastverhältnis."
+
+#: fusion_hat.pwm:12 of
+msgid ""
+"Advanced example to control PWM channel with 50 Hz frequency, 20000us and"
+" pulse width 500-2500us for servos."
+msgstr ""
+"Fortgeschrittenes Beispiel zur Steuerung eines PWM-Kanals mit 50 Hz Frequenz, "
+"20000 us und einer Pulsbreite von 500–2500 us für Servos."
+
+#: fusion_hat.pwm.PWM:1 of
+msgid "Bases: :py:class:`~fusion_hat._base._Base`"
+msgstr "Basisklassen: :py:class:`~fusion_hat._base._Base`"
+
+#: fusion_hat.pwm.PWM fusion_hat.pwm.PWM.duty_cycle fusion_hat.pwm.PWM.enable
+#: fusion_hat.pwm.PWM.freq fusion_hat.pwm.PWM.period
+#: fusion_hat.pwm.PWM.pulse_width fusion_hat.pwm.PWM.pulse_width_percent
+#: fusion_hat.pwm.PWM.write_duty_cycle fusion_hat.pwm.PWM.write_period of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.pwm.PWM:3 of
+msgid "PWM channel number(0-11/P0-P11)"
+msgstr "PWM-Kanalnummer ( 0–11 / P0–P11 )"
+
+#: fusion_hat.pwm.PWM:5 of
+msgid "PWM frequency, default is 50Hz"
+msgstr "PWM-Frequenz, Standard ist 50 Hz"
+
+#: fusion_hat.pwm.PWM:7 of
+msgid "I2C address, default is 0x17"
+msgstr "I2C-Adresse, Standard ist 0x17"
+
+#: fusion_hat.pwm.PWM:9 of
+msgid "Additional arguments for :class:`fusion_hat._i2c.I2C`"
+msgstr "Zusätzliche Argumente für :py:class:`fusion_hat._i2c.I2C`"
+
+#: fusion_hat.pwm.PWM:10 of
+msgid "Additional keyword arguments for :class:`fusion_hat._i2c.I2C`"
+msgstr "Zusätzliche Schlüsselwortargumente für :py:class:`fusion_hat._i2c.I2C`"
+
+#: fusion_hat.pwm.PWM of
+msgid "Raises"
+msgstr "Wirft"
+
+#: fusion_hat.pwm.PWM:12 of
+msgid "Invalid channel number"
+msgstr "Ungültige Kanalnummer"
+
+#: fusion_hat.pwm.PWM.enable:1 of
+msgid "Enable/disable PWM channel"
+msgstr "PWM-Kanal aktivieren oder deaktivieren"
+
+#: fusion_hat.pwm.PWM.enable:3 of
+msgid "enable or disable, default is True"
+msgstr "aktivieren oder deaktivieren, Standard ist True"
+
+#: fusion_hat.pwm.PWM.read_period:1 of
+msgid "Get period in ms"
+msgstr "Periode in ms abrufen"
+
+#: fusion_hat.pwm.PWM.duty_cycle fusion_hat.pwm.PWM.freq
+#: fusion_hat.pwm.PWM.period fusion_hat.pwm.PWM.pulse_width
+#: fusion_hat.pwm.PWM.pulse_width_percent fusion_hat.pwm.PWM.read_duty_cycle
+#: fusion_hat.pwm.PWM.read_period of
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: fusion_hat.pwm.PWM.read_period:3 fusion_hat.pwm.PWM.write_period:3 of
+msgid "period in ms"
+msgstr "Periode in ms"
+
+#: fusion_hat.pwm.PWM.duty_cycle fusion_hat.pwm.PWM.freq
+#: fusion_hat.pwm.PWM.period fusion_hat.pwm.PWM.pulse_width
+#: fusion_hat.pwm.PWM.pulse_width_percent fusion_hat.pwm.PWM.read_duty_cycle
+#: fusion_hat.pwm.PWM.read_period of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.pwm.PWM.write_period:1 of
+msgid "Set period in ms"
+msgstr "Periode in ms setzen"
+
+#: fusion_hat.pwm.PWM.read_duty_cycle:1 of
+msgid "Get duty cycle in ms"
+msgstr "Tastverhältnis in ms abrufen"
+
+#: fusion_hat.pwm.PWM.read_duty_cycle:3 fusion_hat.pwm.PWM.write_duty_cycle:3
+#: of
+msgid "duty cycle in ms"
+msgstr "Tastverhältnis in ms"
+
+#: fusion_hat.pwm.PWM.write_duty_cycle:1 of
+msgid "Set duty cycle in ms"
+msgstr "Tastverhältnis in ms setzen"
+
+#: fusion_hat.pwm.PWM.freq:1 of
+msgid "Set/get frequency, leave blank to get frequency"
+msgstr "Frequenz setzen oder abrufen, leer lassen, um die Frequenz abzurufen"
+
+#: fusion_hat.pwm.PWM.freq:3 of
+msgid "frequency(0-65535)(Hz), default is 50Hz"
+msgstr "Frequenz ( 0–65535 ) ( Hz ), Standard ist 50 Hz"
+
+#: fusion_hat.pwm.PWM.freq:6 of
+msgid "frequency"
+msgstr "Frequenz"
+
+#: fusion_hat.pwm.PWM.prescaler:1 of
+msgid "[Deprecated] Set/get prescaler, leave blank to get prescaler"
+msgstr "[ VERALTET ] Prescaler setzen oder abrufen, leer lassen, um den Prescaler abzurufen"
+
+#: fusion_hat.pwm.PWM.period:1 of
+msgid "Set/get period, leave blank to get period"
+msgstr "Periode setzen oder abrufen, leer lassen, um die Periode abzurufen"
+
+#: fusion_hat.pwm.PWM.period:3 of
+msgid "period(0-65535), default is 0"
+msgstr "Periode ( 0–65535 ), Standard ist 0"
+
+#: fusion_hat.pwm.PWM.period:5 of
+msgid "Whether to write period directly, default is False"
+msgstr "Ob die Periode direkt geschrieben wird, Standard ist False"
+
+#: fusion_hat.pwm.PWM.period:8 of
+msgid "period"
+msgstr "Periode"
+
+#: fusion_hat.pwm.PWM.duty_cycle:1 of
+msgid "Set/get duty cycle, in ms"
+msgstr "Tastverhältnis setzen oder abrufen, in ms"
+
+#: fusion_hat.pwm.PWM.duty_cycle:3 fusion_hat.pwm.PWM.duty_cycle:6 of
+msgid "duty cycle"
+msgstr "Tastverhältnis"
+
+#: fusion_hat.pwm.PWM.pulse_width:1 of
+msgid "Set/get pulse width, in ms"
+msgstr "Pulsbreite setzen oder abrufen, in ms"
+
+#: fusion_hat.pwm.PWM.pulse_width:3 of
+msgid "pulse width in ms"
+msgstr "Pulsbreite in ms"
+
+#: fusion_hat.pwm.PWM.pulse_width:6 of
+msgid "pulse width"
+msgstr "Pulsbreite"
+
+#: fusion_hat.pwm.PWM.pulse_width_percent:1 of
+msgid "Set/get pulse width percentage, leave blank to get pulse width percentage"
+msgstr "Pulsbreitenprozentsatz setzen oder abrufen, leer lassen, um den Pulsbreitenprozentsatz abzurufen"
+
+#: fusion_hat.pwm.PWM.pulse_width_percent:3 of
+msgid "pulse width percentage(0-100), default is 0"
+msgstr "Pulsbreitenprozentsatz ( 0–100 ), Standard ist 0"
+
+#: fusion_hat.pwm.PWM.pulse_width_percent:6 of
+msgid "pulse width percentage"
+msgstr "Pulsbreitenprozentsatz"
+
+#: fusion_hat.pwm.PWM.close:1 of
+msgid "Close PWM channel"
+msgstr "PWM-Kanal schließen"
+
+#: fusion_hat.pwm.PWM.__del__:1 of
+msgid "Close PWM channel when object is deleted"
+msgstr "PWM-Kanal schließen, wenn das Objekt gelöscht wird"

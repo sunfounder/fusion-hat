@@ -1,0 +1,700 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_online_llms.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauchen Sie gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../ai_interaction/python_online_llms.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum mitmachen?** "
+
+#: ../ai_interaction/python_online_llms.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support** : Lösen Sie After-Sales-Probleme und technische Herausforderungen mit "
+"Hilfe unserer Community und unseres Teams."
+
+#: ../ai_interaction/python_online_llms.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen** : Tauschen Sie Tipps und Tutorials aus, um Ihre Fähigkeiten zu verbessern."
+
+#: ../ai_interaction/python_online_llms.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen** : Erhalten Sie frühzeitigen Zugriff auf neue Produktankündigungen und "
+"exklusive Einblicke."
+
+#: ../ai_interaction/python_online_llms.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Sonderrabatte** : Profitieren Sie von exklusiven Rabatten auf unsere neuesten Produkte."
+
+#: ../ai_interaction/python_online_llms.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele** : Nehmen Sie an Gewinnspielen und saisonalen Aktionen teil."
+
+#: ../ai_interaction/python_online_llms.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicken Sie auf [|link_sf_facebook|] und "
+"treten Sie noch heute bei!"
+
+#: ../ai_interaction/python_online_llms.rst:18
+msgid "5. Connecting to Online LLMs"
+msgstr "5. Verbindung zu Online-LLMs herstellen"
+
+#: ../ai_interaction/python_online_llms.rst:20
+msgid ""
+"In this lesson, we'll learn how to connect your Fusion HAT+ (or Raspberry"
+" Pi) to different **online Large Language Models (LLMs)**. Each provider "
+"requires an API key and offers different models you can choose from."
+msgstr ""
+"In dieser Lektion lernen wir, wie Sie Ihr Fusion HAT+ ( oder Raspberry Pi ) mit verschiedenen "
+"**Online Large Language Models ( LLMs )** verbinden. Jeder Anbieter benötigt einen API-Schlüssel "
+"und bietet unterschiedliche Modelle zur Auswahl an."
+
+#: ../ai_interaction/python_online_llms.rst:23
+msgid "We'll cover how to:"
+msgstr "Wir behandeln, wie Sie:"
+
+#: ../ai_interaction/python_online_llms.rst:25
+msgid "Create and save your API keys safely."
+msgstr "Ihre API-Schlüssel sicher erstellen und speichern."
+
+#: ../ai_interaction/python_online_llms.rst:26
+msgid "Pick a model that fits your needs."
+msgstr "Ein Modell auswählen, das zu Ihren Anforderungen passt."
+
+#: ../ai_interaction/python_online_llms.rst:27
+msgid "Run our example code to chat with the models."
+msgstr "Unser Beispielprogramm ausführen, um mit den Modellen zu chatten."
+
+#: ../ai_interaction/python_online_llms.rst:29
+msgid "Let's go step by step for each provider."
+msgstr "Gehen wir Anbieter für Anbieter Schritt für Schritt vor."
+
+#: ../ai_interaction/python_online_llms.rst:34
+msgid "OpenAI"
+msgstr "OpenAI"
+
+#: ../ai_interaction/python_online_llms.rst:36
+msgid ""
+"OpenAI provides powerful models like **GPT-4o** and **GPT-4.1** that can "
+"be used for both text and vision tasks."
+msgstr ""
+"OpenAI bietet leistungsstarke Modelle wie **GPT-4o** und **GPT-4.1** , die sowohl für Text- als auch "
+"für Vision-Aufgaben verwendet werden können."
+
+#: ../ai_interaction/python_online_llms.rst:38
+msgid "Here's how to set it up:"
+msgstr "So richten Sie es ein:"
+
+#: ../ai_interaction/python_online_llms.rst:40
+#: ../ai_interaction/python_online_llms.rst:119
+#: ../ai_interaction/python_online_llms.rst:290
+#: ../ai_interaction/python_online_llms.rst:365
+#: ../ai_interaction/python_online_llms.rst:441
+msgid "**Get and Save your API Key**"
+msgstr "**API-Schlüssel abrufen und speichern** "
+
+#: ../ai_interaction/python_online_llms.rst:42
+msgid ""
+"Go to |link_openai_platform| and log in. On the **API keys** page, click "
+"**Create new secret key**."
+msgstr ""
+"Gehen Sie zu |link_openai_platform| und melden Sie sich an. Klicken Sie auf der Seite **API keys** auf "
+"**Create new secret key** ."
+
+#: ../ai_interaction/python_online_llms.rst:46
+msgid ""
+"Fill in the details (Owner, Name, Project, and permissions if needed), "
+"then click **Create secret key**."
+msgstr ""
+"Füllen Sie die Details aus ( Owner, Name, Project und ggf. Berechtigungen ) und klicken Sie dann auf "
+"**Create secret key** ."
+
+#: ../ai_interaction/python_online_llms.rst:50
+msgid ""
+"Once the key is created, copy it right away — you won't be able to see it"
+" again. If you lose it, you'll need to generate a new one."
+msgstr ""
+"Sobald der Schlüssel erstellt ist, kopieren Sie ihn sofort — Sie können ihn später nicht mehr anzeigen. "
+"Wenn Sie ihn verlieren, müssen Sie einen neuen erzeugen."
+
+#: ../ai_interaction/python_online_llms.rst:54
+msgid ""
+"In your project folder (for example: ``/``), create a file called "
+"``secret.py``:"
+msgstr ""
+"Erstellen Sie in Ihrem Projektordner ( zum Beispiel: ``/`` ) eine Datei mit dem Namen "
+"``secret.py`` :"
+
+#: ../ai_interaction/python_online_llms.rst:61
+msgid "Paste your key into the file like this:"
+msgstr "Fügen Sie Ihren Schlüssel so in die Datei ein:"
+
+#: ../ai_interaction/python_online_llms.rst:69
+msgid "**Enable billing and check models**"
+msgstr "**Abrechnung aktivieren und Modelle prüfen** "
+
+#: ../ai_interaction/python_online_llms.rst:71
+msgid ""
+"Before using the key, go to the **Billing** page in your OpenAI account, "
+"add your payment details, and top up a small amount of credits."
+msgstr ""
+"Bevor Sie den Schlüssel verwenden, gehen Sie in Ihrem OpenAI-Konto zur Seite **Billing** , "
+"hinterlegen Sie Ihre Zahlungsdaten und laden Sie ein kleines Guthaben auf."
+
+#: ../ai_interaction/python_online_llms.rst:75
+msgid ""
+"Then go to the **Limits** page to check which models are available for "
+"your account and copy the exact model ID to use in your code."
+msgstr ""
+"Gehen Sie anschließend zur Seite **Limits** , um zu prüfen, welche Modelle für Ihr Konto verfügbar sind, "
+"und kopieren Sie die exakte Modell-ID für Ihren Code."
+
+#: ../ai_interaction/python_online_llms.rst:79
+#: ../ai_interaction/python_online_llms.rst:158
+#: ../ai_interaction/python_online_llms.rst:256
+#: ../ai_interaction/python_online_llms.rst:328
+#: ../ai_interaction/python_online_llms.rst:404
+#: ../ai_interaction/python_online_llms.rst:493
+msgid "**Test with example code**"
+msgstr "**Mit Beispielcode testen** "
+
+#: ../ai_interaction/python_online_llms.rst:81
+msgid "Open our sample code:"
+msgstr "Öffnen Sie unseren Beispielcode:"
+
+#: ../ai_interaction/python_online_llms.rst:88
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``gpt-4o``):"
+msgstr ""
+"Ersetzen Sie den Inhalt durch den Code unten und aktualisieren Sie ``model=\"xxx\"`` auf "
+"das gewünschte Modell ( zum Beispiel ``gpt-4o`` ):"
+
+#: ../ai_interaction/python_online_llms.rst:103
+msgid "Save and exit (``Ctrl+X``, then ``Y``, then ``Enter``)."
+msgstr "Speichern und beenden ( ``Ctrl+X`` , dann ``Y`` , dann ``Enter`` )."
+
+#: ../ai_interaction/python_online_llms.rst:105
+msgid "Finally, run the test:"
+msgstr "Führen Sie abschließend den Test aus:"
+
+#: ../ai_interaction/python_online_llms.rst:115
+msgid "Gemini"
+msgstr "Gemini"
+
+#: ../ai_interaction/python_online_llms.rst:117
+msgid ""
+"Gemini is Google's family of AI models. It's fast and great for general-"
+"purpose tasks."
+msgstr ""
+"Gemini ist Googles Familie von KI-Modellen. Es ist schnell und eignet sich hervorragend für allgemeine Aufgaben."
+
+#: ../ai_interaction/python_online_llms.rst:121
+msgid "Log in to |link_google_ai|, then go to the API Keys page."
+msgstr "Melden Sie sich bei |link_google_ai| an und gehen Sie dann zur Seite „API Keys“."
+
+#: ../ai_interaction/python_online_llms.rst:125
+msgid "Click the **Create API key** button in the top-right corner."
+msgstr "Klicken Sie oben rechts auf **Create API key** ."
+
+#: ../ai_interaction/python_online_llms.rst:129
+msgid "You can create a key for an existing project or a new one."
+msgstr "Sie können einen Schlüssel für ein bestehendes Projekt oder ein neues erstellen."
+
+#: ../ai_interaction/python_online_llms.rst:133
+msgid "Copy the generated API key."
+msgstr "Kopieren Sie den generierten API-Schlüssel."
+
+#: ../ai_interaction/python_online_llms.rst:137
+#: ../ai_interaction/python_online_llms.rst:240
+#: ../ai_interaction/python_online_llms.rst:306
+#: ../ai_interaction/python_online_llms.rst:377
+#: ../ai_interaction/python_online_llms.rst:457
+msgid "In your project folder:"
+msgstr "In Ihrem Projektordner:"
+
+#: ../ai_interaction/python_online_llms.rst:144
+msgid "Paste the key:"
+msgstr "Fügen Sie den Schlüssel ein:"
+
+#: ../ai_interaction/python_online_llms.rst:152
+#: ../ai_interaction/python_online_llms.rst:322
+msgid "**Check available models**"
+msgstr "**Verfügbare Modelle prüfen** "
+
+#: ../ai_interaction/python_online_llms.rst:154
+msgid ""
+"Go to the official |link_gemini_model| page, here you’ll see the list of "
+"models, their exact API IDs, and which use case each one is optimized "
+"for."
+msgstr ""
+"Gehen Sie zur offiziellen Seite |link_gemini_model|. Dort sehen Sie die Liste der Modelle, ihre exakten API-IDs "
+"und für welchen Anwendungsfall jedes Modell optimiert ist."
+
+#: ../ai_interaction/python_online_llms.rst:160
+#: ../ai_interaction/python_online_llms.rst:258
+#: ../ai_interaction/python_online_llms.rst:330
+#: ../ai_interaction/python_online_llms.rst:406
+#: ../ai_interaction/python_online_llms.rst:495
+#: ../ai_interaction/python_online_llms.rst:564
+msgid "Open the test file:"
+msgstr "Öffnen Sie die Testdatei:"
+
+#: ../ai_interaction/python_online_llms.rst:167
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``gemini-2.5-flash``):"
+msgstr ""
+"Ersetzen Sie den Inhalt durch den Code unten und aktualisieren Sie ``model=\"xxx\"`` auf "
+"das gewünschte Modell ( zum Beispiel ``gemini-2.5-flash`` ):"
+
+#: ../ai_interaction/python_online_llms.rst:182
+msgid "Save and run:"
+msgstr "Speichern und ausführen:"
+
+#: ../ai_interaction/python_online_llms.rst:191
+msgid "Qwen"
+msgstr "Qwen"
+
+#: ../ai_interaction/python_online_llms.rst:193
+msgid ""
+"Qwen is a family of large language and multimodal models provided by "
+"Alibaba Cloud. These models support text generation, reasoning, and "
+"multimodal understanding (such as image analysis)."
+msgstr ""
+"Qwen ist eine Familie großer Sprach- und multimodaler Modelle von Alibaba Cloud. Diese Modelle unterstützen "
+"Textgenerierung, Schlussfolgern und multimodales Verständnis ( z. B. Bildanalyse )."
+
+#: ../ai_interaction/python_online_llms.rst:196
+msgid "**Get an API Key**"
+msgstr "**API-Schlüssel erhalten**"
+
+#: ../ai_interaction/python_online_llms.rst:198
+msgid ""
+"To call Qwen models, you need an **API Key**. Most international users "
+"should use the **DashScope International (Model Studio)** console. "
+"Mainland China users can instead use the **Bailian (百炼)** console."
+msgstr ""
+"Um Qwen-Modelle aufzurufen, benötigen Sie einen **API-Schlüssel** . Die meisten internationalen Nutzer sollten die "
+"Konsole **DashScope International ( Model Studio )** verwenden. Nutzer in Festlandchina können stattdessen die "
+"Konsole **Bailian ( 百炼 )** verwenden."
+
+#: ../ai_interaction/python_online_llms.rst:202
+msgid "**For International Users**"
+msgstr "**Für internationale Nutzer**"
+
+#: ../ai_interaction/python_online_llms.rst:204
+msgid "Go to the official |link_qwen_inter| page on **Alibaba Cloud**."
+msgstr "Gehen Sie zur offiziellen Seite |link_qwen_inter| auf **Alibaba Cloud** ."
+
+#: ../ai_interaction/python_online_llms.rst:205
+msgid "Sign in or create an **Alibaba Cloud** account."
+msgstr "Melden Sie sich an oder erstellen Sie ein **Alibaba Cloud** -Konto."
+
+#: ../ai_interaction/python_online_llms.rst:206
+msgid "Navigate to **Model Studio** (choose Singapore or Beijing region)."
+msgstr "Navigieren Sie zu **Model Studio** ( wählen Sie die Region Singapur oder Peking )."
+
+#: ../ai_interaction/python_online_llms.rst:208
+msgid ""
+"If an “Activate Now” prompt appears at the top of the page, click it to "
+"activate Model Studio and receive the free quota (Singapore only)."
+msgstr ""
+"Wenn oben auf der Seite eine Aufforderung „Activate Now“ erscheint, klicken Sie darauf, um Model Studio zu aktivieren "
+"und das kostenlose Kontingent zu erhalten ( nur Singapur )."
+
+#: ../ai_interaction/python_online_llms.rst:209
+msgid ""
+"Activation is free — you will only be charged after your free quota is "
+"used."
+msgstr ""
+"Die Aktivierung ist kostenlos — Ihnen werden erst Kosten berechnet, nachdem Ihr kostenloses Kontingent aufgebraucht ist."
+
+#: ../ai_interaction/python_online_llms.rst:210
+msgid "If no activation prompt appears, the service is already active."
+msgstr "Wenn keine Aktivierungsaufforderung erscheint, ist der Dienst bereits aktiv."
+
+#: ../ai_interaction/python_online_llms.rst:212
+msgid ""
+"Go to the **Key Management** page. On the **API Key** tab, click **Create"
+" API Key**."
+msgstr ""
+"Gehen Sie zur Seite **Key Management** . Klicken Sie im Tab **API Key** auf **Create API Key** ."
+
+#: ../ai_interaction/python_online_llms.rst:213
+msgid "After creation, copy your API Key and keep it safe."
+msgstr "Nach dem Erstellen kopieren Sie Ihren API-Schlüssel und bewahren Sie ihn sicher auf."
+
+#: ../ai_interaction/python_online_llms.rst:219
+msgid ""
+"Users in Hong Kong, Macau, and Taiwan should also choose the "
+"**International (Model Studio)** option."
+msgstr ""
+"Nutzer in Hongkong, Macau und Taiwan sollten ebenfalls die Option **International ( Model Studio )** wählen."
+
+#: ../ai_interaction/python_online_llms.rst:221
+msgid "**For Mainland China Users**"
+msgstr "**Für Nutzer in Festlandchina**"
+
+#: ../ai_interaction/python_online_llms.rst:223
+msgid ""
+"If you are in Mainland China, you can use the **Alibaba Cloud Bailian "
+"(百炼)** console instead:"
+msgstr ""
+"Wenn Sie sich in Festlandchina befinden, können Sie stattdessen die Konsole **Alibaba Cloud Bailian ( 百炼 )** verwenden:"
+
+#: ../ai_interaction/python_online_llms.rst:225
+msgid ""
+"Log in to |link_aliyun| (Bailian console) and complete account "
+"verification."
+msgstr ""
+"Melden Sie sich bei |link_aliyun| ( Bailian-Konsole ) an und schließen Sie die Kontoverifizierung ab."
+
+#: ../ai_interaction/python_online_llms.rst:226
+msgid ""
+"Select **Create API Key**. If prompted that model services are not "
+"activated, click **Activate**, agree to the terms, and claim your free "
+"quota. After activation, the **Create API Key** button will be enabled."
+msgstr ""
+"Wählen Sie **Create API Key** . Wenn Sie darauf hingewiesen werden, dass Modelldienste nicht aktiviert sind, klicken Sie "
+"auf **Activate** , stimmen Sie den Bedingungen zu und fordern Sie Ihr kostenloses Kontingent an. Nach der Aktivierung wird "
+"die Schaltfläche **Create API Key** verfügbar."
+
+#: ../ai_interaction/python_online_llms.rst:230
+msgid ""
+"Click **Create API Key** again, check your account, and then click "
+"**Confirm**."
+msgstr ""
+"Klicken Sie erneut auf **Create API Key** , prüfen Sie Ihr Konto und klicken Sie dann auf **Confirm** ."
+
+#: ../ai_interaction/python_online_llms.rst:234
+msgid "Once created, copy your API Key."
+msgstr "Sobald er erstellt ist, kopieren Sie Ihren API-Schlüssel."
+
+#: ../ai_interaction/python_online_llms.rst:238
+msgid "**Save your API Key**"
+msgstr "**API-Schlüssel speichern**"
+
+#: ../ai_interaction/python_online_llms.rst:247
+#: ../ai_interaction/python_online_llms.rst:313
+msgid "Paste your key like this:"
+msgstr "Fügen Sie Ihren Schlüssel so ein:"
+
+#: ../ai_interaction/python_online_llms.rst:265
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``qwen-plus``):"
+msgstr ""
+"Ersetzen Sie den Inhalt durch den Code unten und aktualisieren Sie ``model=\"xxx\"`` auf "
+"das gewünschte Modell ( zum Beispiel ``qwen-plus`` ):"
+
+#: ../ai_interaction/python_online_llms.rst:280
+#: ../ai_interaction/python_online_llms.rst:352
+#: ../ai_interaction/python_online_llms.rst:517
+msgid "Run with:"
+msgstr "Ausführen mit:"
+
+#: ../ai_interaction/python_online_llms.rst:287
+msgid "Grok (xAI)"
+msgstr "Grok ( xAI )"
+
+#: ../ai_interaction/python_online_llms.rst:288
+msgid ""
+"Grok is xAI’s conversational AI, created by Elon Musk’s team. You can "
+"connect to it through the xAI API."
+msgstr ""
+"Grok ist die konversationelle KI von xAI, entwickelt vom Team von Elon Musk. Sie können sie über die xAI-API anbinden."
+
+#: ../ai_interaction/python_online_llms.rst:292
+msgid ""
+"Sign up for an account here: |link_grok_ai|. Add some credits to your "
+"account first — otherwise the API won’t work."
+msgstr ""
+"Registrieren Sie sich hier: |link_grok_ai|. Laden Sie zuerst Guthaben auf Ihr Konto — sonst funktioniert die API nicht."
+
+#: ../ai_interaction/python_online_llms.rst:294
+msgid "Go to the API Keys page, click **Create API key**."
+msgstr "Gehen Sie zur Seite „API Keys“ und klicken Sie auf **Create API key** ."
+
+#: ../ai_interaction/python_online_llms.rst:298
+msgid "Enter a name for the key, then click **Create API key**."
+msgstr "Geben Sie einen Namen für den Schlüssel ein und klicken Sie dann auf **Create API key** ."
+
+#: ../ai_interaction/python_online_llms.rst:302
+msgid "Copy the generated key and keep it safe."
+msgstr "Kopieren Sie den generierten Schlüssel und bewahren Sie ihn sicher auf."
+
+#: ../ai_interaction/python_online_llms.rst:324
+msgid ""
+"Go to the Models page in the xAI console. Here you can see all the models"
+" available to your team, along with their exact API IDs — use these IDs "
+"in your code."
+msgstr ""
+"Gehen Sie in der xAI-Konsole zur Seite „Models“. Dort sehen Sie alle für Ihr Team verfügbaren Modelle zusammen mit ihren "
+"exakten API-IDs — verwenden Sie diese IDs in Ihrem Code."
+
+#: ../ai_interaction/python_online_llms.rst:337
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``grok-4-latest``):"
+msgstr ""
+"Ersetzen Sie den Inhalt durch den Code unten und aktualisieren Sie ``model=\"xxx\"`` auf "
+"das gewünschte Modell ( zum Beispiel ``grok-4-latest`` ):"
+
+#: ../ai_interaction/python_online_llms.rst:361
+msgid "DeepSeek"
+msgstr "DeepSeek"
+
+#: ../ai_interaction/python_online_llms.rst:363
+msgid ""
+"DeepSeek is a Chinese LLM provider that offers affordable and capable "
+"models."
+msgstr ""
+"DeepSeek ist ein chinesischer LLM-Anbieter, der günstige und leistungsfähige Modelle anbietet."
+
+#: ../ai_interaction/python_online_llms.rst:367
+msgid "Log in to |link_deepseek|."
+msgstr "Melden Sie sich bei |link_deepseek| an."
+
+#: ../ai_interaction/python_online_llms.rst:369
+msgid "In the top-right menu, select **API Keys → Create API Key**."
+msgstr "Wählen Sie im Menü oben rechts **API Keys → Create API Key** ."
+
+#: ../ai_interaction/python_online_llms.rst:373
+msgid "Enter a name, click **Create**, then copy the key."
+msgstr "Geben Sie einen Namen ein, klicken Sie auf **Create** und kopieren Sie dann den Schlüssel."
+
+#: ../ai_interaction/python_online_llms.rst:384
+#: ../ai_interaction/python_online_llms.rst:464
+msgid "Add your key:"
+msgstr "Fügen Sie Ihren Schlüssel hinzu:"
+
+#: ../ai_interaction/python_online_llms.rst:391
+msgid "**Enable billing**"
+msgstr "**Abrechnung aktivieren**"
+
+#: ../ai_interaction/python_online_llms.rst:393
+msgid ""
+"You'll need to recharge your account first. Start with a small amount "
+"(like ¥10 RMB)."
+msgstr ""
+"Sie müssen Ihr Konto zuerst aufladen. Beginnen Sie mit einem kleinen Betrag ( z. B. ¥10 RMB )."
+
+#: ../ai_interaction/python_online_llms.rst:397
+msgid "**Available models**"
+msgstr "**Verfügbare Modelle**"
+
+#: ../ai_interaction/python_online_llms.rst:399
+msgid "At the time of writing (2025-09-12), DeepSeek offers:"
+msgstr "Zum Zeitpunkt der Erstellung ( 2025-09-12 ) bietet DeepSeek an:"
+
+#: ../ai_interaction/python_online_llms.rst:401
+msgid "``deepseek-chat``"
+msgstr "``deepseek-chat``"
+
+#: ../ai_interaction/python_online_llms.rst:402
+msgid "``deepseek-reasoner``"
+msgstr "``deepseek-reasoner``"
+
+#: ../ai_interaction/python_online_llms.rst:413
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``deepseek-chat``):"
+msgstr ""
+"Ersetzen Sie den Inhalt durch den Code unten und aktualisieren Sie ``model=\"xxx\"`` auf "
+"das gewünschte Modell ( zum Beispiel ``deepseek-chat`` ):"
+
+#: ../ai_interaction/python_online_llms.rst:429
+msgid "Run:"
+msgstr "Ausführen:"
+
+#: ../ai_interaction/python_online_llms.rst:438
+msgid "Doubao"
+msgstr "Doubao"
+
+#: ../ai_interaction/python_online_llms.rst:439
+msgid "Doubao is ByteDance's AI model platform (Volcengine Ark)."
+msgstr "Doubao ist ByteDances KI-Modellplattform ( Volcengine Ark )."
+
+#: ../ai_interaction/python_online_llms.rst:443
+msgid "Log in to |link_doubao|."
+msgstr "Melden Sie sich bei |link_doubao| an."
+
+#: ../ai_interaction/python_online_llms.rst:445
+msgid "In the left menu, scroll down to **API Key Management → Create API Key**."
+msgstr "Scrollen Sie im linken Menü nach unten zu **API Key Management → Create API Key** ."
+
+#: ../ai_interaction/python_online_llms.rst:449
+msgid "Choose a name and click **Create**."
+msgstr "Wählen Sie einen Namen und klicken Sie auf **Create** ."
+
+#: ../ai_interaction/python_online_llms.rst:453
+msgid "Click the **Show API Key** icon and copy it."
+msgstr "Klicken Sie auf das Symbol **Show API Key** und kopieren Sie den Schlüssel."
+
+#: ../ai_interaction/python_online_llms.rst:471
+msgid "**Choose a model**"
+msgstr "**Ein Modell auswählen**"
+
+#: ../ai_interaction/python_online_llms.rst:473
+msgid "Go to the model marketplace and pick a model."
+msgstr "Gehen Sie zum Modell-Marktplatz und wählen Sie ein Modell aus."
+
+#: ../ai_interaction/python_online_llms.rst:477
+msgid "For example, choose **Doubao-seed-1.6**, then click **API 接入**."
+msgstr "Wählen Sie zum Beispiel **Doubao-seed-1.6** und klicken Sie dann auf **API 接入** ."
+
+#: ../ai_interaction/python_online_llms.rst:481
+msgid "Select your API Key and click **Use API**."
+msgstr "Wählen Sie Ihren API-Schlüssel aus und klicken Sie auf **Use API** ."
+
+#: ../ai_interaction/python_online_llms.rst:485
+msgid "Click **Enable Model**."
+msgstr "Klicken Sie auf **Enable Model** ."
+
+#: ../ai_interaction/python_online_llms.rst:489
+msgid "Hover over the model ID to copy it."
+msgstr "Fahren Sie mit der Maus über die Modell-ID, um sie zu kopieren."
+
+#: ../ai_interaction/python_online_llms.rst:502
+msgid ""
+"Replace the content with the code below, and update ``model=\"xxx\"`` to "
+"the model you want (for example, ``doubao-seed-1-6-250615``):"
+msgstr ""
+"Ersetzen Sie den Inhalt durch den Code unten und aktualisieren Sie ``model=\"xxx\"`` auf "
+"das gewünschte Modell ( zum Beispiel ``doubao-seed-1-6-250615`` ):"
+
+#: ../ai_interaction/python_online_llms.rst:525
+msgid "General"
+msgstr "Allgemein"
+
+#: ../ai_interaction/python_online_llms.rst:527
+msgid ""
+"This project supports connecting to multiple LLM platforms through a "
+"unified interface. We have built-in compatibility with:"
+msgstr ""
+"Dieses Projekt unterstützt die Verbindung zu mehreren LLM-Plattformen über eine einheitliche Schnittstelle. "
+"Wir bieten integrierte Kompatibilität mit:"
+
+#: ../ai_interaction/python_online_llms.rst:530
+msgid "**OpenAI** (ChatGPT / GPT-4o, GPT-4, GPT-3.5)"
+msgstr "**OpenAI** ( ChatGPT / GPT-4o, GPT-4, GPT-3.5 )"
+
+#: ../ai_interaction/python_online_llms.rst:531
+msgid "**Gemini** (Google AI Studio / Vertex AI)"
+msgstr "**Gemini** ( Google AI Studio / Vertex AI )"
+
+#: ../ai_interaction/python_online_llms.rst:532
+msgid "**Grok** (xAI)"
+msgstr "**Grok** ( xAI )"
+
+#: ../ai_interaction/python_online_llms.rst:533
+msgid "**DeepSeek**"
+msgstr "**DeepSeek**"
+
+#: ../ai_interaction/python_online_llms.rst:534
+msgid "**Qwen (通义千问)**"
+msgstr "**Qwen ( 通义千问 )**"
+
+#: ../ai_interaction/python_online_llms.rst:535
+msgid "**Doubao (豆包)**"
+msgstr "**Doubao ( 豆包 )**"
+
+#: ../ai_interaction/python_online_llms.rst:537
+msgid ""
+"In addition, you can connect to **any other LLM service that is "
+"compatible with the OpenAI API format**. For those platforms, you will "
+"need to manually obtain your **API Key** and the correct **base_url**."
+msgstr ""
+"Außerdem können Sie **jeden anderen LLM-Dienst verbinden, der mit dem OpenAI-API-Format kompatibel ist** . "
+"Für diese Plattformen müssen Sie Ihren **API-Schlüssel** und die korrekte **base_url** manuell beschaffen."
+
+#: ../ai_interaction/python_online_llms.rst:540
+msgid "**Get and Save Your API Key**"
+msgstr "**API-Schlüssel abrufen und speichern**"
+
+#: ../ai_interaction/python_online_llms.rst:542
+msgid ""
+"Obtain an **API Key** from the platform you want to use. (See each "
+"platform’s official console for details.)"
+msgstr ""
+"Besorgen Sie sich einen **API-Schlüssel** von der Plattform, die Sie verwenden möchten. "
+"( Details finden Sie in der offiziellen Konsole des jeweiligen Anbieters. )"
+
+#: ../ai_interaction/python_online_llms.rst:544
+msgid "In your project folder, create a new file:"
+msgstr "Erstellen Sie in Ihrem Projektordner eine neue Datei:"
+
+#: ../ai_interaction/python_online_llms.rst:551
+msgid "Add your key into ``secret.py``:"
+msgstr "Fügen Sie Ihren Schlüssel in ``secret.py`` ein:"
+
+#: ../ai_interaction/python_online_llms.rst:560
+msgid ""
+"Keep your API Key private. Do not upload ``secret.py`` to public "
+"repositories."
+msgstr ""
+"Halten Sie Ihren API-Schlüssel privat. Laden Sie ``secret.py`` nicht in öffentliche Repositories hoch."
+
+#: ../ai_interaction/python_online_llms.rst:562
+msgid "**Test With Example Code**"
+msgstr "**Mit Beispielcode testen**"
+
+#: ../ai_interaction/python_online_llms.rst:571
+msgid ""
+"Replace the content of a Python file with the following example, and fill"
+" in the correct ``base_url`` and ``model`` for your platform:"
+msgstr ""
+"Ersetzen Sie den Inhalt einer Python-Datei durch das folgende Beispiel und tragen Sie die korrekte ``base_url`` "
+"und ``model`` für Ihre Plattform ein:"
+
+#: ../ai_interaction/python_online_llms.rst:575
+msgid ""
+"About ``base_url``: We support the **OpenAI API format**, as well as any "
+"API that is **compatible** with it. Each provider has its own "
+"``base_url``. Please check their documentation."
+msgstr ""
+"Zu ``base_url`` : Wir unterstützen das **OpenAI-API-Format** sowie jede API, die damit **kompatibel** ist. "
+"Jeder Anbieter hat seine eigene ``base_url``. Bitte prüfen Sie die Dokumentation des Anbieters."
+
+#: ../ai_interaction/python_online_llms.rst:593
+msgid "Run the program:"
+msgstr "Führen Sie das Programm aus:"

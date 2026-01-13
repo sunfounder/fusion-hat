@@ -1,0 +1,476 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_local_chatbot.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauchen Sie gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../ai_interaction/python_local_chatbot.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum mitmachen?** "
+
+#: ../ai_interaction/python_local_chatbot.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support** : Lösen Sie After-Sales-Probleme und technische Herausforderungen mit "
+"Hilfe unserer Community und unseres Teams."
+
+#: ../ai_interaction/python_local_chatbot.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen** : Tauschen Sie Tipps und Tutorials aus, um Ihre Fähigkeiten zu verbessern."
+
+#: ../ai_interaction/python_local_chatbot.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen** : Erhalten Sie frühzeitigen Zugriff auf neue Produktankündigungen und "
+"exklusive Einblicke."
+
+#: ../ai_interaction/python_local_chatbot.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Sonderrabatte** : Profitieren Sie von exklusiven Rabatten auf unsere neuesten Produkte."
+
+#: ../ai_interaction/python_local_chatbot.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele** : Nehmen Sie an Gewinnspielen und saisonalen Aktionen teil."
+
+#: ../ai_interaction/python_local_chatbot.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicken Sie auf [|link_sf_facebook|] und "
+"treten Sie noch heute bei!"
+
+#: ../ai_interaction/python_local_chatbot.rst:16
+msgid "6. Local Voice Chatbot"
+msgstr "6. Lokaler Sprach-Chatbot"
+
+#: ../ai_interaction/python_local_chatbot.rst:18
+msgid ""
+"In this lesson, you will combine everything you've learned — **speech "
+"recognition (STT)**, **text-to-speech (TTS)**, and a **local LLM "
+"(Ollama)** — to build a fully offline **voice chatbot** that runs on your"
+" Fusion HAT."
+msgstr ""
+"In dieser Lektion kombinieren Sie alles, was Sie gelernt haben — **Spracherkennung ( STT )** , "
+"**Text-to-Speech ( TTS )** und ein **lokales LLM ( Ollama )** — um einen vollständig offline "
+"laufenden **Sprach-Chatbot** zu bauen, der auf Ihrem Fusion HAT läuft."
+
+#: ../ai_interaction/python_local_chatbot.rst:22
+msgid "The workflow is simple:"
+msgstr "Der Ablauf ist einfach :"
+
+#: ../ai_interaction/python_local_chatbot.rst:24
+msgid ""
+"**Listen** — The microphone captures your speech and transcribes it with "
+"**Vosk**."
+msgstr ""
+"**Zuhören** — Das Mikrofon erfasst Ihre Sprache und transkribiert sie mit **Vosk** ."
+
+#: ../ai_interaction/python_local_chatbot.rst:25
+msgid ""
+"**Think** — The text is sent to a local **LLM** running on Ollama (e.g., "
+"``llama3.2:3b``)."
+msgstr ""
+"**Denken** — Der Text wird an ein lokales **LLM** gesendet, das über Ollama läuft ( z. B. "
+"``llama3.2:3b`` )."
+
+#: ../ai_interaction/python_local_chatbot.rst:26
+msgid "**Speak** — The chatbot answers aloud using **Piper TTS**."
+msgstr "**Sprechen** — Der Chatbot antwortet laut mit **Piper TTS** ."
+
+#: ../ai_interaction/python_local_chatbot.rst:28
+msgid ""
+"This creates a **hands-free conversational robot** that can understand "
+"and respond in real time."
+msgstr ""
+"Dadurch entsteht ein **freihändig bedienbarer Konversationsroboter** , der in Echtzeit verstehen "
+"und antworten kann."
+
+#: ../ai_interaction/python_local_chatbot.rst:33
+msgid "Before You Start"
+msgstr "Bevor Sie beginnen"
+
+#: ../ai_interaction/python_local_chatbot.rst:35
+msgid "Make sure you have prepared the following:"
+msgstr "Stellen Sie sicher, dass Sie Folgendes vorbereitet haben :"
+
+#: ../ai_interaction/python_local_chatbot.rst:37
+msgid "Tested **Piper TTS** (:ref:`test_piper`) and chosen a working voice model."
+msgstr "Testen Sie **Piper TTS** ( :ref:`test_piper` ) und wählen Sie ein funktionierendes Sprachmodell aus."
+
+#: ../ai_interaction/python_local_chatbot.rst:38
+msgid ""
+"Tested **Vosk STT** (:ref:`test_vosk`) and chosen the right language pack"
+" (e.g., ``en-us``)."
+msgstr ""
+"Testen Sie **Vosk STT** ( :ref:`test_vosk` ) und wählen Sie das richtige Sprachpaket "
+"( z. B. ``en-us`` )."
+
+#: ../ai_interaction/python_local_chatbot.rst:39
+msgid ""
+"Installed **Ollama** (:ref:`download_ollama`) on your Pi or another "
+"computer, and downloaded a model such as ``llama3.2:3b`` (or a smaller "
+"one like ``moondream:1.8b`` if memory is limited)."
+msgstr ""
+"Installieren Sie **Ollama** ( :ref:`download_ollama` ) auf Ihrem Pi oder einem anderen Computer "
+"und laden Sie ein Modell wie ``llama3.2:3b`` herunter ( oder ein kleineres wie ``moondream:1.8b`` , "
+"wenn der Speicher begrenzt ist )."
+
+#: ../ai_interaction/python_local_chatbot.rst:44
+msgid "Run the Code"
+msgstr "Code ausführen"
+
+#: ../ai_interaction/python_local_chatbot.rst:46
+msgid "Open the example script:"
+msgstr "Öffnen Sie das Beispielskript :"
+
+#: ../ai_interaction/python_local_chatbot.rst:53
+msgid "Update the parameters as needed:"
+msgstr "Passen Sie die Parameter nach Bedarf an :"
+
+#: ../ai_interaction/python_local_chatbot.rst:55
+msgid ""
+"``stt = Vosk(language=\"en-us\")``: Change this to match your "
+"accent/language package (e.g., ``en-us``, ``zh-cn``, ``es``)."
+msgstr ""
+"``stt = Vosk(language=\"en-us\")`` : Ändern Sie dies so, dass es zu Ihrem Akzent / Sprachpaket passt "
+"( z. B. ``en-us``, ``zh-cn``, ``es`` )."
+
+#: ../ai_interaction/python_local_chatbot.rst:56
+msgid ""
+"``tts.set_model(\"en_US-amy-low\")``: Replace with the Piper voice model "
+"you verified in :ref:`test_piper`."
+msgstr ""
+"``tts.set_model(\"en_US-amy-low\")`` : Ersetzen Sie dies durch das Piper-Sprachmodell, das Sie in "
+":ref:`test_piper` überprüft haben."
+
+#: ../ai_interaction/python_local_chatbot.rst:57
+msgid ""
+"``llm = Ollama(ip=\"localhost\", model=\"llama3.2:3b\")``: Update both "
+"``ip`` and ``model`` to your own setup."
+msgstr ""
+"``llm = Ollama(ip=\"localhost\", model=\"llama3.2:3b\")`` : Aktualisieren Sie sowohl ``ip`` als auch "
+"``model`` entsprechend Ihrem Setup."
+
+#: ../ai_interaction/python_local_chatbot.rst:59
+msgid ""
+"``ip``: If Ollama runs on the **same Pi**, use ``localhost``. If Ollama "
+"runs on another computer in your LAN, enable **Expose to network** in "
+"Ollama and set ``ip`` to that computer’s LAN IP."
+msgstr ""
+"``ip`` : Wenn Ollama auf dem **gleichen Pi** läuft, verwenden Sie ``localhost``. Wenn Ollama auf "
+"einem anderen Computer in Ihrem LAN läuft, aktivieren Sie **Expose to network** in Ollama und setzen "
+"Sie ``ip`` auf die LAN-IP dieses Computers."
+
+#: ../ai_interaction/python_local_chatbot.rst:60
+msgid ""
+"``model``: Must exactly match the model name you downloaded/activated in "
+"Ollama."
+msgstr ""
+"``model`` : Muss exakt mit dem Modellnamen übereinstimmen, den Sie in Ollama heruntergeladen / aktiviert haben."
+
+#: ../ai_interaction/python_local_chatbot.rst:62
+msgid "Run the script:"
+msgstr "Führen Sie das Skript aus :"
+
+#: ../ai_interaction/python_local_chatbot.rst:69
+msgid "After running, you should see:"
+msgstr "Nach dem Start sollten Sie Folgendes sehen :"
+
+#: ../ai_interaction/python_local_chatbot.rst:71
+msgid "The bot greets you with a spoken welcome message."
+msgstr "Der Bot begrüßt Sie mit einer gesprochenen Willkommensnachricht."
+
+#: ../ai_interaction/python_local_chatbot.rst:72
+msgid "It waits for speech input."
+msgstr "Er wartet auf Spracheingabe."
+
+#: ../ai_interaction/python_local_chatbot.rst:73
+msgid "Vosk transcribes your speech into text."
+msgstr "Vosk transkribiert Ihre Sprache in Text."
+
+#: ../ai_interaction/python_local_chatbot.rst:74
+msgid "The text is sent to Ollama, which streams back a reply."
+msgstr "Der Text wird an Ollama gesendet, das eine Antwort zurück streamt."
+
+#: ../ai_interaction/python_local_chatbot.rst:75
+msgid ""
+"The reply is cleaned (removing hidden reasoning) and spoken aloud by "
+"Piper."
+msgstr ""
+"Die Antwort wird bereinigt ( versteckte Begründungen werden entfernt ) und anschließend von Piper laut gesprochen."
+
+#: ../ai_interaction/python_local_chatbot.rst:76
+msgid "Stop the program anytime with ``Ctrl+C``."
+msgstr "Beenden Sie das Programm jederzeit mit ``Ctrl+C`` ."
+
+#: ../ai_interaction/python_local_chatbot.rst:81
+msgid "Code"
+msgstr "Code"
+
+#: ../ai_interaction/python_local_chatbot.rst:172
+msgid "Code Analysis"
+msgstr "Code-Analyse"
+
+#: ../ai_interaction/python_local_chatbot.rst:174
+msgid "**Imports and global setup**"
+msgstr "**Imports und globale Einrichtung** "
+
+#: ../ai_interaction/python_local_chatbot.rst:184
+msgid ""
+"Brings in the three subsystems you built earlier: **Vosk** for speech-to-"
+"text (STT), **Ollama** for the LLM, and **Piper** for text-to-speech "
+"(TTS)."
+msgstr ""
+"Bindet die drei Teilsysteme ein, die Sie zuvor aufgebaut haben: **Vosk** für Speech-to-Text ( STT ), "
+"**Ollama** für das LLM und **Piper** für Text-to-Speech ( TTS )."
+
+#: ../ai_interaction/python_local_chatbot.rst:189
+msgid "**Initialize STT (Vosk)**"
+msgstr "**STT initialisieren ( Vosk )** "
+
+#: ../ai_interaction/python_local_chatbot.rst:195
+msgid ""
+"Loads the Vosk model for US English. Change the language code (e.g., "
+"``zh-cn``, ``es``) to match your voice pack for better accuracy."
+msgstr ""
+"Lädt das Vosk-Modell für US-Englisch. Ändern Sie den Sprachcode ( z. B. ``zh-cn``, ``es`` ), damit er "
+"zu Ihrem Sprachpaket passt, um eine bessere Genauigkeit zu erzielen."
+
+#: ../ai_interaction/python_local_chatbot.rst:200
+msgid "**Initialize TTS (Piper)**"
+msgstr "**TTS initialisieren ( Piper )**"
+
+#: ../ai_interaction/python_local_chatbot.rst:207
+msgid ""
+"Creates a Piper engine and selects a specific voice. Pick a model you’ve "
+"tested in :ref:`test_piper`. Lower-quality voices are faster and use less"
+" CPU."
+msgstr ""
+"Erstellt eine Piper-Engine und wählt eine bestimmte Stimme aus. Wählen Sie ein Modell, das Sie in "
+":ref:`test_piper` getestet haben. Stimmen mit geringerer Qualität sind schneller und benötigen weniger CPU."
+
+#: ../ai_interaction/python_local_chatbot.rst:212
+msgid "**LLM instructions and welcome line**"
+msgstr "**LLM-Anweisungen und Begrüßungszeile** "
+
+#: ../ai_interaction/python_local_chatbot.rst:222
+msgid "Two key UX choices:"
+msgstr "Zwei zentrale UX-Entscheidungen :"
+
+#: ../ai_interaction/python_local_chatbot.rst:224
+msgid "Keep **answers short and direct** (helps with TTS clarity)."
+msgstr "Halten Sie **Antworten kurz und direkt** ( hilft bei der TTS-Verständlichkeit )."
+
+#: ../ai_interaction/python_local_chatbot.rst:225
+msgid "Explicitly forbid hidden “chain-of-thought” tags to reduce noisy outputs."
+msgstr "Verbieten Sie ausdrücklich versteckte „chain-of-thought“-Tags, um störende Ausgaben zu reduzieren."
+
+#: ../ai_interaction/python_local_chatbot.rst:229
+msgid "**Connect to Ollama and set conversation scope**"
+msgstr "**Mit Ollama verbinden und Gesprächsumfang festlegen** "
+
+#: ../ai_interaction/python_local_chatbot.rst:237
+msgid ""
+"``ip=\"localhost\"`` assumes the Ollama server runs on the same Pi. If it"
+" runs on another LAN machine, put that computer’s **LAN IP** and enable "
+"*Expose to network* in Ollama."
+msgstr ""
+"``ip=\"localhost\"`` setzt voraus, dass der Ollama-Server auf dem gleichen Pi läuft. Wenn er auf "
+"einem anderen LAN-Rechner läuft, tragen Sie dessen **LAN-IP** ein und aktivieren Sie *Expose to network* in Ollama."
+
+#: ../ai_interaction/python_local_chatbot.rst:238
+msgid ""
+"``set_max_messages(20)`` keeps a short conversational history. Lower this"
+" if memory/latency is tight."
+msgstr ""
+"``set_max_messages(20)`` hält die Gesprächshistorie kurz. Verringern Sie diesen Wert, wenn Speicher / Latenz knapp ist."
+
+#: ../ai_interaction/python_local_chatbot.rst:240
+msgid "**Strip hidden reasoning / tags before speaking**"
+msgstr "**Versteckte Begründungen / Tags vor dem Sprechen entfernen** "
+
+#: ../ai_interaction/python_local_chatbot.rst:253
+msgid ""
+"Some models may emit internal-style tags (e.g., ``<think>…``). This "
+"function removes those so your TTS **only** speaks the final answer."
+msgstr ""
+"Einige Modelle geben möglicherweise interne Tags aus ( z. B. ``<think>…`` ). Diese Funktion entfernt sie, damit Ihre "
+"TTS **nur** die endgültige Antwort spricht."
+
+#: ../ai_interaction/python_local_chatbot.rst:256
+msgid ""
+"**Tip:** If you see other artifacts on screen (because you stream raw "
+"tokens), this function already ensures **spoken** output stays clean."
+msgstr ""
+"**Tipp:** Wenn Sie andere Artefakte auf dem Bildschirm sehen ( weil Sie rohe Tokens streamen ), sorgt diese Funktion "
+"bereits dafür, dass die **gesprochene** Ausgabe sauber bleibt."
+
+#: ../ai_interaction/python_local_chatbot.rst:258
+msgid "**Main loop: greet once, then listen → think → speak**"
+msgstr "**Hauptschleife: einmal begrüßen, dann zuhören → denken → sprechen** "
+
+#: ../ai_interaction/python_local_chatbot.rst:265
+msgid "Greets the user via terminal and speaker. Happens once at startup."
+msgstr "Begrüßt den Benutzer über Terminal und Lautsprecher. Passiert einmal beim Start."
+
+#: ../ai_interaction/python_local_chatbot.rst:267
+msgid "**Listen (streaming STT with live partials)**"
+msgstr "**Zuhören ( Streaming-STT mit Live-Teilergebnissen )**"
+
+#: ../ai_interaction/python_local_chatbot.rst:281
+msgid ""
+"``stream=True`` yields **partial** transcripts for immediate feedback and"
+" a **final** transcript when the utterance ends."
+msgstr ""
+"``stream=True`` liefert **Teil-Transkripte** für unmittelbares Feedback und ein **finales** Transkript, wenn die Äußerung endet."
+
+#: ../ai_interaction/python_local_chatbot.rst:282
+msgid "The final recognized text is stored in ``text`` and printed once."
+msgstr "Der final erkannte Text wird in ``text`` gespeichert und einmal ausgegeben."
+
+#: ../ai_interaction/python_local_chatbot.rst:284
+msgid "**Guard:** If nothing was recognized, you skip the LLM call:"
+msgstr "**Schutz:** Wenn nichts erkannt wurde, überspringen Sie den LLM-Aufruf :"
+
+#: ../ai_interaction/python_local_chatbot.rst:293
+msgid "This avoids sending empty prompts to the model (saves time and tokens)."
+msgstr "Dadurch werden leere Prompts an das Modell vermieden ( spart Zeit und Tokens )."
+
+#: ../ai_interaction/python_local_chatbot.rst:295
+msgid "**Think (LLM) with streamed printing**"
+msgstr "**Denken ( LLM ) mit gestreamter Ausgabe** "
+
+#: ../ai_interaction/python_local_chatbot.rst:307
+msgid ""
+"Sends the final transcript to the local LLM and **prints tokens as they "
+"arrive** for low latency."
+msgstr ""
+"Sendet das finale Transkript an das lokale LLM und **gibt Tokens aus, sobald sie eintreffen** , für geringe Latenz."
+
+#: ../ai_interaction/python_local_chatbot.rst:308
+msgid ""
+"Meanwhile, you accumulate the full reply in ``reply_accum`` for post-"
+"processing."
+msgstr ""
+"Gleichzeitig sammeln Sie die vollständige Antwort in ``reply_accum`` für die Nachbearbeitung."
+
+#: ../ai_interaction/python_local_chatbot.rst:310
+msgid ""
+"**Note:** If you’d rather **not** show raw tokens, set ``stream=False`` "
+"and just print the final string."
+msgstr ""
+"**Hinweis:** Wenn Sie rohe Tokens lieber **nicht** anzeigen möchten, setzen Sie ``stream=False`` und geben Sie nur die finale Zeichenkette aus."
+
+#: ../ai_interaction/python_local_chatbot.rst:312
+msgid "**Speak (clean first, then TTS once)**"
+msgstr "**Sprechen ( erst bereinigen, dann einmal TTS )** "
+
+#: ../ai_interaction/python_local_chatbot.rst:322
+msgid "Cleans the final text to remove hidden tags, then **speaks exactly once**."
+msgstr "Bereinigt den finalen Text, um versteckte Tags zu entfernen, und **spricht dann genau einmal** ."
+
+#: ../ai_interaction/python_local_chatbot.rst:323
+msgid "Keeping TTS to a single pass avoids repeated prompts like “[LLM] / [SAY]”."
+msgstr "TTS auf einen einzigen Durchlauf zu beschränken, vermeidet wiederholte Prompts wie „[LLM] / [SAY]“."
+
+#: ../ai_interaction/python_local_chatbot.rst:326
+msgid "**Exit and teardown**"
+msgstr "**Beenden und Aufräumen** "
+
+#: ../ai_interaction/python_local_chatbot.rst:336
+msgid ""
+"Use **Ctrl+C** to stop. The bot says a short goodbye to signal a clean "
+"exit."
+msgstr ""
+"Verwenden Sie **Ctrl+C** , um zu stoppen. Der Bot sagt kurz auf Wiedersehen, um ein sauberes Beenden zu signalisieren."
+
+#: ../ai_interaction/python_local_chatbot.rst:342
+msgid "Troubleshooting & FAQ"
+msgstr "Fehlerbehebung & FAQ"
+
+#: ../ai_interaction/python_local_chatbot.rst:344
+msgid "**Model is too large (memory error)**"
+msgstr "**Modell ist zu groß ( Speicherfehler )** "
+
+#: ../ai_interaction/python_local_chatbot.rst:346
+msgid ""
+"Use a smaller model like ``moondream:1.8b`` or run Ollama on a more "
+"powerful computer."
+msgstr ""
+"Verwenden Sie ein kleineres Modell wie ``moondream:1.8b`` oder führen Sie Ollama auf einem leistungsstärkeren Computer aus."
+
+#: ../ai_interaction/python_local_chatbot.rst:348
+msgid "**No response from Ollama**"
+msgstr "**Keine Antwort von Ollama**"
+
+#: ../ai_interaction/python_local_chatbot.rst:350
+msgid ""
+"Make sure Ollama is running (``ollama serve`` or desktop app open). If "
+"remote, enable **Expose to network** and check IP address."
+msgstr ""
+"Stellen Sie sicher, dass Ollama läuft ( ``ollama serve`` oder Desktop-App geöffnet ). Wenn remote, aktivieren Sie "
+"**Expose to network** und prüfen Sie die IP-Adresse."
+
+#: ../ai_interaction/python_local_chatbot.rst:352
+msgid "**Vosk not recognizing speech**"
+msgstr "**Vosk erkennt Sprache nicht** "
+
+#: ../ai_interaction/python_local_chatbot.rst:354
+msgid ""
+"Verify your microphone works. Try another language pack (``zh-cn``, "
+"``es`` etc.) if needed."
+msgstr ""
+"Überprüfen Sie, ob Ihr Mikrofon funktioniert. Versuchen Sie bei Bedarf ein anderes Sprachpaket ( ``zh-cn`` , ``es`` usw. )."
+
+#: ../ai_interaction/python_local_chatbot.rst:356
+msgid "**Piper silent or errors**"
+msgstr "**Piper stumm oder Fehler** "
+
+#: ../ai_interaction/python_local_chatbot.rst:358
+msgid ""
+"Confirm the chosen voice model is downloaded and tested in "
+":ref:`test_piper`."
+msgstr ""
+"Bestätigen Sie, dass das gewählte Sprachmodell heruntergeladen wurde und in :ref:`test_piper` getestet ist."
+
+#: ../ai_interaction/python_local_chatbot.rst:360
+msgid "**Answers too long or off-topic**"
+msgstr "**Antworten zu lang oder am Thema vorbei** "
+
+#: ../ai_interaction/python_local_chatbot.rst:362
+msgid "Edit ``INSTRUCTIONS`` to add: **“Keep answers short and to the point.”**"
+msgstr "Bearbeiten Sie ``INSTRUCTIONS`` und fügen Sie hinzu: **„Keep answers short and to the point.“** "

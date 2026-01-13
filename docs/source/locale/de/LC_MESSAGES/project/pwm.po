@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/pwm.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../project/pwm.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../project/pwm.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../project/pwm.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../project/pwm.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../project/pwm.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten "
+"Produkte."
+
+#: ../project/pwm.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../project/pwm.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../project/pwm.rst:18
+msgid "PWM"
+msgstr "PWM"
+
+#: ../project/pwm.rst:20
+msgid "**Introduction**"
+msgstr "**Einführung**"
+
+#: ../project/pwm.rst:22
+msgid ""
+"In this project, we will explore how to control an RGB LED to display "
+"various colors by using a Raspberry Pi and GPIO programming. RGB LEDs are"
+" versatile components that can emit a spectrum of colors by mixing red, "
+"green, and blue light at different intensities."
+msgstr ""
+"In diesem Projekt werden wir untersuchen, wie man eine RGB-LED steuert, "
+"um verschiedene Farben mit einem Raspberry Pi und GPIO-Programmierung "
+"darzustellen. RGB-LEDs sind vielseitige Komponenten, die durch das Mischen "
+"von rotem, grünem und blauem Licht in unterschiedlichen Intensitäten ein "
+"Farbspektrum erzeugen können."
+
+#: ../project/pwm.rst:27
+msgid "**Circuit Diagram**"
+msgstr "**Schaltplan**"
+
+#: ../project/pwm.rst:29
+msgid ""
+"After connecting the R, G, and B pins of the RGB LED to current-limiting "
+"resistors, connect these resistors to PWM0, PWM1, and PWM2, respectively."
+" The longest pin of the LED (GND) is connected to the GND pin of the "
+"Raspberry Pi. Different PWM values for the three pins produce various "
+"colors."
+msgstr ""
+"Nachdem die R-, G- und B-Pins der RGB-LED mit strombegrenzenden Widerständen "
+"verbunden wurden, verbinde diese Widerstände mit PWM0, PWM1 und PWM2. "
+"Der längste Pin der LED (GND) wird mit dem GND-Pin des Raspberry Pi "
+"verbunden. Unterschiedliche PWM-Werte für die drei Pins erzeugen "
+"verschiedene Farben."
+
+#: ../project/pwm.rst:37
+msgid "**Wiring Diagram**"
+msgstr "**Verdrahtungsdiagramm**"
+
+#: ../project/pwm.rst:39
+msgid "Follow the steps below to build the circuit:"
+msgstr "Befolge die folgenden Schritte, um die Schaltung aufzubauen:"
+
+#: ../project/pwm.rst:41
+msgid "Place the RGB LED on the breadboard."
+msgstr "Platziere die RGB-LED auf dem Breadboard."
+
+#: ../project/pwm.rst:42
+msgid ""
+"Connect the red, green, and blue pins of the LED to P0, P1, and P2 "
+"through resistors."
+msgstr ""
+"Verbinde die roten, grünen und blauen Pins der LED über Widerstände mit "
+"P0, P1 und P2."
+
+#: ../project/pwm.rst:43
+msgid "Connect the longest pin (GND) of the LED to the GND of the Raspberry Pi."
+msgstr "Verbinde den längsten Pin (GND) der LED mit GND des Raspberry Pi."
+
+#: ../project/pwm.rst:54
+msgid "**Code**"
+msgstr "**Code**"
+
+#: ../project/pwm.rst:56
+msgid ""
+"The following Python code cycles through various colors on the RGB LED by"
+" setting different PWM values for the red, green, and blue components:"
+msgstr ""
+"Der folgende Python-Code durchläuft verschiedene Farben auf der RGB-LED, "
+"indem unterschiedliche PWM-Werte für die roten, grünen und blauen "
+"Komponenten gesetzt werden:"
+
+#: ../project/pwm.rst:95
+msgid ""
+"This script demonstrates how to control an RGB LED using the Fusion Hat "
+"library. It initializes the RGB LED with specific PWM pins and sets "
+"different colors sequentially."
+msgstr ""
+"Dieses Skript zeigt, wie man eine RGB-LED mit der Fusion Hat Bibliothek "
+"steuert. Es initialisiert die RGB-LED mit bestimmten PWM-Pins und setzt "
+"nacheinander verschiedene Farben."

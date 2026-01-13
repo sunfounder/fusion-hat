@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.modules.buzzer.rst:2
+msgid "fusion\\_hat.modules.buzzer module"
+msgstr "Modul fusion\\_hat.modules.buzzer"
+
+#: fusion_hat.modules.buzzer.Buzzer:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklasse: :py:class:`object`"
+
+#: fusion_hat.modules.buzzer.Buzzer.on:1 of
+msgid "Turn on buzzer"
+msgstr "Summer einschalten"
+
+#: fusion_hat.modules.buzzer.Buzzer.off:1 of
+msgid "Turn off buzzer"
+msgstr "Summer ausschalten"
+
+#: fusion_hat.modules.buzzer.Buzzer.freq:1 of
+msgid "Set frequency of passive buzzer"
+msgstr "Frequenz des passiven Summers einstellen"
+
+#: fusion_hat.modules.buzzer.Buzzer.freq fusion_hat.modules.buzzer.Buzzer.play
+#: of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.modules.buzzer.Buzzer.freq:3 of
+msgid "frequency of buzzer, use Music.NOTES to get frequency of note"
+msgstr "Frequenz des Summers, verwende Music.NOTES , um die Frequenz einer Note zu erhalten"
+
+#: fusion_hat.modules.buzzer.Buzzer.freq fusion_hat.modules.buzzer.Buzzer.play
+#: of
+msgid "Raises"
+msgstr "Ausnahmen"
+
+#: fusion_hat.modules.buzzer.Buzzer.freq:5
+#: fusion_hat.modules.buzzer.Buzzer.play:7 of
+msgid "if set to active buzzer"
+msgstr "wenn auf einen aktiven Summer eingestellt"
+
+#: fusion_hat.modules.buzzer.Buzzer.play:1 of
+msgid "Play freq"
+msgstr "Frequenz abspielen"
+
+#: fusion_hat.modules.buzzer.Buzzer.play:3 of
+msgid "freq to play, you can use Music.note() to get frequency of note"
+msgstr "abzuspielende Frequenz, du kannst Music.note() verwenden, um die Frequenz einer Note zu erhalten"
+
+#: fusion_hat.modules.buzzer.Buzzer.play:5 of
+msgid "duration of each note, in seconds, None means play continuously"
+msgstr "Dauer jeder Note in Sekunden, None bedeutet kontinuierliche Wiedergabe"

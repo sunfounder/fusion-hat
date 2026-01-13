@@ -1,0 +1,405 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../hardware/features.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasten-Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../hardware/features.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../hardware/features.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Expertenunterstützung**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../hardware/features.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten zu verbessern."
+
+#: ../hardware/features.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitigen Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../hardware/features.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten Produkte."
+
+#: ../hardware/features.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../hardware/features.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke auf "
+"[|link_sf_facebook|] und tritt noch heute bei!"
+
+#: ../hardware/features.rst:16
+msgid "Features"
+msgstr "Merkmale"
+
+#: ../hardware/features.rst:18
+msgid "Shutdown Current: 40mA"
+msgstr "Abschaltstrom: 40 mA"
+
+#: ../hardware/features.rst:19
+msgid "Power Input: USB Type-C, 5V/3A"
+msgstr "Stromeingang: USB Typ-C, 5 V / 3 A"
+
+#: ../hardware/features.rst:20
+msgid "Charging Power: 7.4V/1.5A 15W"
+msgstr "Ladeleistung: 7,4 V / 1,5 A, 15 W"
+
+#: ../hardware/features.rst:21
+msgid "Output Power: 5V/5A, 3.3V/1A"
+msgstr "Ausgangsleistung: 5 V / 5 A, 3,3 V / 1 A"
+
+#: ../hardware/features.rst:22
+msgid ""
+"Included Batteries: 2 x 3.7V 18650 Lithium-ion Batteries, XH2.54 3P "
+"Interface"
+msgstr ""
+"Enthaltene Batterien: 2 × 3,7 V 18650 Lithium-Ionen-Batterien, XH2.54-3P-"
+"Schnittstelle"
+
+#: ../hardware/features.rst:23
+msgid "Battery Protection: Reverse polarity protection"
+msgstr "Batterieschutz: Verpolungsschutz"
+
+#: ../hardware/features.rst:24
+msgid ""
+"Charging Protection: Input undervoltage protection, input overvoltage "
+"protection, charging balance, overheat protection"
+msgstr ""
+"Ladeschutz: Eingang-Unterspannungsschutz, Eingang-Überspannungsschutz, "
+"Ladeausgleich, Überhitzungsschutz"
+
+#: ../hardware/features.rst:25
+msgid "Onboard Power Indicator Light: PWR"
+msgstr "Onboard-Stromanzeige: PWR"
+
+#: ../hardware/features.rst:26
+msgid "Onboard 2 Battery Level Indicator LEDs"
+msgstr "Onboard 2 Batterie-Ladestandsanzeigen (LEDs)"
+
+#: ../hardware/features.rst:27
+msgid "Onboard User LED, 2 tactile switches"
+msgstr "Onboard Benutzer-LED, 2 Taster"
+
+#: ../hardware/features.rst:28
+msgid "Motor Driver: 5V/1.8A x 4"
+msgstr "Motortreiber: 5 V / 1,8 A × 4"
+
+#: ../hardware/features.rst:29
+msgid "4-channel 12-bit ADC"
+msgstr "4-Kanal-12-Bit-ADC"
+
+#: ../hardware/features.rst:30
+msgid "12-channel PWM (8-channel shared with motor)"
+msgstr "12-Kanal-PWM (8 Kanäle gemeinsam mit Motoren)"
+
+#: ../hardware/features.rst:31
+msgid "4-channel digital signals"
+msgstr "4-Kanal-Digitalsignale"
+
+#: ../hardware/features.rst:32
+msgid "Onboard SPI interface, UART interface, I2C interface, WS2812 interface"
+msgstr "Onboard-SPI-Schnittstelle, UART-Schnittstelle, I2C-Schnittstelle, WS2812-Schnittstelle"
+
+#: ../hardware/features.rst:33
+msgid "Mono Speaker: 4Ω2.5W"
+msgstr "Mono-Lautsprecher: 4 Ω, 2,5 W"
+
+#: ../hardware/features.rst:34
+msgid "Power Button: Safe shutdown"
+msgstr "Power-Taste: Sicheres Herunterfahren"
+
+#: ../hardware/features.rst:35
+msgid "Microphone: Onboard I2S microphone"
+msgstr "Mikrofon: Onboard-I2S-Mikrofon"
+
+#: ../hardware/features.rst:39
+msgid "Compatibility and Power Notes"
+msgstr "Kompatibilität und Stromhinweise"
+
+#: ../hardware/features.rst:41
+msgid ""
+"The **Fusion HAT+** supports a wide range of commonly used servos and DC "
+"motors, including:"
+msgstr ""
+"Der **Fusion HAT+** unterstützt eine breite Palette gängiger Servos und "
+"Gleichstrommotoren, darunter:"
+
+#: ../hardware/features.rst:43
+msgid "**Micro servos:** SG90, MG90S"
+msgstr "**Mikro-Servos:** SG90, MG90S"
+
+#: ../hardware/features.rst:44
+msgid "**Standard servos:** MG996R, DS3218"
+msgstr "**Standard-Servos:** MG996R, DS3218"
+
+#: ../hardware/features.rst:45
+msgid "**SunFounder custom servos**"
+msgstr "**SunFounder kundenspezifische Servos**"
+
+#: ../hardware/features.rst:46
+msgid "**Low-current DC motors:** 130 series, N20 series"
+msgstr "**Niedrigstrom-DC-Motoren:** Serie 130, Serie N20"
+
+#: ../hardware/features.rst:47
+msgid "**SunFounder custom DC motors** with **XH2.54 2-pin connectors**"
+msgstr "**SunFounder kundenspezifische DC-Motoren** mit **XH2.54-2-Pin-Anschlüssen**"
+
+#: ../hardware/features.rst:49
+msgid "**Servo Power (PWM Interface)**"
+msgstr "**Servo-Stromversorgung ( PWM-Schnittstelle )**"
+
+#: ../hardware/features.rst:51
+msgid ""
+"The PWM interface provides up to **5V/5A** maximum output, which is "
+"shared with the Raspberry Pi."
+msgstr ""
+"Die PWM-Schnittstelle liefert bis zu **5 V / 5 A** maximale Ausgangsleistung, "
+"die mit dem Raspberry Pi geteilt wird."
+
+#: ../hardware/features.rst:53
+msgid "When connecting multiple servos, carefully account for their current draw."
+msgstr "Beim Anschluss mehrerer Servos ist deren Stromaufnahme sorgfältig zu berücksichtigen."
+
+#: ../hardware/features.rst:54
+msgid ""
+"If the total servo current exceeds 5A, use an **external power supply "
+"(BEC)** to avoid overload and ensure stable operation."
+msgstr ""
+"Wenn der Gesamtstrom der Servos 5 A überschreitet, verwenden Sie eine "
+"**externe Stromversorgung ( BEC )**, um Überlastung zu vermeiden und einen "
+"stabilen Betrieb sicherzustellen."
+
+#: ../hardware/features.rst:56
+msgid "**DC Motor Power**"
+msgstr "**DC-Motor-Stromversorgung**"
+
+#: ../hardware/features.rst:58
+msgid "DC motors are powered **directly from the onboard batteries (6–8.4V)**."
+msgstr "DC-Motoren werden **direkt von den Onboard-Batterien ( 6–8,4 V )** versorgt."
+
+#: ../hardware/features.rst:60
+msgid "Each motor channel supports up to **1.8A maximum current**."
+msgstr "Jeder Motorkanal unterstützt bis zu **1,8 A maximalen Strom**."
+
+#: ../hardware/features.rst:61
+msgid ""
+"Do **not** connect motors with higher current requirements, as this may "
+"damage the motor driver chip."
+msgstr ""
+"Schließen Sie **keine** Motoren mit höherem Strombedarf an, da dies den "
+"Motortreiber-Chip beschädigen kann."
+
+#: ../hardware/features.rst:64 ../hardware/features.rst:66
+msgid "Electrical Characteristics"
+msgstr "Elektrische Eigenschaften"
+
+#: ../hardware/features.rst:70
+msgid "Parameters:"
+msgstr "Parameter:"
+
+#: ../hardware/features.rst:71
+msgid "Minimum Value:"
+msgstr "Minimalwert:"
+
+#: ../hardware/features.rst:72
+msgid "Typical Value:"
+msgstr "Typischer Wert:"
+
+#: ../hardware/features.rst:73
+msgid "Maximum Value:"
+msgstr "Maximalwert:"
+
+#: ../hardware/features.rst:74
+msgid "Unit:"
+msgstr "Einheit:"
+
+#: ../hardware/features.rst:75
+msgid "Input Voltage:"
+msgstr "Eingangsspannung:"
+
+#: ../hardware/features.rst:76 ../hardware/features.rst:92
+msgid "4.25"
+msgstr "4.25"
+
+#: ../hardware/features.rst:77
+msgid "5"
+msgstr "5"
+
+#: ../hardware/features.rst:78 ../hardware/features.rst:83
+#: ../hardware/features.rst:87 ../hardware/features.rst:97
+msgid "8.4"
+msgstr "8.4"
+
+#: ../hardware/features.rst:79 ../hardware/features.rst:84
+#: ../hardware/features.rst:89 ../hardware/features.rst:94
+#: ../hardware/features.rst:99 ../hardware/features.rst:114
+#: ../hardware/features.rst:134
+msgid "V"
+msgstr "V"
+
+#: ../hardware/features.rst:80
+msgid "Battery Input Voltage:"
+msgstr "Batterie-Eingangsspannung:"
+
+#: ../hardware/features.rst:81
+msgid "6.0"
+msgstr "6.0"
+
+#: ../hardware/features.rst:82
+msgid "7.4"
+msgstr "7.4"
+
+#: ../hardware/features.rst:85
+msgid "Overcharge Protection (Battery):"
+msgstr "Überladeschutz ( Batterie ):"
+
+#: ../hardware/features.rst:90
+msgid "Input Undervoltage Protection:"
+msgstr "Eingang-Unterspannungsschutz:"
+
+#: ../hardware/features.rst:91
+msgid "4.15"
+msgstr "4.15"
+
+#: ../hardware/features.rst:93
+msgid "4.35"
+msgstr "4.35"
+
+#: ../hardware/features.rst:95
+msgid "Input Overvoltage Protection:"
+msgstr "Eingang-Überspannungsschutz:"
+
+#: ../hardware/features.rst:96
+msgid "8.3"
+msgstr "8.3"
+
+#: ../hardware/features.rst:98
+msgid "8.5"
+msgstr "8.5"
+
+#: ../hardware/features.rst:100
+msgid "Charging Current (5V):"
+msgstr "Ladestrom ( 5 V ):"
+
+#: ../hardware/features.rst:103
+msgid "1.5"
+msgstr "1.5"
+
+#: ../hardware/features.rst:104 ../hardware/features.rst:109
+#: ../hardware/features.rst:129
+msgid "A"
+msgstr "A"
+
+#: ../hardware/features.rst:105
+msgid "Output Current (5V):"
+msgstr "Ausgangsstrom ( 5 V ):"
+
+#: ../hardware/features.rst:108
+msgid "5.0"
+msgstr "5.0"
+
+#: ../hardware/features.rst:110
+msgid "Output Voltage:"
+msgstr "Ausgangsspannung:"
+
+#: ../hardware/features.rst:111
+msgid "5.197"
+msgstr "5.197"
+
+#: ../hardware/features.rst:112
+msgid "5.285"
+msgstr "5.285"
+
+#: ../hardware/features.rst:113
+msgid "5.376"
+msgstr "5.376"
+
+#: ../hardware/features.rst:115
+msgid "Charging Overheat Protection:"
+msgstr "Überhitzungsschutz beim Laden:"
+
+#: ../hardware/features.rst:116
+msgid "125"
+msgstr "125"
+
+#: ../hardware/features.rst:117
+msgid "135"
+msgstr "135"
+
+#: ../hardware/features.rst:118
+msgid "145"
+msgstr "145"
+
+#: ../hardware/features.rst:119 ../hardware/features.rst:124
+msgid "°C"
+msgstr "°C"
+
+#: ../hardware/features.rst:120
+msgid "DC-DC Overheat Protection:"
+msgstr "DC-DC-Überhitzungsschutz:"
+
+#: ../hardware/features.rst:123
+msgid "150"
+msgstr "150"
+
+#: ../hardware/features.rst:125
+msgid "Motor Output Current:"
+msgstr "Motor-Ausgangsstrom:"
+
+#: ../hardware/features.rst:128
+msgid "1.8"
+msgstr "1.8"
+
+#: ../hardware/features.rst:130
+msgid "Overdischarge Protectiont:"
+msgstr "Tiefentladeschutz:"
+
+#: ../hardware/features.rst:132
+msgid "6"
+msgstr "6"

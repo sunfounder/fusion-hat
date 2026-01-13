@@ -1,0 +1,1107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../hardware/interfaces.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasten-Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../hardware/interfaces.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../hardware/interfaces.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Expertenunterstützung**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../hardware/interfaces.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten zu verbessern."
+
+#: ../hardware/interfaces.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitigen Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../hardware/interfaces.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten Produkte."
+
+#: ../hardware/interfaces.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../hardware/interfaces.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke auf "
+"[|link_sf_facebook|] und tritt noch heute bei!"
+
+#: ../hardware/interfaces.rst:16
+msgid "Interfaces"
+msgstr "Schnittstellen"
+
+#: ../hardware/interfaces.rst:19
+msgid "Pinout"
+msgstr "Pinbelegung"
+
+#: ../hardware/interfaces.rst:28
+msgid "**Battery Port**"
+msgstr "**Batterieanschluss**"
+
+#: ../hardware/interfaces.rst:27
+msgid "6.0V-8.4V XH2.54 3pin power input."
+msgstr "6,0 V – 8,4 V XH2.54 3-Pin-Stromeingang."
+
+#: ../hardware/interfaces.rst:28
+msgid "Powering the Raspberry Pi and Fusion HAT+ at the same time."
+msgstr "Versorgt den Raspberry Pi und den Fusion HAT+ gleichzeitig mit Strom."
+
+#: ../hardware/interfaces.rst:31
+msgid "**Power Switch**"
+msgstr "**Netzschalter**"
+
+#: ../hardware/interfaces.rst:31
+msgid "Turn on/off the power of the Fusion HAT+."
+msgstr "Schaltet die Stromversorgung des Fusion HAT+ ein oder aus."
+
+#: ../hardware/interfaces.rst:36
+msgid "**Type-C Charging Port**"
+msgstr "**Type-C-Ladeanschluss**"
+
+#: ../hardware/interfaces.rst:34
+msgid "Insert the Type-C cable to charge the battery."
+msgstr "Stecke das Type-C-Kabel ein, um den Akku zu laden."
+
+#: ../hardware/interfaces.rst:35
+msgid "During charging, the corresponding battery indicator light will flash."
+msgstr "Während des Ladevorgangs blinkt die entsprechende Akkuanzeige."
+
+#: ../hardware/interfaces.rst:36
+msgid ""
+"It takes approximately 2 hours to fully charge. Once fully charged, if "
+"the Fusion HAT is powered on, both battery indicator lights will stay on "
+"continuously. If the Fusion HAT is powered off, both battery indicator "
+"lights will turn off."
+msgstr ""
+"Das vollständige Laden dauert ungefähr 2 Stunden. Nach dem vollständigen "
+"Aufladen leuchten, wenn der Fusion HAT eingeschaltet ist, beide Akkuanzeigen "
+"dauerhaft. Wenn der Fusion HAT ausgeschaltet ist, gehen beide Akkuanzeigen "
+"aus."
+
+#: ../hardware/interfaces.rst:41
+msgid "**Digital Pin**"
+msgstr "**Digital-Pin**"
+
+#: ../hardware/interfaces.rst:39
+msgid "4-channel digital pins, 17, 4, 27, 22."
+msgstr "4-kanalige Digital-Pins: 17, 4, 27, 22."
+
+#: ../hardware/interfaces.rst:40
+msgid "Pin: :ref:`fh_pin_v0_digital`."
+msgstr "Pin: :ref:`fh_pin_v0_digital`."
+
+#: ../hardware/interfaces.rst:41
+msgid "API: :class:`fusion_hat.pin.Pin`."
+msgstr "API: :class:`fusion_hat.pin.Pin`."
+
+#: ../hardware/interfaces.rst:46
+msgid "**ADC Pin**"
+msgstr "**ADC-Pin**"
+
+#: ../hardware/interfaces.rst:44
+msgid "4-channel ADC pins, A0-A3."
+msgstr "4-kanalige ADC-Pins: A0–A3."
+
+#: ../hardware/interfaces.rst:45
+msgid "Pin: :ref:`fh_pin_v0_adc`."
+msgstr "Pin: :ref:`fh_pin_v0_adc`."
+
+#: ../hardware/interfaces.rst:46
+msgid "API: :class:`fusion_hat.adc.ADC`."
+msgstr "API: :class:`fusion_hat.adc.ADC`."
+
+#: ../hardware/interfaces.rst:51
+msgid "**PWM Pin**"
+msgstr "**PWM-Pin**"
+
+#: ../hardware/interfaces.rst:49
+msgid "12-channel PWM pins, P0-P11."
+msgstr "12-kanalige PWM-Pins: P0–P11."
+
+#: ../hardware/interfaces.rst:50
+msgid "Pin: :ref:`fh_pin_v0_pwm`."
+msgstr "Pin: :ref:`fh_pin_v0_pwm`."
+
+#: ../hardware/interfaces.rst:51
+msgid "API: :class:`fusion_hat.pwm.PWM`."
+msgstr "API: :class:`fusion_hat.pwm.PWM`."
+
+#: ../hardware/interfaces.rst:56
+msgid "**Motor Port**"
+msgstr "**Motoranschluss**"
+
+#: ../hardware/interfaces.rst:54
+msgid "4-channel XH2.54 motor ports."
+msgstr "4-kanalige XH2.54-Motoranschlüsse."
+
+#: ../hardware/interfaces.rst:55
+msgid "Pin: :ref:`fh_pin_v0_motor`."
+msgstr "Pin: :ref:`fh_pin_v0_motor`."
+
+#: ../hardware/interfaces.rst:56
+msgid "API: :class:`fusion_hat.motor.Motor`."
+msgstr "API: :class:`fusion_hat.motor.Motor`."
+
+#: ../hardware/interfaces.rst:63
+msgid "**I2C Pin and I2C Port**"
+msgstr "**I2C-Pin und I2C-Port**"
+
+#: ../hardware/interfaces.rst:59
+msgid "**I2C Pin**: P2.54 4-pin interface."
+msgstr "**I2C-Pin**: P2.54 4-Pin-Schnittstelle."
+
+#: ../hardware/interfaces.rst:60
+msgid ""
+"**I2C Port**: SH1.0 4-pin interface, which is compatible with QWIIC and "
+"STEMMA QT."
+msgstr ""
+"**I2C-Port**: SH1.0 4-Pin-Schnittstelle, kompatibel mit QWIIC und "
+"STEMMA QT."
+
+#: ../hardware/interfaces.rst:61
+msgid ""
+"These I2C interfaces are connected to the Raspberry Pi's I2C interface "
+"via GPIO2 (SDA) and GPIO3 (SCL)."
+msgstr ""
+"Diese I2C-Schnittstellen sind über GPIO2 ( SDA ) und GPIO3 ( SCL ) mit der "
+"I2C-Schnittstelle des Raspberry Pi verbunden."
+
+#: ../hardware/interfaces.rst:62
+msgid "Pin: :ref:`fh_pin_v0_i2c`."
+msgstr "Pin: :ref:`fh_pin_v0_i2c`."
+
+#: ../hardware/interfaces.rst:63
+msgid "API: :class:`fusion_hat._i2c.I2C`."
+msgstr "API: :class:`fusion_hat._i2c.I2C`."
+
+#: ../hardware/interfaces.rst:67
+msgid "**SPI Pin**"
+msgstr "**SPI-Pin**"
+
+#: ../hardware/interfaces.rst:66
+msgid "P2.54 7-pin SPI interface."
+msgstr "P2.54 7-Pin-SPI-Schnittstelle."
+
+#: ../hardware/interfaces.rst:67
+msgid "Pin: :ref:`fh_pin_v0_spi`."
+msgstr "Pin: :ref:`fh_pin_v0_spi`."
+
+#: ../hardware/interfaces.rst:71
+msgid "**UART Pin**"
+msgstr "**UART-Pin**"
+
+#: ../hardware/interfaces.rst:70
+msgid "P2.54 4-pin interface."
+msgstr "P2.54 4-Pin-Schnittstelle."
+
+#: ../hardware/interfaces.rst:71
+msgid "Pin: :ref:`fh_pin_v0_uart`."
+msgstr "Pin: :ref:`fh_pin_v0_uart`."
+
+#: ../hardware/interfaces.rst:75
+msgid "**WS2812 Port**"
+msgstr "**WS2812-Port**"
+
+#: ../hardware/interfaces.rst:74
+msgid "1-channel WS2812 port."
+msgstr "1-kanaliger WS2812-Port."
+
+#: ../hardware/interfaces.rst:75
+msgid "Pin: :ref:`fh_pin_v0_ws2812`."
+msgstr "Pin: :ref:`fh_pin_v0_ws2812`."
+
+#: ../hardware/interfaces.rst:80
+msgid "**User LED**"
+msgstr "**Benutzer-LED**"
+
+#: ../hardware/interfaces.rst:78
+msgid "The functions of User LED can be set by your programming."
+msgstr "Die Funktionen der Benutzer-LED können durch deine Programmierung festgelegt werden."
+
+#: ../hardware/interfaces.rst:79 ../hardware/interfaces.rst:85
+msgid "Pin: :ref:`fh_pin_v0_button`."
+msgstr "Pin: :ref:`fh_pin_v0_button`."
+
+#: ../hardware/interfaces.rst:80
+msgid "API: :class:`fusion_hat.device.set_led`."
+msgstr "API: :class:`fusion_hat.device.set_led`."
+
+#: ../hardware/interfaces.rst:85
+msgid "**USR Button**"
+msgstr "**USR-Taste**"
+
+#: ../hardware/interfaces.rst:83
+msgid ""
+"The functions of USR Button can be set by your programming. (Pressing "
+"down leads to a input “0”; releasing produces a input “1”. )"
+msgstr ""
+"Die Funktionen der USR-Taste können durch deine Programmierung festgelegt "
+"werden. ( Drücken erzeugt eine Eingabe „0“; Loslassen erzeugt eine Eingabe "
+"„1“. )"
+
+#: ../hardware/interfaces.rst:84
+msgid "API: :meth:`fusion_hat.device.get_usr_btn`"
+msgstr "API: :meth:`fusion_hat.device.get_usr_btn`"
+
+#: ../hardware/interfaces.rst:91
+msgid "**Battery Indicator**"
+msgstr "**Akkuanzeige**"
+
+#: ../hardware/interfaces.rst:88
+msgid "Two LEDs light up when the voltage is higher than 7.6V."
+msgstr "Zwei LEDs leuchten, wenn die Spannung höher als 7,6 V ist."
+
+#: ../hardware/interfaces.rst:89
+msgid "One LED lights up in the 7.15V to 7.6V range."
+msgstr "Eine LED leuchtet im Bereich von 7,15 V bis 7,6 V."
+
+#: ../hardware/interfaces.rst:90
+msgid "Below 7.15V, both LEDs turn off."
+msgstr "Unter 7,15 V gehen beide LEDs aus."
+
+#: ../hardware/interfaces.rst:91
+msgid ":ref:`battery_indicator`."
+msgstr ":ref:`battery_indicator`."
+
+#: ../hardware/interfaces.rst:101
+msgid "**Speaker and MIC**"
+msgstr "**Lautsprecher und MIC**"
+
+#: ../hardware/interfaces.rst:94
+msgid "**Speaker**: This is a 2030 audio chamber speaker."
+msgstr "**Lautsprecher**: Dies ist ein 2030-Audiokammer-Lautsprecher."
+
+#: ../hardware/interfaces.rst:95
+msgid ""
+"**Speaker Port**: The Fusion HAT+ is equipped with onboard I2S audio "
+"output, along with a 2030 audio chamber speaker, providing a mono sound "
+"output."
+msgstr ""
+"**Lautsprecheranschluss**: Der Fusion HAT+ ist mit einem Onboard-I2S-Audioausgang "
+"sowie einem 2030-Audiokammer-Lautsprecher ausgestattet und bietet eine "
+"Mono-Tonausgabe."
+
+#: ../hardware/interfaces.rst:96
+msgid ""
+"**MIC**: The Fusion HAT+ is equipped with a MEMS microphone, which can be"
+" used to collect ambient sound."
+msgstr ""
+"**MIC**: Der Fusion HAT+ ist mit einem MEMS-Mikrofon ausgestattet, das zur "
+"Aufnahme von Umgebungsgeräuschen verwendet werden kann."
+
+#: ../hardware/interfaces.rst:97
+msgid "Pin: :ref:`fh_pin_v0_speaker`."
+msgstr "Pin: :ref:`fh_pin_v0_speaker`."
+
+#: ../hardware/interfaces.rst:98
+msgid "API: :class:`fusion_hat.music.Music`."
+msgstr "API: :class:`fusion_hat.music.Music`."
+
+#: ../hardware/interfaces.rst:104
+msgid "Pin Mapping"
+msgstr "Pin-Zuordnung"
+
+#: ../hardware/interfaces.rst:106
+msgid "Raspberry Pi IO"
+msgstr "Raspberry Pi IO"
+
+#: ../hardware/interfaces.rst:110 ../hardware/interfaces.rst:113
+#: ../hardware/interfaces.rst:208 ../hardware/interfaces.rst:284
+msgid "Fusion HAT+"
+msgstr "Fusion HAT+"
+
+#: ../hardware/interfaces.rst:111 ../hardware/interfaces.rst:112
+#: ../hardware/interfaces.rst:209 ../hardware/interfaces.rst:285
+#: ../hardware/interfaces.rst:352
+msgid "Raspberry Pi"
+msgstr "Raspberry Pi"
+
+#: ../hardware/interfaces.rst:114 ../hardware/interfaces.rst:186
+msgid "POWER OFF DETECT*"
+msgstr "POWER OFF DETECT*"
+
+#: ../hardware/interfaces.rst:115 ../hardware/interfaces.rst:147
+#: ../hardware/interfaces.rst:296
+msgid "3V3"
+msgstr "3V3"
+
+#: ../hardware/interfaces.rst:116 ../hardware/interfaces.rst:117
+#: ../hardware/interfaces.rst:120 ../hardware/interfaces.rst:121
+msgid "5V"
+msgstr "5V"
+
+#: ../hardware/interfaces.rst:118 ../hardware/interfaces.rst:119
+msgid "SDA"
+msgstr "SDA"
+
+#: ../hardware/interfaces.rst:122 ../hardware/interfaces.rst:123
+msgid "SCL"
+msgstr "SCL"
+
+#: ../hardware/interfaces.rst:124 ../hardware/interfaces.rst:125
+#: ../hardware/interfaces.rst:130 ../hardware/interfaces.rst:131
+#: ../hardware/interfaces.rst:140 ../hardware/interfaces.rst:141
+#: ../hardware/interfaces.rst:152 ../hardware/interfaces.rst:153
+#: ../hardware/interfaces.rst:162 ../hardware/interfaces.rst:163
+#: ../hardware/interfaces.rst:172 ../hardware/interfaces.rst:173
+#: ../hardware/interfaces.rst:180 ../hardware/interfaces.rst:181
+#: ../hardware/interfaces.rst:190 ../hardware/interfaces.rst:191
+#: ../hardware/interfaces.rst:298
+msgid "GND"
+msgstr "GND"
+
+#: ../hardware/interfaces.rst:126
+msgid "DIGITAL 4"
+msgstr "DIGITAL 4"
+
+#: ../hardware/interfaces.rst:127 ../hardware/interfaces.rst:215
+msgid "GPIO4"
+msgstr "GPIO4"
+
+#: ../hardware/interfaces.rst:128 ../hardware/interfaces.rst:129
+msgid "TXD"
+msgstr "TXD"
+
+#: ../hardware/interfaces.rst:132 ../hardware/interfaces.rst:133
+msgid "RXD"
+msgstr "RXD"
+
+#: ../hardware/interfaces.rst:134
+msgid "DIGITAL 17"
+msgstr "DIGITAL 17"
+
+#: ../hardware/interfaces.rst:135 ../hardware/interfaces.rst:212
+msgid "GPIO17"
+msgstr "GPIO17"
+
+#: ../hardware/interfaces.rst:136 ../hardware/interfaces.rst:356
+msgid "GPIO18"
+msgstr "GPIO18"
+
+#: ../hardware/interfaces.rst:137
+msgid "I2S BCLK"
+msgstr "I2S BCLK"
+
+#: ../hardware/interfaces.rst:138
+msgid "DIGITAL 27"
+msgstr "DIGITAL 27"
+
+#: ../hardware/interfaces.rst:139 ../hardware/interfaces.rst:218
+msgid "GPIO27"
+msgstr "GPIO27"
+
+#: ../hardware/interfaces.rst:142
+msgid "DIGITAL 22"
+msgstr "DIGITAL 22"
+
+#: ../hardware/interfaces.rst:143 ../hardware/interfaces.rst:221
+msgid "GPIO22"
+msgstr "GPIO22"
+
+#: ../hardware/interfaces.rst:144
+msgid "GPIO23"
+msgstr "GPIO23"
+
+#: ../hardware/interfaces.rst:145 ../hardware/interfaces.rst:149
+#: ../hardware/interfaces.rst:157 ../hardware/interfaces.rst:165
+#: ../hardware/interfaces.rst:166 ../hardware/interfaces.rst:169
+#: ../hardware/interfaces.rst:170 ../hardware/interfaces.rst:177
+#: ../hardware/interfaces.rst:178 ../hardware/interfaces.rst:185
+msgid "NC"
+msgstr "NC"
+
+#: ../hardware/interfaces.rst:146
+msgid "ID EEPROM"
+msgstr "ID EEPROM"
+
+#: ../hardware/interfaces.rst:148
+msgid "GPIO24"
+msgstr "GPIO24"
+
+#: ../hardware/interfaces.rst:150
+msgid "SPI MOSI / WS2812 DOUT"
+msgstr "SPI MOSI / WS2812 DOUT"
+
+#: ../hardware/interfaces.rst:151
+msgid "MOSI"
+msgstr "MOSI"
+
+#: ../hardware/interfaces.rst:154
+msgid "SPI MISO"
+msgstr "SPI MISO"
+
+#: ../hardware/interfaces.rst:155
+msgid "MISO"
+msgstr "MISO"
+
+#: ../hardware/interfaces.rst:156
+msgid "GPIO25"
+msgstr "GPIO25"
+
+#: ../hardware/interfaces.rst:158
+msgid "SPI SCLK"
+msgstr "SPI SCLK"
+
+#: ../hardware/interfaces.rst:159 ../hardware/interfaces.rst:355
+msgid "SCLK"
+msgstr "SCLK"
+
+#: ../hardware/interfaces.rst:160
+msgid "CE0"
+msgstr "CE0"
+
+#: ../hardware/interfaces.rst:161
+msgid "SPI CE0"
+msgstr "SPI CE0"
+
+#: ../hardware/interfaces.rst:164
+msgid "CE1"
+msgstr "CE1"
+
+#: ../hardware/interfaces.rst:167
+msgid "ID_SD"
+msgstr "ID_SD"
+
+#: ../hardware/interfaces.rst:168
+msgid "ID_SC"
+msgstr "ID_SC"
+
+#: ../hardware/interfaces.rst:171
+msgid "GPIO5"
+msgstr "GPIO5"
+
+#: ../hardware/interfaces.rst:174
+msgid "(SPI)BSY"
+msgstr "( SPI ) BSY"
+
+#: ../hardware/interfaces.rst:175 ../hardware/interfaces.rst:287
+msgid "GPIO6"
+msgstr "GPIO6"
+
+#: ../hardware/interfaces.rst:176
+msgid "GPIO12"
+msgstr "GPIO12"
+
+#: ../hardware/interfaces.rst:179
+msgid "GPIO13"
+msgstr "GPIO13"
+
+#: ../hardware/interfaces.rst:182
+msgid "I2S LRCLK"
+msgstr "I2S LRCLK"
+
+#: ../hardware/interfaces.rst:183 ../hardware/interfaces.rst:354
+msgid "GPIO19"
+msgstr "GPIO19"
+
+#: ../hardware/interfaces.rst:184
+msgid "GPIO16"
+msgstr "GPIO16"
+
+#: ../hardware/interfaces.rst:187
+msgid "GPIO26"
+msgstr "GPIO26"
+
+#: ../hardware/interfaces.rst:188 ../hardware/interfaces.rst:360
+msgid "GPIO20"
+msgstr "GPIO20"
+
+#: ../hardware/interfaces.rst:189
+msgid "I2S Speaker Enable"
+msgstr "I2S Speaker Enable"
+
+#: ../hardware/interfaces.rst:192 ../hardware/interfaces.rst:358
+msgid "GPIO21"
+msgstr "GPIO21"
+
+#: ../hardware/interfaces.rst:193
+msgid "I2S DATAOUT"
+msgstr "I2S DATAOUT"
+
+#: ../hardware/interfaces.rst:198 ../hardware/interfaces.rst:204
+msgid "Digital IO"
+msgstr "Digital IO"
+
+#: ../hardware/interfaces.rst:200
+msgid "Fusion HAT+ has 4 sets of P2.54 3Pin digital pins."
+msgstr "Der Fusion HAT+ hat 4 Gruppen von P2.54 3-Pin-Digital-Pins."
+
+#: ../hardware/interfaces.rst:211
+msgid "17"
+msgstr "17"
+
+#: ../hardware/interfaces.rst:214
+msgid "4"
+msgstr "4"
+
+#: ../hardware/interfaces.rst:217
+msgid "27"
+msgstr "27"
+
+#: ../hardware/interfaces.rst:220
+msgid "22"
+msgstr "22"
+
+#: ../hardware/interfaces.rst:229
+msgid "ADC"
+msgstr "ADC"
+
+#: ../hardware/interfaces.rst:233
+msgid ""
+"The Fusion HAT+ features four sets of 3 Pin ADC (Analog to Digital "
+"Converter) pins, each spaced 2.54mm apart. These pins operate at a 3.3V "
+"power supply. The ADC function, offering 12-bit precision, is facilitated"
+" by an onboard microcontroller. Detailed instructions for reading ADC "
+"values are provided in the :ref:`on_board_mcu` section."
+msgstr ""
+"Der Fusion HAT+ verfügt über vier Gruppen von 3-Pin-ADC- ( Analog-Digital-Wandler ) "
+"Pins, jeweils mit einem Abstand von 2,54 mm. Diese Pins werden mit 3,3 V "
+"betrieben. Die ADC-Funktion mit 12-Bit-Präzision wird durch einen Onboard-"
+"Mikrocontroller realisiert. Detaillierte Anweisungen zum Auslesen von ADC-"
+"Werten findest du im Abschnitt :ref:`on_board_mcu`."
+
+#: ../hardware/interfaces.rst:237
+msgid ""
+"Also, ADC channel A4 is connected to the battery through a voltage "
+"divider using resistors, which will be used to measure the battery "
+"voltage to estimate the approximate battery charge."
+msgstr ""
+"Außerdem ist der ADC-Kanal A4 über einen Spannungsteiler mit Widerständen "
+"mit der Batterie verbunden. Er wird verwendet, um die Batteriespannung zu "
+"messen und so den ungefähren Ladezustand zu schätzen."
+
+#: ../hardware/interfaces.rst:240
+msgid "The voltage divider ratio is 200K/100K, so:"
+msgstr "Das Spannungsteilerverhältnis beträgt 200 K / 100 K, daher:"
+
+#: ../hardware/interfaces.rst:242
+msgid "A4 voltage (Va4) = value_A4 / 4095.0 * 3.3"
+msgstr "A4-Spannung ( Va4 ) = value_A4 / 4095.0 * 3.3"
+
+#: ../hardware/interfaces.rst:243
+msgid "Battery voltage (Vbat) = Va4*3"
+msgstr "Batteriespannung ( Vbat ) = Va4 * 3"
+
+#: ../hardware/interfaces.rst:244
+msgid "Battery voltage (Vbat) = value_A4 / 4095.0 * 3.3 * 3"
+msgstr "Batteriespannung ( Vbat ) = value_A4 / 4095.0 * 3.3 * 3"
+
+#: ../hardware/interfaces.rst:249 ../hardware/interfaces.rst:383
+msgid "PWM"
+msgstr "PWM"
+
+#: ../hardware/interfaces.rst:253
+msgid ""
+"Fusion HAT+ has 4 sets of 3 Pin PWM pins, each spaced 2.54mm apart, and "
+"the power supply is 5V. The method of using the PWM is described in "
+"detail in :ref:`on_board_mcu`."
+msgstr ""
+"Der Fusion HAT+ verfügt über 4 Gruppen von 3-Pin-PWM-Pins, jeweils mit einem "
+"Abstand von 2,54 mm, und die Versorgungsspannung beträgt 5 V. Die Verwendung "
+"von PWM wird im Abschnitt :ref:`on_board_mcu` ausführlich beschrieben."
+
+#: ../hardware/interfaces.rst:256
+msgid "PWM4 ~ 11 channels are used for motor drive."
+msgstr "Die Kanäle PWM4 bis PWM11 werden für den Motorantrieb verwendet."
+
+#: ../hardware/interfaces.rst:261
+msgid "I2C"
+msgstr "I2C"
+
+#: ../hardware/interfaces.rst:265
+msgid ""
+"The Fusion HAT+ has two I2C interfaces. One is the P2.54 4-pin interface,"
+" and the other is the SH1.0 4-pin interface, which is compatible with "
+"QWIIC and STEMMA QT. These I2C interfaces are connected to the Raspberry "
+"Pi's I2C interface via GPIO2 (SDA) and GPIO3 (SCL). The board also "
+"features an :ref:`on_board_mcu`, and the two signal lines have 10K pull-"
+"up resistors."
+msgstr ""
+"Der Fusion HAT+ besitzt zwei I2C-Schnittstellen. Eine ist die P2.54-"
+"4-Pin-Schnittstelle, die andere ist die SH1.0-4-Pin-Schnittstelle, die "
+"mit QWIIC und STEMMA QT kompatibel ist. Diese I2C-Schnittstellen sind über "
+"GPIO2 ( SDA ) und GPIO3 ( SCL ) mit der I2C-Schnittstelle des Raspberry Pi "
+"verbunden. Das Board verfügt außerdem über einen :ref:`on_board_mcu`, und "
+"die beiden Signalleitungen besitzen 10-K-Pull-up-Widerstände."
+
+#: ../hardware/interfaces.rst:272 ../hardware/interfaces.rst:280
+msgid "SPI"
+msgstr "SPI"
+
+#: ../hardware/interfaces.rst:276
+msgid ""
+"The SPI interface of the Fusion HAT+ is a 7-pin P2.54 interface. It "
+"connects to the SPI interface of the Raspberry Pi and includes an "
+"additional I/O pin that can be used for purposes such as interrupts or "
+"resets."
+msgstr ""
+"Die SPI-Schnittstelle des Fusion HAT+ ist eine 7-Pin-P2.54-Schnittstelle. "
+"Sie ist mit der SPI-Schnittstelle des Raspberry Pi verbunden und enthält "
+"einen zusätzlichen I/O-Pin, der z. B. für Interrupts oder Resets verwendet "
+"werden kann."
+
+#: ../hardware/interfaces.rst:286
+msgid "BSY"
+msgstr "BSY"
+
+#: ../hardware/interfaces.rst:288
+msgid "CS"
+msgstr "CS"
+
+#: ../hardware/interfaces.rst:289
+msgid "CE0(GPIO8)"
+msgstr "CE0 ( GPIO8 )"
+
+#: ../hardware/interfaces.rst:290
+msgid "SCK"
+msgstr "SCK"
+
+#: ../hardware/interfaces.rst:291
+msgid "SCLK(GPIO11)"
+msgstr "SCLK ( GPIO11 )"
+
+#: ../hardware/interfaces.rst:292
+msgid "MI"
+msgstr "MI"
+
+#: ../hardware/interfaces.rst:293
+msgid "MISO(GPIO9)"
+msgstr "MISO ( GPIO9 )"
+
+#: ../hardware/interfaces.rst:294
+msgid "MO"
+msgstr "MO"
+
+#: ../hardware/interfaces.rst:295
+msgid "MOSI(GPIO10)"
+msgstr "MOSI ( GPIO10 )"
+
+#: ../hardware/interfaces.rst:297
+msgid "3.3V Power"
+msgstr "3,3-V-Stromversorgung"
+
+#: ../hardware/interfaces.rst:299
+msgid "Ground"
+msgstr "Masse"
+#: ../hardware/interfaces.rst:304
+msgid "UART"
+msgstr "UART"
+
+#: ../hardware/interfaces.rst:308
+msgid ""
+"The UART interface of the Fusion HAT+ is a 4-pin P2.54 interface. It "
+"connects to the Raspberry Pi's GPIO14 (TXD) and GPIO15 (RXD) pins."
+msgstr ""
+"Die UART-Schnittstelle des Fusion HAT+ ist eine 4-Pin-P2.54-Schnittstelle. "
+"Sie ist mit den Pins GPIO14 ( TXD ) und GPIO15 ( RXD ) des Raspberry Pi "
+"verbunden."
+
+#: ../hardware/interfaces.rst:316
+msgid "WS2812 Port"
+msgstr "WS2812-Port"
+
+#: ../hardware/interfaces.rst:320
+msgid ""
+"The Fusion HAT+ comes with 1 WS2812 port (ZH1.5 3 Pin), which can be used"
+" to control 1 WS2812 LED strip."
+msgstr ""
+"Der Fusion HAT+ verfügt über 1 WS2812-Port ( ZH1.5 3-Pin ), der zum "
+"Steuern von 1 WS2812-LED-Streifen verwendet werden kann."
+
+#: ../hardware/interfaces.rst:322
+msgid ""
+"This Pin is shared with SPI MOSI, so it can not be used as SPI MOSI at "
+"the same time."
+msgstr ""
+"Dieser Pin wird mit SPI MOSI gemeinsam genutzt, daher kann er nicht "
+"gleichzeitig als SPI MOSI verwendet werden."
+
+#: ../hardware/interfaces.rst:328
+msgid "User Button & LED"
+msgstr "Benutzertaste und LED"
+
+#: ../hardware/interfaces.rst:332
+msgid ""
+"The Fusion HAT+ comes with 1 LED and 1 button which are connected to and "
+"controlled by the I2C chip."
+msgstr ""
+"Der Fusion HAT+ verfügt über 1 LED und 1 Taste, die mit dem I2C-Chip "
+"verbunden sind und von ihm gesteuert werden."
+
+#: ../hardware/interfaces.rst:338
+msgid "Speaker and MIC"
+msgstr "Lautsprecher und MIC"
+
+#: ../hardware/interfaces.rst:343
+msgid ""
+"The Fusion HAT+ is equipped with onboard I2S audio output/input, along "
+"with a 2030 audio chamber speaker, providing a mono sound output. The "
+"onboard microphone can be used to receive audio signals."
+msgstr ""
+"Der Fusion HAT+ ist mit Onboard-I2S-Audioausgang/-eingang sowie einem "
+"2030-Audiokammer-Lautsprecher ausgestattet und bietet eine Mono-"
+"Tonausgabe. Das Onboard-Mikrofon kann zum Empfangen von Audiosignalen "
+"verwendet werden."
+
+#: ../hardware/interfaces.rst:347 ../hardware/interfaces.rst:351
+msgid "I2S"
+msgstr "I2S"
+
+#: ../hardware/interfaces.rst:353
+msgid "WS"
+msgstr "WS"
+
+#: ../hardware/interfaces.rst:357
+msgid "Audio OUT (Speaker)"
+msgstr "Audio OUT ( Lautsprecher )"
+
+#: ../hardware/interfaces.rst:359
+msgid "Aduio IN (MIC)"
+msgstr "Audio IN ( MIC )"
+
+#: ../hardware/interfaces.rst:363
+msgid ""
+"If you intend to repurpose the GPIO pins without using the audio "
+"functionality, you can simply disconnect the integrated speaker and "
+"microphone via a switch. It is crucial to ensure that this disconnection "
+"is performed only when the audio components are inactive. Furthermore, "
+"you should never manipulate the WS and SCLK pins while any audio "
+"component is active."
+msgstr ""
+"Wenn du die GPIO-Pins ohne die Audiofunktion verwenden möchtest, kannst du "
+"den integrierten Lautsprecher und das Mikrofon einfach über einen Schalter "
+"trennen. Es ist entscheidend, dass diese Trennung nur erfolgt, wenn die "
+"Audio-Komponenten inaktiv sind. Außerdem solltest du die Pins WS und SCLK "
+"niemals verändern, solange eine Audio-Komponente aktiv ist."
+
+#: ../hardware/interfaces.rst:372
+msgid "Motor Port"
+msgstr "Motoranschluss"
+
+#: ../hardware/interfaces.rst:374
+msgid ""
+"The motor driver of the Fusion HAT+ supports 4 channels and can be "
+"controlled using 8 PWM signals for direction and speed control."
+msgstr ""
+"Der Motortreiber des Fusion HAT+ unterstützt 4 Kanäle und kann mit 8 "
+"PWM-Signalen zur Richtungs- und Geschwindigkeitssteuerung gesteuert werden."
+
+#: ../hardware/interfaces.rst:378
+msgid "Motor Driver"
+msgstr "Motortreiber"
+
+#: ../hardware/interfaces.rst:382
+msgid "Motor"
+msgstr "Motor"
+
+#: ../hardware/interfaces.rst:384
+msgid "Motor0 A"
+msgstr "Motor0 A"
+
+#: ../hardware/interfaces.rst:385
+msgid "PWM11"
+msgstr "PWM11"
+
+#: ../hardware/interfaces.rst:386
+msgid "Motor0 B"
+msgstr "Motor0 B"
+
+#: ../hardware/interfaces.rst:387
+msgid "PWM10"
+msgstr "PWM10"
+
+#: ../hardware/interfaces.rst:388
+msgid "Motor1 A"
+msgstr "Motor1 A"
+
+#: ../hardware/interfaces.rst:389
+msgid "PWM9"
+msgstr "PWM9"
+
+#: ../hardware/interfaces.rst:390
+msgid "Motor1 B"
+msgstr "Motor1 B"
+
+#: ../hardware/interfaces.rst:391
+msgid "PWM8"
+msgstr "PWM8"
+
+#: ../hardware/interfaces.rst:392
+msgid "Motor2 A"
+msgstr "Motor2 A"
+
+#: ../hardware/interfaces.rst:393
+msgid "PWM7"
+msgstr "PWM7"
+
+#: ../hardware/interfaces.rst:394
+msgid "Motor2 B"
+msgstr "Motor2 B"
+
+#: ../hardware/interfaces.rst:395
+msgid "PWM6"
+msgstr "PWM6"
+
+#: ../hardware/interfaces.rst:396
+msgid "Motor3 A"
+msgstr "Motor3 A"
+
+#: ../hardware/interfaces.rst:397
+msgid "PWM5"
+msgstr "PWM5"
+
+#: ../hardware/interfaces.rst:398
+msgid "Motor3 B"
+msgstr "Motor3 B"
+
+#: ../hardware/interfaces.rst:399
+msgid "PWM4"
+msgstr "PWM4"
+
+#: ../hardware/interfaces.rst:402
+msgid "The motor drive mode is as follow."
+msgstr "Der Motorantriebsmodus ist wie folgt."
+
+#: ../hardware/interfaces.rst:404
+msgid "Motor Drive Mode"
+msgstr "Motorantriebsmodus"
+
+#: ../hardware/interfaces.rst:408
+msgid "A"
+msgstr "A"
+
+#: ../hardware/interfaces.rst:409
+msgid "B"
+msgstr "B"
+
+#: ../hardware/interfaces.rst:410
+msgid "Direction"
+msgstr "Richtung"
+
+#: ../hardware/interfaces.rst:411 ../hardware/interfaces.rst:412
+#: ../hardware/interfaces.rst:415 ../hardware/interfaces.rst:417
+msgid "0"
+msgstr "0"
+
+#: ../hardware/interfaces.rst:413
+msgid "Standby"
+msgstr "Standby"
+
+#: ../hardware/interfaces.rst:414 ../hardware/interfaces.rst:418
+#: ../hardware/interfaces.rst:420 ../hardware/interfaces.rst:421
+msgid "PWM Value"
+msgstr "PWM-Wert"
+
+#: ../hardware/interfaces.rst:416
+msgid "Forward"
+msgstr "Vorwärts"
+
+#: ../hardware/interfaces.rst:419
+msgid "Reverse"
+msgstr "Rückwärts"
+
+#: ../hardware/interfaces.rst:422
+msgid "Brake"
+msgstr "Bremse"
+
+#: ../hardware/interfaces.rst:427
+msgid "Power Button & PWR Indicator"
+msgstr "Netztaste und PWR-Anzeige"
+
+#: ../hardware/interfaces.rst:432
+msgid ""
+"Pressing the power button once will turn on the Raspberry Pi, and the PWR"
+" indicator will light up."
+msgstr ""
+"Durch einmaliges Drücken der Netztaste wird der Raspberry Pi eingeschaltet, "
+"und die PWR-Anzeige leuchtet."
+
+#: ../hardware/interfaces.rst:433
+msgid ""
+"Holding the power button for 2 seconds sends a shutdown signal to the "
+"Raspberry Pi. If it is properly configured, the Raspberry Pi will shut "
+"down and the PWR indicator will turn off."
+msgstr ""
+"Wenn du die Netztaste 2 Sekunden lang gedrückt hältst, wird ein "
+"Herunterfahrsignal an den Raspberry Pi gesendet. Wenn er korrekt "
+"konfiguriert ist, fährt der Raspberry Pi herunter und die PWR-Anzeige "
+"geht aus."
+
+#: ../hardware/interfaces.rst:434
+msgid ""
+"Holding the power button for 5 seconds forces a shutdown, and the PWR "
+"indicator will turn off immediately."
+msgstr ""
+"Wenn du die Netztaste 5 Sekunden lang gedrückt hältst, wird ein erzwungenes "
+"Herunterfahren ausgelöst, und die PWR-Anzeige geht sofort aus."
+
+#: ../hardware/interfaces.rst:436
+msgid ""
+"Additionally, the Fusion HAT+ features a :ref:`safe_shutdown` mechanism. "
+"It performs a software shutdown by reading the microcontroller’s register"
+" status via I2C. To enable this feature, you need to configure the "
+"Raspberry Pi's shutdown signal pin and run the corresponding code on the "
+"Raspberry Pi."
+msgstr ""
+"Zusätzlich verfügt der Fusion HAT+ über einen :ref:`safe_shutdown`-Mechanismus. "
+"Er führt ein Software-Herunterfahren durch, indem der Registerstatus des "
+"Mikrocontrollers über I2C ausgelesen wird. Um diese Funktion zu aktivieren, "
+"musst du den Shutdown-Signal-Pin des Raspberry Pi konfigurieren und den "
+"entsprechenden Code auf dem Raspberry Pi ausführen."
+
+#: ../hardware/interfaces.rst:443
+msgid "Battery Level Indicator"
+msgstr "Akkustandsanzeige"
+
+#: ../hardware/interfaces.rst:448
+msgid ""
+"The battery level indicator on the Fusion HAT+ monitors the battery "
+"voltage using a voltage divider method and serves as a reference for "
+"estimating the battery level. The relationship between the LED and "
+"voltage is as follows:"
+msgstr ""
+"Die Akkustandsanzeige auf dem Fusion HAT+ überwacht die Batteriespannung "
+"mithilfe eines Spannungsteilers und dient als Referenz zur Abschätzung des "
+"Akkustands. Die Beziehung zwischen LED und Spannung ist wie folgt:"
+
+#: ../hardware/interfaces.rst:451
+msgid "Battery Level"
+msgstr "Akkustand"
+
+#: ../hardware/interfaces.rst:455
+msgid "LED Battery"
+msgstr "Akku-LED"
+
+#: ../hardware/interfaces.rst:456
+msgid "Total Voltage"
+msgstr "Gesamtspannung"
+
+#: ../hardware/interfaces.rst:457
+msgid "2 LEDs on"
+msgstr "2 LEDs an"
+
+#: ../hardware/interfaces.rst:458
+msgid "Greater than 7.4V"
+msgstr "Größer als 7,4 V"
+
+#: ../hardware/interfaces.rst:459
+msgid "1 LED on"
+msgstr "1 LED an"
+
+#: ../hardware/interfaces.rst:460
+msgid "Greater than 6.5V"
+msgstr "Größer als 6,5 V"
+
+#: ../hardware/interfaces.rst:461
+msgid "Both LEDs off"
+msgstr "Beide LEDs aus"
+
+#: ../hardware/interfaces.rst:462
+msgid "Less than 6.5V"
+msgstr "Weniger als 6,5 V"
+
+#: ../hardware/interfaces.rst:464
+msgid ""
+"When charging, the battery indicator lights will flash. The charging "
+"status can be read via I2C by accessing the microcontroller. See "
+":ref:`charging_status` for details."
+msgstr ""
+"Beim Laden blinken die Akkuanzeigen. Der Ladestatus kann über I2C durch "
+"Zugriff auf den Mikrocontroller ausgelesen werden. Siehe "
+":ref:`charging_status` für Details."
+
+#: ../hardware/interfaces.rst:467
+msgid ""
+"When any one of the batteries reaches or exceeds 4.1V while the others "
+"are below that threshold, the charging current of that specific battery "
+"will be reduced."
+msgstr ""
+"Wenn eine der Batterien 4,1 V erreicht oder überschreitet, während die "
+"anderen unter diesem Schwellenwert liegen, wird der Ladestrom dieser "
+"bestimmten Batterie reduziert."
+
+#: ../hardware/interfaces.rst:475
+msgid "Servo Zeroing Button"
+msgstr "Servo-Nullstell-Taste"
+
+#: ../hardware/interfaces.rst:479
+msgid "The servo zeroing button is used to calibrate the servo's zero position."
+msgstr "Die Servo-Nullstell-Taste wird verwendet, um die Nullposition des Servos zu kalibrieren."
+
+#: ../hardware/interfaces.rst:481
+msgid ""
+"The PWM interface supports servo zeroing control, making it convenient "
+"for robot assembly. Servo zeroing sets all PWM interfaces to a 1500 µs "
+"pulse width with a 20,000 µs period, which moves the servos to the 90° "
+"position. It is recommended to disconnect other PWM devices before "
+"entering the servo zeroing mode."
+msgstr ""
+"Die PWM-Schnittstelle unterstützt die Servo-Nullstellung und erleichtert "
+"damit den Roboteraufbau. Bei der Servo-Nullstellung werden alle PWM-"
+"Schnittstellen auf eine Pulsbreite von 1500 µs bei einer Periode von "
+"20.000 µs gesetzt, wodurch die Servos in die 90°-Position fahren. Es wird "
+"empfohlen, andere PWM-Geräte zu trennen, bevor du in den Servo-Nullstellmodus "
+"wechselst."
+
+#: ../hardware/interfaces.rst:483
+msgid ""
+"When you press the button twice, all the PWM signals will be set to "
+"1500us pulse, 20000us period. That is, the servo will be in the middle "
+"position. You should secure the servo arm to the servo in this state."
+msgstr ""
+"Wenn du die Taste zweimal drückst, werden alle PWM-Signale auf 1500 us "
+"Puls und 20000 us Periode gesetzt. Das heißt, der Servo befindet sich in "
+"der Mittelposition. In diesem Zustand solltest du den Servohebel am Servo "
+"befestigen."
+
+#: ../hardware/interfaces.rst:484
+msgid "Press the button twice again, all the PWM signals will be set to 0 pulse."
+msgstr "Drücke die Taste erneut zweimal, dann werden alle PWM-Signale auf 0 Puls gesetzt."

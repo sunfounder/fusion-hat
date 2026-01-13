@@ -1,0 +1,754 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../hardware/onboard_mcu.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../hardware/onboard_mcu.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../hardware/onboard_mcu.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../hardware/onboard_mcu.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../hardware/onboard_mcu.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../hardware/onboard_mcu.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Profitiere von exklusiven Rabatten auf unsere "
+"neuesten Produkte."
+
+#: ../hardware/onboard_mcu.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../hardware/onboard_mcu.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../hardware/onboard_mcu.rst:18
+msgid "On-Board MCU"
+msgstr "Onboard-MCU"
+
+#: ../hardware/onboard_mcu.rst:20
+msgid ""
+"The Fusion HAT+ comes with an GD32E203C8T6 microcontroller. It is an ARM "
+"Cortex-M23 processor with a maximum clock frequency of 72MHz. The "
+"microcontroller has 64KB of Flash memory and 8KB of SRAM."
+msgstr ""
+"Der Fusion HAT+ ist mit einem GD32E203C8T6-Mikrocontroller ausgestattet. "
+"Es handelt sich um einen ARM Cortex-M23-Prozessor mit einer maximalen "
+"Taktfrequenz von 72 MHz. Der Mikrocontroller verfügt über 64 KB Flash-"
+"Speicher und 8 KB SRAM."
+
+#: ../hardware/onboard_mcu.rst:24
+msgid ""
+"The onboard PWM and ADC are driven by the microcontroller. Communication "
+"between the Raspberry Pi and the microcontroller is established via the "
+"I2C interface. **The I2C address used for communication is 0x17.**"
+msgstr ""
+"Die Onboard-PWM und der ADC werden vom Mikrocontroller gesteuert. Die "
+"Kommunikation zwischen dem Raspberry Pi und dem Mikrocontroller erfolgt "
+"über die I2C-Schnittstelle. **Die für die Kommunikation verwendete I2C-"
+"Adresse ist 0x17.**"
+
+#: ../hardware/onboard_mcu.rst:31
+msgid "ADC"
+msgstr "ADC"
+
+#: ../hardware/onboard_mcu.rst:33
+msgid ""
+"Register addresses is 1 byte, 0x10 to 0x19 are ADC channels 0 to 3. The "
+"ADC precision is 12 bit, and the value is 0 to 4095. See more details in "
+":py:class:`fusion_hat.adc.ADC`."
+msgstr ""
+"Registeradressen sind 1 Byte; 0x10 bis 0x19 sind die ADC-Kanäle 0 bis 3. "
+"Die ADC-Auflösung beträgt 12 Bit und der Wert liegt zwischen 0 und 4095. "
+"Weitere Details siehe :py:class:`fusion_hat.adc.ADC`."
+
+#: ../hardware/onboard_mcu.rst:41 ../hardware/onboard_mcu.rst:130
+#: ../hardware/onboard_mcu.rst:132 ../hardware/onboard_mcu.rst:193
+#: ../hardware/onboard_mcu.rst:218 ../hardware/onboard_mcu.rst:242
+#: ../hardware/onboard_mcu.rst:269 ../hardware/onboard_mcu.rst:295
+#: ../hardware/onboard_mcu.rst:314
+msgid "Address"
+msgstr "Adresse"
+
+#: ../hardware/onboard_mcu.rst:41 ../hardware/onboard_mcu.rst:131
+#: ../hardware/onboard_mcu.rst:133 ../hardware/onboard_mcu.rst:194
+#: ../hardware/onboard_mcu.rst:219 ../hardware/onboard_mcu.rst:243
+#: ../hardware/onboard_mcu.rst:270
+msgid "Description"
+msgstr "Beschreibung"
+
+#: ../hardware/onboard_mcu.rst:43
+msgid "``0x10``"
+msgstr "``0x10``"
+
+#: ../hardware/onboard_mcu.rst:43
+msgid "ADC channel 0 H"
+msgstr "ADC-Kanal 0 H"
+
+#: ../hardware/onboard_mcu.rst:45
+msgid "``0x11``"
+msgstr "``0x11``"
+
+#: ../hardware/onboard_mcu.rst:45
+msgid "ADC channel 0 L"
+msgstr "ADC-Kanal 0 L"
+
+#: ../hardware/onboard_mcu.rst:47
+msgid "``0x12``"
+msgstr "``0x12``"
+
+#: ../hardware/onboard_mcu.rst:47
+msgid "ADC channel 1 H"
+msgstr "ADC-Kanal 1 H"
+
+#: ../hardware/onboard_mcu.rst:49
+msgid "``0x13``"
+msgstr "``0x13``"
+
+#: ../hardware/onboard_mcu.rst:49
+msgid "ADC channel 1 L"
+msgstr "ADC-Kanal 1 L"
+
+#: ../hardware/onboard_mcu.rst:51
+msgid "``0x14``"
+msgstr "``0x14``"
+
+#: ../hardware/onboard_mcu.rst:51
+msgid "ADC channel 2 H"
+msgstr "ADC-Kanal 2 H"
+
+#: ../hardware/onboard_mcu.rst:53
+msgid "``0x15``"
+msgstr "``0x15``"
+
+#: ../hardware/onboard_mcu.rst:53
+msgid "ADC channel 2 L"
+msgstr "ADC-Kanal 2 L"
+
+#: ../hardware/onboard_mcu.rst:55
+msgid "``0x16``"
+msgstr "``0x16``"
+
+#: ../hardware/onboard_mcu.rst:55
+msgid "ADC channel 3 H"
+msgstr "ADC-Kanal 3 H"
+
+#: ../hardware/onboard_mcu.rst:57
+msgid "``0x17``"
+msgstr "``0x17``"
+
+#: ../hardware/onboard_mcu.rst:57
+msgid "ADC channel 3 L"
+msgstr "ADC-Kanal 3 L"
+
+#: ../hardware/onboard_mcu.rst:59
+msgid "``0x18``"
+msgstr "``0x18``"
+
+#: ../hardware/onboard_mcu.rst:59
+msgid "ADC 4 H  (Battery Level)"
+msgstr "ADC 4 H ( Akkustand )"
+
+#: ../hardware/onboard_mcu.rst:61
+msgid "``0x19``"
+msgstr "``0x19``"
+
+#: ../hardware/onboard_mcu.rst:61
+msgid "ADC channel 4 L"
+msgstr "ADC-Kanal 4 L"
+
+#: ../hardware/onboard_mcu.rst:81
+msgid "PWM"
+msgstr "PWM"
+
+#: ../hardware/onboard_mcu.rst:84
+msgid "Frequency and Period Settings"
+msgstr "Frequenz- und Periodeneinstellungen"
+
+#: ../hardware/onboard_mcu.rst:86
+msgid ""
+"The PWM frequency is determined by the period value (ARR) and the "
+"prescaler (PSC). The principle is that the microcontroller’s internal "
+"clock runs at 72 MHz. Through prescaling, the clock is divided to obtain "
+"a frequency Fp, which is then further divided by the period count to get "
+"the PWM output frequency F. Therefore,"
+msgstr ""
+"Die PWM-Frequenz wird durch den Periodenwert ( ARR ) und den Prescaler "
+"( PSC ) bestimmt. Das Prinzip ist, dass der interne Takt des "
+"Mikrocontrollers mit 72 MHz läuft. Durch Prescaling wird der Takt geteilt, "
+"um eine Frequenz Fp zu erhalten, die anschließend durch den Periodenzähler "
+"weiter geteilt wird, um die PWM-Ausgangsfrequenz F zu erhalten. Daher:"
+
+#: ../hardware/onboard_mcu.rst:92
+msgid ""
+"In general, by specifying the desired frequency and period, you can "
+"calculate the required prescaler. For example, to drive a servo motor, "
+"you need a 50 Hz frequency and a desired resolution of 12 bits (i.e., a "
+"period of 2¹² = 4096). The prescaler PSC can be calculated as:"
+msgstr ""
+"Im Allgemeinen kannst du durch Angabe der gewünschten Frequenz und Periode "
+"den erforderlichen Prescaler berechnen. Um beispielsweise einen Servo "
+"anzusteuern, benötigst du eine Frequenz von 50 Hz und eine gewünschte "
+"Auflösung von 12 Bit ( d. h. eine Periode von 2¹² = 4096 ). Der Prescaler "
+"PSC kann wie folgt berechnet werden:"
+
+#: ../hardware/onboard_mcu.rst:102
+msgid ""
+"Since PSC must be an integer, it is approximated to 351. Therefore, by "
+"setting PSC = 351 and ARR = 4096, you get an actual PWM frequency of:"
+msgstr ""
+"Da PSC eine ganze Zahl sein muss, wird auf 351 gerundet. Daher erhältst du "
+"bei PSC = 351 und ARR = 4096 eine tatsächliche PWM-Frequenz von:"
+
+#: ../hardware/onboard_mcu.rst:108
+msgid ""
+"By default, the PWM prescaler (PSC) and period (ARR) are set to 351 and "
+"4095, respectively, resulting in a default frequency of approximately 50 "
+"Hz."
+msgstr ""
+"Standardmäßig sind der PWM-Prescaler ( PSC ) und die Periode ( ARR ) auf "
+"351 bzw. 4095 gesetzt, was zu einer Standardfrequenz von ungefähr 50 Hz "
+"führt."
+
+#: ../hardware/onboard_mcu.rst:110
+msgid ""
+"The pulse width corresponds to the duty cycle value within the period. "
+"For example, with the configuration above where the period (ARR) is 4096,"
+" setting the pulse width (CCR) to 2048 yields a 50% PWM output."
+msgstr ""
+"Die Pulsbreite entspricht dem Tastgradwert innerhalb der Periode. Zum "
+"Beispiel ergibt bei der obigen Konfiguration mit einer Periode ( ARR ) von "
+"4096 das Setzen der Pulsbreite ( CCR ) auf 2048 einen PWM-Ausgang von 50 %."
+
+#: ../hardware/onboard_mcu.rst:118
+msgid "Pulse width"
+msgstr "Pulsbreite"
+
+#: ../hardware/onboard_mcu.rst:120
+msgid ""
+"To control the channel pulse width is rather simple, just write the value"
+" to the register."
+msgstr ""
+"Die Pulsbreite eines Kanals zu steuern ist ziemlich einfach: Schreibe "
+"einfach den Wert in das Register."
+
+#: ../hardware/onboard_mcu.rst:122
+msgid ""
+"**But** what is the value? If you want to set the PWM to 50% pulse width,"
+" you need to know exactly what the period is. Base on the above "
+"calculation, if you set the period to 4095, then set pulse value to 2048 "
+"is about 50% pulse width."
+msgstr ""
+"**Aber** welcher Wert ist das? Wenn du die PWM auf 50 % Pulsbreite setzen "
+"möchtest, musst du genau wissen, wie groß die Periode ist. Basierend auf "
+"der obigen Berechnung gilt: Wenn du die Periode auf 4095 setzt, dann ist "
+"ein Pulswert von 2048 ungefähr 50 % Pulsbreite."
+
+#: ../hardware/onboard_mcu.rst:134
+msgid "``0x60``"
+msgstr "``0x60``"
+
+#: ../hardware/onboard_mcu.rst:135
+msgid "PWM0_CCR_H"
+msgstr "PWM0_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:136
+msgid "``0x6C``"
+msgstr "``0x6C``"
+
+#: ../hardware/onboard_mcu.rst:137
+msgid "PWM6_CCR_H"
+msgstr "PWM6_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:138
+msgid "``0x61``"
+msgstr "``0x61``"
+
+#: ../hardware/onboard_mcu.rst:139
+msgid "PWM0_CCR_L"
+msgstr "PWM0_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:140
+msgid "``0x6D``"
+msgstr "``0x6D``"
+
+#: ../hardware/onboard_mcu.rst:141
+msgid "PWM6_CCR_L"
+msgstr "PWM6_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:142
+msgid "``0x62``"
+msgstr "``0x62``"
+
+#: ../hardware/onboard_mcu.rst:143
+msgid "PWM1_CCR_H"
+msgstr "PWM1_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:144
+msgid "``0x6E``"
+msgstr "``0x6E``"
+
+#: ../hardware/onboard_mcu.rst:145
+msgid "PWM7_CCR_H"
+msgstr "PWM7_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:146
+msgid "``0x63``"
+msgstr "``0x63``"
+
+#: ../hardware/onboard_mcu.rst:147
+msgid "PWM1_CCR_L"
+msgstr "PWM1_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:148
+msgid "``0x6F``"
+msgstr "``0x6F``"
+
+#: ../hardware/onboard_mcu.rst:149
+msgid "PWM7_CCR_L"
+msgstr "PWM7_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:150
+msgid "``0x64``"
+msgstr "``0x64``"
+
+#: ../hardware/onboard_mcu.rst:151
+msgid "PWM2_CCR_H"
+msgstr "PWM2_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:152
+msgid "``0x70``"
+msgstr "``0x70``"
+
+#: ../hardware/onboard_mcu.rst:153
+msgid "PWM8_CCR_H"
+msgstr "PWM8_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:154
+msgid "``0x65``"
+msgstr "``0x65``"
+
+#: ../hardware/onboard_mcu.rst:155
+msgid "PWM2_CCR_L"
+msgstr "PWM2_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:156
+msgid "``0x71``"
+msgstr "``0x71``"
+
+#: ../hardware/onboard_mcu.rst:157
+msgid "PWM8_CCR_L"
+msgstr "PWM8_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:158
+msgid "``0x66``"
+msgstr "``0x66``"
+
+#: ../hardware/onboard_mcu.rst:159
+msgid "PWM3_CCR_H"
+msgstr "PWM3_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:160
+msgid "``0x72``"
+msgstr "``0x72``"
+
+#: ../hardware/onboard_mcu.rst:161
+msgid "PWM9_CCR_H"
+msgstr "PWM9_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:162
+msgid "``0x67``"
+msgstr "``0x67``"
+
+#: ../hardware/onboard_mcu.rst:163
+msgid "PWM3_CCR_L"
+msgstr "PWM3_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:164
+msgid "``0x73``"
+msgstr "``0x73``"
+
+#: ../hardware/onboard_mcu.rst:165
+msgid "PWM9_CCR_L"
+msgstr "PWM9_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:166
+msgid "``0x68``"
+msgstr "``0x68``"
+
+#: ../hardware/onboard_mcu.rst:167
+msgid "PWM4_CCR_H"
+msgstr "PWM4_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:168
+msgid "``0x74``"
+msgstr "``0x74``"
+
+#: ../hardware/onboard_mcu.rst:169
+msgid "PWM10_CCR_H"
+msgstr "PWM10_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:170
+msgid "``0x69``"
+msgstr "``0x69``"
+
+#: ../hardware/onboard_mcu.rst:171
+msgid "PWM4_CCR_L"
+msgstr "PWM4_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:172
+msgid "``0x75``"
+msgstr "``0x75``"
+
+#: ../hardware/onboard_mcu.rst:173
+msgid "PWM10_CCR_L"
+msgstr "PWM10_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:174
+msgid "``0x6A``"
+msgstr "``0x6A``"
+
+#: ../hardware/onboard_mcu.rst:175
+msgid "PWM5_CCR_H"
+msgstr "PWM5_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:176
+msgid "``0x76``"
+msgstr "``0x76``"
+
+#: ../hardware/onboard_mcu.rst:177
+msgid "PWM11_CCR_H"
+msgstr "PWM11_CCR_H"
+
+#: ../hardware/onboard_mcu.rst:178
+msgid "``0x6B``"
+msgstr "``0x6B``"
+
+#: ../hardware/onboard_mcu.rst:179
+msgid "PWM5_CCR_L"
+msgstr "PWM5_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:180
+msgid "``0x77``"
+msgstr "``0x77``"
+
+#: ../hardware/onboard_mcu.rst:181
+msgid "PWM11_CCR_L"
+msgstr "PWM11_CCR_L"
+
+#: ../hardware/onboard_mcu.rst:185
+msgid "Prescaler"
+msgstr "Prescaler"
+
+#: ../hardware/onboard_mcu.rst:187
+msgid "Registers from 0x40 are used to set the PWM prescaler (range: 0–65535)."
+msgstr ""
+"Register ab 0x40 werden verwendet, um den PWM-Prescaler einzustellen "
+"( Bereich: 0–65535 )."
+
+#: ../hardware/onboard_mcu.rst:195
+msgid "``0x40``"
+msgstr "``0x40``"
+
+#: ../hardware/onboard_mcu.rst:196
+msgid "PWM_TIM0_PSC_H"
+msgstr "PWM_TIM0_PSC_H"
+
+#: ../hardware/onboard_mcu.rst:197
+msgid "``0x41``"
+msgstr "``0x41``"
+
+#: ../hardware/onboard_mcu.rst:198
+msgid "PWM_TIM0_PSC_L"
+msgstr "PWM_TIM0_PSC_L"
+
+#: ../hardware/onboard_mcu.rst:199
+msgid "``0x42``"
+msgstr "``0x42``"
+
+#: ../hardware/onboard_mcu.rst:200
+msgid "PWM_TIM1_PSC_H"
+msgstr "PWM_TIM1_PSC_H"
+
+#: ../hardware/onboard_mcu.rst:201
+msgid "``0x43``"
+msgstr "``0x43``"
+
+#: ../hardware/onboard_mcu.rst:202
+msgid "PWM_TIM1_PSC_L"
+msgstr "PWM_TIM1_PSC_L"
+
+#: ../hardware/onboard_mcu.rst:203
+msgid "``0x44``"
+msgstr "``0x44``"
+
+#: ../hardware/onboard_mcu.rst:204
+msgid "PWM_TIM2_PSC_H"
+msgstr "PWM_TIM2_PSC_H"
+
+#: ../hardware/onboard_mcu.rst:205
+msgid "``0x45``"
+msgstr "``0x45``"
+
+#: ../hardware/onboard_mcu.rst:206
+msgid "PWM_TIM2_PSC_L"
+msgstr "PWM_TIM2_PSC_L"
+
+#: ../hardware/onboard_mcu.rst:210
+msgid "Period"
+msgstr "Periode"
+
+#: ../hardware/onboard_mcu.rst:212
+msgid "Registers from 0x50 are used to set the PWM period (range: 0–65535)."
+msgstr ""
+"Register ab 0x50 werden verwendet, um die PWM-Periode einzustellen "
+"( Bereich: 0–65535 )."
+
+#: ../hardware/onboard_mcu.rst:220
+msgid "``0x50``"
+msgstr "``0x50``"
+
+#: ../hardware/onboard_mcu.rst:221
+msgid "PWM_TIM0_ARR_H"
+msgstr "PWM_TIM0_ARR_H"
+
+#: ../hardware/onboard_mcu.rst:222
+msgid "``0x51``"
+msgstr "``0x51``"
+
+#: ../hardware/onboard_mcu.rst:223
+msgid "PWM_TIM0_ARR_L"
+msgstr "PWM_TIM0_ARR_L"
+
+#: ../hardware/onboard_mcu.rst:224
+msgid "``0x52``"
+msgstr "``0x52``"
+
+#: ../hardware/onboard_mcu.rst:225
+msgid "PWM_TIM1_ARR_H"
+msgstr "PWM_TIM1_ARR_H"
+
+#: ../hardware/onboard_mcu.rst:226
+msgid "``0x53``"
+msgstr "``0x53``"
+
+#: ../hardware/onboard_mcu.rst:227
+msgid "PWM_TIM1_ARR_L"
+msgstr "PWM_TIM1_ARR_L"
+
+#: ../hardware/onboard_mcu.rst:228
+msgid "``0x54``"
+msgstr "``0x54``"
+
+#: ../hardware/onboard_mcu.rst:229
+msgid "PWM_TIM2_ARR_H"
+msgstr "PWM_TIM2_ARR_H"
+
+#: ../hardware/onboard_mcu.rst:230
+msgid "``0x55``"
+msgstr "``0x55``"
+
+#: ../hardware/onboard_mcu.rst:231
+msgid "PWM_TIM2_ARR_L"
+msgstr "PWM_TIM2_ARR_L"
+
+#: ../hardware/onboard_mcu.rst:235
+msgid "Button and LED Control"
+msgstr "Tasten- und LED-Steuerung"
+
+#: ../hardware/onboard_mcu.rst:241 ../hardware/onboard_mcu.rst:268
+msgid "Item"
+msgstr "Element"
+
+#: ../hardware/onboard_mcu.rst:244
+msgid "**USR Button (r/-)**"
+msgstr "**USR-Taste ( r/- )**"
+
+#: ../hardware/onboard_mcu.rst:245
+msgid "0x24"
+msgstr "0x24"
+
+#: ../hardware/onboard_mcu.rst:246
+msgid "Read the level state of the USR button:"
+msgstr "Lese den Pegelstatus der USR-Taste:"
+
+#: ../hardware/onboard_mcu.rst:248
+msgid "0: Low level"
+msgstr "0: Low-Pegel"
+
+#: ../hardware/onboard_mcu.rst:250
+msgid "1: High level"
+msgstr "1: High-Pegel"
+
+#: ../hardware/onboard_mcu.rst:251
+msgid "**LED (r/w)**"
+msgstr "**LED ( r/w )**"
+
+#: ../hardware/onboard_mcu.rst:252
+msgid "0x30"
+msgstr "0x30"
+
+#: ../hardware/onboard_mcu.rst:253
+msgid "Read or control the LED:"
+msgstr "Lese oder steuere die LED:"
+
+#: ../hardware/onboard_mcu.rst:255 ../hardware/onboard_mcu.rst:275
+msgid "0: off"
+msgstr "0: aus"
+
+#: ../hardware/onboard_mcu.rst:257 ../hardware/onboard_mcu.rst:277
+msgid "1: on"
+msgstr "1: an"
+
+#: ../hardware/onboard_mcu.rst:259
+msgid "2: toggle"
+msgstr "2: umschalten"
+
+#: ../hardware/onboard_mcu.rst:262
+msgid "Buzzer Switch Control"
+msgstr "Summer-Schaltersteuerung"
+
+#: ../hardware/onboard_mcu.rst:271
+msgid "**Buzzer Switch (r/w)**"
+msgstr "**Summer-Schalter ( r/w )**"
+
+#: ../hardware/onboard_mcu.rst:272
+msgid "0x31"
+msgstr "0x31"
+
+#: ../hardware/onboard_mcu.rst:273
+msgid "Read or control the buzzer switch:"
+msgstr "Lese oder steuere den Summer-Schalter:"
+
+#: ../hardware/onboard_mcu.rst:281
+msgid "Servo Zeroing"
+msgstr "Servo-Nullstellung"
+
+#: ../hardware/onboard_mcu.rst:283
+msgid ""
+"When you press the button twice, all the PWM signals will be set to "
+"1500us pulse, 20000us period. That is, the servo will be in the middle "
+"position. You should secure the servo arm to the servo in this state."
+msgstr ""
+"Wenn du die Taste zweimal drückst, werden alle PWM-Signale auf 1500 us "
+"Puls und 20000 us Periode gesetzt. Das heißt, der Servo befindet sich in "
+"der Mittelposition. In diesem Zustand solltest du den Servohebel am Servo "
+"befestigen."
+
+#: ../hardware/onboard_mcu.rst:284
+msgid "Press the button twice again, all the PWM signals will be set to 0 pulse."
+msgstr "Drücke die Taste erneut zweimal, dann werden alle PWM-Signale auf 0 Puls gesetzt."
+
+#: ../hardware/onboard_mcu.rst:289
+msgid "Charging Status"
+msgstr "Ladestatus"
+
+#: ../hardware/onboard_mcu.rst:296 ../hardware/onboard_mcu.rst:315
+msgid "Value"
+msgstr "Wert"
+
+#: ../hardware/onboard_mcu.rst:297
+msgid "``0x25``"
+msgstr "``0x25``"
+
+#: ../hardware/onboard_mcu.rst:298
+msgid "0: Not Charging"
+msgstr "0: Nicht am Laden"
+
+#: ../hardware/onboard_mcu.rst:300
+msgid "1: Charging"
+msgstr "1: Wird geladen"
+
+#: ../hardware/onboard_mcu.rst:306
+msgid "Safe Shutdown"
+msgstr "Sicheres Herunterfahren"
+
+#: ../hardware/onboard_mcu.rst:308
+msgid ""
+"The Fusion HAT+ includes a built-in safe shutdown mechanism. It performs "
+"a software-based shutdown by reading the microcontroller’s register "
+"status via I2C."
+msgstr ""
+"Der Fusion HAT+ verfügt über einen integrierten Mechanismus für sicheres "
+"Herunterfahren. Er führt ein softwarebasiertes Herunterfahren durch, indem "
+"der Registerstatus des Mikrocontrollers über I2C ausgelesen wird."
+
+#: ../hardware/onboard_mcu.rst:316
+msgid "``0x26``"
+msgstr "``0x26``"
+
+#: ../hardware/onboard_mcu.rst:317
+msgid "0: No request"
+msgstr "0: Keine Anforderung"
+
+#: ../hardware/onboard_mcu.rst:319
+msgid "1: Low battery, shutdown requested"
+msgstr "1: Niedriger Akkustand, Herunterfahren angefordert"
+
+#: ../hardware/onboard_mcu.rst:321
+msgid "2: Shutdown requested by power button"
+msgstr "2: Herunterfahren durch Netztaste angefordert"
+
+#: ../hardware/onboard_mcu.rst:323
+msgid ""
+"To configure the Raspberry Pi shutdown signal, please refer to "
+":ref:`shutdown_behavior` for detailed instructions."
+msgstr ""
+"Um das Shutdown-Signal des Raspberry Pi zu konfigurieren, siehe "
+":ref:`shutdown_behavior` für detaillierte Anweisungen."

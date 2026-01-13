@@ -1,0 +1,188 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../index.rst:49
+msgid "About this HAT"
+msgstr "Über dieses HAT"
+
+#: ../index.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../index.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../index.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../index.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../index.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../index.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten "
+"Produkte."
+
+#: ../index.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../index.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../index.rst:16
+msgid "SunFounder Fusion HAT+"
+msgstr "SunFounder Fusion HAT+"
+
+#: ../index.rst:18
+msgid "**Welcome to the Fusion HAT+ Documentation**"
+msgstr "**Willkommen zur Fusion HAT+ Dokumentation**"
+
+#: ../index.rst:34
+msgid ""
+"The **Fusion HAT+** is a powerful and developer-friendly expansion board "
+"designed to unlock the full potential of the Raspberry Pi in robotics and"
+" automation projects. Whether you're an educator, maker, or professional "
+"developer, Fusion HAT+ provides the essential hardware foundation to "
+"rapidly build smart, interactive robots—from autonomous vehicles to "
+"voice-controlled assistants."
+msgstr ""
+"Der **Fusion HAT+** ist eine leistungsstarke und entwicklerfreundliche "
+"Erweiterungsplatine, die entwickelt wurde, um das volle Potenzial des "
+"Raspberry Pi in Robotik- und Automatisierungsprojekten zu erschließen. "
+"Egal, ob du Lehrer, Maker oder professioneller Entwickler bist, der "
+"Fusion HAT+ bietet die wesentliche Hardwarebasis, um schnell intelligente, "
+"interaktive Roboter zu bauen – von autonomen Fahrzeugen bis hin zu "
+"sprachgesteuerten Assistenten."
+
+#: ../index.rst:36
+msgid ""
+"This board features an onboard MCU, extending the Raspberry Pi’s "
+"capabilities with additional PWM outputs and ADC inputs. Integrated motor"
+" drivers, audio modules, and user-friendly debugging features make "
+"development smoother and more efficient. From basic motion control to "
+"advanced voice interaction, Fusion HAT+ grows with your project needs."
+msgstr ""
+"Diese Platine verfügt über einen integrierten MCU, der die Fähigkeiten des "
+"Raspberry Pi durch zusätzliche PWM-Ausgänge und ADC-Eingänge erweitert. "
+"Integrierte Motortreiber, Audiomodule und benutzerfreundliche Debugging-"
+"Funktionen machen die Entwicklung reibungsloser und effizienter. Von "
+"einfacher Bewegungssteuerung bis hin zu fortgeschrittener Sprachinteraktion "
+"wächst der Fusion HAT+ mit den Anforderungen deines Projekts."
+
+#: ../index.rst:38
+msgid "**Key Features**"
+msgstr "**Hauptmerkmale**"
+
+#: ../index.rst:40
+msgid "**Microcontroller-based control** for enhanced PWM/ADC support"
+msgstr "**Mikrocontroller-basierte Steuerung** für erweiterte PWM/ADC-Unterstützung"
+
+#: ../index.rst:41
+msgid "**Motor drivers** for flexible mobility"
+msgstr "**Motortreiber** für flexible Mobilität"
+
+#: ../index.rst:42
+msgid "**Built-in I2S audio** and mono speaker for sound interaction"
+msgstr "**Integriertes I2S-Audio** und Mono-Lautsprecher für Klanginteraktion"
+
+#: ../index.rst:43
+msgid "**Customizable I/O interfaces** for easy sensor and actuator integration"
+msgstr "**Anpassbare I/O-Schnittstellen** für eine einfache Integration von Sensoren und Aktoren"
+
+#: ../index.rst:44
+msgid ""
+"**Smart power design** with status LEDs, user button, and expansion-ready"
+" layout"
+msgstr ""
+"**Intelligentes Stromversorgungsdesign** mit Status-LEDs, Benutzer-Taste "
+"und erweiterungsbereitem Layout"
+
+#: ../index.rst:45
+msgid "Onboard **microphone** for voice recognition and audio input"
+msgstr "Integriertes **Mikrofon** für Spracherkennung und Audioeingang"
+
+#: ../index.rst:46
+msgid "Dedicated **ZERO button** for fast servo alignment"
+msgstr "Dedizierte **ZERO-Taste** für eine schnelle Servo-Ausrichtung"
+
+#: ../index.rst:47
+msgid "Enhanced hardware stability and usability"
+msgstr "Verbesserte Hardware-Stabilität und Benutzerfreundlichkeit"
+
+#: ../index.rst:60
+msgid "**Copyright Notice**"
+msgstr "**Urheberrechtshinweis**"
+
+#: ../index.rst:62
+msgid ""
+"All contents including but not limited to texts, images, and code in this"
+" manual are owned by the SunFounder Company. You should only use it for "
+"personal study,investigation, enjoyment, or other non-commercial or "
+"nonprofit purposes, under therelated regulations and copyrights laws, "
+"without infringing the legal rights of the author and relevant right "
+"holders. For any individual or organization that uses these for "
+"commercial profit without permission, the Company reserves the right to "
+"take legal action."
+msgstr ""
+"Alle Inhalte dieses Handbuchs, einschließlich, aber nicht beschränkt auf "
+"Texte, Bilder und Code, sind Eigentum der Firma SunFounder. Du darfst sie "
+"nur für persönliches Studium, Recherche, Vergnügen oder andere nicht-"
+"kommerzielle oder gemeinnützige Zwecke gemäß den entsprechenden "
+"Vorschriften und Urheberrechtsgesetzen verwenden, ohne die gesetzlichen "
+"Rechte des Autors und der relevanten Rechteinhaber zu verletzen. Für jede "
+"Person oder Organisation, die diese ohne Genehmigung zu kommerziellen "
+"Zwecken nutzt, behält sich das Unternehmen das Recht vor, rechtliche "
+"Schritte einzuleiten."

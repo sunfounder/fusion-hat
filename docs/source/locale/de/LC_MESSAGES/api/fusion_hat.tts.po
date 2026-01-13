@@ -1,0 +1,526 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.tts.rst:2
+msgid "fusion\\_hat.tts module"
+msgstr "fusion\\_hat.tts Modul"
+
+#: fusion_hat.tts:1 of
+msgid "Text-to-Speech (TTS) module."
+msgstr "Text-to-Speech ( TTS ) Modul."
+
+#: fusion_hat.tts:3 of
+msgid ""
+"This module provides a Text-to-Speech (TTS) class that can be used to "
+"convert text to speech using different TTS engines."
+msgstr ""
+"Dieses Modul stellt eine Text-to-Speech ( TTS ) Klasse bereit, die verwendet werden kann, "
+"um Text mithilfe verschiedener TTS-Engines in Sprache umzuwandeln."
+
+#: fusion_hat.tts:5 of
+msgid "Available TTS engines:"
+msgstr "Verfügbare TTS-Engines:"
+
+#: fusion_hat.tts:7 of
+msgid ""
+"``Piper``: A fast and local neural text-to-speech engine that embeds "
+"espeak-ng for phonemization."
+msgstr ""
+"``Piper``: Eine schnelle und lokale neuronale Text-to-Speech-Engine, die espeak-ng "
+"für die Phonemisierung einbettet."
+
+#: fusion_hat.tts:8 of
+msgid ""
+"``Pico2Wave``: SVOX Pico TTS engine used to convert text into a WAV audio"
+" file."
+msgstr ""
+"``Pico2Wave``: SVOX Pico TTS-Engine, die verwendet wird, um Text in eine WAV-Audiodatei "
+"umzuwandeln."
+
+#: fusion_hat.tts:9 of
+msgid ""
+"``Espeak``: A compact open source software speech synthesizer for English"
+" and other languages."
+msgstr ""
+"``Espeak``: Ein kompakter Open-Source-Sprachsynthesizer für Englisch und andere Sprachen."
+
+#: fusion_hat.tts:10 of
+msgid "``OpenAI_TTS`` Online TTS service from OpenAI."
+msgstr "``OpenAI_TTS`` Online-TTS-Dienst von OpenAI."
+
+#: fusion_hat.tts:13 of
+msgid "Example"
+msgstr "Beispiel"
+
+#: fusion_hat.tts:14 of
+msgid "``Piper``"
+msgstr "``Piper``"
+
+#: fusion_hat.tts:16 of
+msgid "Initialize Piper TTS engine."
+msgstr "Piper-TTS-Engine initialisieren."
+
+#: fusion_hat.tts:21 of
+msgid "Checkout available countries."
+msgstr "Verfügbare Länder anzeigen."
+
+#: fusion_hat.tts:26 of
+msgid "List all models for country en_US."
+msgstr "Alle Modelle für das Land en_US auflisten."
+
+#: fusion_hat.tts:31 of
+msgid "Set model"
+msgstr "Modell festlegen"
+
+#: fusion_hat.tts:35 fusion_hat.tts:62 fusion_hat.tts:82 fusion_hat.tts:98 of
+msgid "Say message."
+msgstr "Nachricht sprechen."
+
+#: fusion_hat.tts:39 of
+msgid "``Espeak``"
+msgstr "``Espeak``"
+
+#: fusion_hat.tts:41 of
+msgid "Import and initialize Espeak TTS engine."
+msgstr "Espeak-TTS-Engine importieren und initialisieren."
+
+#: fusion_hat.tts:46 of
+msgid "Set amplitude 0-200, default 100"
+msgstr "Amplitude 0–200 setzen, Standard 100"
+
+#: fusion_hat.tts:50 of
+msgid "Set speed 80-260, default 150"
+msgstr "Geschwindigkeit 80–260 setzen, Standard 150"
+
+#: fusion_hat.tts:54 of
+msgid "Set gap 0-200, default 1"
+msgstr "Pause ( Gap ) 0–200 setzen, Standard 1"
+
+#: fusion_hat.tts:58 of
+msgid "Set pitch 0-99, default 80"
+msgstr "Tonhöhe 0–99 setzen, Standard 80"
+
+#: fusion_hat.tts:66 of
+msgid "``Pico2Wave``"
+msgstr "``Pico2Wave``"
+
+#: fusion_hat.tts:68 of
+msgid "Import and initialize Pico2Wave TTS engine."
+msgstr "Pico2Wave-TTS-Engine importieren und initialisieren."
+
+#: fusion_hat.tts:73 of
+msgid "List available languages."
+msgstr "Verfügbare Sprachen auflisten."
+
+#: fusion_hat.tts:78 of
+#: sunfounder_voice_assistant.tts.pico2wave.Pico2Wave.set_lang:1
+msgid "Set language."
+msgstr "Sprache festlegen."
+
+#: fusion_hat.tts:86 of
+msgid "``OpenAI TTS``"
+msgstr "``OpenAI TTS``"
+
+#: fusion_hat.tts:88 of
+msgid "Import and initialize OpenAI TTS engine."
+msgstr "OpenAI-TTS-Engine importieren und initialisieren."
+
+#: fusion_hat.tts:94 of
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_voice:1
+msgid "Set voice."
+msgstr "Stimme festlegen."
+
+#: fusion_hat.tts:102 of
+msgid "Say message with instructions."
+msgstr "Nachricht mit Anweisungen sprechen."
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak:1
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:1
+#: sunfounder_voice_assistant.tts.pico2wave.Pico2Wave:1
+#: sunfounder_voice_assistant.tts.piper.Piper:1
+msgid "Bases: :py:class:`~sunfounder_voice_assistant._base._Base`"
+msgstr "Basisklassen: :py:class:`~sunfounder_voice_assistant._base._Base`"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper:1
+msgid "Piper TTS engine."
+msgstr "Piper-TTS-Engine."
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak
+#: sunfounder_voice_assistant.tts.espeak.Espeak.say
+#: sunfounder_voice_assistant.tts.espeak.Espeak.set_amp
+#: sunfounder_voice_assistant.tts.espeak.Espeak.set_gap
+#: sunfounder_voice_assistant.tts.espeak.Espeak.set_pitch
+#: sunfounder_voice_assistant.tts.espeak.Espeak.set_speed
+#: sunfounder_voice_assistant.tts.espeak.Espeak.tts
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.say
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_api_key
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_gain
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_model
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_voice
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts
+#: sunfounder_voice_assistant.tts.pico2wave.Pico2Wave
+#: sunfounder_voice_assistant.tts.pico2wave.Pico2Wave.say
+#: sunfounder_voice_assistant.tts.pico2wave.Pico2Wave.set_lang
+#: sunfounder_voice_assistant.tts.piper.Piper
+#: sunfounder_voice_assistant.tts.piper.Piper.available_models
+#: sunfounder_voice_assistant.tts.piper.Piper.download_model
+#: sunfounder_voice_assistant.tts.piper.Piper.fix_chinese_punctuation
+#: sunfounder_voice_assistant.tts.piper.Piper.get_model_path
+#: sunfounder_voice_assistant.tts.piper.Piper.is_model_downloaded
+#: sunfounder_voice_assistant.tts.piper.Piper.say
+#: sunfounder_voice_assistant.tts.piper.Piper.set_model
+#: sunfounder_voice_assistant.tts.piper.Piper.stream
+#: sunfounder_voice_assistant.tts.piper.Piper.tts
+msgid "Parameters"
+msgstr "Parameter"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper:3
+msgid "model, leave it None to use default model, defaults to None"
+msgstr "Modell, None lassen, um das Standardmodell zu verwenden, Standard ist None"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak:3
+#: sunfounder_voice_assistant.tts.espeak.Espeak:4
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:13
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:14
+#: sunfounder_voice_assistant.tts.pico2wave.Pico2Wave:5
+#: sunfounder_voice_assistant.tts.pico2wave.Pico2Wave:6
+#: sunfounder_voice_assistant.tts.piper.Piper:5
+#: sunfounder_voice_assistant.tts.piper.Piper:6
+msgid "passed to :class:`sunfounder_voice_assistant._base._Base`."
+msgstr "wird an :py:class:`sunfounder_voice_assistant._base._Base` übergeben."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.get_language:1
+msgid "Get language from model."
+msgstr "Sprache aus dem Modell abrufen."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts
+#: sunfounder_voice_assistant.tts.piper.Piper.available_countrys
+#: sunfounder_voice_assistant.tts.piper.Piper.available_models
+#: sunfounder_voice_assistant.tts.piper.Piper.fix_chinese_punctuation
+#: sunfounder_voice_assistant.tts.piper.Piper.get_language
+#: sunfounder_voice_assistant.tts.piper.Piper.get_model_path
+#: sunfounder_voice_assistant.tts.piper.Piper.is_model_downloaded
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.get_language:3
+msgid "language"
+msgstr "Sprache"
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts
+#: sunfounder_voice_assistant.tts.piper.Piper.available_countrys
+#: sunfounder_voice_assistant.tts.piper.Piper.available_models
+#: sunfounder_voice_assistant.tts.piper.Piper.fix_chinese_punctuation
+#: sunfounder_voice_assistant.tts.piper.Piper.get_language
+#: sunfounder_voice_assistant.tts.piper.Piper.get_model_path
+#: sunfounder_voice_assistant.tts.piper.Piper.is_model_downloaded
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.is_model_downloaded:1
+msgid "Check if model is downloaded."
+msgstr "Prüfen, ob das Modell heruntergeladen ist."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.download_model:3
+#: sunfounder_voice_assistant.tts.piper.Piper.get_model_path:3
+#: sunfounder_voice_assistant.tts.piper.Piper.is_model_downloaded:3
+#: sunfounder_voice_assistant.tts.piper.Piper.set_model:3
+msgid "model"
+msgstr "Modell"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.is_model_downloaded:6
+msgid "True if model is downloaded, False otherwise"
+msgstr "True, wenn das Modell heruntergeladen ist, andernfalls False"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.download_model:1
+msgid "Download model."
+msgstr "Modell herunterladen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.download_model:5
+msgid "force download, default is False"
+msgstr "Download erzwingen, Standard ist False"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.download_model:7
+msgid "progress callback, default is None"
+msgstr "Fortschritts-Callback, Standard ist None"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.fix_chinese_punctuation:1
+msgid "Replace Chinese punctuation with English punctuation."
+msgstr "Chinesische Satzzeichen durch englische Satzzeichen ersetzen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.fix_chinese_punctuation:3
+#: sunfounder_voice_assistant.tts.piper.Piper.say:3
+#: sunfounder_voice_assistant.tts.piper.Piper.stream:3
+#: sunfounder_voice_assistant.tts.piper.Piper.tts:3
+msgid "text"
+msgstr "Text"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.fix_chinese_punctuation:6
+msgid "text with English punctuation"
+msgstr "Text mit englischen Satzzeichen"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.tts:1
+msgid "Synthesize text to wave file."
+msgstr "Text zu einer Wave-Datei synthetisieren."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.tts:5
+msgid "wave file path"
+msgstr "Wave-Dateipfad"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.say
+#: sunfounder_voice_assistant.tts.piper.Piper.set_model
+#: sunfounder_voice_assistant.tts.piper.Piper.stream
+#: sunfounder_voice_assistant.tts.piper.Piper.tts
+msgid "Raises"
+msgstr "Wirft"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.say:8
+#: sunfounder_voice_assistant.tts.piper.Piper.stream:6
+#: sunfounder_voice_assistant.tts.piper.Piper.tts:8
+msgid "Model not set, set model first, with Piper.set_model(model)"
+msgstr "Modell nicht gesetzt, setzen Sie zuerst das Modell mit Piper.set_model( model )"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.stream:1
+msgid "Stream text to speaker."
+msgstr "Text zum Lautsprecher streamen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.say:1
+msgid "Say text."
+msgstr "Text sprechen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.say:5
+msgid "stream to speaker, default is True"
+msgstr "Zum Lautsprecher streamen, Standard ist True"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.available_models:1
+msgid "Get available models."
+msgstr "Verfügbare Modelle abrufen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.available_models:3
+msgid "country, leave it None to get all models, defaults to None"
+msgstr "Land, None lassen, um alle Modelle zu erhalten, Standard ist None"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.available_models:6
+msgid "available models"
+msgstr "Verfügbare Modelle"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.available_countrys:1
+msgid "Get available countrys."
+msgstr "Verfügbare Länder abrufen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.available_countrys:3
+msgid "available countrys"
+msgstr "Verfügbare Länder"
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.get_model_path:1
+msgid "Get model path."
+msgstr "Modellpfad abrufen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.get_model_path:6
+msgid "model path"
+msgstr "Modellpfad"
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_model:1
+#: sunfounder_voice_assistant.tts.piper.Piper.set_model:1
+msgid "Set model."
+msgstr "Modell festlegen."
+
+#: of sunfounder_voice_assistant.tts.piper.Piper.set_model:6
+msgid "Model not found"
+msgstr "Modell nicht gefunden"
+
+#: of sunfounder_voice_assistant.tts.pico2wave.Pico2Wave:1
+msgid "Pico2Wave TTS engine."
+msgstr "Pico2Wave-TTS-Engine."
+
+#: of sunfounder_voice_assistant.tts.pico2wave.Pico2Wave:3
+msgid "language, leave it None to use default language, defaults to 'en-US'"
+msgstr "Sprache, None lassen, um die Standardsprache zu verwenden, Standard ist 'en-US'"
+
+#: ../docstring fusion_hat.tts.Pico2Wave.SUPPORTED_LANGUAUE:1 of
+msgid "Supported languages."
+msgstr "Unterstützte Sprachen."
+
+#: of sunfounder_voice_assistant.tts.pico2wave.Pico2Wave.say:1
+msgid "Say words with pico2wave."
+msgstr "Wörter mit pico2wave sprechen."
+
+#: of sunfounder_voice_assistant.tts.pico2wave.Pico2Wave.say:3
+msgid "words to say."
+msgstr "Zu sprechende Wörter."
+
+#: of sunfounder_voice_assistant.tts.pico2wave.Pico2Wave.set_lang:3
+msgid "language."
+msgstr "Sprache."
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak:1
+msgid "Espeak TTS engine"
+msgstr "Espeak-TTS-Engine"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.tts:1
+msgid "Text-to-speech with espeak"
+msgstr "Text-to-Speech mit espeak"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.tts:3
+msgid "Word to say"
+msgstr "Zu sprechendes Wort"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.tts:5
+msgid "Path to save audio file"
+msgstr "Pfad zum Speichern der Audiodatei"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.say:1
+msgid "Say words with espeak"
+msgstr "Wörter mit espeak sprechen"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.say:3
+msgid "Words to say"
+msgstr "Zu sprechende Wörter"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_amp:1
+msgid "Set amplitude"
+msgstr "Amplitude setzen"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_amp:3
+msgid "Amplitude (0-200)"
+msgstr "Amplitude ( 0–200 )"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_speed:1
+msgid "Set speed"
+msgstr "Geschwindigkeit setzen"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_speed:3
+msgid "Speed (80-260)"
+msgstr "Geschwindigkeit ( 80–260 )"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_gap:1
+msgid "Set gap"
+msgstr "Pause ( Gap ) setzen"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_gap:3
+msgid "Gap (0-200)"
+msgstr "Pause ( Gap ) ( 0–200 )"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_pitch:1
+msgid "Set pitch"
+msgstr "Tonhöhe setzen"
+
+#: of sunfounder_voice_assistant.tts.espeak.Espeak.set_pitch:3
+msgid "Pitch (0-99)"
+msgstr "Tonhöhe ( 0–99 )"
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:1
+msgid "OpenAI TTS engine."
+msgstr "OpenAI-TTS-Engine."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:3
+msgid "Voice, default is Voice.ALLOY."
+msgstr "Stimme, Standard ist Voice.ALLOY."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:5
+msgid "Model, default is Model.GPT_4O_MINI_TTS."
+msgstr "Modell, Standard ist Model.GPT_4O_MINI_TTS."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:7
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_api_key:3
+msgid "API key."
+msgstr "API-Schlüssel."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:9
+msgid "Volume gain, default is 1.5."
+msgstr "Lautstärkeverstärkung, Standard ist 1.5."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS:11
+msgid "Logger, default is None."
+msgstr "Logger, Standard ist None."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.Model:1
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.Voice:1
+msgid "Bases: :py:class:`~enum.StrEnum`"
+msgstr "Basisklassen: :py:class:`~enum.StrEnum`"
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.Voice:1
+msgid "Voice enum."
+msgstr "Stimmen-Enum."
+
+#: enum.StrEnum._generate_next_value_:1 of
+msgid "Return the lower-cased version of the member name."
+msgstr "Gibt die kleingeschriebene Version des Mitgliednamens zurück."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.Model:1
+msgid "Model enum."
+msgstr "Modell-Enum."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts:1
+msgid "Request OpenAI TTS API."
+msgstr "OpenAI-TTS-API anfordern."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.say:3
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts:3
+msgid "Words to say."
+msgstr "Zu sprechende Wörter."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts:5
+msgid "Output file, default is '/tmp/openai_tts.wav'."
+msgstr "Ausgabedatei, Standard ist '/tmp/openai_tts.wav'."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.say:5
+#: sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts:7
+msgid "Instructions, default is None."
+msgstr "Anweisungen, Standard ist None."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts:9
+msgid "Whether to stream the audio, default is False."
+msgstr "Ob das Audio gestreamt werden soll, Standard ist False."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.tts:12
+msgid "True if success, False otherwise."
+msgstr "True bei Erfolg, andernfalls False."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.say:1
+msgid "Say words."
+msgstr "Wörter sprechen."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.say:7
+msgid "Whether to stream the audio, default is True."
+msgstr "Ob das Audio gestreamt werden soll, Standard ist True."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_voice:3
+msgid "Voice."
+msgstr "Stimme."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_model:3
+msgid "Model."
+msgstr "Modell."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_api_key:1
+msgid "Set api key."
+msgstr "API-Schlüssel setzen."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_gain:1
+msgid "Set gain."
+msgstr "Verstärkung setzen."
+
+#: of sunfounder_voice_assistant.tts.openai_tts.OpenAI_TTS.set_gain:3
+msgid "Gain."
+msgstr "Verstärkung."

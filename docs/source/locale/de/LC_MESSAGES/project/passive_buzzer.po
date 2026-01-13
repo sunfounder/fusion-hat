@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/passive_buzzer.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../project/passive_buzzer.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../project/passive_buzzer.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../project/passive_buzzer.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../project/passive_buzzer.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../project/passive_buzzer.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten "
+"Produkte."
+
+#: ../project/passive_buzzer.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../project/passive_buzzer.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../project/passive_buzzer.rst:18
+msgid "Passive Buzzer"
+msgstr "Passiver Summer"
+
+#: ../project/passive_buzzer.rst:20
+msgid "**Introduction**"
+msgstr "**Einführung**"
+
+#: ../project/passive_buzzer.rst:22
+msgid ""
+"In this project, we will learn how to make a passive buzzer play music by"
+" driving it with different frequencies. Passive buzzers, unlike active "
+"buzzers, require an external signal to produce sound."
+msgstr ""
+"In diesem Projekt lernen wir, wie man einen passiven Summer durch Ansteuerung "
+"mit unterschiedlichen Frequenzen Musik abspielen lässt. Passive Summer "
+"benötigen im Gegensatz zu aktiven Summern ein externes Signal, um Klang zu "
+"erzeugen."
+
+#: ../project/passive_buzzer.rst:28
+msgid "**Circuit Diagram**"
+msgstr "**Schaltplan**"
+
+#: ../project/passive_buzzer.rst:30
+msgid ""
+"The circuit uses a passive buzzer, a NPN transistor, and a 1kΩ resistor. "
+"The resistor protects the transistor from excessive current. By varying "
+"the frequency of the GPIO pin connected to the transistor, the buzzer "
+"produces different sounds, enabling it to play music."
+msgstr ""
+"Die Schaltung verwendet einen passiven Summer, einen NPN-Transistor und "
+"einen 1 kΩ Widerstand. Der Widerstand schützt den Transistor vor zu hohem "
+"Strom. Durch Variieren der Frequenz des mit dem Transistor verbundenen "
+"GPIO-Pins erzeugt der Summer unterschiedliche Töne, wodurch er Musik "
+"abspielen kann."
+
+#: ../project/passive_buzzer.rst:37
+msgid "**Wiring Diagram**"
+msgstr "**Verdrahtungsdiagramm**"
+
+#: ../project/passive_buzzer.rst:39
+msgid "Follow these steps to build the circuit:"
+msgstr "Befolge diese Schritte, um die Schaltung aufzubauen:"
+
+#: ../project/passive_buzzer.rst:41
+msgid "Connect the base of the NPN transistor to PWM0 through the resistor."
+msgstr ""
+"Verbinde die Basis des NPN-Transistors über den Widerstand mit PWM0."
+
+#: ../project/passive_buzzer.rst:42
+msgid "Connect the emitter of the transistor to the power supply (+)."
+msgstr "Verbinde den Emitter des Transistors mit der Stromversorgung (+)."
+
+#: ../project/passive_buzzer.rst:43
+msgid ""
+"Connect the collector of the transistor to one terminal of the passive "
+"buzzer."
+msgstr ""
+"Verbinde den Kollektor des Transistors mit einem Anschluss des passiven "
+"Summers."
+
+#: ../project/passive_buzzer.rst:44
+msgid "Connect the other terminal of the buzzer to the ground (-)."
+msgstr "Verbinde den anderen Anschluss des Summers mit Masse (-)."
+
+#: ../project/passive_buzzer.rst:53
+msgid "**Code**"
+msgstr "**Code**"
+
+#: ../project/passive_buzzer.rst:55
+msgid "The following Python code generates musical notes using a passive buzzer:"
+msgstr ""
+"Der folgende Python-Code erzeugt musikalische Töne mit einem passiven Summer:"
+
+#: ../project/passive_buzzer.rst:102
+msgid ""
+"This Python script plays a musical tune using a passive buzzer connected "
+"to PWM 0. When executed:"
+msgstr ""
+"Dieses Python-Skript spielt eine Melodie mit einem passiven Summer, der an "
+"PWM 0 angeschlossen ist. Bei der Ausführung:"
+
+#: ../project/passive_buzzer.rst:104
+msgid ""
+"The script iterates through a predefined sequence of musical notes "
+"(``tune``), playing each note for a specified duration."
+msgstr ""
+"durchläuft das Skript eine vordefinierte Folge von Noten (``tune``) und spielt "
+"jede Note für eine festgelegte Dauer."
+
+#: ../project/passive_buzzer.rst:105
+msgid ""
+"The notes are output to the console as they are played, providing a "
+"visual reference."
+msgstr ""
+"werden die Noten während der Wiedergabe in der Konsole ausgegeben, um eine "
+"visuelle Referenz zu bieten."
+
+#: ../project/passive_buzzer.rst:106
+msgid ""
+"The tune stops automatically once all notes are played. The buzzer "
+"produces no sound during pauses (when the note is ``None``)."
+msgstr ""
+"stoppt die Melodie automatisch, sobald alle Noten abgespielt wurden. Der "
+"Summer gibt während der Pausen (wenn die Note ``None`` ist) keinen Ton aus."
+
+#: ../project/passive_buzzer.rst:107
+msgid "The program can be interrupted gracefully using ``Ctrl+C``."
+msgstr "Das Programm kann mit ``Ctrl+C`` sauber beendet werden."

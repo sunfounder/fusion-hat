@@ -1,0 +1,228 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/neopixel.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../project/neopixel.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../project/neopixel.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../project/neopixel.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../project/neopixel.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../project/neopixel.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten "
+"Produkte."
+
+#: ../project/neopixel.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../project/neopixel.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../project/neopixel.rst:18
+msgid "NeoPixel LED Strip"
+msgstr "NeoPixel LED-Streifen"
+
+#: ../project/neopixel.rst:20
+msgid "**Introduction**"
+msgstr "**Einführung**"
+
+#: ../project/neopixel.rst:22
+msgid ""
+"In this project, we will learn how to control an addressable RGB LED "
+"strip (NeoPixel) using SPI communication on a Raspberry Pi. NeoPixels are"
+" intelligent RGB LEDs that contain their own drivers, allowing individual"
+" control of each LED in a chain. This project demonstrates basic color "
+"control and filling the entire strip with different colors."
+msgstr ""
+"In diesem Projekt lernen wir, wie man einen adressierbaren RGB-LED-Streifen "
+"(NeoPixel) über die SPI-Kommunikation auf einem Raspberry Pi steuert. "
+"NeoPixels sind intelligente RGB-LEDs mit eigenen Treibern, die eine "
+"individuelle Steuerung jeder LED in einer Kette ermöglichen. Dieses "
+"Projekt демонстрiert die grundlegende Farbsteuerung und das Füllen des "
+"gesamten Streifens mit verschiedenen Farben."
+
+#: ../project/neopixel.rst:27
+msgid "**Wiring Diagram**"
+msgstr "**Verdrahtungsdiagramm**"
+
+#: ../project/neopixel.rst:36
+msgid "**Setup**"
+msgstr "**Einrichtung**"
+
+#: ../project/neopixel.rst:39
+msgid "Before running the code, you need to install the required library:"
+msgstr ""
+"Bevor du den Code ausführst, musst du die erforderliche Bibliothek "
+"installieren:"
+
+#: ../project/neopixel.rst:41
+msgid ""
+"This library provides the necessary functions to control NeoPixel LEDs "
+"using SPI communication."
+msgstr ""
+"Diese Bibliothek stellt die erforderlichen Funktionen bereit, um "
+"NeoPixel-LEDs über die SPI-Kommunikation zu steuern."
+
+#: ../project/neopixel.rst:58
+msgid "**Code**"
+msgstr "**Code**"
+
+#: ../project/neopixel.rst:60
+msgid ""
+"The following Python code controls a NeoPixel LED strip, cycling through "
+"different colors:"
+msgstr ""
+"Der folgende Python-Code steuert einen NeoPixel-LED-Streifen und wechselt "
+"zyklisch zwischen verschiedenen Farben:"
+
+#: ../project/neopixel.rst:115
+msgid ""
+"This Python script demonstrates basic control of a 12-LED WS2812 ring "
+"using the NeoPixel SPI driver. When executed:"
+msgstr ""
+"Dieses Python-Skript demonstriert die grundlegende Steuerung eines "
+"12-LED-WS2812-Rings mit dem NeoPixel-SPI-Treiber. Bei der Ausführung:"
+
+#: ../project/neopixel.rst:117
+msgid "The script initializes the SPI interface and prepares the WS2812 LED ring."
+msgstr ""
+"initialisiert das Skript die SPI-Schnittstelle und bereitet den WS2812-LED-Ring vor."
+
+#: ../project/neopixel.rst:118
+msgid "All LEDs cycle through red, green, and blue with 1-second intervals."
+msgstr ""
+"Alle LEDs wechseln im Abstand von einer Sekunde zwischen Rot, Grün und Blau."
+
+#: ../project/neopixel.rst:119
+msgid "Each color change is printed to the console for debugging."
+msgstr ""
+"Jeder Farbwechsel wird zur Fehlersuche in der Konsole ausgegeben."
+
+#: ../project/neopixel.rst:120
+msgid "The LEDs briefly turn off between cycles."
+msgstr "Die LEDs schalten sich zwischen den Zyklen kurz aus."
+
+#: ../project/neopixel.rst:121
+msgid "The program loops continuously until interrupted with Ctrl+C."
+msgstr ""
+"Das Programm läuft kontinuierlich, bis es mit Ctrl+C unterbrochen wird."
+
+#: ../project/neopixel.rst:125
+msgid "Troubleshooting"
+msgstr "Fehlerbehebung"
+
+#: ../project/neopixel.rst:127
+msgid "**LED Ring Not Lighting Correctly**"
+msgstr "**LED-Ring leuchtet nicht korrekt**"
+
+#: ../project/neopixel.rst:129
+msgid "**Cause:** Wrong wiring or insufficient power"
+msgstr "**Ursache:** Falsche Verdrahtung oder unzureichende Stromversorgung"
+
+#: ../project/neopixel.rst:130
+msgid ""
+"**Solution:** Ensure VCC is 5V, GND is shared, and the data line is "
+"connected to DIN (sometimes labeled RGB)"
+msgstr ""
+"**Lösung:** Stelle sicher, dass VCC 5 V beträgt, GND gemeinsam ist und die "
+"Datenleitung mit DIN (manchmal als RGB bezeichnet) verbunden ist"
+
+#: ../project/neopixel.rst:132
+msgid "**Incorrect Colors**"
+msgstr "**Falsche Farben**"
+
+#: ../project/neopixel.rst:134
+msgid "**Cause:** LED color order mismatch"
+msgstr "**Ursache:** Nicht übereinstimmende LED-Farbfolge"
+
+#: ../project/neopixel.rst:135
+msgid ""
+"**Solution:** Try different pixel orders such as ``neopixel.RGB`` or "
+"``neopixel.GRBW``"
+msgstr ""
+"**Lösung:** Probiere verschiedene Pixel-Reihenfolgen wie ``neopixel.RGB`` "
+"oder ``neopixel.GRBW``"
+
+#: ../project/neopixel.rst:137
+msgid "**SPI Not Working**"
+msgstr "**SPI funktioniert nicht**"
+
+#: ../project/neopixel.rst:139
+msgid "**Cause:** SPI disabled or hardware conflict"
+msgstr "**Ursache:** SPI deaktiviert oder Hardwarekonflikt"
+
+#: ../project/neopixel.rst:140
+msgid "**Solution:** Enable SPI via ``sudo raspi-config``"
+msgstr "**Lösung:** Aktiviere SPI über ``sudo raspi-config``"
+
+#: ../project/neopixel.rst:142
+msgid "**Library Import Fails**"
+msgstr "**Bibliotheksimport fehlgeschlagen**"
+
+#: ../project/neopixel.rst:144
+msgid "**Cause:** Missing dependency"
+msgstr "**Ursache:** Fehlende Abhängigkeit"
+
+#: ../project/neopixel.rst:145
+msgid "**Solution:**"
+msgstr "**Lösung:**"

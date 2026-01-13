@@ -1,0 +1,319 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.pin.rst:2
+msgid "fusion\\_hat.pin module"
+msgstr "fusion\\_hat.pin Modul"
+
+#: fusion_hat.pin:1 fusion_hat.pin.Pin:1 of
+msgid "Pin manipulation class"
+msgstr "Pin-Manipulationsklasse"
+
+#: fusion_hat.pin:4 of
+msgid "Example"
+msgstr "Beispiel"
+
+#: fusion_hat.pin:5 of
+msgid "Simple example with auto mode"
+msgstr "Einfaches Beispiel mit Auto-Modus"
+
+#: fusion_hat.pin:14 of
+msgid "Output mode"
+msgstr "Ausgabemodus"
+
+#: fusion_hat.pin:29 of
+msgid "Input mode"
+msgstr "Eingabemodus"
+
+#: fusion_hat.pin:35 of
+msgid ""
+"Active state, If your LED active LOW, you can set active_state make "
+"things easier."
+msgstr ""
+"Aktiver Zustand. Wenn Ihre LED aktiv LOW ist, können Sie active_state setzen, "
+"um die Verwendung zu vereinfachen."
+
+#: fusion_hat.pin:47 of
+msgid ""
+"And also if your button active LOW, you can set active_state to "
+"Pin.ACTIVE_LOW. you can also do the same."
+msgstr ""
+"Wenn auch Ihre Taste aktiv LOW ist, können Sie active_state auf Pin.ACTIVE_LOW "
+"setzen. Sie können dasselbe tun."
+
+#: fusion_hat.pin:55 of
+msgid "You can also set interrupts on activated or deactivated state."
+msgstr "Sie können auch Interrupts für den aktivierten oder deaktivierten Zustand setzen."
+
+#: fusion_hat.pin.Active:1 fusion_hat.pin.Mode:1 fusion_hat.pin.Pull:1
+#: fusion_hat.pin.Trigger:1 of
+msgid "Bases: :py:class:`~enum.Enum`"
+msgstr "Basisklassen: :py:class:`~enum.Enum`"
+
+#: fusion_hat.pin.Mode:1 of
+msgid "Pin direction"
+msgstr "Pin-Richtung"
+
+#: ../docstring fusion_hat.pin.Mode.AUTO:1 of
+msgid "Pin direction auto"
+msgstr "Pin-Richtung Auto"
+
+#: ../docstring RPi.GPIO.IN:1 of
+msgid "Pin direction input"
+msgstr "Pin-Richtung Eingang"
+
+#: ../docstring RPi.GPIO.OUT:1 of
+msgid "Pin direction output"
+msgstr "Pin-Richtung Ausgang"
+
+#: fusion_hat.pin.Pull:1 of
+msgid "Pin pull up/down"
+msgstr "Pin Pull-Up / Pull-Down"
+
+#: ../docstring RPi.GPIO.PUD_UP:1 of
+msgid "Pin internal pull up"
+msgstr "Interner Pull-Up des Pins"
+
+#: ../docstring RPi.GPIO.PUD_DOWN:1 of
+msgid "Pin internal pull down"
+msgstr "Interner Pull-Down des Pins"
+
+#: ../docstring RPi.GPIO.PUD_OFF:1 of
+msgid "Pin internal pull none"
+msgstr "Kein interner Pull-Widerstandstand des Pins"
+
+#: fusion_hat.pin.Active:1 of
+msgid "Pin active state"
+msgstr "Pin-Aktivzustand"
+
+#: ../docstring fusion_hat.pin.Active.HIGH:1 fusion_hat.pin.Pin.ACTIVE_HIGH:1
+#: of
+msgid "Pin active state high"
+msgstr "Pin-Aktivzustand High"
+
+#: ../docstring fusion_hat.pin.Active.LOW:1 fusion_hat.pin.Pin.ACTIVE_LOW:1 of
+msgid "Pin active state low"
+msgstr "Pin-Aktivzustand Low"
+
+#: fusion_hat.pin.Trigger:1 of
+msgid "Pin interrupt"
+msgstr "Pin-Interrupt"
+
+#: ../docstring RPi.GPIO.FALLING:1 of
+msgid "Pin interrupt falling"
+msgstr "Pin-Interrupt fallend"
+
+#: ../docstring RPi.GPIO.RISING:1 of
+msgid "Pin interrupt rising"
+msgstr "Pin-Interrupt steigend"
+
+#: ../docstring RPi.GPIO.BOTH:1 of
+msgid "Pin interrupt both rising and falling"
+msgstr "Pin-Interrupt sowohl steigend als auch fallend"
+
+#: fusion_hat.pin.Pin:1 of
+msgid "Bases: :py:class:`~fusion_hat._base._Base`"
+msgstr "Basisklassen: :py:class:`~fusion_hat._base._Base`"
+
+#: fusion_hat.pin.Pin:3 of
+msgid ""
+"a pin wraping class of RPi.GPIO. you need to install rpi.lgpio instead of"
+" RPi.GPIO on Pi 5"
+msgstr ""
+"Eine Pin-Wrapper-Klasse für RPi.GPIO. Auf dem Pi 5 müssen Sie rpi.lgpio statt "
+"RPi.GPIO installieren."
+
+#: fusion_hat.pin.Pin fusion_hat.pin.Pin.__call__ fusion_hat.pin.Pin.irq
+#: fusion_hat.pin.Pin.irq_handler fusion_hat.pin.Pin.raw
+#: fusion_hat.pin.Pin.setup fusion_hat.pin.Pin.value of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.pin.Pin:5 of
+msgid "pin number of Raspberry Pi"
+msgstr "Pin-Nummer des Raspberry Pi"
+
+#: fusion_hat.pin.Pin:7 fusion_hat.pin.Pin.setup:3 of
+msgid "pin mode(IN/OUT/AUTO). Defaults to Mode.AUTO."
+msgstr "Pin-Modus ( IN / OUT / AUTO ). Standard ist Mode.AUTO."
+
+#: fusion_hat.pin.Pin:9 fusion_hat.pin.Pin.setup:5 of
+msgid "pin pull (Pull.UP/Pull.DOWN/Pull.NONE). Defaults to Pull.NONE."
+msgstr "Pin-Pull ( Pull.UP / Pull.DOWN / Pull.NONE ). Standard ist Pull.NONE."
+
+#: fusion_hat.pin.Pin:11 fusion_hat.pin.Pin.setup:7 of
+msgid ""
+"active state of pin, If True, when the hardware pin state is HIGH, the "
+"software pin is HIGH. If False, the input polarity is reversed. Defaults "
+"to Active.HIGH."
+msgstr ""
+"Aktiver Zustand des Pins. Wenn True, ist der Software-Pin HIGH, wenn der "
+"Hardware-Pin HIGH ist. Wenn False, wird die Eingangspolarität invertiert. "
+"Standard ist Active.HIGH."
+
+#: fusion_hat.pin.Pin:15 fusion_hat.pin.Pin.setup:11 of
+msgid "bounce time of pin interrupt in seconds. Defaults to 0.02."
+msgstr "Entprellzeit des Pin-Interrupts in Sekunden. Standard ist 0.02."
+
+#: fusion_hat.pin.Pin:17 of
+msgid "Additional arguments for :class:`fusion_hat._base._Base`"
+msgstr "Zusätzliche Argumente für :py:class:`fusion_hat._base._Base`"
+
+#: fusion_hat.pin.Pin:18 of
+msgid "Additional keyword arguments for :class:`fusion_hat._base._Base`"
+msgstr "Zusätzliche Schlüsselwortargumente für :py:class:`fusion_hat._base._Base`"
+
+#: ../docstring RPi.GPIO.OUT:1 of
+msgid "Pin mode output"
+msgstr "Pin-Modus Ausgang"
+
+#: ../docstring RPi.GPIO.IN:1 of
+msgid "Pin mode input"
+msgstr "Pin-Modus Eingang"
+
+#: ../docstring fusion_hat.pin.Pin.AUTO:1 of
+msgid "Pin mode auto"
+msgstr "Pin-Modus Auto"
+
+#: fusion_hat.pin.Pin.close:1 of
+msgid "Close the pin"
+msgstr "Den Pin schließen"
+
+#: fusion_hat.pin.Pin.deinit:1 of
+msgid "Deinitialize the pin"
+msgstr "Den Pin deinitialisieren"
+
+#: fusion_hat.pin.Pin.setup:1 of
+msgid "Setup the pin"
+msgstr "Den Pin einrichten"
+
+#: fusion_hat.pin.Pin.__call__:1 fusion_hat.pin.Pin.value:1 of
+msgid "Set/get the pin value"
+msgstr "Pin-Wert setzen oder abrufen"
+
+#: fusion_hat.pin.Pin.__call__:3 fusion_hat.pin.Pin.raw:3
+#: fusion_hat.pin.Pin.value:3 of
+msgid "pin value, leave it empty to get the value(0/1). Defaults to None."
+msgstr "Pin-Wert, leer lassen, um den Wert ( 0 / 1 ) zu erhalten. Standard ist None."
+
+#: fusion_hat.pin.Pin.__call__ fusion_hat.pin.Pin.high fusion_hat.pin.Pin.low
+#: fusion_hat.pin.Pin.off fusion_hat.pin.Pin.on fusion_hat.pin.Pin.raw
+#: fusion_hat.pin.Pin.value fusion_hat.pin.Pin.when_activated
+#: fusion_hat.pin.Pin.when_deactivated of
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: fusion_hat.pin.Pin.__call__:6 fusion_hat.pin.Pin.raw:6
+#: fusion_hat.pin.Pin.value:6 of
+msgid "pin value(0/1)"
+msgstr "Pin-Wert ( 0 / 1 )"
+
+#: fusion_hat.pin.Pin.__call__ fusion_hat.pin.Pin.high fusion_hat.pin.Pin.low
+#: fusion_hat.pin.Pin.off fusion_hat.pin.Pin.on fusion_hat.pin.Pin.raw
+#: fusion_hat.pin.Pin.value fusion_hat.pin.Pin.when_activated
+#: fusion_hat.pin.Pin.when_deactivated of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.pin.Pin.raw:1 of
+msgid "Set/get the pin raw value"
+msgstr "Rohwert des Pins setzen oder abrufen"
+
+#: fusion_hat.pin.Pin.irq fusion_hat.pin.Pin.raw fusion_hat.pin.Pin.value of
+msgid "Raises"
+msgstr "Wirft"
+
+#: fusion_hat.pin.Pin.raw:9 fusion_hat.pin.Pin.value:9 of
+msgid "if pin mode is IN"
+msgstr "wenn der Pin-Modus IN ist"
+
+#: fusion_hat.pin.Pin.on:1 of
+msgid "Set pin on(high)"
+msgstr "Pin auf Ein ( High ) setzen"
+
+#: fusion_hat.pin.Pin.high:3 fusion_hat.pin.Pin.on:3 of
+msgid "pin value(1)"
+msgstr "Pin-Wert ( 1 )"
+
+#: fusion_hat.pin.Pin.off:1 of
+msgid "Set pin off(low)"
+msgstr "Pin auf Aus ( Low ) setzen"
+
+#: fusion_hat.pin.Pin.low:3 fusion_hat.pin.Pin.off:3 of
+msgid "pin value(0)"
+msgstr "Pin-Wert ( 0 )"
+
+#: fusion_hat.pin.Pin.high:1 of
+msgid "Set pin high(1)"
+msgstr "Pin auf High ( 1 ) setzen"
+
+#: fusion_hat.pin.Pin.low:1 of
+msgid "Set pin low(0)"
+msgstr "Pin auf Low ( 0 ) setzen"
+
+#: fusion_hat.pin.Pin.irq:1 of
+msgid "Set the pin interrupt"
+msgstr "Den Pin-Interrupt setzen"
+
+#: fusion_hat.pin.Pin.irq:3 of
+msgid "interrupt handler callback function"
+msgstr "Callback-Funktion des Interrupt-Handlers"
+
+#: fusion_hat.pin.Pin.irq:5 of
+msgid ""
+"interrupt trigger(RISING, FALLING, RISING_FALLING). Defaults to "
+"Trigger.BOTH."
+msgstr ""
+"Interrupt-Trigger ( RISING, FALLING, RISING_FALLING ). Standard ist "
+"Trigger.BOTH."
+
+#: fusion_hat.pin.Pin.irq:8 of
+msgid "if trigger is not valid"
+msgstr "wenn der Trigger nicht gültig ist"
+
+#: fusion_hat.pin.Pin.init_irq:1 of
+msgid "Initialize the pin interrupt"
+msgstr "Den Pin-Interrupt initialisieren"
+
+#: fusion_hat.pin.Pin.irq_handler:1 of
+msgid "Handle the pin interrupt"
+msgstr "Den Pin-Interrupt verarbeiten"
+
+#: fusion_hat.pin.Pin.irq_handler:3 of
+msgid "pin number"
+msgstr "Pin-Nummer"
+
+#: fusion_hat.pin.Pin.when_activated:1 of
+msgid "Get the pressed handler"
+msgstr "Den Handler für Gedrückt abrufen"
+
+#: fusion_hat.pin.Pin.when_activated:3 of
+msgid "pressed handler"
+msgstr "Gedrückt-Handler"
+
+#: fusion_hat.pin.Pin.when_deactivated:1 of
+msgid "Get the released handler"
+msgstr "Den Handler für Losgelassen abrufen"
+
+#: fusion_hat.pin.Pin.when_deactivated:3 of
+msgid "released handler"
+msgstr "Losgelassen-Handler"

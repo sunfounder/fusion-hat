@@ -1,0 +1,346 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauchen Sie gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum mitmachen?**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support** : Lösen Sie After-Sales-Probleme und technische Herausforderungen mit "
+"Hilfe unserer Community und unseres Teams."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen** : Tauschen Sie Tipps und Tutorials aus, um Ihre Fähigkeiten zu verbessern."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen** : Erhalten Sie frühzeitigen Zugriff auf neue Produktankündigungen und "
+"exklusive Einblicke."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Sonderrabatte** : Profitieren Sie von exklusiven Rabatten auf unsere neuesten Produkte."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele** : Nehmen Sie an Gewinnspielen und saisonalen Aktionen teil."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicken Sie auf [|link_sf_facebook|] und "
+"treten Sie noch heute bei!"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:16
+msgid "1. TTS with Espeak and Pico2Wave"
+msgstr "1. TTS mit Espeak und Pico2Wave"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:18
+msgid ""
+"In this lesson, we'll use two built-in text-to-speech (TTS) engines on "
+"Raspberry Pi — **Espeak** and **Pico2Wave** — to make the Fusion HAT+ "
+"talk."
+msgstr ""
+"In dieser Lektion verwenden wir zwei integrierte Text-to-Speech ( TTS )-Engines auf dem "
+"Raspberry Pi — **Espeak** und **Pico2Wave** — um Fusion HAT+ sprechen zu lassen."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:20
+msgid ""
+"These two engines are both simple and run offline, but they sound quite "
+"different:"
+msgstr ""
+"Diese beiden Engines sind beide einfach und laufen offline, aber sie klingen ziemlich "
+"unterschiedlich:"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:22
+msgid ""
+"**Espeak**: very lightweight and fast, but the voice is robotic. You can "
+"adjust speed, pitch, and volume."
+msgstr ""
+"**Espeak** : Sehr leichtgewichtig und schnell, aber die Stimme klingt robotisch. Sie können "
+"Geschwindigkeit, Tonhöhe und Lautstärke anpassen."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:23
+msgid ""
+"**Pico2Wave**: produces a smoother and more natural voice than Espeak, "
+"but has fewer options to configure."
+msgstr ""
+"**Pico2Wave** : Erzeugt eine weichere und natürlichere Stimme als Espeak, "
+"bietet jedoch weniger Konfigurationsoptionen."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:25
+msgid "You'll hear the difference in **voice quality** and **features**."
+msgstr "Sie hören den Unterschied in **Sprachqualität** und **Funktionen** ."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:30
+msgid "1. Testing Espeak"
+msgstr "1. Espeak testen"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:32
+msgid ""
+"Espeak is a lightweight TTS engine included in Raspberry Pi OS. Its voice"
+" sounds robotic, but it is highly configurable: you can adjust volume, "
+"pitch, speed, and more."
+msgstr ""
+"Espeak ist eine leichtgewichtige TTS-Engine, die in Raspberry Pi OS enthalten ist. Ihre Stimme "
+"klingt robotisch, ist aber sehr gut konfigurierbar: Sie können Lautstärke, "
+"Tonhöhe, Sprechgeschwindigkeit und mehr anpassen."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:35
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:84
+msgid "**Run the program**"
+msgstr "**Programm ausführen**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:42
+msgid "You should hear the Fusion HAT+ say: “Hello! I'm Espeak TTS.”"
+msgstr "Sie sollten Fusion HAT+ sagen hören: „Hallo! Ich bin Espeak TTS.“"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:43
+msgid ""
+"Try changing the tuning parameters in the code to experiment with how "
+"``amp``, ``speed``, ``gap``, and ``pitch`` affect the sound."
+msgstr ""
+"Versuchen Sie, die Abstimmungsparameter im Code zu ändern, um zu testen, wie "
+"``amp`` , ``speed`` , ``gap`` und ``pitch`` den Klang beeinflussen."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:45
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:94
+msgid "**Code**"
+msgstr "**Code**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:64
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:109
+msgid "**Code explanation:**"
+msgstr "**Code-Erklärung:**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:66
+msgid "``tts.set_amp()`` — Controls the volume (0–200)."
+msgstr "``tts.set_amp()`` — Steuert die Lautstärke ( 0–200 )."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:67
+msgid "``tts.set_speed()`` — Adjusts the speaking speed (80–260)."
+msgstr "``tts.set_speed()`` — Passt die Sprechgeschwindigkeit an ( 80–260 )."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:68
+msgid "``tts.set_gap()`` — Sets the word gap (0–200)."
+msgstr "``tts.set_gap()`` — Legt die Wortpause fest ( 0–200 )."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:69
+msgid "``tts.set_pitch()`` — Sets the pitch (0–99)."
+msgstr "``tts.set_pitch()`` — Legt die Tonhöhe fest ( 0–99 )."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:70
+msgid "``tts.say()`` — Converts text to speech and plays it."
+msgstr "``tts.say()`` — Wandelt Text in Sprache um und spielt sie ab."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:72
+msgid ""
+"💡 **Tip:** Try increasing the pitch and speed to make the robot sound "
+"cheerful, or lowering them to make it sound serious."
+msgstr ""
+"💡 **Tipp:** Versuchen Sie, Tonhöhe und Geschwindigkeit zu erhöhen, damit der Roboter "
+"fröhlicher klingt, oder sie zu verringern, damit er ernster klingt."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:78
+msgid "2. Testing Pico2Wave"
+msgstr "2. Pico2Wave testen"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:80
+msgid ""
+"Pico2Wave produces a **more natural and human-like voice** compared to "
+"Espeak. It’s very easy to use, but less flexible — you can only **change "
+"the language**, not the pitch, speed, or volume. This makes Pico2Wave a "
+"great choice when you want clear and smooth speech without too much "
+"configuration."
+msgstr ""
+"Pico2Wave erzeugt im Vergleich zu Espeak eine **natürlichere und menschenähnlichere Stimme** . "
+"Es ist sehr einfach zu verwenden, aber weniger flexibel — Sie können nur **die Sprache ändern** , "
+"nicht Tonhöhe, Geschwindigkeit oder Lautstärke. Das macht Pico2Wave zu einer "
+"guten Wahl, wenn Sie klare und flüssige Sprache ohne zu viel "
+"Konfiguration möchten."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:91
+msgid "You should hear the Fusion HAT+ say: “Hello! I'm Pico2Wave TTS.”"
+msgstr "Sie sollten Fusion HAT+ sagen hören: „Hallo! Ich bin Pico2Wave TTS.“"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:92
+msgid ""
+"Try changing the language (for example, ``es-ES`` for Spanish) and listen"
+" to how the voice changes."
+msgstr ""
+"Versuchen Sie, die Sprache zu ändern ( z. B. ``es-ES`` für Spanisch ) und hören Sie, "
+"wie sich die Stimme verändert."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:111
+msgid "``tts.set_lang()`` — Sets the output language for speech synthesis."
+msgstr "``tts.set_lang()`` — Legt die Ausgabesprache für die Sprachsynthese fest."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:113
+msgid "``en-US`` (default)"
+msgstr "``en-US`` ( Standard )"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:114
+msgid "``en-GB``"
+msgstr "``en-GB``"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:115
+msgid "``de-DE``"
+msgstr "``de-DE``"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:116
+msgid "``es-ES``"
+msgstr "``es-ES``"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:117
+msgid "``fr-FR``"
+msgstr "``fr-FR``"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:118
+msgid "``it-IT``"
+msgstr "``it-IT``"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:120
+msgid "``tts.say()`` — Converts the text to speech and plays it immediately."
+msgstr "``tts.say()`` — Wandelt den Text in Sprache um und spielt sie sofort ab."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:126
+msgid "Troubleshooting"
+msgstr "Fehlerbehebung"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:128
+msgid "**No sound when running Espeak or Pico2Wave**"
+msgstr "**Kein Ton beim Ausführen von Espeak oder Pico2Wave**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:130
+msgid "Check that your speakers/headphones are connected and volume is not muted."
+msgstr "Prüfen Sie, ob Ihre Lautsprecher / Kopfhörer angeschlossen sind und die Lautstärke nicht stummgeschaltet ist."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:131
+msgid "Run a quick test in terminal:"
+msgstr "Führen Sie einen kurzen Test im Terminal aus:"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:138
+msgid "If you hear nothing, the issue is with audio output, not your Python code."
+msgstr "Wenn Sie nichts hören, liegt das Problem an der Audioausgabe, nicht an Ihrem Python-Code."
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:140
+msgid "**Espeak voice sounds too fast or too robotic**"
+msgstr "**Die Espeak-Stimme klingt zu schnell oder zu robotisch**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:142
+msgid "Try adjusting the parameters in your code:"
+msgstr "Versuchen Sie, die Parameter in Ihrem Code anzupassen:"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:149
+msgid "**Permission denied when running code**"
+msgstr "**Permission denied beim Ausführen des Codes**"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:151
+msgid "Try running with ``sudo``:"
+msgstr "Versuchen Sie, mit ``sudo`` auszuführen:"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:158
+msgid "Comparison: Espeak vs Pico2Wave"
+msgstr "Vergleich: Espeak vs Pico2Wave"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:164
+msgid "Feature"
+msgstr "Funktion"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:165
+msgid "Espeak"
+msgstr "Espeak"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:166
+msgid "Pico2Wave"
+msgstr "Pico2Wave"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:167
+msgid "Voice quality"
+msgstr "Sprachqualität"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:168
+msgid "Robotic, synthetic"
+msgstr "Robotisch, synthetisch"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:169
+msgid "More natural, human-like"
+msgstr "Natürlicher, menschenähnlich"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:170
+msgid "Languages"
+msgstr "Sprachen"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:171
+msgid "Default English"
+msgstr "Standardmäßig Englisch"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:172
+msgid "Fewer, but common ones"
+msgstr "Weniger, aber gängige"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:173
+msgid "Adjustable"
+msgstr "Anpassbar"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:174
+msgid "Yes (speed, pitch, etc.)"
+msgstr "Ja ( Geschwindigkeit, Tonhöhe usw. )"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:175
+msgid "No (only language)"
+msgstr "Nein ( nur Sprache )"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:176
+msgid "Performance"
+msgstr "Leistung"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:177
+msgid "Very fast, lightweight"
+msgstr "Sehr schnell, leichtgewichtig"
+
+#: ../ai_interaction/python_tts_espeak_pico2wave.rst:178
+msgid "Slightly slower, heavier"
+msgstr "Etwas langsamer, schwerer"

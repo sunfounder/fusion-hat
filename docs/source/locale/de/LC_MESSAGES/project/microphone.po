@@ -1,0 +1,274 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/microphone.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../project/microphone.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../project/microphone.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../project/microphone.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../project/microphone.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../project/microphone.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Profitiere von exklusiven Rabatten auf unsere "
+"neuesten Produkte."
+
+#: ../project/microphone.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../project/microphone.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../project/microphone.rst:20
+msgid "Funsion HAT+ Microphone"
+msgstr "Fusion HAT+ Mikrofon"
+
+#: ../project/microphone.rst:22
+msgid "**Introduction**"
+msgstr "**Einführung**"
+
+#: ../project/microphone.rst:24
+msgid ""
+"The Fusion HAT+ includes a built-in microphone, making it ideal for audio"
+" input applications such as voice recognition, sound detection, or "
+"recording logs in AI/IoT projects."
+msgstr ""
+"Das Fusion HAT+ verfügt über ein integriertes Mikrofon und eignet sich "
+"damit ideal für Audioeingabe-Anwendungen wie Spracherkennung, "
+"Geräuscherkennung oder die Aufzeichnung von Logs in AI/IoT-Projekten."
+
+#: ../project/microphone.rst:26
+msgid ""
+"This guide will help you check if the microphone is recognized by the "
+"system and show you how to perform a basic recording test."
+msgstr ""
+"Diese Anleitung hilft dir zu überprüfen, ob das Mikrofon vom System "
+"erkannt wird, und zeigt dir, wie du einen einfachen Aufnahmetest "
+"durchführst."
+
+#: ../project/microphone.rst:34
+msgid "**Check if the Microphone is Recognized**"
+msgstr "**Überprüfen, ob das Mikrofon erkannt wird**"
+
+#: ../project/microphone.rst:37
+msgid ""
+"Use the following command to check whether the system has detected the "
+"microphone:"
+msgstr ""
+"Verwende den folgenden Befehl, um zu überprüfen, ob das System das "
+"Mikrofon erkannt hat:"
+
+#: ../project/microphone.rst:47
+msgid ""
+"This will list all audio **capture** devices available on your Raspberry "
+"Pi. Sample output:"
+msgstr ""
+"Dies listet alle auf deinem Raspberry Pi verfügbaren Audio- **Aufnahme** -"
+"Geräte auf. Beispielausgabe:"
+
+#: ../project/microphone.rst:56
+msgid ""
+"If you see the ``voicehat-hifi`` listed, it means the microphone hardware"
+" is detected correctly."
+msgstr ""
+"Wenn ``voicehat-hifi`` in der Liste erscheint, bedeutet das, dass die "
+"Mikrofon-Hardware korrekt erkannt wurde."
+
+#: ../project/microphone.rst:84
+msgid "**Test the Microphone**"
+msgstr "**Das Mikrofon testen**"
+
+#: ../project/microphone.rst:87
+msgid "Once the microphone is enabled, you can perform a basic recording test:"
+msgstr ""
+"Sobald das Mikrofon aktiviert ist, kannst du einen einfachen "
+"Aufnahmetest durchführen:"
+
+#: ../project/microphone.rst:89
+msgid "Record a short audio sample:"
+msgstr "Nimm ein kurzes Audiobeispiel auf:"
+
+#: ../project/microphone.rst:99
+msgid "**Parameter Explanation**:"
+msgstr "**Parametererklärung**:"
+
+#: ../project/microphone.rst:101
+msgid "``rec``: Command for recording (from the `sox` package)"
+msgstr "``rec``: Befehl zum Aufnehmen ( aus dem Paket `sox` )"
+
+#: ../project/microphone.rst:102
+msgid "``-c 1``: Record in mono (1 channel)"
+msgstr "``-c 1``: Aufnahme in Mono ( 1 Kanal )"
+
+#: ../project/microphone.rst:103
+msgid "``test.wav``: Output file name"
+msgstr "``test.wav``: Name der Ausgabedatei"
+
+#: ../project/microphone.rst:105
+msgid "Playback the recorded file:"
+msgstr "Die aufgenommene Datei wiedergeben:"
+
+#: ../project/microphone.rst:115
+msgid "If you hear your recorded voice, the microphone is working properly."
+msgstr ""
+"Wenn du deine aufgenommene Stimme hörst, funktioniert das Mikrofon "
+"ordnungsgemäß."
+
+#: ../project/microphone.rst:117
+msgid "If the recorded volume is too low, you can amplify it using `sox`:"
+msgstr ""
+"Wenn die aufgenommene Lautstärke zu niedrig ist, kannst du sie mit `sox` "
+"verstärken:"
+
+#: ../project/microphone.rst:127
+msgid "``input.wav``: The original recording"
+msgstr "``input.wav``: Die ursprüngliche Aufnahme"
+
+#: ../project/microphone.rst:128
+msgid "``output.wav``: The amplified version"
+msgstr "``output.wav``: Die verstärkte Version"
+
+#: ../project/microphone.rst:129
+msgid ""
+"``gain 5``: Increase the volume by 5 dB (you can adjust this value as "
+"needed)"
+msgstr ""
+"``gain 5``: Erhöht die Lautstärke um 5 dB ( du kannst diesen Wert nach "
+"Bedarf anpassen )"
+
+#: ../project/microphone.rst:131
+msgid "**Adjust Microphone Volume**"
+msgstr "**Mikrofonlautstärke anpassen**"
+
+#: ../project/microphone.rst:133
+msgid ""
+"If the recording volume is too low or muted, you can manually adjust the "
+"microphone gain:"
+msgstr ""
+"Wenn die Aufnahme zu leise ist oder stummgeschaltet wurde, kannst du die "
+"Mikrofonverstärkung manuell anpassen:"
+
+#: ../project/microphone.rst:135
+msgid "Launch the ALSA mixer:"
+msgstr "Starte den ALSA-Mixer:"
+
+#: ../project/microphone.rst:145
+msgid ""
+"Press ``F6`` to select the correct sound card (e.g., USB or voiceHAT "
+"audio)"
+msgstr ""
+"Drücke ``F6``, um die richtige Soundkarte auszuwählen ( z. B. USB oder "
+"voiceHAT Audio )"
+
+#: ../project/microphone.rst:147
+msgid ""
+"Use the arrow keys to increase the microphone level. If the mic is muted,"
+" unmute it (look for `MM` at the bottom—press ``M`` to toggle)."
+msgstr ""
+"Verwende die Pfeiltasten, um den Mikrofonpegel zu erhöhen. Wenn das Mikrofon "
+"stummgeschaltet ist, aktiviere es ( suche unten nach `MM` — drücke ``M``, "
+"um umzuschalten )."
+
+#: ../project/microphone.rst:151
+msgid "If ``rec`` or ``sox`` is not installed, you can install them using:"
+msgstr ""
+"Wenn ``rec`` oder ``sox`` nicht installiert ist, kannst du sie mit folgendem "
+"Befehl installieren:"
+
+#: ../project/microphone.rst:162
+msgid "**Troubleshooting**"
+msgstr "**Fehlerbehebung**"
+
+#: ../project/microphone.rst:165
+msgid "**No input detected**:"
+msgstr "**Kein Eingangssignal erkannt**:"
+
+#: ../project/microphone.rst:167
+msgid "Verify that ``arecord -l`` lists the correct device"
+msgstr ""
+"Überprüfe, ob ``arecord -l`` das richtige Gerät auflistet"
+
+#: ../project/microphone.rst:168
+msgid "Try using ``arecord`` instead of ``rec`` to test manually"
+msgstr ""
+"Versuche, ``arecord`` anstelle von ``rec`` für einen manuellen Test zu "
+"verwenden"
+
+#: ../project/microphone.rst:170
+msgid "**Audio is distorted or noisy**:"
+msgstr "**Audio ist verzerrt oder verrauscht**:"
+
+#: ../project/microphone.rst:172
+msgid "Reduce the microphone gain in ``alsamixer``"
+msgstr "Reduziere die Mikrofonverstärkung in ``alsamixer``"
+
+#: ../project/microphone.rst:173
+msgid "Avoid recording in noisy environments"
+msgstr "Vermeide Aufnahmen in lauten Umgebungen"
+
+#: ../project/microphone.rst:175
+msgid "**`rec` command not found**:"
+msgstr "**`rec` - Befehl nicht gefunden**:"
+
+#: ../project/microphone.rst:177
+msgid "Install ``sox`` with ``sudo apt install sox``"
+msgstr "Installiere ``sox`` mit ``sudo apt install sox``"

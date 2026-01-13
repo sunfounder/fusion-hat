@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/spi.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../project/spi.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../project/spi.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../project/spi.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../project/spi.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../project/spi.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten "
+"Produkte."
+
+#: ../project/spi.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../project/spi.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../project/spi.rst:18
+msgid "SPI (LedMatrix)"
+msgstr "SPI (LED-Matrix)"
+
+#: ../project/spi.rst:20
+msgid "**Introduction**"
+msgstr "**Einführung**"
+
+#: ../project/spi.rst:22
+msgid ""
+"SPI (Serial Peripheral Interface) is a serial communication interface "
+"used between a microcontroller and peripherals, similar to I2C. The SPI "
+"protocol requires four signal lines: MOSI, MISO, SCLK, and SS."
+msgstr ""
+"SPI (Serial Peripheral Interface) ist eine serielle "
+"Kommunikationsschnittstelle, die zwischen einem Mikrocontroller und "
+"Peripheriegeräten verwendet wird, ähnlich wie I2C. Das SPI-Protokoll "
+"benötigt vier Signalleitungen: MOSI, MISO, SCLK und SS."
+
+#: ../project/spi.rst:24
+msgid ""
+"An LED dot matrix is a grid of LEDs that can be illuminated to display "
+"characters, symbols, or animations. Since the 8×8 LED display does not "
+"need to send data out, the MISO pin is not required."
+msgstr ""
+"Eine LED-Punktmatrix ist ein Raster aus LEDs, das beleuchtet werden kann, "
+"um Zeichen, Symbole oder Animationen darzustellen. Da das 8×8 LED-Display "
+"keine Daten senden muss, wird der MISO-Pin nicht benötigt."
+
+#: ../project/spi.rst:26
+msgid ""
+"This project demonstrates how to use SPI to control an LED dot matrix for"
+" displaying static patterns."
+msgstr ""
+"Dieses Projekt zeigt, wie SPI verwendet wird, um eine LED-Punktmatrix zur "
+"Anzeige statischer Muster zu steuern."
+
+#: ../project/spi.rst:30
+msgid "**Circuit Diagram**"
+msgstr "**Schaltplan**"
+
+#: ../project/spi.rst:32
+msgid ""
+"The circuit connects the LED dot matrix to the Raspberry Pi using SPI "
+"communication. The schematic below provides a clear view of the wiring."
+msgstr ""
+"Die Schaltung verbindet die LED-Punktmatrix über SPI-Kommunikation mit "
+"dem Raspberry Pi. Das untenstehende Schaltbild zeigt die Verdrahtung "
+"übersichtlich."
+
+#: ../project/spi.rst:42
+msgid "**Wiring Diagram**"
+msgstr "**Verdrahtungsdiagramm**"
+
+#: ../project/spi.rst:44
+msgid "Follow these steps to build the circuit:"
+msgstr "Befolge diese Schritte, um die Schaltung aufzubauen:"
+
+#: ../project/spi.rst:46
+msgid "Connect the SPI interface pins (MOSI, SCK, and CS) to the Fusion HAT pins."
+msgstr ""
+"Verbinde die SPI-Schnittstellen-Pins (MOSI, SCK und CS) mit den Pins des "
+"Fusion HAT."
+
+#: ../project/spi.rst:47
+msgid "Ensure proper power supply connections to the matrix."
+msgstr "Stelle sicher, dass die Stromversorgung der Matrix korrekt angeschlossen ist."
+
+#: ../project/spi.rst:57
+msgid "**Writing the Code**"
+msgstr "**Den Code schreiben**"
+
+#: ../project/spi.rst:100
+msgid ""
+"This script demonstrates how to control an LED matrix using the Fusion "
+"Hat library. It initializes the LED matrix and displays a predefined "
+"pattern."
+msgstr ""
+"Dieses Skript zeigt, wie eine LED-Matrix mit der Fusion Hat Bibliothek "
+"gesteuert wird. Es initialisiert die LED-Matrix und zeigt ein "
+"vordefiniertes Muster an."
+
+#: ../project/spi.rst:102
+msgid ""
+"Run the script on a compatible device with an attached LED matrix. The "
+"matrix will display a defined pattern until the user manually exits the "
+"script."
+msgstr ""
+"Führe das Skript auf einem kompatiblen Gerät mit angeschlossener LED-Matrix "
+"aus. Die Matrix zeigt ein festgelegtes Muster an, bis der Benutzer das "
+"Skript manuell beendet."

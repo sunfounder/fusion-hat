@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat._utils.rst:2
+msgid "fusion\\_hat.\\_utils module"
+msgstr "Modul fusion\\_hat.\\_utils"
+
+#: fusion_hat._utils.retry:1 of
+msgid "Retry decorator retry specified times if any error occurs"
+msgstr "Retry-Dekorator, der bei Auftreten eines Fehlers die angegebene Anzahl von Wiederholungen ausführt"
+
+#: fusion_hat._utils.command_exists fusion_hat._utils.constrain
+#: fusion_hat._utils.get_ip fusion_hat._utils.is_installed
+#: fusion_hat._utils.mapping fusion_hat._utils.retry
+#: fusion_hat._utils.run_command of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat._utils.retry:3 of
+msgid "number of times to retry. Defaults to 5."
+msgstr "Anzahl der Wiederholungen. Standard ist 5."
+
+#: fusion_hat._utils.command_exists fusion_hat._utils.constrain
+#: fusion_hat._utils.get_ip fusion_hat._utils.get_username
+#: fusion_hat._utils.is_installed fusion_hat._utils.mapping
+#: fusion_hat._utils.retry fusion_hat._utils.run_command of
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: fusion_hat._utils.retry:6 of
+msgid "wrapper function"
+msgstr "Wrapper-Funktion"
+
+#: fusion_hat._utils.command_exists fusion_hat._utils.constrain
+#: fusion_hat._utils.get_ip fusion_hat._utils.get_username
+#: fusion_hat._utils.is_installed fusion_hat._utils.mapping
+#: fusion_hat._utils.retry fusion_hat._utils.run_command of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat._utils.command_exists:1 of
+msgid "Check if command exists"
+msgstr "Prüft, ob ein Befehl existiert"
+
+#: fusion_hat._utils.command_exists:3 fusion_hat._utils.is_installed:3 of
+msgid "command to check"
+msgstr "Zu prüfender Befehl"
+
+#: fusion_hat._utils.command_exists:6 of
+msgid "True if exists"
+msgstr "True, wenn er existiert"
+
+#: fusion_hat._utils.run_command:1 of
+msgid "Run command and return status and output"
+msgstr "Führt einen Befehl aus und gibt Status und Ausgabe zurück"
+
+#: fusion_hat._utils.run_command:3 of
+msgid "command to run"
+msgstr "Auszuführender Befehl"
+
+#: fusion_hat._utils.run_command:6 of
+msgid "status, output"
+msgstr "Status, Ausgabe"
+
+#: fusion_hat._utils.is_installed:1 of
+msgid "Check if command is installed"
+msgstr "Prüft, ob ein Befehl installiert ist"
+
+#: fusion_hat._utils.is_installed:6 of
+msgid "True if installed"
+msgstr "True, wenn installiert"
+
+#: fusion_hat._utils.mapping:1 of
+msgid "Map value from one range to another range"
+msgstr "Ordnet einen Wert von einem Bereich einem anderen Bereich zu"
+
+#: fusion_hat._utils.mapping:3 of
+msgid "value to map"
+msgstr "Zu zuordnender Wert"
+
+#: fusion_hat._utils.mapping:5 of
+msgid "input minimum"
+msgstr "Eingangs-Minimum"
+
+#: fusion_hat._utils.mapping:7 of
+msgid "input maximum"
+msgstr "Eingangs-Maximum"
+
+#: fusion_hat._utils.mapping:9 of
+msgid "output minimum"
+msgstr "Ausgangs-Minimum"
+
+#: fusion_hat._utils.mapping:11 of
+msgid "output maximum"
+msgstr "Ausgangs-Maximum"
+
+#: fusion_hat._utils.mapping:14 of
+msgid "mapped value"
+msgstr "Zugeordneter Wert"
+
+#: fusion_hat._utils.get_ip:1 of
+msgid "Get IP address"
+msgstr "IP-Adresse abrufen"
+
+#: fusion_hat._utils.get_ip:3 of
+msgid "interfaces to check, defaults to ['wlan0', 'eth0']"
+msgstr "Zu prüfende Schnittstellen, Standard ist ['wlan0', 'eth0']"
+
+#: fusion_hat._utils.get_ip:6 of
+msgid "IP address or False if not found"
+msgstr "IP-Adresse oder False, wenn nicht gefunden"
+
+#: fusion_hat._utils.get_username:1 of
+msgid "Get username"
+msgstr "Benutzernamen abrufen"
+
+#: fusion_hat._utils.get_username:3 of
+msgid "username"
+msgstr "Benutzername"
+
+#: fusion_hat._utils.constrain:1 of
+msgid "Constrain value to a range"
+msgstr "Begrenzt einen Wert auf einen Bereich"
+
+#: fusion_hat._utils.constrain:3 of
+msgid "value to constrain"
+msgstr "Zu begrenzender Wert"
+
+#: fusion_hat._utils.constrain:5 of
+msgid "minimum value"
+msgstr "Minimalwert"
+
+#: fusion_hat._utils.constrain:7 of
+msgid "maximum value"
+msgstr "Maximalwert"
+
+#: fusion_hat._utils.constrain:10 of
+msgid "constrained value"
+msgstr "Begrenzter Wert"

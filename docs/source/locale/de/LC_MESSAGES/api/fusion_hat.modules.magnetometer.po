@@ -1,0 +1,247 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.modules.magnetometer.rst:2
+msgid "fusion\\_hat.modules.magnetometer module"
+msgstr "fusion\\_hat.modules.magnetometer Modul"
+
+#: fusion_hat.modules.magnetometer.MagnetometerType:1 of
+msgid "Bases: :py:class:`~enum.Enum`"
+msgstr "Basisklassen: :py:class:`~enum.Enum`"
+
+#: fusion_hat.modules.magnetometer.i2c_ack:1 of
+msgid "Check if a device responds at the specified I2C address"
+msgstr "Prüfen, ob ein Gerät auf der angegebenen I2C-Adresse antwortet"
+
+#: fusion_hat.modules.magnetometer.HMC5883L._read_word
+#: fusion_hat.modules.magnetometer.QMC5883L._read_word_le
+#: fusion_hat.modules.magnetometer.QMC5883P._to_i16
+#: fusion_hat.modules.magnetometer.i2c_ack of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.modules.magnetometer.i2c_ack:3 of
+msgid "SMBus instance"
+msgstr "SMBus-Instanz"
+
+#: fusion_hat.modules.magnetometer.i2c_ack:4 of
+msgid "I2C address to check"
+msgstr "Zu prüfende I2C-Adresse"
+
+#: fusion_hat.modules.magnetometer.HMC5883L._read_word
+#: fusion_hat.modules.magnetometer.HMC5883L.read_magnet
+#: fusion_hat.modules.magnetometer.Magnetometer.get_type
+#: fusion_hat.modules.magnetometer.Magnetometer.read
+#: fusion_hat.modules.magnetometer.QMC5883L._read_word_le
+#: fusion_hat.modules.magnetometer.QMC5883L.read_magnet
+#: fusion_hat.modules.magnetometer.QMC5883P._to_i16
+#: fusion_hat.modules.magnetometer.QMC5883P.read_magnet
+#: fusion_hat.modules.magnetometer.QMC6310.read_magnet
+#: fusion_hat.modules.magnetometer.QMC6310.read_raw
+#: fusion_hat.modules.magnetometer.i2c_ack of
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: fusion_hat.modules.magnetometer.i2c_ack:6 of
+msgid "True if the device responds, False otherwise"
+msgstr "True, wenn das Gerät antwortet, andernfalls False"
+
+#: fusion_hat.modules.magnetometer.HMC5883L._read_word
+#: fusion_hat.modules.magnetometer.HMC5883L.read_magnet
+#: fusion_hat.modules.magnetometer.Magnetometer.get_type
+#: fusion_hat.modules.magnetometer.Magnetometer.read
+#: fusion_hat.modules.magnetometer.QMC5883L._read_word_le
+#: fusion_hat.modules.magnetometer.QMC5883L.read_magnet
+#: fusion_hat.modules.magnetometer.QMC5883P._to_i16
+#: fusion_hat.modules.magnetometer.QMC5883P.read_magnet
+#: fusion_hat.modules.magnetometer.QMC6310.read_magnet
+#: fusion_hat.modules.magnetometer.QMC6310.read_raw
+#: fusion_hat.modules.magnetometer.i2c_ack of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.modules.magnetometer.HMC5883L:1
+#: fusion_hat.modules.magnetometer.Magnetometer:1
+#: fusion_hat.modules.magnetometer.QMC5883L:1
+#: fusion_hat.modules.magnetometer.QMC5883P:1
+#: fusion_hat.modules.magnetometer.QMC6310:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklassen: :py:class:`object`"
+
+#: ../docstring fusion_hat.modules.magnetometer.QMC6310.DEF_ADDR:1 of
+msgid "# Define register address of QMC6310 compass sensor"
+msgstr "# Definiere die Registeradresse des QMC6310-Kompasssensors"
+
+#: ../docstring fusion_hat.modules.magnetometer.QMC6310.QMC6310_REG_CONTROL_2:1
+#: of
+msgid "# Define the register parameter configuration of the sensor"
+msgstr "# Definiere die Registerparameterkonfiguration des Sensors"
+
+#: fusion_hat.modules.magnetometer.QMC6310.read_raw:1 of
+msgid "Read raw magnetometer data"
+msgstr "Rohdaten des Magnetometers lesen"
+
+#: fusion_hat.modules.magnetometer.QMC6310.read_raw:3 of
+msgid "[x, y, z] raw magnetic field values"
+msgstr "[x, y, z] rohe Magnetfeldwerte"
+
+#: fusion_hat.modules.magnetometer.QMC6310.read_magnet:1 of
+msgid ""
+"Read magnetometer data in Gauss units (consistent with other magnetometer"
+" classes)"
+msgstr ""
+"Magnetometerdaten in Gauss-Einheiten lesen ( konsistent mit anderen Magnetometer-"
+"Klassen )"
+
+#: fusion_hat.modules.magnetometer.QMC6310.read_magnet:3 of
+msgid "(x, y, z) magnetic field values in Gauss"
+msgstr "(x, y, z) Magnetfeldwerte in Gauss"
+
+#: fusion_hat.modules.magnetometer.HMC5883L:1 of
+msgid ""
+"HMC5883L 3-axis magnetometer sensor driver class Used to measure Earth's "
+"magnetic field strength, suitable for direction detection and heading "
+"angle calculation"
+msgstr ""
+"HMC5883L 3-Achsen-Magnetometersensor-Treiberklasse Zur Messung der Stärke des "
+"Magnetfeldes der Erde, geeignet für Richtungsbestimmung und Berechnung des "
+"Heading-Winkels"
+
+#: fusion_hat.modules.magnetometer.HMC5883L._read_word:1 of
+msgid "Read a signed 16-bit integer from the sensor"
+msgstr "Einen vorzeichenbehafteten 16-Bit-Integer vom Sensor lesen"
+
+#: fusion_hat.modules.magnetometer.HMC5883L._read_word:3 of
+msgid "high-byte register address"
+msgstr "High-Byte-Registeradresse"
+
+#: fusion_hat.modules.magnetometer.HMC5883L._read_word:5 of
+msgid "converted signed 16-bit integer"
+msgstr "Konvertierter vorzeichenbehafteter 16-Bit-Integer"
+
+#: fusion_hat.modules.magnetometer.HMC5883L.read_magnet:1
+#: fusion_hat.modules.magnetometer.Magnetometer.read:1
+#: fusion_hat.modules.magnetometer.QMC5883L.read_magnet:1 of
+msgid "Read magnetometer data"
+msgstr "Magnetometerdaten lesen"
+
+#: fusion_hat.modules.magnetometer.HMC5883L.read_magnet:3 of
+msgid ""
+"X, Y, Z axis magnetic field strength values (unit: Gauss) Note: HMC5883L "
+"data register order is X, Z, Y"
+msgstr ""
+"X-, Y-, Z-Achsen-Magnetfeldstärkewerte ( Einheit: Gauss ) Hinweis: Die "
+"Datenregisterreihenfolge des HMC5883L ist X, Z, Y"
+
+#: fusion_hat.modules.magnetometer.QMC5883L:1 of
+msgid ""
+"QMC5883L 3-axis magnetometer sensor driver class Used to measure Earth's "
+"magnetic field strength, is a common alternative to HMC5883L"
+msgstr ""
+"QMC5883L 3-Achsen-Magnetometersensor-Treiberklasse Zur Messung der Stärke des "
+"Magnetfeldes der Erde, ist eine gängige Alternative zum HMC5883L"
+
+#: fusion_hat.modules.magnetometer.QMC5883L._read_word_le:1 of
+msgid ""
+"Read a signed 16-bit integer from the sensor in little-endian format "
+"Note: QMC5883L uses little-endian format to store data"
+msgstr ""
+"Einen vorzeichenbehafteten 16-Bit-Integer vom Sensor im Little-Endian-Format lesen "
+"Hinweis: QMC5883L verwendet das Little-Endian-Format zur Datenspeicherung"
+
+#: fusion_hat.modules.magnetometer.QMC5883L._read_word_le:4 of
+msgid "Low byte register address"
+msgstr "Low-Byte-Registeradresse"
+
+#: fusion_hat.modules.magnetometer.QMC5883L._read_word_le:6 of
+msgid "Converted signed 16-bit integer"
+msgstr "Konvertierter vorzeichenbehafteter 16-Bit-Integer"
+
+#: fusion_hat.modules.magnetometer.QMC5883L.read_magnet:3 of
+msgid ""
+"X, Y, Z axis magnetic field strength values (unit: Gauss) Note: QMC5883L "
+"data register order is X, Y, Z (different from HMC5883L)"
+msgstr ""
+"X-, Y-, Z-Achsen-Magnetfeldstärkewerte ( Einheit: Gauss ) Hinweis: Die "
+"Datenregisterreihenfolge des QMC5883L ist X, Y, Z ( unterschiedlich zum HMC5883L )"
+
+#: fusion_hat.modules.magnetometer.QMC5883P:1 of
+msgid ""
+"QMC5883P 3-axis magnetometer sensor driver class Another version of the "
+"QMC5883 series with I2C address 0x2C"
+msgstr ""
+"QMC5883P 3-Achsen-Magnetometersensor-Treiberklasse Eine weitere Version der "
+"QMC5883-Serie mit der I2C-Adresse 0x2C"
+
+#: fusion_hat.modules.magnetometer.QMC5883P._to_i16:1 of
+msgid "Convert two bytes to a 16-bit signed integer"
+msgstr "Zwei Bytes in einen vorzeichenbehafteten 16-Bit-Integer umwandeln"
+
+#: fusion_hat.modules.magnetometer.QMC5883P._to_i16:3 of
+msgid "Low byte value"
+msgstr "Low-Byte-Wert"
+
+#: fusion_hat.modules.magnetometer.QMC5883P._to_i16:4 of
+msgid "High byte value"
+msgstr "High-Byte-Wert"
+
+#: fusion_hat.modules.magnetometer.QMC5883P._to_i16:6 of
+msgid "Converted 16-bit signed integer"
+msgstr "Konvertierter 16-Bit-Integer mit Vorzeichen"
+
+#: fusion_hat.modules.magnetometer.QMC5883P.read_magnet:1 of
+msgid ""
+"Read magnetometer data Reads 6 bytes starting from 0x01 register (little-"
+"endian signed format) Features: Returns zero on error, does not interrupt"
+" main loop"
+msgstr ""
+"Magnetometerdaten lesen Liest 6 Bytes beginnend beim Register 0x01 ( Little-"
+"Endian-Vorzeichenformat ) Eigenschaften: Gibt bei Fehler Null zurück und "
+"unterbricht nicht die Hauptschleife"
+
+#: fusion_hat.modules.magnetometer.QMC5883P.read_magnet:5 of
+msgid "X, Y, Z axis magnetic field strength values (unit: Gauss)"
+msgstr "X-, Y-, Z-Achsen-Magnetfeldstärkewerte ( Einheit: Gauss )"
+
+#: fusion_hat.modules.magnetometer.Magnetometer:1 of
+msgid ""
+"Magnetometer sensor driver class Integrates QMC6310, HMC5883L, QMC5883L, "
+"and QMC5883P magnetometers"
+msgstr ""
+"Magnetometersensor-Treiberklasse Integriert die Magnetometer QMC6310, HMC5883L, "
+"QMC5883L und QMC5883P"
+
+#: fusion_hat.modules.magnetometer.Magnetometer.read:3 of
+msgid ""
+"(x, y, z) magnetic field values in appropriate units based on sensor type"
+" None: if no magnetometer is initialized"
+msgstr ""
+"(x, y, z) Magnetfeldwerte in geeigneten Einheiten basierend auf dem Sensortyp "
+"None: wenn kein Magnetometer initialisiert ist"
+
+#: fusion_hat.modules.magnetometer.Magnetometer.get_type:1 of
+msgid "Get the type of initialized magnetometer"
+msgstr "Den Typ des initialisierten Magnetometers abrufen"
+
+#: fusion_hat.modules.magnetometer.Magnetometer.get_type:3 of
+msgid "Magnetometer type"
+msgstr "Magnetometertyp"

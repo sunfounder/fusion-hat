@@ -1,0 +1,292 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.music.rst:2
+msgid "fusion\\_hat.music module"
+msgstr "fusion\\_hat.music Modul"
+
+#: fusion_hat.music:1 of
+msgid "Music"
+msgstr "Musik"
+
+#: fusion_hat.music:3 of
+msgid ""
+"This module provides a class for playing music, sound affect and note "
+"control."
+msgstr ""
+"Dieses Modul stellt eine Klasse zum Abspielen von Musik, Soundeffekten und zur "
+"Notensteuerung bereit."
+
+#: fusion_hat.music:6 of
+msgid "Example"
+msgstr "Beispiel"
+
+#: fusion_hat.music:7 of
+msgid "Import the module and create an instance"
+msgstr "Das Modul importieren und eine Instanz erstellen"
+
+#: fusion_hat.music:12 of
+msgid "Play a music file"
+msgstr "Eine Musikdatei abspielen"
+
+#: fusion_hat.music:16 of
+msgid "Play music in a thread"
+msgstr "Musik in einem Thread abspielen"
+
+#: fusion_hat.music:21 of
+msgid "Control the music"
+msgstr "Die Musik steuern"
+
+#: fusion_hat.music:27 of
+msgid "Play a sound file"
+msgstr "Eine Sounddatei abspielen"
+
+#: fusion_hat.music:31 of
+msgid "Play a sound file in a thread"
+msgstr "Eine Sounddatei in einem Thread abspielen"
+
+#: fusion_hat.music.Music:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklassen: :py:class:`object`"
+
+#: fusion_hat.music.Music:1 of
+msgid "Play music, sound affect and note control"
+msgstr "Musik, Soundeffekte und Notensteuerung abspielen"
+
+#: ../docstring fusion_hat.music.Music.NOTE_BASE_FREQ:1 of
+msgid "Base note frequency for calculation (A4)"
+msgstr "Basis-Notenfrequenz für Berechnungen ( A4 )"
+
+#: ../docstring fusion_hat.music.Music.NOTE_BASE_INDEX:1 of
+msgid "Base note index for calculation (A4) MIDI compatible"
+msgstr "Basis-Notenindex für Berechnungen ( A4 ), MIDI-kompatibel"
+
+#: ../docstring fusion_hat.music.Music.NOTES:1 of
+msgid "Notes name, MIDI compatible"
+msgstr "Notennamen, MIDI-kompatibel"
+
+#: fusion_hat.music.Music.time_signature:1 of
+msgid "Set/get time signature"
+msgstr "Taktart setzen oder abrufen"
+
+#: fusion_hat.music.Music.beat fusion_hat.music.Music.get_tone_data
+#: fusion_hat.music.Music.key_signature fusion_hat.music.Music.music_play
+#: fusion_hat.music.Music.music_set_volume fusion_hat.music.Music.note
+#: fusion_hat.music.Music.play_tone_for fusion_hat.music.Music.sound_length
+#: fusion_hat.music.Music.sound_play
+#: fusion_hat.music.Music.sound_play_threading fusion_hat.music.Music.tempo
+#: fusion_hat.music.Music.time_signature of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.music.Music.time_signature:3 of
+msgid "top number of time signature. Defaults to None."
+msgstr "Obere Zahl der Taktart. Standard ist None."
+
+#: fusion_hat.music.Music.time_signature:5 of
+msgid "bottom number of time signature. Defaults to None."
+msgstr "Untere Zahl der Taktart. Standard ist None."
+
+#: fusion_hat.music.Music.beat fusion_hat.music.Music.get_tone_data
+#: fusion_hat.music.Music.key_signature fusion_hat.music.Music.note
+#: fusion_hat.music.Music.sound_length fusion_hat.music.Music.tempo
+#: fusion_hat.music.Music.time_signature of
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: fusion_hat.music.Music.time_signature:8 of
+msgid "time signature"
+msgstr "Taktart"
+
+#: fusion_hat.music.Music.beat fusion_hat.music.Music.get_tone_data
+#: fusion_hat.music.Music.key_signature fusion_hat.music.Music.note
+#: fusion_hat.music.Music.sound_length fusion_hat.music.Music.tempo
+#: fusion_hat.music.Music.time_signature of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.music.Music.key_signature:1 of
+msgid "Set/get key signature"
+msgstr "Tonart setzen oder abrufen"
+
+#: fusion_hat.music.Music.key_signature:3 of
+msgid ""
+"key signature use KEY_XX_MAJOR or String \"#\", \"##\", or \"bbb\", "
+"\"bbbb\". Defaults to None."
+msgstr ""
+"Tonart verwendet KEY_XX_MAJOR oder die Zeichenkette \"#\", \"##\", oder \"bbb\", "
+"\"bbbb\". Standard ist None."
+
+#: fusion_hat.music.Music.key_signature:6 of
+msgid "key signature"
+msgstr "Tonart"
+
+#: fusion_hat.music.Music.tempo:1 of
+msgid "Set/get tempo beat per minute(bpm)"
+msgstr "Tempo in Schlägen pro Minute ( bpm ) setzen oder abrufen"
+
+#: fusion_hat.music.Music.tempo:3 of
+msgid "tempo. Defaults to None."
+msgstr "Tempo. Standard ist None."
+
+#: fusion_hat.music.Music.tempo:5 of
+msgid "note value(1, 1/2, Music.HALF_NOTE, etc). Defaults to QUARTER_NOTE."
+msgstr "Notenwert ( 1, 1/2, Music.HALF_NOTE, usw. ). Standard ist QUARTER_NOTE."
+
+#: fusion_hat.music.Music.tempo:8 of
+msgid "tempo"
+msgstr "Tempo"
+
+#: fusion_hat.music.Music.beat:1 of
+msgid "Calculate beat delay in seconds from tempo"
+msgstr "Schlagverzögerung in Sekunden aus dem Tempo berechnen"
+
+#: fusion_hat.music.Music.beat:3 of
+msgid "beat index"
+msgstr "Schlagindex"
+
+#: fusion_hat.music.Music.beat:6 of
+msgid "beat delay"
+msgstr "Schlagverzögerung"
+
+#: fusion_hat.music.Music.note:1 of
+msgid "Get frequency of a note"
+msgstr "Die Frequenz einer Note abrufen"
+
+#: fusion_hat.music.Music.note:3 of
+msgid "note name(See NOTES)"
+msgstr "Notenname ( siehe NOTES )"
+
+#: fusion_hat.music.Music.note:5 of
+msgid "if natural note. Defaults to False."
+msgstr "Ob es eine natürliche Note ist. Standard ist False."
+
+#: fusion_hat.music.Music.note:8 of
+msgid "frequency of note"
+msgstr "Frequenz der Note"
+
+#: fusion_hat.music.Music.sound_play:1 of
+msgid "Play sound effect file"
+msgstr "Soundeffektdatei abspielen"
+
+#: fusion_hat.music.Music.sound_length:3 fusion_hat.music.Music.sound_play:3
+#: fusion_hat.music.Music.sound_play_threading:3 of
+msgid "sound effect file name"
+msgstr "Name der Soundeffektdatei"
+
+#: fusion_hat.music.Music.music_play:9 fusion_hat.music.Music.sound_play:5
+#: fusion_hat.music.Music.sound_play_threading:5 of
+msgid "volume 0-100, leave empty will not change volume. Defaults to None."
+msgstr "Lautstärke 0–100, leer lassen ändert die Lautstärke nicht. Standard ist None."
+
+#: fusion_hat.music.Music.sound_play_threading:1 of
+msgid "Play sound effect in thread(in the background)"
+msgstr "Soundeffekt in einem Thread ( im Hintergrund ) abspielen"
+
+#: fusion_hat.music.Music.music_play:1 of
+msgid "Play music file"
+msgstr "Musikdatei abspielen"
+
+#: fusion_hat.music.Music.music_play:3 of
+msgid "sound file name"
+msgstr "Name der Sounddatei"
+
+#: fusion_hat.music.Music.music_play:5 of
+msgid ""
+"number of loops, 0:loop forever, 1:play once, 2:play twice, ... Defaults "
+"to 1."
+msgstr ""
+"Anzahl der Wiederholungen, 0: Endlosschleife, 1: einmal abspielen, 2: zweimal "
+"abspielen, ... Standard ist 1."
+
+#: fusion_hat.music.Music.music_play:7 of
+msgid "start time in seconds. Defaults to 0.0."
+msgstr "Startzeit in Sekunden. Standard ist 0.0."
+
+#: fusion_hat.music.Music.music_set_volume:1 of
+msgid "Set music volume"
+msgstr "Musiklautstärke einstellen"
+
+#: fusion_hat.music.Music.music_set_volume:3 of
+msgid "volume 0-100"
+msgstr "Lautstärke 0–100"
+
+#: fusion_hat.music.Music.music_stop:1 of
+msgid "Stop music"
+msgstr "Musik stoppen"
+
+#: fusion_hat.music.Music.music_pause:1 of
+msgid "Pause music"
+msgstr "Musik pausieren"
+
+#: fusion_hat.music.Music.music_resume:1 of
+msgid "Resume music"
+msgstr "Musik fortsetzen"
+
+#: fusion_hat.music.Music.music_unpause:1 of
+msgid "Unpause music(resume music)"
+msgstr "Musik fortsetzen ( Resume )"
+
+#: fusion_hat.music.Music.sound_length:1 of
+msgid "Get sound effect length in seconds"
+msgstr "Die Länge des Soundeffekts in Sekunden abrufen"
+
+#: fusion_hat.music.Music.sound_length:6 of
+msgid "length in seconds"
+msgstr "Länge in Sekunden"
+
+#: fusion_hat.music.Music.get_tone_data:1 of
+msgid "Get tone data for playing"
+msgstr "Tondaten zum Abspielen abrufen"
+
+#: fusion_hat.music.Music.get_tone_data:3 of
+msgid ""
+"Credit to: Aditya Shankar & Gringo Suave "
+"https://stackoverflow.com/a/53231212/14827323"
+msgstr ""
+"Dank an: Aditya Shankar & Gringo Suave "
+"https://stackoverflow.com/a/53231212/14827323"
+
+#: fusion_hat.music.Music.get_tone_data:5 of
+msgid "frequency"
+msgstr "Frequenz"
+
+#: fusion_hat.music.Music.get_tone_data:7
+#: fusion_hat.music.Music.play_tone_for:6 of
+msgid "duration in seconds"
+msgstr "Dauer in Sekunden"
+
+#: fusion_hat.music.Music.get_tone_data:10 of
+msgid "tone data"
+msgstr "Tondaten"
+
+#: fusion_hat.music.Music.play_tone_for:1 of
+msgid ""
+"Play tone for duration seconds Credit to: Aditya Shankar & Gringo Suave "
+"https://stackoverflow.com/a/53231212/14827323"
+msgstr ""
+"Einen Ton für die angegebene Dauer abspielen. Dank an: Aditya Shankar & Gringo "
+"Suave https://stackoverflow.com/a/53231212/14827323"
+
+#: fusion_hat.music.Music.play_tone_for:4 of
+msgid "frequency, you can use NOTES to get frequency"
+msgstr "Frequenz, Sie können NOTES verwenden, um die Frequenz zu erhalten"

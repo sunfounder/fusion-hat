@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.modules.gy87.rst:2
+msgid "fusion\\_hat.modules.gy87 module"
+msgstr "Modul fusion\\_hat.modules.gy87"
+
+#: fusion_hat.modules.gy87.scan_i2c_addr:1 of
+msgid "Scan the I2C bus for all responding device addresses"
+msgstr "Den I2C-Bus nach allen antwortenden Geräteadressen durchsuchen"
+
+#: fusion_hat.modules.gy87.scan_i2c_addr
+#: fusion_hat.modules.gy87.tilt_comp_heading of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.modules.gy87.scan_i2c_addr:3 of
+msgid "I2C bus number, defaults to I2C_BUS (1)"
+msgstr "I2C-Busnummer, Standard ist I2C_BUS (1)"
+
+#: fusion_hat.modules.gy87.GY87.read_all fusion_hat.modules.gy87.scan_i2c_addr
+#: fusion_hat.modules.gy87.tilt_comp_heading of
+msgid "Returns"
+msgstr "Rückgabe"
+
+#: fusion_hat.modules.gy87.scan_i2c_addr:5 of
+msgid "list of all detected I2C device addresses"
+msgstr "Liste aller erkannten I2C-Geräteadressen"
+
+#: fusion_hat.modules.gy87.GY87.read_all fusion_hat.modules.gy87.scan_i2c_addr
+#: fusion_hat.modules.gy87.tilt_comp_heading of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:1 of
+msgid ""
+"Calculate tilt-compensated heading: Use accelerometer data to calculate "
+"roll/pitch angles, then compensate magnetometer data"
+msgstr ""
+"Neigungskompensierte Richtung berechnen: Beschleunigungsdaten werden zur "
+"Berechnung der Roll-/Nickwinkel verwendet, danach werden die "
+"Magnetometerdaten kompensiert"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:3
+#: fusion_hat.modules.gy87.tilt_comp_heading:4
+#: fusion_hat.modules.gy87.tilt_comp_heading:5 of
+msgid "Three-axis data from the magnetometer (Gauss)"
+msgstr "Dreiachsige Daten vom Magnetometer (Gauss)"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:6
+#: fusion_hat.modules.gy87.tilt_comp_heading:7
+#: fusion_hat.modules.gy87.tilt_comp_heading:8 of
+msgid "Three-axis data from the accelerometer (g)"
+msgstr "Dreiachsige Daten vom Beschleunigungssensor (g)"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:9 of
+msgid ""
+"Magnetic declination (degrees), used to convert magnetic north to true "
+"north"
+msgstr ""
+"Magnetische Deklination (Grad), wird verwendet, um magnetischen Norden in "
+"wahren Norden umzuwandeln"
+
+#: fusion_hat.modules.gy87.tilt_comp_heading:11 of
+msgid "Compensated heading angle, range 0-360 degrees"
+msgstr "Kompensierter Richtungswinkel, Bereich 0–360 Grad"
+
+#: fusion_hat.modules.gy87.GY87:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklasse: :py:class:`object`"
+
+#: fusion_hat.modules.gy87.GY87:1 of
+msgid ""
+"GY-87 sensor module main class Integrate MPU6050 (accelerometer + "
+"gyroscope), BMP180 (barometer), and magnetometer (support multiple "
+"models) Provide complete sensor data reading functionality, including "
+"self-recovery mechanism"
+msgstr ""
+"Hauptklasse des GY-87-Sensormoduls. Integriert MPU6050 (Beschleunigungssensor + "
+"Gyroskop), BMP180 (Barometer) und Magnetometer (unterstützt mehrere Modelle) "
+"und stellt vollständige Funktionen zum Auslesen der Sensordaten bereit, "
+"einschließlich Selbstwiederherstellungsmechanismus"
+
+#: fusion_hat.modules.gy87.GY87.read_all:1 of
+msgid ""
+"Read all sensor data Include automatic error handling and self-recovery "
+"mechanism to ensure system stability"
+msgstr ""
+"Alle Sensordaten lesen. Beinhaltet automatische Fehlerbehandlung und "
+"Selbstwiederherstellungsmechanismus zur Sicherstellung der Systemstabilität"
+
+#: fusion_hat.modules.gy87.GY87.read_all:4 of
+msgid ""
+"Dictionary containing all sensor data       {accel_g: (x,y,z), gyro_dps: "
+"(x,y,z), temp_mpu_c: float,        temp_bmp_c: float, pressure_pa: float,"
+" altitude_m: float,        mag_gauss: (x,y,z), heading_deg: float}"
+msgstr ""
+"Wörterbuch mit allen Sensordaten       {accel_g: (x,y,z), gyro_dps: "
+"(x,y,z), temp_mpu_c: float,        temp_bmp_c: float, pressure_pa: float,"
+" altitude_m: float,        mag_gauss: (x,y,z), heading_deg: float}"
+
+#: fusion_hat.modules.gy87.GY87.read_all:8 of
+msgid "Dictionary containing all sensor data"
+msgstr "Wörterbuch mit allen Sensordaten"
+
+#: fusion_hat.modules.gy87.GY87.read_all:8 of
+msgid "{accel_g: (x,y,z), gyro_dps: (x,y,z), temp_mpu_c: float,"
+msgstr "{accel_g: (x,y,z), gyro_dps: (x,y,z), temp_mpu_c: float,"
+
+#: fusion_hat.modules.gy87.GY87.read_all:8 of
+msgid ""
+"temp_bmp_c: float, pressure_pa: float, altitude_m: float, mag_gauss: "
+"(x,y,z), heading_deg: float}"
+msgstr ""
+"temp_bmp_c: float, pressure_pa: float, altitude_m: float, mag_gauss: "
+"(x,y,z), heading_deg: float}"
+
+#: fusion_hat.modules.gy87.demo_loop:1 of
+msgid "GY-87 sensor module demo loop function"
+msgstr "Demo-Schleifenfunktion des GY-87-Sensormoduls"
+
+#: fusion_hat.modules.gy87.demo_loop:7 of
+msgid "Functions:"
+msgstr "Funktionen:"
+
+#: fusion_hat.modules.gy87.demo_loop:4 of
+msgid "Scan and display connected I2C devices"
+msgstr "Angeschlossene I2C-Geräte scannen und anzeigen"
+
+#: fusion_hat.modules.gy87.demo_loop:5 of
+msgid "Initialize the GY87 sensor module"
+msgstr "GY87-Sensormodul initialisieren"
+
+#: fusion_hat.modules.gy87.demo_loop:6 of
+msgid "Continuously read and display all sensor data"
+msgstr "Alle Sensordaten kontinuierlich lesen und anzeigen"
+
+#: fusion_hat.modules.gy87.demo_loop:7 of
+msgid "Adjust output format based on magnetometer presence"
+msgstr "Ausgabeformat je nach Vorhandensein des Magnetometers anpassen"
+
+#: fusion_hat.modules.gy87.demo_loop:11 of
+msgid "Output format:"
+msgstr "Ausgabeformat:"
+
+#: fusion_hat.modules.gy87.demo_loop:10 of
+msgid ""
+"With magnetometer: displays acceleration, angular velocity, magnetic "
+"field strength, heading, temperature, pressure, and altitude"
+msgstr ""
+"Mit Magnetometer: zeigt Beschleunigung, Winkelgeschwindigkeit, "
+"Magnetfeldstärke, Richtung, Temperatur, Druck und Höhe an"
+
+#: fusion_hat.modules.gy87.demo_loop:11 of
+msgid ""
+"Without magnetometer: displays all data except magnetic field strength "
+"and heading"
+msgstr ""
+"Ohne Magnetometer: zeigt alle Daten außer Magnetfeldstärke und Richtung an"
+
+#: fusion_hat.modules.gy87.demo_loop:13 of
+msgid "Sampling frequency:"
+msgstr "Abtastfrequenz:"
+
+#: fusion_hat.modules.gy87.demo_loop:14 of
+msgid "~5 Hz (0.2 s pause after each read)"
+msgstr "~5 Hz (0,2 s Pause nach jedem Lesevorgang)"

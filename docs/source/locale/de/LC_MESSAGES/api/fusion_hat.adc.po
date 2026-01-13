@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.adc.rst:2
+msgid "fusion\\_hat.adc module"
+msgstr "Modul fusion\\_hat.adc"
+
+#: fusion_hat.adc:1 of
+msgid "Fusion Hat on-board analog to digital converter"
+msgstr "Onboard-Analog-zu-Digital-Wandler des Fusion HAT"
+
+#: fusion_hat.adc:4 of
+msgid "Example"
+msgstr "Beispiel"
+
+#: fusion_hat.adc:5 of
+msgid "Import ADC"
+msgstr "ADC importieren"
+
+#: fusion_hat.adc:9 of
+msgid "Init ADC channel 0"
+msgstr "ADC-Kanal 0 initialisieren"
+
+#: fusion_hat.adc:13 of
+msgid "Read ADC channel 0 value"
+msgstr "Wert von ADC-Kanal 0 lesen"
+
+#: fusion_hat.adc:18 of
+msgid "Read ADC channel 0 voltage"
+msgstr "Spannung von ADC-Kanal 0 lesen"
+
+#: fusion_hat.adc.ADC:1 of
+msgid "Bases: :py:class:`~fusion_hat._base._Base`"
+msgstr "Basisklassen: :py:class:`~fusion_hat._base._Base`"
+
+#: fusion_hat.adc.ADC:1 of
+msgid "ADC class"
+msgstr "ADC-Klasse"
+
+#: fusion_hat.adc.ADC of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.adc.ADC:3 of
+msgid "channel number or Str start with A"
+msgstr "Kanalnummer oder Zeichenkette beginnend mit A"
+
+#: fusion_hat.adc.ADC:5 fusion_hat.adc.ADC:6 of
+msgid "pass to :class:`fusion_hat._base._base`"
+msgstr "Wird an :class:`fusion_hat._base._base` übergeben"
+
+#: fusion_hat.adc.ADC of
+msgid "Raises"
+msgstr "Ausnahmen"
+
+#: fusion_hat.adc.ADC:8 of
+msgid "channel must be channel number or Str start with A"
+msgstr "channel muss eine Kanalnummer oder eine mit A beginnende Zeichenkette sein"
+
+#: fusion_hat.adc.ADC.find_device:1 of
+msgid "find adc device"
+msgstr "ADC-Gerät finden"
+
+#: fusion_hat.adc.ADC.channel fusion_hat.adc.ADC.find_device
+#: fusion_hat.adc.ADC.raw fusion_hat.adc.ADC.read fusion_hat.adc.ADC.read_raw
+#: fusion_hat.adc.ADC.read_voltage fusion_hat.adc.ADC.voltage of
+msgid "Returns"
+msgstr "Rückgabewert"
+
+#: fusion_hat.adc.ADC.find_device:3 of
+msgid "adc device index"
+msgstr "ADC-Geräteindex"
+
+#: fusion_hat.adc.ADC.channel fusion_hat.adc.ADC.find_device
+#: fusion_hat.adc.ADC.raw fusion_hat.adc.ADC.read fusion_hat.adc.ADC.read_raw
+#: fusion_hat.adc.ADC.read_voltage fusion_hat.adc.ADC.voltage of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.adc.ADC.read:1 fusion_hat.adc.ADC.read_raw:1 of
+msgid "read raw value"
+msgstr "Rohwert lesen"
+
+#: fusion_hat.adc.ADC.raw:3 fusion_hat.adc.ADC.read:3
+#: fusion_hat.adc.ADC.read_raw:3 of
+msgid "raw value"
+msgstr "Rohwert"
+
+#: fusion_hat.adc.ADC.read_voltage:1 of
+msgid "read voltage value in V"
+msgstr "Spannungswert in V lesen"
+
+#: fusion_hat.adc.ADC.read_voltage:3 of
+msgid "voltage value in V"
+msgstr "Spannungswert in V"
+
+#: fusion_hat.adc.ADC.channel:1 of
+msgid "get channel"
+msgstr "Kanal abrufen"
+
+#: fusion_hat.adc.ADC.channel:3 of
+msgid "channel number"
+msgstr "Kanalnummer"
+
+#: fusion_hat.adc.ADC.voltage:1 of
+msgid "get voltage"
+msgstr "Spannung abrufen"
+
+#: fusion_hat.adc.ADC.voltage:3 of
+msgid "voltage value in mV"
+msgstr "Spannungswert in mV"
+
+#: fusion_hat.adc.ADC.raw:1 of
+msgid "get raw value"
+msgstr "Rohwert abrufen"

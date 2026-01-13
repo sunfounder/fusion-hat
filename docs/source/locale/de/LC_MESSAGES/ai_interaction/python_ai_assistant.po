@@ -1,0 +1,378 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_ai_assistant.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauchen Sie gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../ai_interaction/python_ai_assistant.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum mitmachen?** "
+
+#: ../ai_interaction/python_ai_assistant.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support** : Lösen Sie After-Sales-Probleme und technische Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../ai_interaction/python_ai_assistant.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen** : Tauschen Sie Tipps und Tutorials aus, um Ihre Fähigkeiten zu verbessern."
+
+#: ../ai_interaction/python_ai_assistant.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen** : Erhalten Sie frühzeitigen Zugriff auf neue Produktankündigungen und exklusive Einblicke."
+
+#: ../ai_interaction/python_ai_assistant.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Sonderrabatte** : Profitieren Sie von exklusiven Rabatten auf unsere neuesten Produkte."
+
+#: ../ai_interaction/python_ai_assistant.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele** : Nehmen Sie an Gewinnspielen und saisonalen Aktionen teil."
+
+#: ../ai_interaction/python_ai_assistant.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicken Sie auf [|link_sf_facebook|] und treten Sie noch heute bei!"
+
+#: ../ai_interaction/python_ai_assistant.rst:18
+msgid "7. AI Voice Assistant"
+msgstr "7. KI-Sprachassistent"
+
+#: ../ai_interaction/python_ai_assistant.rst:20
+msgid ""
+"This lesson turns your Fusion HAT+ into a **voice-first AI assistant**. "
+"With the provided code, the robot will: **wait for a wake word**, "
+"**transcribe your speech** with Vosk, send it to an **OpenAI LLM**, and "
+"**speak back** using Piper TTS."
+msgstr ""
+"Diese Lektion verwandelt Ihren Fusion HAT+ in einen **sprachzentrierten KI-Assistenten**. "
+"Mit dem bereitgestellten Code wird der Roboter : **auf ein Aktivierungswort warten** , "
+"**Ihre Sprache mit Vosk transkribieren** , sie an ein **OpenAI LLM** senden und "
+"**mit Piper TTS antworten** ."
+
+#: ../ai_interaction/python_ai_assistant.rst:26
+msgid "Before You Start"
+msgstr "Bevor Sie beginnen"
+
+#: ../ai_interaction/python_ai_assistant.rst:28
+msgid "Make sure you have:"
+msgstr "Stellen Sie sicher, dass Sie Folgendes haben :"
+
+#: ../ai_interaction/python_ai_assistant.rst:30
+msgid ":ref:`test_piper` — Piper voice works (e.g., you can play “Hello”)."
+msgstr ":ref:`test_piper` — Die Piper-Stimme funktioniert ( z. B. können Sie „Hello“ abspielen )."
+
+#: ../ai_interaction/python_ai_assistant.rst:31
+msgid ":ref:`test_vosk` — Vosk STT works for your language (e.g., ``en-us``)."
+msgstr ":ref:`test_vosk` — Vosk STT funktioniert für Ihre Sprache ( z. B. ``en-us`` )."
+
+#: ../ai_interaction/python_ai_assistant.rst:32
+msgid ""
+":ref:`py_online_llm` — Your **OpenAI API key** saved in ``secret.py`` as "
+"``OPENAI_API_KEY``."
+msgstr ""
+":ref:`py_online_llm` — Ihr **OpenAI API-Schlüssel** ist in ``secret.py`` als "
+"``OPENAI_API_KEY`` gespeichert."
+
+#: ../ai_interaction/python_ai_assistant.rst:33
+msgid "A working **microphone** and **speaker** on Fusion HAT."
+msgstr "Ein funktionierendes **Mikrofon** und ein **Lautsprecher** am Fusion HAT."
+
+#: ../ai_interaction/python_ai_assistant.rst:34
+msgid "A stable network connection (LLM is online)."
+msgstr "Eine stabile Netzwerkverbindung ( das LLM ist online )."
+
+#: ../ai_interaction/python_ai_assistant.rst:39
+msgid "Run the Example"
+msgstr "Beispiel ausführen"
+
+#: ../ai_interaction/python_ai_assistant.rst:46
+msgid "**Configuration used by the code:**"
+msgstr "**Vom Code verwendete Konfiguration:** "
+
+#: ../ai_interaction/python_ai_assistant.rst:48
+msgid "LLM: **OpenAI** (``gpt-4o-mini``)"
+msgstr "LLM : **OpenAI** ( ``gpt-4o-mini`` )"
+
+#: ../ai_interaction/python_ai_assistant.rst:49
+msgid "TTS: **Piper** (``en_US-ryan-low``)"
+msgstr "TTS : **Piper** ( ``en_US-ryan-low`` )"
+
+#: ../ai_interaction/python_ai_assistant.rst:50
+msgid "STT: **Vosk** (``en-us``)"
+msgstr "STT : **Vosk** ( ``en-us`` )"
+
+#: ../ai_interaction/python_ai_assistant.rst:51
+msgid "Wake word: ``\"hey buddy\"``"
+msgstr "Aktivierungswort : ``\"hey buddy\"`` "
+
+#: ../ai_interaction/python_ai_assistant.rst:52
+msgid "Keyboard input: **enabled** (optional manual input)"
+msgstr "Tastatureingabe : **aktiviert** ( optionale manuelle Eingabe )"
+
+#: ../ai_interaction/python_ai_assistant.rst:53
+msgid ""
+"Image mode: **enabled** (``WITH_IMAGE=True``) — requires a multimodal-"
+"capable LLM if you decide to use images later"
+msgstr ""
+"Bildmodus : **aktiviert** ( ``WITH_IMAGE=True`` ) — erfordert ein multimodalfähiges "
+"LLM, wenn Sie später Bilder verwenden möchten"
+
+#: ../ai_interaction/python_ai_assistant.rst:55
+msgid "**What happens:**"
+msgstr "**Was passiert:** "
+
+#: ../ai_interaction/python_ai_assistant.rst:57
+msgid "The assistant shows a welcome message with the wake phrase."
+msgstr "Der Assistent zeigt eine Willkommensnachricht mit der Aktivierungsphrase an."
+
+#: ../ai_interaction/python_ai_assistant.rst:58
+msgid "It listens for **“hey buddy”**."
+msgstr "Er hört auf **„hey buddy“** ."
+
+#: ../ai_interaction/python_ai_assistant.rst:59
+msgid "After wake, your speech is transcribed (Vosk → text)."
+msgstr "Nach der Aktivierung wird Ihre Sprache transkribiert ( Vosk → Text )."
+
+#: ../ai_interaction/python_ai_assistant.rst:60
+msgid "The text is sent to **OpenAI (gpt-4o-mini)** for a response."
+msgstr "Der Text wird zur Antwort an **OpenAI ( gpt-4o-mini )** gesendet."
+
+#: ../ai_interaction/python_ai_assistant.rst:61
+msgid "The answer is spoken with **Piper** (``en_US-ryan-low``)."
+msgstr "Die Antwort wird mit **Piper** ( ``en_US-ryan-low`` ) gesprochen."
+
+#: ../ai_interaction/python_ai_assistant.rst:63
+msgid "**Example interaction**"
+msgstr "**Beispielinteraktion** "
+
+#: ../ai_interaction/python_ai_assistant.rst:74
+msgid "Code"
+msgstr "Code"
+
+#: ../ai_interaction/python_ai_assistant.rst:132
+msgid "**Code explanation:**"
+msgstr "**Code-Erklärung:** "
+
+#: ../ai_interaction/python_ai_assistant.rst:134
+msgid ""
+"``OpenAI(..., model=\"gpt-4o-mini\")`` — Uses **OpenAI** as the only LLM "
+"in this lesson."
+msgstr ""
+"``OpenAI( ..., model=\"gpt-4o-mini\" )`` — Verwendet **OpenAI** als einziges LLM "
+"in dieser Lektion."
+
+#: ../ai_interaction/python_ai_assistant.rst:135
+msgid ""
+"``NAME`` / ``WAKE_WORD`` — Personalize the assistant (“Buddy”, “hey "
+"buddy”)."
+msgstr ""
+"``NAME`` / ``WAKE_WORD`` — Personalisieren Sie den Assistenten ( „Buddy“, „hey buddy“ )."
+
+#: ../ai_interaction/python_ai_assistant.rst:136
+msgid ""
+"``WITH_IMAGE=True`` — Enables image mode in the assistant (no image I/O "
+"logic included here)."
+msgstr ""
+"``WITH_IMAGE=True`` — Aktiviert den Bildmodus im Assistenten ( hier ist keine Bild-E/A-Logik enthalten )."
+
+#: ../ai_interaction/python_ai_assistant.rst:137
+msgid "``TTS_MODEL=\"en_US-ryan-low\"`` — Piper voice used for replies."
+msgstr "``TTS_MODEL=\"en_US-ryan-low\"`` — Für Antworten wird die Piper-Stimme verwendet."
+
+#: ../ai_interaction/python_ai_assistant.rst:138
+msgid "``STT_LANGUAGE=\"en-us\"`` — Vosk language for recognition."
+msgstr "``STT_LANGUAGE=\"en-us\"`` — Vosk-Sprache für die Erkennung."
+
+#: ../ai_interaction/python_ai_assistant.rst:139
+msgid ""
+"``KEYBOARD_ENABLE=True`` — Allows optional manual text input during "
+"debugging."
+msgstr ""
+"``KEYBOARD_ENABLE=True`` — Ermöglicht eine optionale manuelle Texteingabe während des Debuggings."
+
+#: ../ai_interaction/python_ai_assistant.rst:140
+msgid ""
+"``WELCOME`` / ``INSTRUCTIONS`` — Startup message and assistant "
+"persona/system prompt."
+msgstr ""
+"``WELCOME`` / ``INSTRUCTIONS`` — Startnachricht und Persona- bzw. System-Prompt des Assistenten."
+
+#: ../ai_interaction/python_ai_assistant.rst:141
+msgid "``va.run()`` — Starts the loop: **wake → listen → LLM → speak**."
+msgstr "``va.run()`` — Startet die Schleife : **Aktivieren → Zuhören → LLM → Sprechen** ."
+
+#: ../ai_interaction/python_ai_assistant.rst:145
+msgid "Switching to Other LLMs or TTS"
+msgstr "Wechsel zu anderen LLMs oder TTS"
+
+#: ../ai_interaction/python_ai_assistant.rst:147
+msgid ""
+"You can easily switch to other LLMs, TTS, or STT languages with just a "
+"few edits:"
+msgstr ""
+"Sie können mit nur wenigen Änderungen einfach zu anderen LLMs, TTS oder STT-Sprachen wechseln :"
+
+#: ../ai_interaction/python_ai_assistant.rst:149
+msgid "Supported LLMs:"
+msgstr "Unterstützte LLMs :"
+
+#: ../ai_interaction/python_ai_assistant.rst:151
+msgid "OpenAI"
+msgstr "OpenAI"
+
+#: ../ai_interaction/python_ai_assistant.rst:152
+msgid "Doubao"
+msgstr "Doubao"
+
+#: ../ai_interaction/python_ai_assistant.rst:153
+msgid "Deepseek"
+msgstr "Deepseek"
+
+#: ../ai_interaction/python_ai_assistant.rst:154
+msgid "Gemini"
+msgstr "Gemini"
+
+#: ../ai_interaction/python_ai_assistant.rst:155
+msgid "Qwen"
+msgstr "Qwen"
+
+#: ../ai_interaction/python_ai_assistant.rst:156
+msgid "Grok"
+msgstr "Grok"
+
+#: ../ai_interaction/python_ai_assistant.rst:158
+msgid ":ref:`test_piper` — Check the supported languages of **Piper TTS**."
+msgstr ":ref:`test_piper` — Überprüfen Sie die unterstützten Sprachen von **Piper TTS** ."
+
+#: ../ai_interaction/python_ai_assistant.rst:159
+msgid ":ref:`test_vosk` — Check the supported languages of **Vosk STT**."
+msgstr ":ref:`test_vosk` — Überprüfen Sie die unterstützten Sprachen von **Vosk STT** ."
+
+#: ../ai_interaction/python_ai_assistant.rst:161
+msgid "To switch, simply modify the initialization part in the code:"
+msgstr "Um zu wechseln, ändern Sie einfach den Initialisierungsteil im Code :"
+
+#: ../ai_interaction/python_ai_assistant.rst:177
+msgid "Troubleshooting"
+msgstr "Fehlerbehebung"
+
+#: ../ai_interaction/python_ai_assistant.rst:179
+msgid "**Robot doesn’t respond to wake word**"
+msgstr "**Der Roboter reagiert nicht auf das Aktivierungswort** "
+
+#: ../ai_interaction/python_ai_assistant.rst:181
+msgid "Check if the microphone works."
+msgstr "Überprüfen Sie, ob das Mikrofon funktioniert."
+
+#: ../ai_interaction/python_ai_assistant.rst:182
+msgid "Make sure ``WAKE_ENABLE = True``."
+msgstr "Stellen Sie sicher, dass ``WAKE_ENABLE = True`` gesetzt ist."
+
+#: ../ai_interaction/python_ai_assistant.rst:183
+msgid "Adjust the wake word to match your pronunciation."
+msgstr "Passen Sie das Aktivierungswort an Ihre Aussprache an."
+
+#: ../ai_interaction/python_ai_assistant.rst:184
+msgid "Reduce background noise and speak clearly."
+msgstr "Reduzieren Sie Hintergrundgeräusche und sprechen Sie deutlich."
+
+#: ../ai_interaction/python_ai_assistant.rst:186
+msgid "**No sound from the speaker**"
+msgstr "**Kein Ton aus dem Lautsprecher** "
+
+#: ../ai_interaction/python_ai_assistant.rst:188
+msgid "Check the TTS model name (e.g., ``en_US-ryan-low``)."
+msgstr "Überprüfen Sie den TTS-Modellnamen ( z. B. ``en_US-ryan-low`` )."
+
+#: ../ai_interaction/python_ai_assistant.rst:189
+msgid "Test Piper or Espeak manually."
+msgstr "Testen Sie Piper oder Espeak manuell."
+
+#: ../ai_interaction/python_ai_assistant.rst:190
+msgid "Verify speaker connection and volume."
+msgstr "Überprüfen Sie die Lautsprecherverbindung und die Lautstärke."
+
+#: ../ai_interaction/python_ai_assistant.rst:192
+msgid "**API key error or timeout**"
+msgstr "**API-Schlüssel-Fehler oder Zeitüberschreitung** "
+
+#: ../ai_interaction/python_ai_assistant.rst:194
+msgid "Check your key in ``secret.py``."
+msgstr "Überprüfen Sie Ihren Schlüssel in ``secret.py`` ."
+
+#: ../ai_interaction/python_ai_assistant.rst:195
+msgid "Make sure your network connection is stable."
+msgstr "Stellen Sie sicher, dass Ihre Netzwerkverbindung stabil ist."
+
+#: ../ai_interaction/python_ai_assistant.rst:196
+msgid "Confirm the LLM model is supported (e.g., ``gpt-4o-mini``)."
+msgstr "Bestätigen Sie, dass das LLM-Modell unterstützt wird ( z. B. ``gpt-4o-mini`` )."
+
+#: ../ai_interaction/python_ai_assistant.rst:198
+msgid "**Wake word works but no response**"
+msgstr "**Das Aktivierungswort funktioniert, aber es gibt keine Antwort** "
+
+#: ../ai_interaction/python_ai_assistant.rst:200
+msgid "Check if the STT language matches your accent."
+msgstr "Überprüfen Sie, ob die STT-Sprache zu Ihrem Akzent passt."
+
+#: ../ai_interaction/python_ai_assistant.rst:201
+msgid "Make sure the model downloaded correctly."
+msgstr "Stellen Sie sicher, dass das Modell korrekt heruntergeladen wurde."
+
+#: ../ai_interaction/python_ai_assistant.rst:202
+msgid "Try printing debug logs to confirm STT is running."
+msgstr "Versuchen Sie, Debug-Protokolle auszugeben, um zu bestätigen, dass STT ausgeführt wird."
+
+#: ../ai_interaction/python_ai_assistant.rst:204
+msgid "**TTS works but no LLM reply**"
+msgstr "**TTS funktioniert, aber keine LLM-Antwort** "
+
+#: ../ai_interaction/python_ai_assistant.rst:206
+msgid "Check if the API key is valid."
+msgstr "Überprüfen Sie, ob der API-Schlüssel gültig ist."
+
+#: ../ai_interaction/python_ai_assistant.rst:207
+msgid "Verify model name and LLM settings."
+msgstr "Überprüfen Sie den Modellnamen und die LLM-Einstellungen."
+
+#: ../ai_interaction/python_ai_assistant.rst:208
+msgid "Ensure internet connectivity."
+msgstr "Stellen Sie sicher, dass eine Internetverbindung besteht."

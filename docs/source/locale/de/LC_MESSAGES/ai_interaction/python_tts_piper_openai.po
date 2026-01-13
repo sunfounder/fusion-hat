@@ -1,0 +1,565 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauchen Sie gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum mitmachen?**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support** : Lösen Sie After-Sales-Probleme und technische Herausforderungen mit "
+"Hilfe unserer Community und unseres Teams."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen** : Tauschen Sie Tipps und Tutorials aus, um Ihre Fähigkeiten zu verbessern."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen** : Erhalten Sie frühzeitigen Zugriff auf neue Produktankündigungen und "
+"exklusive Einblicke."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Sonderrabatte** : Profitieren Sie von exklusiven Rabatten auf unsere neuesten Produkte."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele** : Nehmen Sie an Gewinnspielen und saisonalen Aktionen teil."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicken Sie auf [|link_sf_facebook|] und "
+"treten Sie noch heute bei!"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:16
+msgid "2. TTS with Piper and OpenAI"
+msgstr "2. TTS mit Piper und OpenAI"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:18
+msgid ""
+"In the previous lesson, we explored **Espeak** and **Pico2Wave**, two "
+"simple offline TTS engines on Raspberry Pi. Now, let’s take a big step "
+"forward and try two **more advanced TTS options** that offer **higher "
+"voice quality** and more flexibility:"
+msgstr ""
+"In der vorherigen Lektion haben wir **Espeak** und **Pico2Wave** untersucht, zwei "
+"einfache Offline-TTS-Engines auf dem Raspberry Pi. Jetzt machen wir einen großen Schritt "
+"nach vorn und probieren zwei **fortgeschrittenere TTS-Optionen** aus, die **höhere "
+"Sprachqualität** und mehr Flexibilität bieten:"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:21
+msgid ""
+"**Piper** — a fast, neural network–based TTS engine that runs "
+"**completely offline** on Raspberry Pi."
+msgstr ""
+"**Piper** — eine schnelle, auf neuronalen Netzen basierende TTS-Engine, die "
+"auf dem Raspberry Pi **vollständig offline** läuft."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:22
+msgid ""
+"**OpenAI TTS** — an online service that provides **very natural and "
+"human-like voices**, perfect for expressive speech."
+msgstr ""
+"**OpenAI TTS** — ein Online-Dienst, der **sehr natürliche und "
+"menschenähnliche Stimmen** bereitstellt — perfekt für ausdrucksstarke Sprache."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:24
+msgid ""
+"These engines will make your Fusion HAT+ sound more realistic and "
+"lifelike. 🚀"
+msgstr ""
+"Diese Engines lassen Ihr Fusion HAT+ realistischer und "
+"lebendiger klingen. 🚀"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:31
+msgid "1. Testing Piper"
+msgstr "1. Piper testen"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:33
+msgid ""
+"Piper is an **offline neural TTS engine**, meaning you don’t need an "
+"internet connection once the model is installed. It supports multiple "
+"**languages** and **voices**, making it a powerful option for embedded "
+"speech."
+msgstr ""
+"Piper ist eine **offline neuronale TTS-Engine**, das heißt, Sie benötigen keine "
+"Internetverbindung mehr, sobald das Modell installiert ist. Es unterstützt mehrere "
+"**Sprachen** und **Stimmen** und ist damit eine leistungsstarke Option für eingebettete "
+"Sprachausgabe."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:36
+#: ../ai_interaction/python_tts_piper_openai.rst:110
+msgid "**Run the program**"
+msgstr "**Programm ausführen**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:43
+msgid ""
+"The first time you run it, the selected **voice model** will be "
+"downloaded automatically."
+msgstr ""
+"Beim ersten Ausführen wird das ausgewählte **Stimmenmodell** automatisch "
+"heruntergeladen."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:44
+msgid "You should then hear the Fusion HAT+ say: ``Hello! I'm Piper TTS.``"
+msgstr "Danach sollten Sie Fusion HAT+ sagen hören: ``Hello! I'm Piper TTS.``"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:45
+msgid ""
+"You can switch voices or languages by calling ``set_model()`` with a "
+"different model name."
+msgstr ""
+"Sie können Stimmen oder Sprachen wechseln, indem Sie ``set_model()`` mit einem "
+"anderen Modellnamen aufrufen."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:47
+#: ../ai_interaction/python_tts_piper_openai.rst:122
+msgid "**Code**"
+msgstr "**Code**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:67
+#: ../ai_interaction/python_tts_piper_openai.rst:152
+msgid "**Code explanation:**"
+msgstr "**Code-Erklärung:**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:69
+msgid "``available_countrys()`` — Lists all supported languages."
+msgstr "``available_countrys()`` — Listet alle unterstützten Sprachen auf."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:70
+msgid "``available_models()`` — Lists available models for a specific language."
+msgstr "``available_models()`` — Listet verfügbare Modelle für eine bestimmte Sprache auf."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:71
+msgid ""
+"``set_model()`` — Sets the voice model. If the model isn’t installed, it "
+"will download automatically."
+msgstr ""
+"``set_model()`` — Legt das Stimmenmodell fest. Wenn das Modell nicht installiert ist, "
+"wird es automatisch heruntergeladen."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:72
+msgid "``say()`` — Converts text to speech and plays it immediately."
+msgstr "``say()`` — Wandelt Text in Sprache um und spielt sie sofort ab."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:74
+msgid ""
+"💡 **Tip:** Try different models to compare speed, clarity, and accents. "
+"Some models are lighter (faster), while others have higher fidelity."
+msgstr ""
+"💡 **Tipp:** Probieren Sie verschiedene Modelle aus, um Geschwindigkeit, Klarheit und Akzente zu vergleichen. "
+"Einige Modelle sind leichter (schneller), während andere eine höhere Wiedergabetreue bieten."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:79
+msgid "2. Testing OpenAI TTS"
+msgstr "2. OpenAI TTS testen"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:81
+msgid "**Get and save your API Key**"
+msgstr "**API-Schlüssel abrufen und speichern**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:83
+msgid ""
+"Go to |link_openai_platform| and log in. On the **API keys** page, click "
+"**Create new secret key**."
+msgstr ""
+"Gehen Sie zu |link_openai_platform| und melden Sie sich an. Klicken Sie auf der Seite **API keys** auf "
+"**Create new secret key** ."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:87
+msgid ""
+"Fill in the details (Owner, Name, Project, and permissions if needed), "
+"then click **Create secret key**."
+msgstr ""
+"Füllen Sie die Details aus (Owner, Name, Project und bei Bedarf Berechtigungen), "
+"und klicken Sie dann auf **Create secret key** ."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:91
+msgid ""
+"Once the key is created, copy it right away — you won't be able to see it"
+" again. If you lose it, you must generate a new one."
+msgstr ""
+"Sobald der Schlüssel erstellt wurde, kopieren Sie ihn sofort — Sie können ihn "
+"danach nicht mehr ansehen. Wenn Sie ihn verlieren, müssen Sie einen neuen erstellen."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:95
+msgid ""
+"In your project folder (for example: ``/``), create a file called "
+"``secret.py``:"
+msgstr ""
+"Erstellen Sie in Ihrem Projektordner (zum Beispiel: ``/``) eine Datei mit dem Namen "
+"``secret.py`` :"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:102
+msgid "Paste your key into the file like this:"
+msgstr "Fügen Sie Ihren Schlüssel so in die Datei ein:"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:117
+msgid ""
+"The program will connect to OpenAI’s TTS service, and the Fusion HAT+ "
+"will speak using **natural, expressive voice output**."
+msgstr ""
+"Das Programm verbindet sich mit dem OpenAI-TTS-Dienst, und Fusion HAT+ "
+"spricht mit **natürlicher, ausdrucksstarker Sprachausgabe** ."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:118
+msgid ""
+"You can change **voice styles** and add **instructions** to control tone "
+"and expression (e.g., sad, dramatic, playful)."
+msgstr ""
+"Sie können **Stimmstile** ändern und **instructions** hinzufügen, um Tonfall "
+"und Ausdruck zu steuern (z. B. traurig, dramatisch, verspielt)."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:119
+msgid ""
+"This makes OpenAI TTS ideal for interactive robots, storytelling, or "
+"educational assistants."
+msgstr ""
+"Dadurch eignet sich OpenAI TTS ideal für interaktive Roboter, Storytelling oder "
+"Lehrassistenten."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:154
+msgid "``OpenAI_TTS()`` — Initializes the OpenAI TTS engine using your API key."
+msgstr "``OpenAI_TTS()`` — Initialisiert die OpenAI-TTS-Engine mit Ihrem API-Schlüssel."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:155
+msgid "``set_model()`` — Selects the TTS model (e.g., ``gpt-4o-mini-tts``)."
+msgstr "``set_model()`` — Wählt das TTS-Modell aus (z. B. ``gpt-4o-mini-tts`` )."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:156
+msgid "``set_voice()`` — Chooses a specific voice (e.g., ``alloy``)."
+msgstr "``set_voice()`` — Wählt eine bestimmte Stimme aus (z. B. ``alloy`` )."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:157
+msgid "``say(text)`` — Converts the text to speech and plays it."
+msgstr "``say(text)`` — Wandelt den Text in Sprache um und spielt sie ab."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:158
+msgid ""
+"``say(text, instructions=...)`` — Adds **expressive tone instructions**, "
+"allowing you to control the style of speech dynamically."
+msgstr ""
+"``say(text, instructions=...)`` — Fügt **Anweisungen für ausdrucksstarken Tonfall** hinzu, "
+"sodass Sie den Sprechstil dynamisch steuern können."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:160
+msgid "**Example:**"
+msgstr "**Beispiel:**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:162
+msgid "“say it sadly” → soft, emotional tone"
+msgstr "„say it sadly“ → weicher, emotionaler Ton"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:163
+msgid "“say it dramatically” → bold and expressive delivery"
+msgstr "„say it dramatically“ → kräftige und ausdrucksstarke Darbietung"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:164
+msgid "“say it excitedly” → enthusiastic tone"
+msgstr "„say it excitedly“ → begeisterter Ton"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:169
+msgid "Troubleshooting"
+msgstr "Fehlerbehebung"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:171
+msgid "**No module named 'secret'**"
+msgstr "**No module named 'secret'**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:173
+msgid ""
+"This means ``secret.py`` is not in the same folder as your Python file. "
+"Move ``secret.py`` into the same directory where you run the script, "
+"e.g.:"
+msgstr ""
+"Das bedeutet, dass sich ``secret.py`` nicht im selben Ordner wie Ihre Python-Datei befindet. "
+"Verschieben Sie ``secret.py`` in dasselbe Verzeichnis, in dem Sie das Skript ausführen, "
+"z. B.:"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:181
+msgid "**OpenAI: Invalid API key / 401**"
+msgstr "**OpenAI: Ungültiger API-Schlüssel / 401**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:183
+msgid ""
+"Check that you pasted the full key (starts with ``sk-``) and there are no"
+" extra spaces/newlines."
+msgstr ""
+"Prüfen Sie, ob Sie den vollständigen Schlüssel eingefügt haben (beginnt mit ``sk-``) und ob keine "
+"zusätzlichen Leerzeichen / Zeilenumbrüche vorhanden sind."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:184
+msgid "Ensure your code imports it correctly:"
+msgstr "Stellen Sie sicher, dass Ihr Code ihn korrekt importiert:"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:190
+msgid "Confirm network access on your Pi (try ``ping api.openai.com``)."
+msgstr "Bestätigen Sie den Netzwerkzugriff auf Ihrem Pi (testen Sie ``ping api.openai.com`` )."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:192
+msgid "**OpenAI: Quota exceeded / billing error**"
+msgstr "**OpenAI: Kontingent überschritten / Abrechnungsfehler**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:194
+msgid "You may need to add billing or increase quota in the OpenAI dashboard."
+msgstr "Möglicherweise müssen Sie die Abrechnung hinzufügen oder das Kontingent im OpenAI-Dashboard erhöhen."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:195
+msgid "Try again after resolving the account/billing issue."
+msgstr "Versuchen Sie es erneut, nachdem Sie das Konto- / Abrechnungsproblem behoben haben."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:197
+msgid "**Piper: tts.say() runs but no sound**"
+msgstr "**Piper: tts.say() läuft, aber kein Ton**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:199
+msgid "Make sure a voice model is actually present:"
+msgstr "Stellen Sie sicher, dass tatsächlich ein Stimmenmodell vorhanden ist:"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:205
+msgid "Confirm your model name matches exactly in code:"
+msgstr "Bestätigen Sie, dass Ihr Modellname im Code exakt übereinstimmt:"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:211
+msgid ""
+"Check the audio output device/volume on your Pi (``alsamixer``), and that"
+" speakers are connected and powered."
+msgstr ""
+"Prüfen Sie das Audio-Ausgabegerät / die Lautstärke auf Ihrem Pi (``alsamixer``) und stellen Sie sicher, dass "
+"die Lautsprecher angeschlossen und eingeschaltet sind."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:213
+msgid ""
+"**ALSA / sound device errors (e.g., “Audio device busy” or “No such file "
+"or directory”)**"
+msgstr ""
+"**ALSA- / Soundgeräte-Fehler (z. B. „Audio device busy“ oder „No such file "
+"or directory“)** "
+
+#: ../ai_interaction/python_tts_piper_openai.rst:215
+msgid "Close other programs using audio."
+msgstr "Schließen Sie andere Programme, die Audio verwenden."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:216
+msgid "Reboot the Pi if the device stays busy."
+msgstr "Starten Sie den Pi neu, wenn das Gerät weiterhin belegt ist."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:217
+msgid ""
+"For HDMI vs. headphone jack output, select the correct device in "
+"Raspberry Pi OS audio settings."
+msgstr ""
+"Für HDMI- vs. Kopfhörerbuchsen-Ausgabe wählen Sie das richtige Gerät in den "
+"Audioeinstellungen von Raspberry Pi OS aus."
+
+#: ../ai_interaction/python_tts_piper_openai.rst:219
+msgid "**Permission denied when running Python**"
+msgstr "**Permission denied beim Ausführen von Python**"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:221
+msgid "Try with ``sudo`` if your environment requires it:"
+msgstr "Versuchen Sie es mit ``sudo`` , wenn Ihre Umgebung dies erfordert:"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:228
+msgid "Comparison of TTS Engines"
+msgstr "Vergleich von TTS-Engines"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:230
+msgid "Feature comparison: Espeak vs Pico2Wave vs Piper vs OpenAI TTS"
+msgstr "Funktionsvergleich: Espeak vs Pico2Wave vs Piper vs OpenAI TTS"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:234
+msgid "Item"
+msgstr "Element"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:235
+msgid "Espeak"
+msgstr "Espeak"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:236
+msgid "Pico2Wave"
+msgstr "Pico2Wave"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:237
+msgid "Piper"
+msgstr "Piper"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:238
+msgid "OpenAI TTS"
+msgstr "OpenAI TTS"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:239
+msgid "Runs on"
+msgstr "Läuft auf"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:240
+#: ../ai_interaction/python_tts_piper_openai.rst:241
+msgid "Built-in on Raspberry Pi (offline)"
+msgstr "In Raspberry Pi integriert ( offline )"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:242
+msgid "Raspberry Pi / PC (offline, needs model)"
+msgstr "Raspberry Pi / PC ( offline, benötigt Modell )"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:243
+msgid "Cloud (online, needs API key)"
+msgstr "Cloud ( online, benötigt API-Schlüssel )"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:244
+msgid "Voice quality"
+msgstr "Sprachqualität"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:245
+msgid "Robotic"
+msgstr "Robotisch"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:246
+msgid "More natural than Espeak"
+msgstr "Natürlicher als Espeak"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:247
+msgid "Natural (neural TTS)"
+msgstr "Natürlich ( neuronales TTS )"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:248
+msgid "Very natural / human-like"
+msgstr "Sehr natürlich / menschenähnlich"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:249
+msgid "Controls"
+msgstr "Steuerung"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:250
+msgid "Speed, pitch, volume"
+msgstr "Geschwindigkeit, Tonhöhe, Lautstärke"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:251
+msgid "Limited controls"
+msgstr "Eingeschränkte Steuerung"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:252
+msgid "Choose different voices/models"
+msgstr "Verschiedene Stimmen / Modelle wählen"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:253
+msgid "Choose model and voices"
+msgstr "Modell und Stimmen wählen"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:254
+msgid "Languages"
+msgstr "Sprachen"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:255
+msgid "Many (quality varies)"
+msgstr "Viele ( Qualität variiert )"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:256
+msgid "Limited set"
+msgstr "Begrenzter Umfang"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:257
+msgid "Many voices/languages available"
+msgstr "Viele Stimmen / Sprachen verfügbar"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:258
+msgid "Best in English (others vary by availability)"
+msgstr "Am besten auf Englisch ( andere variieren je nach Verfügbarkeit )"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:259
+msgid "Latency / speed"
+msgstr "Latenz / Geschwindigkeit"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:260
+msgid "Very fast"
+msgstr "Sehr schnell"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:261
+msgid "Fast"
+msgstr "Schnell"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:262
+msgid "Real-time on Pi 4/5 with “low” models"
+msgstr "Echtzeit auf Pi 4/5 mit „low“-Modellen"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:263
+msgid "Network-dependent (usually low latency)"
+msgstr "Netzwerkabhängig ( normalerweise geringe Latenz )"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:264
+msgid "Setup"
+msgstr "Einrichtung"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:265
+#: ../ai_interaction/python_tts_piper_openai.rst:266
+msgid "Minimal"
+msgstr "Minimal"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:267
+msgid "Download ``.onnx`` + ``.onnx.json`` models"
+msgstr "``.onnx`` + ``.onnx.json`` -Modelle herunterladen"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:268
+msgid "Create API key, install client"
+msgstr "API-Schlüssel erstellen, Client installieren"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:269
+msgid "Best for"
+msgstr "Am besten geeignet für"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:270
+msgid "Quick tests, basic prompts"
+msgstr "Schnelle Tests, einfache Prompts"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:271
+msgid "Slightly better offline voice"
+msgstr "Etwas bessere Offline-Stimme"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:272
+msgid "Local projects with better quality"
+msgstr "Lokale Projekte mit besserer Qualität"
+
+#: ../ai_interaction/python_tts_piper_openai.rst:273
+msgid "Highest quality, rich voice options"
+msgstr "Höchste Qualität, umfangreiche Stimmoptionen"

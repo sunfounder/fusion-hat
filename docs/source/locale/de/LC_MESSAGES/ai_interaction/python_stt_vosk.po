@@ -1,0 +1,335 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/python_stt_vosk.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauchen Sie gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../ai_interaction/python_stt_vosk.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum mitmachen?**"
+
+#: ../ai_interaction/python_stt_vosk.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support** : Lösen Sie After-Sales-Probleme und technische Herausforderungen mit "
+"Hilfe unserer Community und unseres Teams."
+
+#: ../ai_interaction/python_stt_vosk.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen** : Tauschen Sie Tipps und Tutorials aus, um Ihre Fähigkeiten zu verbessern."
+
+#: ../ai_interaction/python_stt_vosk.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen** : Erhalten Sie frühzeitigen Zugriff auf neue Produktankündigungen und "
+"exklusive Einblicke."
+
+#: ../ai_interaction/python_stt_vosk.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Sonderrabatte** : Profitieren Sie von exklusiven Rabatten auf unsere neuesten Produkte."
+
+#: ../ai_interaction/python_stt_vosk.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele** : Nehmen Sie an Gewinnspielen und saisonalen Aktionen teil."
+
+#: ../ai_interaction/python_stt_vosk.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicken Sie auf [|link_sf_facebook|] und "
+"treten Sie noch heute bei!"
+
+#: ../ai_interaction/python_stt_vosk.rst:16
+msgid "3. STT with Vosk (Offline)"
+msgstr "3. STT mit Vosk ( Offline )"
+
+#: ../ai_interaction/python_stt_vosk.rst:18
+msgid ""
+"Vosk is a lightweight speech-to-text (STT) engine that supports many "
+"languages and runs fully **offline** on Raspberry Pi. You only need "
+"internet access once to download a language model. After that, everything"
+" works without a network connection."
+msgstr ""
+"Vosk ist eine leichtgewichtige Speech-to-Text ( STT )-Engine, die viele Sprachen unterstützt und auf dem Raspberry Pi "
+"vollständig **offline** läuft. Sie benötigen nur einmal Internetzugang, um ein Sprachmodell herunterzuladen. Danach "
+"funktioniert alles ohne Netzwerkverbindung."
+
+#: ../ai_interaction/python_stt_vosk.rst:21
+msgid "In this lesson, we will:"
+msgstr "In dieser Lektion werden wir:"
+
+#: ../ai_interaction/python_stt_vosk.rst:23
+msgid "Check the microphone on Raspberry Pi."
+msgstr "Das Mikrofon auf dem Raspberry Pi überprüfen."
+
+#: ../ai_interaction/python_stt_vosk.rst:24
+msgid "Install and test Vosk with a chosen language model."
+msgstr "Vosk mit einem ausgewählten Sprachmodell installieren und testen."
+
+#: ../ai_interaction/python_stt_vosk.rst:27
+msgid "1. Check Your Microphone"
+msgstr "1. Mikrofon überprüfen"
+
+#: ../ai_interaction/python_stt_vosk.rst:29
+msgid ""
+"Before using speech recognition, make sure your USB microphone works "
+"correctly."
+msgstr ""
+"Bevor Sie die Spracherkennung verwenden, stellen Sie sicher, dass Ihr USB-Mikrofon korrekt funktioniert."
+
+#: ../ai_interaction/python_stt_vosk.rst:31
+msgid "List available recording devices:"
+msgstr "Verfügbare Aufnahmegeräte auflisten:"
+
+#: ../ai_interaction/python_stt_vosk.rst:37
+msgid "Look for a line like ``card 1: ... device 0``."
+msgstr "Suchen Sie nach einer Zeile wie ``card 1: ... device 0`` ."
+
+#: ../ai_interaction/python_stt_vosk.rst:39
+msgid "Record a short sample (replace ``1,0`` with the numbers you found):"
+msgstr "Nehmen Sie eine kurze Probe auf ( ersetzen Sie ``1,0`` durch die Zahlen, die Sie gefunden haben ):"
+
+#: ../ai_interaction/python_stt_vosk.rst:45
+msgid "Example: if your device is ``card 2, device 0``, use:"
+msgstr "Beispiel: Wenn Ihr Gerät ``card 2, device 0`` ist, verwenden Sie:"
+
+#: ../ai_interaction/python_stt_vosk.rst:51
+msgid "Play it back to confirm the recording:"
+msgstr "Spielen Sie die Aufnahme ab, um sie zu bestätigen:"
+
+#: ../ai_interaction/python_stt_vosk.rst:57
+msgid "Adjust microphone volume if needed:"
+msgstr "Passen Sie bei Bedarf die Mikrofonlautstärke an:"
+
+#: ../ai_interaction/python_stt_vosk.rst:63
+msgid "Press **F6** to select your USB microphone."
+msgstr "Drücken Sie **F6** , um Ihr USB-Mikrofon auszuwählen."
+
+#: ../ai_interaction/python_stt_vosk.rst:64
+msgid "Find the **Mic** or **Capture** channel."
+msgstr "Suchen Sie den Kanal **Mic** oder **Capture** ."
+
+#: ../ai_interaction/python_stt_vosk.rst:65
+msgid ""
+"Make sure it is not muted (**[MM]** means mute, press ``M`` to unmute → "
+"should show **[OO]**)."
+msgstr ""
+"Stellen Sie sicher, dass es nicht stummgeschaltet ist ( **[MM]** bedeutet stumm; drücken Sie ``M`` zum Aufheben → "
+"es sollte **[OO]** anzeigen )."
+
+#: ../ai_interaction/python_stt_vosk.rst:66
+msgid "Use ↑ / ↓ arrow keys to change the recording volume."
+msgstr "Verwenden Sie die Pfeiltasten ↑ / ↓, um die Aufnahme-Lautstärke zu ändern."
+
+#: ../ai_interaction/python_stt_vosk.rst:72
+msgid "2. Test Vosk"
+msgstr "2. Vosk testen"
+
+#: ../ai_interaction/python_stt_vosk.rst:74
+msgid "**Run the program**"
+msgstr "**Programm ausführen**"
+
+#: ../ai_interaction/python_stt_vosk.rst:81
+msgid "The first time you run this code with a new language, Vosk will:"
+msgstr "Wenn Sie diesen Code zum ersten Mal mit einer neuen Sprache ausführen, wird Vosk:"
+
+#: ../ai_interaction/python_stt_vosk.rst:83
+msgid ""
+"**Automatically download the language model** (by default, the small "
+"version)."
+msgstr ""
+"**Das Sprachmodell automatisch herunterladen** ( standardmäßig die kleine Version )."
+
+#: ../ai_interaction/python_stt_vosk.rst:84
+msgid "**Print out the list of supported languages**."
+msgstr "**Die Liste der unterstützten Sprachen ausgeben** ."
+
+#: ../ai_interaction/python_stt_vosk.rst:85
+msgid "Start **listening** for audio input through the microphone."
+msgstr "Mit dem **Zuhören** auf Audioeingaben über das Mikrofon beginnen."
+
+#: ../ai_interaction/python_stt_vosk.rst:87
+msgid "You’ll see something like this in the terminal:"
+msgstr "Im Terminal sehen Sie etwas wie folgt:"
+
+#: ../ai_interaction/python_stt_vosk.rst:95
+msgid "This means:"
+msgstr "Das bedeutet:"
+
+#: ../ai_interaction/python_stt_vosk.rst:97
+msgid "The model file (``vosk-model-small-en-us-0.15``) has been downloaded."
+msgstr "Die Modelldatei ( ``vosk-model-small-en-us-0.15`` ) wurde heruntergeladen."
+
+#: ../ai_interaction/python_stt_vosk.rst:98
+msgid "The list of supported languages has been printed."
+msgstr "Die Liste der unterstützten Sprachen wurde ausgegeben."
+
+#: ../ai_interaction/python_stt_vosk.rst:99
+msgid ""
+"The system is now listening — say something into the Fusion HAT+ "
+"microphone, and the recognized text will appear in the terminal."
+msgstr ""
+"Das System hört jetzt zu — sagen Sie etwas in das Fusion HAT+ -Mikrofon, und der erkannte Text erscheint im Terminal."
+
+#: ../ai_interaction/python_stt_vosk.rst:101
+msgid "**Tips:**"
+msgstr "**Tipps:**"
+
+#: ../ai_interaction/python_stt_vosk.rst:103
+msgid "Keep the microphone about **15–30 cm** away for better accuracy."
+msgstr "Halten Sie das Mikrofon etwa **15–30 cm** entfernt, um eine bessere Genauigkeit zu erzielen."
+
+#: ../ai_interaction/python_stt_vosk.rst:104
+msgid "Choose a **model that matches your language and accent**."
+msgstr "Wählen Sie ein **Modell, das zu Ihrer Sprache und Ihrem Akzent passt** ."
+
+#: ../ai_interaction/python_stt_vosk.rst:105
+msgid "Use a quiet environment to improve recognition."
+msgstr "Verwenden Sie eine ruhige Umgebung, um die Erkennung zu verbessern."
+
+#: ../ai_interaction/python_stt_vosk.rst:107
+msgid "**Code**"
+msgstr "**Code**"
+
+#: ../ai_interaction/python_stt_vosk.rst:124
+msgid "**Code explanation:**"
+msgstr "**Code-Erklärung:**"
+
+#: ../ai_interaction/python_stt_vosk.rst:126
+msgid ""
+"``stt.listen(stream=True)`` — Starts streaming speech recognition and "
+"yields intermediate results as you speak."
+msgstr ""
+"``stt.listen(stream=True)`` — Startet die Streaming-Spracherkennung und liefert Zwischenergebnisse, während Sie sprechen."
+
+#: ../ai_interaction/python_stt_vosk.rst:127
+msgid ""
+"``result[\"partial\"]`` — Displays the **real-time recognized text** "
+"(updated continuously)."
+msgstr ""
+"``result[\"partial\"]`` — Zeigt den **in Echtzeit erkannten Text** an ( fortlaufend aktualisiert )."
+
+#: ../ai_interaction/python_stt_vosk.rst:128
+msgid ""
+"``result[\"final\"]`` — Displays the **final recognized sentence** when "
+"you stop speaking."
+msgstr ""
+"``result[\"final\"]`` — Zeigt den **final erkannten Satz** an, wenn Sie aufhören zu sprechen."
+
+#: ../ai_interaction/python_stt_vosk.rst:129
+msgid ""
+"The loop runs continuously, allowing **hands-free real-time "
+"transcription**."
+msgstr ""
+"Die Schleife läuft kontinuierlich und ermöglicht eine **freihändige Echtzeit-Transkription** ."
+
+#: ../ai_interaction/python_stt_vosk.rst:131
+msgid ""
+"Tip: This streaming mode is perfect for **voice assistants**, **command "
+"control**, or **live transcription**."
+msgstr ""
+"Tipp: Dieser Streaming-Modus ist perfekt für **Sprachassistenten** , **Befehlssteuerung** oder **Live-Transkription** ."
+
+#: ../ai_interaction/python_stt_vosk.rst:134
+msgid "Troubleshooting"
+msgstr "Fehlerbehebung"
+
+#: ../ai_interaction/python_stt_vosk.rst:136
+msgid "**No such file or directory (when running `arecord`)**"
+msgstr "**No such file or directory ( beim Ausführen von `arecord` )**"
+
+#: ../ai_interaction/python_stt_vosk.rst:138
+msgid "You may have used the wrong card/device number. Run:"
+msgstr "Möglicherweise haben Sie die falsche Card/Device-Nummer verwendet. Führen Sie aus:"
+
+#: ../ai_interaction/python_stt_vosk.rst:145
+msgid "and replace ``1,0`` with the numbers shown for your USB microphone."
+msgstr "und ersetzen Sie ``1,0`` durch die Zahlen, die für Ihr USB-Mikrofon angezeigt werden."
+
+#: ../ai_interaction/python_stt_vosk.rst:147
+msgid "**Recorded file has no sound**"
+msgstr "**Aufgenommene Datei hat keinen Ton**"
+
+#: ../ai_interaction/python_stt_vosk.rst:149
+msgid "Open the mixer and check the microphone volume:"
+msgstr "Öffnen Sie den Mixer und prüfen Sie die Mikrofonlautstärke:"
+
+#: ../ai_interaction/python_stt_vosk.rst:155
+msgid "Press **F6** to select your USB mic."
+msgstr "Drücken Sie **F6** , um Ihr USB-Mikrofon auszuwählen."
+
+#: ../ai_interaction/python_stt_vosk.rst:156
+msgid "Make sure **Mic/Capture** is not muted (**[OO]** instead of **[MM]**)."
+msgstr "Stellen Sie sicher, dass **Mic/Capture** nicht stummgeschaltet ist ( **[OO]** statt **[MM]** )."
+
+#: ../ai_interaction/python_stt_vosk.rst:157
+msgid "Increase the level with ↑."
+msgstr "Erhöhen Sie den Pegel mit ↑."
+
+#: ../ai_interaction/python_stt_vosk.rst:159
+msgid "**Vosk does not recognize speech**"
+msgstr "**Vosk erkennt Sprache nicht**"
+
+#: ../ai_interaction/python_stt_vosk.rst:161
+msgid ""
+"Make sure the **language code** matches your model (e.g. ``en-us`` for "
+"English, ``zh-cn`` for Chinese)."
+msgstr ""
+"Stellen Sie sicher, dass der **Sprachcode** zu Ihrem Modell passt ( z. B. ``en-us`` für Englisch, ``zh-cn`` für Chinesisch )."
+
+#: ../ai_interaction/python_stt_vosk.rst:162
+msgid "Keep the microphone 15–30 cm away and avoid background noise."
+msgstr "Halten Sie das Mikrofon 15–30 cm entfernt und vermeiden Sie Hintergrundgeräusche."
+
+#: ../ai_interaction/python_stt_vosk.rst:163
+msgid "Speak clearly and slowly."
+msgstr "Sprechen Sie klar und langsam."
+
+#: ../ai_interaction/python_stt_vosk.rst:165
+msgid "**High latency / slow recognition**"
+msgstr "**Hohe Latenz / langsame Erkennung**"
+
+#: ../ai_interaction/python_stt_vosk.rst:167
+msgid ""
+"The default auto-download is a **small model** (faster, but less "
+"accurate)."
+msgstr ""
+"Der automatische Standard-Download ist ein **kleines Modell** ( schneller, aber weniger genau )."
+
+#: ../ai_interaction/python_stt_vosk.rst:168
+msgid "If it’s still slow, close other programs to free CPU."
+msgstr "Wenn es immer noch langsam ist, schließen Sie andere Programme, um CPU-Ressourcen freizugeben."

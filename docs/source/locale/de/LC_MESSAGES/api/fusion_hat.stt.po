@@ -1,0 +1,337 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.stt.rst:2
+msgid "fusion\\_hat.stt module"
+msgstr "fusion\\_hat.stt Modul"
+
+#: fusion_hat.stt:1 of
+msgid "Speech to Text module"
+msgstr "Sprach-zu-Text-Modul"
+
+#: fusion_hat.stt:3 of
+msgid "Convert speech to text."
+msgstr "Sprache in Text umwandeln."
+
+#: fusion_hat.stt:6 of
+msgid "Example"
+msgstr "Beispiel"
+
+#: fusion_hat.stt:7 of
+msgid "import STT and instantiate it"
+msgstr "STT importieren und eine Instanz erstellen"
+
+#: fusion_hat.stt:12 of
+msgid "Listen for speech input"
+msgstr "Auf Spracheingabe hören"
+
+#: fusion_hat.stt:18 of
+msgid "Use Stream to get partial results"
+msgstr "Stream verwenden, um Teilergebnisse zu erhalten"
+
+#: fusion_hat.stt:26 of
+msgid "Wait for wake words"
+msgstr "Auf Aktivierungswörter warten"
+
+#: fusion_hat.stt:37 of
+msgid "Wake word in thread"
+msgstr "Aktivierungswort in einem Thread"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk:1
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklassen: :py:class:`object`"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk:1
+msgid "Vosk STT class"
+msgstr "Vosk-STT-Klasse"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.is_ready:1
+msgid "Check if Vosk STT is ready"
+msgstr "Prüfen, ob Vosk-STT bereit ist"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_name
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_path
+#: sunfounder_voice_assistant.stt.vosk.Vosk.heard_wake_word
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_model_downloaded
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_ready
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_waked
+#: sunfounder_voice_assistant.stt.vosk.Vosk.language
+#: sunfounder_voice_assistant.stt.vosk.Vosk.listen
+#: sunfounder_voice_assistant.stt.vosk.Vosk.stt
+#: sunfounder_voice_assistant.stt.vosk.Vosk.wait_until_heard
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.is_ready:3
+msgid "True if ready, False otherwise"
+msgstr "True, wenn bereit, andernfalls False"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_name
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_path
+#: sunfounder_voice_assistant.stt.vosk.Vosk.heard_wake_word
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_model_downloaded
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_ready
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_waked
+#: sunfounder_voice_assistant.stt.vosk.Vosk.language
+#: sunfounder_voice_assistant.stt.vosk.Vosk.listen
+#: sunfounder_voice_assistant.stt.vosk.Vosk.stt
+#: sunfounder_voice_assistant.stt.vosk.Vosk.wait_until_heard
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.init:1
+msgid "Initialize Vosk STT"
+msgstr "Vosk-STT initialisieren"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.update_model_list:1
+msgid "Update available models"
+msgstr "Verfügbare Modelle aktualisieren"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.wait_until_heard:1
+msgid "Wait until heard a wake word"
+msgstr "Warten, bis ein Aktivierungswort gehört wird"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming
+#: sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming
+#: sunfounder_voice_assistant.stt.vosk.Vosk.download_model
+#: sunfounder_voice_assistant.stt.vosk.Vosk.download_progress_hook
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_name
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_path
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_stream_result
+#: sunfounder_voice_assistant.stt.vosk.Vosk.heard_wake_word
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_model_downloaded
+#: sunfounder_voice_assistant.stt.vosk.Vosk.listen
+#: sunfounder_voice_assistant.stt.vosk.Vosk.set_language
+#: sunfounder_voice_assistant.stt.vosk.Vosk.set_wake_words
+#: sunfounder_voice_assistant.stt.vosk.Vosk.stt
+#: sunfounder_voice_assistant.stt.vosk.Vosk.wait_until_heard
+msgid "Parameters"
+msgstr "Parameter"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.wait_until_heard:3
+msgid "Wake words, default is None"
+msgstr "Aktivierungswörter, Standard ist None"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.heard_wake_word:3
+#: sunfounder_voice_assistant.stt.vosk.Vosk.wait_until_heard:5
+msgid "Print callback, default is None"
+msgstr "Print-Callback, Standard ist None"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.wait_until_heard:8
+msgid "Heard wake word"
+msgstr "Gehörtes Aktivierungswort"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.heard_wake_word:1
+msgid "Check if heard a wake word"
+msgstr "Prüfen, ob ein Aktivierungswort gehört wurde"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.heard_wake_word:6
+msgid "True if heard a wake word, False otherwise"
+msgstr "True, wenn ein Aktivierungswort gehört wurde, andernfalls False"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.wait_for_wake_word:1
+msgid "Wait for wake word"
+msgstr "Auf Aktivierungswort warten"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.start_listening_wake_words:1
+msgid "Start listening for wake words"
+msgstr "Das Hören auf Aktivierungswörter starten"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.is_waked:1
+msgid "Check if the wake word thread is running"
+msgstr "Prüfen, ob der Aktivierungswort-Thread läuft"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.is_waked:3
+msgid "True if running, False otherwise"
+msgstr "True, wenn er läuft, andernfalls False"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.stt:1
+msgid "Perform STT on audio file"
+msgstr "STT auf eine Audiodatei anwenden"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.stt:3
+msgid "Audio file path"
+msgstr "Pfad zur Audiodatei"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.listen:3
+#: sunfounder_voice_assistant.stt.vosk.Vosk.stt:5
+msgid "Stream mode, default is False"
+msgstr "Stream-Modus, Standard ist False"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming:12
+#: sunfounder_voice_assistant.stt.vosk.Vosk.listen:10
+#: sunfounder_voice_assistant.stt.vosk.Vosk.stt:8
+msgid "STT result"
+msgstr "STT-Ergebnis"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_stream_result:1
+msgid "Get streaming results from recognizer"
+msgstr "Streaming-Ergebnisse vom Erkenner abrufen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_stream_result:3
+msgid "Wave file object"
+msgstr "Wave-Dateiobjekt"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_stream_result:5
+msgid "Vosk recognizer"
+msgstr "Vosk-Erkenner"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_stream_result
+msgid "Yields"
+msgstr "Liefert"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_stream_result:8
+msgid "*str* -- STT result"
+msgstr "*str* -- STT-Ergebnis"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.listen:1
+msgid "Listen from microphone and return results"
+msgstr "Über das Mikrofon hören und Ergebnisse zurückgeben"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming:5
+#: sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming:5
+#: sunfounder_voice_assistant.stt.vosk.Vosk.listen:5
+msgid "Device index, default is None"
+msgstr "Geräteindex, Standard ist None"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming:7
+#: sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming:7
+#: sunfounder_voice_assistant.stt.vosk.Vosk.listen:7
+msgid "Sampling rate, default is None"
+msgstr "Abtastrate, Standard ist None"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming:1
+msgid "Listen from microphone and return streaming results"
+msgstr "Über das Mikrofon hören und Streaming-Ergebnisse zurückgeben"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming:3
+#: sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming:3
+msgid "Queue to store audio data"
+msgstr "Warteschlange zum Speichern von Audiodaten"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming:9
+#: sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming:9
+msgid "Callback function, default is None"
+msgstr "Callback-Funktion, Standard ist None"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_streaming:12
+msgid "*dict* -- STT result"
+msgstr "*dict* -- STT-Ergebnis"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk._listen_non_streaming:1
+msgid "Listen from microphone and return final result"
+msgstr "Über das Mikrofon hören und das Endergebnis zurückgeben"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.set_wake_words:1
+msgid "Set wake words"
+msgstr "Aktivierungswörter festlegen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.set_wake_words:3
+msgid "List of wake words"
+msgstr "Liste der Aktivierungswörter"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.language:1
+msgid "Get current language"
+msgstr "Aktuelle Sprache abrufen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.language:3
+msgid "Current language"
+msgstr "Aktuelle Sprache"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.set_language:1
+msgid "Set language"
+msgstr "Sprache festlegen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.set_language:3
+msgid "Language to set"
+msgstr "Festzulegende Sprache"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.set_language:5
+msgid "Initialize recognizer, default is True"
+msgstr "Erkenner initialisieren, Standard ist True"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_model_name:1
+msgid "Get model name for language"
+msgstr "Modellnamen für die Sprache abrufen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.download_model:3
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_name:3
+#: sunfounder_voice_assistant.stt.vosk.Vosk.get_model_path:3
+#: sunfounder_voice_assistant.stt.vosk.Vosk.is_model_downloaded:3
+msgid "Language"
+msgstr "Sprache"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_model_name:6
+msgid "Model name"
+msgstr "Modellname"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_model_path:1
+msgid "Get model path for language"
+msgstr "Modellpfad für die Sprache abrufen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.get_model_path:6
+msgid "Model path"
+msgstr "Modellpfad"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.is_model_downloaded:1
+msgid "Check if model is downloaded"
+msgstr "Prüfen, ob das Modell heruntergeladen ist"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.is_model_downloaded:6
+msgid "True if model is downloaded, False otherwise"
+msgstr "True, wenn das Modell heruntergeladen ist, andernfalls False"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.cancel_download:1
+msgid "Public method to cancel ongoing download"
+msgstr "Öffentliche Methode zum Abbrechen eines laufenden Downloads"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.download_model:1
+msgid "Download model for language"
+msgstr "Modell für die Sprache herunterladen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.download_model:5
+#: sunfounder_voice_assistant.stt.vosk.Vosk.download_progress_hook:5
+msgid "Progress callback function, default is None"
+msgstr "Fortschritts-Callback-Funktion, Standard ist None"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.download_model:7
+msgid "Maximum retries, default is 5"
+msgstr "Maximale Wiederholungen, Standard ist 5"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.download_progress_hook:1
+msgid "Download progress hook function"
+msgstr "Hook-Funktion für den Download-Fortschritt"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.download_progress_hook:3
+msgid "tqdm progress bar, default is None"
+msgstr "tqdm-Fortschrittsbalken, Standard ist None"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.stop_listening:1
+msgid "Stop listening for wake word"
+msgstr "Das Hören auf Aktivierungswörter stoppen"
+
+#: of sunfounder_voice_assistant.stt.vosk.Vosk.close:1
+msgid "Close STT"
+msgstr "STT schließen"

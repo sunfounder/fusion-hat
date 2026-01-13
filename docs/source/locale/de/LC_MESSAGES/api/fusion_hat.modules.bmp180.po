@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.modules.bmp180.rst:2
+msgid "fusion\\_hat.modules.bmp180 module"
+msgstr "Modul fusion\\_hat.modules.bmp180"
+
+#: fusion_hat.modules.bmp180.BMP180:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklasse: :py:class:`object`"
+
+#: fusion_hat.modules.bmp180.BMP180:1 of
+msgid ""
+"BMP180 pressure/temperature sensor driver class Used to measure "
+"atmospheric pressure and temperature, and can calculate altitude This is "
+"a concise implementation version that uses floating-point calculations to"
+" improve accuracy"
+msgstr ""
+"BMP180 Druck- / Temperatur-Sensor-Treiberklasse Wird verwendet, um "
+"atmosphärischen Druck und Temperatur zu messen und kann die Höhe berechnen "
+"Dies ist eine kompakte Implementierung, die Gleitkomma-Berechnungen "
+"verwendet, um die Genauigkeit zu verbessern"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16:1 of
+msgid "Read a signed 16-bit integer from the specified register"
+msgstr "Liest eine vorzeichenbehaftete 16-Bit-Ganzzahl aus dem angegebenen Register"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16
+#: fusion_hat.modules.bmp180.BMP180._readU16 of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16:3
+#: fusion_hat.modules.bmp180.BMP180._readU16:3 of
+msgid "register address"
+msgstr "Registeradresse"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16
+#: fusion_hat.modules.bmp180.BMP180._readU16
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp
+#: fusion_hat.modules.bmp180.BMP180.read of
+msgid "Returns"
+msgstr "Rückgabe"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16:5 of
+msgid "converted signed 16-bit integer value"
+msgstr "konvertierter vorzeichenbehafteter 16-Bit-Ganzzahlwert"
+
+#: fusion_hat.modules.bmp180.BMP180._readS16
+#: fusion_hat.modules.bmp180.BMP180._readU16
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp
+#: fusion_hat.modules.bmp180.BMP180.read of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.modules.bmp180.BMP180._readU16:1 of
+msgid "Read an unsigned 16-bit integer from the specified register"
+msgstr "Liest eine vorzeichenlose 16-Bit-Ganzzahl aus dem angegebenen Register"
+
+#: fusion_hat.modules.bmp180.BMP180._readU16:5 of
+msgid "converted unsigned 16-bit integer value"
+msgstr "konvertierter vorzeichenloser 16-Bit-Ganzzahlwert"
+
+#: fusion_hat.modules.bmp180.BMP180._read_calibration:1 of
+msgid ""
+"Read calibration parameters of the sensor Each BMP180 chip has unique "
+"calibration parameters stored in internal EEPROM These parameters are "
+"used to compensate for individual differences of the sensor"
+msgstr ""
+"Kalibrierungsparameter des Sensors lesen Jeder BMP180-Chip besitzt "
+"einzigartige Kalibrierungsparameter, die im internen EEPROM gespeichert "
+"sind Diese Parameter werden verwendet, um individuelle Unterschiede des "
+"Sensors zu kompensieren"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp:1 of
+msgid ""
+"Read raw temperature value Trigger temperature conversion and wait for "
+"completion, then read the result"
+msgstr ""
+"Rohen Temperaturwert lesen Temperaturmessung auslösen und auf Abschluss "
+"warten, dann das Ergebnis lesen"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_temp:4 of
+msgid "raw temperature value (16-bit unsigned integer)"
+msgstr "roher Temperaturwert ( 16-Bit-vorzeichenlose Ganzzahl )"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure:1 of
+msgid ""
+"Read raw pressure value Trigger pressure conversion and wait for "
+"completion, then read the result"
+msgstr ""
+"Rohen Druckwert lesen Druckmessung auslösen und auf Abschluss warten, dann "
+"das Ergebnis lesen"
+
+#: fusion_hat.modules.bmp180.BMP180._read_raw_pressure:4 of
+msgid "raw pressure value (16-bit unsigned integer)"
+msgstr "roher Druckwert ( 16-Bit-vorzeichenlose Ganzzahl )"
+
+#: fusion_hat.modules.bmp180.BMP180.read:1 of
+msgid ""
+"Read and calculate temperature, pressure, and altitude Use standard "
+"formulas provided in BMP180 datasheet"
+msgstr ""
+"Temperatur, Druck und Höhe lesen und berechnen Standardformeln aus dem "
+"BMP180-Datenblatt verwenden"
+
+#: fusion_hat.modules.bmp180.BMP180.read:4 of
+msgid "(temperature(°C), pressure(Pa), altitude(m))"
+msgstr "( Temperatur ( °C ) , Druck ( Pa ) , Höhe ( m ) )"

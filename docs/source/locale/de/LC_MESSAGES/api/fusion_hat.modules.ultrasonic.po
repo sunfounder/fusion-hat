@@ -1,0 +1,143 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.modules.ultrasonic.rst:2
+msgid "fusion\\_hat.modules.ultrasonic module"
+msgstr "fusion\\_hat.modules.ultrasonic Modul"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklassen: :py:class:`object`"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic:1 of
+msgid "Ultrasonic sensor module."
+msgstr "Ultraschallsensor-Modul."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_with_retry
+#: fusion_hat.modules.ultrasonic.Ultrasonic.start_thread of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic:3 of
+msgid "Trigger pin object."
+msgstr "Trigger-Pin-Objekt."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic:5 of
+msgid "Echo pin object."
+msgstr "Echo-Pin-Objekt."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic:7 of
+msgid "Timeout duration in seconds. Default is 0.02."
+msgstr "Timeout-Dauer in Sekunden. Standard ist 0.02."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic of
+msgid "Raises"
+msgstr "Wirft"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic:10 of
+msgid "If trig or echo is not a Pin object."
+msgstr "Wenn trig oder echo kein Pin-Objekt ist."
+
+#: ../docstring fusion_hat.modules.ultrasonic.Ultrasonic.SOUND_SPEED:1 of
+msgid "Sound speed in meters per second."
+msgstr "Schallgeschwindigkeit in Metern pro Sekunde."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_raw:1 of
+msgid "Read raw distance value from ultrasonic sensor."
+msgstr "Rohwert der Distanz vom Ultraschallsensor lesen."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_raw
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_with_retry of
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_raw:3 of
+msgid ""
+"Distance in centimeters. Returns -1 if timeout occurs,     -2 if pulse "
+"start or end is 0, or any other error."
+msgstr ""
+"Entfernung in Zentimetern. Gibt -1 zurück, wenn ein Timeout auftritt, "
+"-2, wenn der Pulsstart oder das Pulsende 0 ist, oder bei einem anderen Fehler."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_raw:5 of
+msgid "Distance in centimeters. Returns -1 if timeout occurs,"
+msgstr "Entfernung in Zentimetern. Gibt -1 zurück, wenn ein Timeout auftritt,"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_raw:6 of
+msgid "-2 if pulse start or end is 0, or any other error."
+msgstr "-2, wenn der Pulsstart oder das Pulsende 0 ist, oder bei einem anderen Fehler."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_raw
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_with_retry of
+msgid "Return type"
+msgstr "Rückgabetyp"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_with_retry:1 of
+msgid "Read distance value with retry mechanism."
+msgstr "Entfernungswert mit Wiederholungsmechanismus lesen."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_with_retry:3 of
+msgid "Number of retry attempts. Default is 10."
+msgstr "Anzahl der Wiederholungsversuche. Standard ist 10."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read_with_retry:6 of
+msgid "Distance in centimeters. Returns -1 if all attempts fail."
+msgstr "Entfernung in Zentimetern. Gibt -1 zurück, wenn alle Versuche fehlschlagen."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read:1 of
+msgid "Read distance value."
+msgstr "Entfernungswert lesen."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read:3 of
+msgid ""
+"Distance in centimeters. Returns -1 if thread is running,     otherwise "
+"returns the last read value."
+msgstr ""
+"Entfernung in Zentimetern. Gibt -1 zurück, wenn der Thread läuft, "
+"ansonsten wird der zuletzt gelesene Wert zurückgegeben."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read:5 of
+msgid "Distance in centimeters. Returns -1 if thread is running,"
+msgstr "Entfernung in Zentimetern. Gibt -1 zurück, wenn der Thread läuft,"
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.read:6 of
+msgid "otherwise returns the last read value."
+msgstr "ansonsten wird der zuletzt gelesene Wert zurückgegeben."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.thread_read_loop:1 of
+msgid "Thread loop for reading distance value periodically."
+msgstr "Thread-Schleife zum periodischen Lesen des Entfernungswerts."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.start_thread:1 of
+msgid "Start the thread for reading distance value periodically."
+msgstr "Den Thread zum periodischen Lesen des Entfernungswerts starten."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.start_thread:3 of
+msgid "Interval duration in seconds. Default is 0.01."
+msgstr "Intervall-Dauer in Sekunden. Standard ist 0.01."
+
+#: fusion_hat.modules.ultrasonic.Ultrasonic.stop_thread:1 of
+msgid "Stop the thread for reading distance value."
+msgstr "Den Thread zum Lesen des Entfernungswerts stoppen."

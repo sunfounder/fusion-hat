@@ -1,0 +1,157 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.modules.mpu6050.rst:2
+msgid "fusion\\_hat.modules.mpu6050 module"
+msgstr "fusion\\_hat.modules.mpu6050 Modul"
+
+#: fusion_hat.modules.mpu6050:1 of
+msgid ""
+"This code is based on Martijn's(martijn@mrtijn.nl) project mpu6050. "
+"Follow the MIT protocol."
+msgstr ""
+"Dieser Code basiert auf dem Projekt mpu6050 von Martijn ( martijn@mrtijn.nl ). "
+"Folgt dem MIT-Protokoll."
+
+#: fusion_hat.modules.mpu6050:4 of
+msgid "https://github.com/m-rtijn/mpu6050"
+msgstr "https://github.com/m-rtijn/mpu6050"
+
+#: fusion_hat.modules.mpu6050.MPU6050:1 of
+msgid "Bases: :py:class:`object`"
+msgstr "Basisklassen: :py:class:`object`"
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_i2c_word:1 of
+msgid "Read two i2c registers and combine them."
+msgstr "Zwei I2C-Register lesen und sie kombinieren."
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_i2c_word:3 of
+msgid ""
+"register -- the first register to read from. Returns the combined read "
+"results."
+msgstr ""
+"register -- das erste Register, von dem gelesen wird. Gibt die kombinierten "
+"Leseergebnisse zurück."
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_temp:1 of
+msgid "Reads the temperature from the onboard temperature sensor of the MPU-6050."
+msgstr "Liest die Temperatur vom integrierten Temperatursensor des MPU-6050."
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_temp:3 of
+msgid "Returns the temperature in degrees Celcius."
+msgstr "Gibt die Temperatur in Grad Celsius zurück."
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_accel_range:1 of
+msgid "Sets the range of the accelerometer to range."
+msgstr "Setzt den Bereich des Beschleunigungssensors auf den angegebenen Bereich."
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_accel_range:3 of
+msgid ""
+"accel_range -- the range to set the accelerometer to. Using a pre-defined"
+" range is advised."
+msgstr ""
+"accel_range -- der Bereich, auf den der Beschleunigungssensor eingestellt wird. "
+"Die Verwendung eines vordefinierten Bereichs wird empfohlen."
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_accel_range:1 of
+msgid "Reads the range the accelerometer is set to."
+msgstr "Liest den Bereich, auf den der Beschleunigungssensor eingestellt ist."
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_accel_range:3 of
+msgid ""
+"If raw is True, it will return the raw value from the ACCEL_CONFIG "
+"register If raw is False, it will return an integer: -1, 2, 4, 8 or 16. "
+"When it returns -1 something went wrong."
+msgstr ""
+"Wenn raw True ist, wird der Rohwert aus dem ACCEL_CONFIG-Register zurückgegeben. "
+"Wenn raw False ist, wird eine Ganzzahl zurückgegeben: -1, 2, 4, 8 oder 16. "
+"Wenn -1 zurückgegeben wird, ist etwas schiefgelaufen."
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_accel_data:1 of
+msgid "Gets and returns the X, Y and Z values from the accelerometer."
+msgstr "Ruft die X-, Y- und Z-Werte des Beschleunigungssensors ab und gibt sie zurück."
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_accel_data:3 of
+msgid ""
+"If g is True, it will return the data in g If g is False, it will return "
+"the data in m/s^2 Returns a dictionary with the measurement results."
+msgstr ""
+"Wenn g True ist, werden die Daten in g zurückgegeben. Wenn g False ist, werden "
+"die Daten in m/s^2 zurückgegeben. Gibt ein Wörterbuch mit den Messergebnissen zurück."
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_gyro_range:1 of
+msgid "Sets the range of the gyroscope to range."
+msgstr "Setzt den Bereich des Gyroskops auf den angegebenen Bereich."
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_gyro_range:3 of
+msgid ""
+"gyro_range -- the range to set the gyroscope to. Using a pre-defined "
+"range is advised."
+msgstr ""
+"gyro_range -- der Bereich, auf den das Gyroskop eingestellt wird. Die Verwendung "
+"eines vordefinierten Bereichs wird empfohlen."
+
+#: fusion_hat.modules.mpu6050.MPU6050.set_filter_range:1 of
+msgid "Sets the low-pass bandpass filter frequency"
+msgstr "Setzt die Frequenz des Tiefpass-Bandpassfilters"
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_gyro_range:1 of
+msgid "Reads the range the gyroscope is set to."
+msgstr "Liest den Bereich, auf den das Gyroskop eingestellt ist."
+
+#: fusion_hat.modules.mpu6050.MPU6050.read_gyro_range:3 of
+msgid ""
+"If raw is True, it will return the raw value from the GYRO_CONFIG "
+"register. If raw is False, it will return 250, 500, 1000, 2000 or -1. If "
+"the returned value is equal to -1 something went wrong."
+msgstr ""
+"Wenn raw True ist, wird der Rohwert aus dem GYRO_CONFIG-Register zurückgegeben. "
+"Wenn raw False ist, werden 250, 500, 1000, 2000 oder -1 zurückgegeben. Wenn der "
+"zurückgegebene Wert -1 ist, ist etwas schiefgelaufen."
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_gyro_data:1 of
+msgid "Gets and returns the X, Y and Z values from the gyroscope."
+msgstr "Ruft die X-, Y- und Z-Werte des Gyroskops ab und gibt sie zurück."
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_gyro_data:3 of
+msgid "Returns the read values in a dictionary."
+msgstr "Gibt die gelesenen Werte in einem Wörterbuch zurück."
+
+#: fusion_hat.modules.mpu6050.MPU6050.get_all_data:1 of
+msgid "Reads and returns all the available data."
+msgstr "Liest alle verfügbaren Daten und gibt sie zurück."
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass:1 of
+msgid "Enable MPU6050 bypass mode"
+msgstr "MPU6050-Bypass-Modus aktivieren"
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass of
+msgid "Returns"
+msgstr "Rückgabewerte"
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass:3 of
+msgid "USER_CTRL and INT_PIN_CFG register values"
+msgstr "Werte der Register USER_CTRL und INT_PIN_CFG"
+
+#: fusion_hat.modules.mpu6050.MPU6050.enable_bypass of
+msgid "Return type"
+msgstr "Rückgabetyp"

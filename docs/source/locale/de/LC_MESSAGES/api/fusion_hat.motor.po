@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../api/fusion_hat.motor.rst:2
+msgid "fusion\\_hat.motor module"
+msgstr "fusion\\_hat.motor Modul"
+
+#: fusion_hat.motor:1 of
+msgid "Motor"
+msgstr "Motor"
+
+#: fusion_hat.motor:3 of
+msgid "This module provides a class for controlling motors on the Fusion Hat."
+msgstr "Dieses Modul stellt eine Klasse zur Steuerung von Motoren auf dem Fusion Hat bereit."
+
+#: fusion_hat.motor:6 of
+msgid "Example"
+msgstr "Beispiel"
+
+#: fusion_hat.motor:7 of
+msgid "Simple usage"
+msgstr "Einfache Verwendung"
+
+#: fusion_hat.motor:13 of
+msgid "Change the direction of the motor."
+msgstr "Die Drehrichtung des Motors ändern."
+
+#: fusion_hat.motor:18 of
+msgid "Spin the motor in the other direction."
+msgstr "Den Motor in die andere Richtung drehen."
+
+#: fusion_hat.motor:22 of
+msgid "Stop the motor"
+msgstr "Den Motor stoppen"
+
+#: fusion_hat.motor.Motor:1 of
+msgid "Bases: :py:class:`~fusion_hat._base._Base`"
+msgstr "Basisklassen: :py:class:`~fusion_hat._base._Base`"
+
+#: fusion_hat.motor.Motor:1 of
+msgid "Motor class"
+msgstr "Motorklasse"
+
+#: fusion_hat.motor.Motor:3 of
+msgid "There are two ways to initialize a motor:"
+msgstr "Es gibt zwei Möglichkeiten, einen Motor zu initialisieren:"
+
+#: fusion_hat.motor.Motor:5 of
+msgid "Method 1: Pass a motor name as a string."
+msgstr "Methode 1: Einen Motornamen als Zeichenkette übergeben."
+
+#: fusion_hat.motor.Motor fusion_hat.motor.Motor.power
+#: fusion_hat.motor.Motor.set_is_reverse fusion_hat.motor.Motor.speed of
+msgid "Parameters"
+msgstr "Parameter"
+
+#: fusion_hat.motor.Motor:7 of
+msgid "Motor name"
+msgstr "Motorname"
+
+#: fusion_hat.motor.Motor:10 of
+msgid "Method 2: Pass two pwm pins as PWM objects."
+msgstr "Methode 2: Zwei PWM-Pins als PWM-Objekte übergeben."
+
+#: fusion_hat.motor.Motor:12 of
+msgid "Motor speed control pwm pin a"
+msgstr "PWM-Pin A zur Steuerung der Motorgeschwindigkeit"
+
+#: fusion_hat.motor.Motor:14 of
+msgid "Motor speed control pwm pin b"
+msgstr "PWM-Pin B zur Steuerung der Motorgeschwindigkeit"
+
+#: ../docstring fusion_hat.motor.Motor.DEFAULT_FREQ:1 of
+msgid "Default PWM frequency"
+msgstr "Standard-PWM-Frequenz"
+
+#: ../docstring fusion_hat.motor.Motor.DEFAULT_MAX:1 of
+msgid "Default maximum motor power"
+msgstr "Standardmäßige maximale Motorleistung"
+
+#: ../docstring fusion_hat.motor.Motor.DEFAULT_MIN:1 of
+msgid "Default minimum motor power"
+msgstr "Standardmäßige minimale Motorleistung"
+
+#: ../docstring fusion_hat.motor.Motor.MOTOR_PINS:1 of
+msgid "Motor pins"
+msgstr "Motor-Pins"
+
+#: fusion_hat.motor.Motor.speed:1 of
+msgid "[DEPRECATED] Get or set motor power"
+msgstr "[ VERALTET ] Motorleistung abrufen oder einstellen"
+
+#: fusion_hat.motor.Motor.power:3 fusion_hat.motor.Motor.speed:3 of
+msgid "Motor power(-100.0~100.0). Defaults to None."
+msgstr "Motorleistung ( -100.0~100.0 ). Standard ist None."
+
+#: fusion_hat.motor.Motor.power:1 of
+msgid "Get or set motor power"
+msgstr "Motorleistung abrufen oder einstellen"
+
+#: fusion_hat.motor.Motor.set_is_reverse:1 of
+msgid "Set motor is reversed or not"
+msgstr "Festlegen, ob der Motor umgekehrt ist oder nicht"
+
+#: fusion_hat.motor.Motor.set_is_reverse:3 of
+msgid "True or False"
+msgstr "True oder False"
+
+#: fusion_hat.motor.Motor.stop:1 of
+msgid "Stop motor"
+msgstr "Motor stoppen"

@@ -1,0 +1,180 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../project/speaker.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+"Hallo, willkommen in der SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community auf Facebook! Tauche gemeinsam mit anderen "
+"Enthusiasten tiefer in Raspberry Pi, Arduino und ESP32 ein."
+
+#: ../project/speaker.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum beitreten?**"
+
+#: ../project/speaker.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support**: Löse After-Sales-Probleme und technische "
+"Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../project/speaker.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr ""
+"**Lernen & Teilen**: Tausche Tipps und Tutorials aus, um deine Fähigkeiten "
+"zu verbessern."
+
+#: ../project/speaker.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen**: Erhalte frühzeitig Zugang zu neuen "
+"Produktankündigungen und Sneak Peeks."
+
+#: ../project/speaker.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr ""
+"**Spezielle Rabatte**: Genieße exklusive Rabatte auf unsere neuesten "
+"Produkte."
+
+#: ../project/speaker.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele**: Nimm an Gewinnspielen und "
+"Feiertagsaktionen teil."
+
+#: ../project/speaker.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicke [|link_sf_facebook|] "
+"und tritt noch heute bei!"
+
+#: ../project/speaker.rst:18
+msgid "Fusion HAT+ Speaker"
+msgstr "Fusion HAT+ Lautsprecher"
+
+#: ../project/speaker.rst:20
+msgid "**Introduction**"
+msgstr "**Einführung**"
+
+#: ../project/speaker.rst:22
+msgid ""
+"The Fusion HAT+ includes a built-in speaker, making it ideal for voice "
+"prompts, alarms, and other AI/IoT audio applications. This lesson shows "
+"you how to enable, test, and use the speaker with text-to-speech."
+msgstr ""
+"Der Fusion HAT+ verfügt über einen integrierten Lautsprecher und eignet "
+"sich ideal für Sprachansagen, Alarme und andere Audioanwendungen in "
+"AI- und IoT-Projekten. Diese Lektion zeigt dir, wie du den Lautsprecher "
+"aktivierst, testest und mit Text-to-Speech verwendest."
+
+#: ../project/speaker.rst:26
+msgid ""
+"This guide assumes Raspberry Pi OS is installed and the Fusion HAT+ "
+"drivers are properly set up."
+msgstr ""
+"Diese Anleitung setzt voraus, dass Raspberry Pi OS installiert ist und "
+"die Fusion HAT+ Treiber korrekt eingerichtet sind."
+
+#: ../project/speaker.rst:37
+msgid "Speaker Setup"
+msgstr "Lautsprecher-Einrichtung"
+
+#: ../project/speaker.rst:39
+msgid "**1. Check if the Speaker Is Recognized**"
+msgstr "**1. Überprüfen, ob der Lautsprecher erkannt wird**"
+
+#: ../project/speaker.rst:41
+msgid "Run the following command:"
+msgstr "Führe den folgenden Befehl aus:"
+
+#: ../project/speaker.rst:51
+msgid "You should see a sound device similar to:"
+msgstr "Du solltest ein Audiogerät ähnlich dem folgenden sehen:"
+
+#: ../project/speaker.rst:57
+msgid ""
+"If a device appears under **card 0** or another card number, the Fusion "
+"HAT+ audio hardware is detected."
+msgstr ""
+"Wenn ein Gerät unter **card 0** oder einer anderen Kartennummer erscheint, "
+"wird die Audio-Hardware des Fusion HAT+ erkannt."
+
+#: ../project/speaker.rst:59
+msgid "**2. Testing the Speaker**"
+msgstr "**2. Den Lautsprecher testen**"
+
+#: ../project/speaker.rst:61
+msgid "Play a stereo test sound:"
+msgstr "Spiele einen Stereo-Testton ab:"
+
+#: ../project/speaker.rst:71
+msgid "You should hear “Front Left / Front Right”. Press **Ctrl+C** to stop."
+msgstr ""
+"Du solltest „Front Left / Front Right“ hören. Drücke **Ctrl+C**, um zu "
+"stoppen."
+
+#: ../project/speaker.rst:138
+msgid "Troubleshooting"
+msgstr "Fehlerbehebung"
+
+#: ../project/speaker.rst:140
+msgid "**No sound output**"
+msgstr "**Kein Tonausgang**"
+
+#: ../project/speaker.rst:142
+msgid "Check audio volume with:"
+msgstr "Überprüfe die Lautstärke mit:"
+
+#: ../project/speaker.rst:148
+msgid "Confirm your Pi sees the audio device:"
+msgstr "Bestätige, dass dein Pi das Audiogerät erkennt:"
+
+#: ../project/speaker.rst:154
+msgid "**Speaker not recognized**"
+msgstr "**Lautsprecher nicht erkannt**"
+
+#: ../project/speaker.rst:156
+msgid "Reseat the Fusion HAT+"
+msgstr "Setze den Fusion HAT+ erneut ein"
+
+#: ../project/speaker.rst:157
+msgid "Reboot the Raspberry Pi"
+msgstr "Starte den Raspberry Pi neu"
+
+#: ../project/speaker.rst:158
+msgid "Ensure drivers are installed"
+msgstr "Stelle sicher, dass die Treiber installiert sind"
+
+#: ../project/speaker.rst:159
+msgid "Or rerun:"
+msgstr "Oder führe erneut aus:"

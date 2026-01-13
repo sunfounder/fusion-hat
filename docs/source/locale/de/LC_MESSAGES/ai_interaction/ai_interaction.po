@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2026, SunFounder
+# This file is distributed under the same license as the SunFounder Fusion
+# HAT+ package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: SunFounder Fusion HAT+ \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-12 10:33+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: de\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../ai_interaction/ai_interaction.rst:3
+msgid ""
+"Hello, welcome to the SunFounder Raspberry Pi & Arduino & ESP32 "
+"Enthusiasts Community on Facebook! Dive deeper into Raspberry Pi, "
+"Arduino, and ESP32 with fellow enthusiasts."
+msgstr ""
+
+#: ../ai_interaction/ai_interaction.rst:5
+msgid "**Why Join?**"
+msgstr "**Warum mitmachen?** "
+
+#: ../ai_interaction/ai_interaction.rst:7
+msgid ""
+"**Expert Support**: Solve post-sale issues and technical challenges with "
+"help from our community and team."
+msgstr ""
+"**Experten-Support** : Lösen Sie After-Sales-Probleme und technische Herausforderungen mit Hilfe unserer Community und unseres Teams."
+
+#: ../ai_interaction/ai_interaction.rst:8
+msgid "**Learn & Share**: Exchange tips and tutorials to enhance your skills."
+msgstr "**Lernen & Teilen** : Tauschen Sie Tipps und Tutorials aus, um Ihre Fähigkeiten zu verbessern."
+
+#: ../ai_interaction/ai_interaction.rst:9
+msgid ""
+"**Exclusive Previews**: Get early access to new product announcements and"
+" sneak peeks."
+msgstr ""
+"**Exklusive Vorschauen** : Erhalten Sie frühzeitigen Zugriff auf neue Produktankündigungen und exklusive Einblicke."
+
+#: ../ai_interaction/ai_interaction.rst:10
+msgid "**Special Discounts**: Enjoy exclusive discounts on our newest products."
+msgstr "**Sonderrabatte** : Profitieren Sie von exklusiven Rabatten auf unsere neuesten Produkte."
+
+#: ../ai_interaction/ai_interaction.rst:11
+msgid ""
+"**Festive Promotions and Giveaways**: Take part in giveaways and holiday "
+"promotions."
+msgstr ""
+"**Festliche Aktionen und Gewinnspiele** : Nehmen Sie an Gewinnspielen und saisonalen Aktionen teil."
+
+#: ../ai_interaction/ai_interaction.rst:13
+msgid ""
+"👉 Ready to explore and create with us? Click [|link_sf_facebook|] and "
+"join today!"
+msgstr ""
+"👉 Bereit, mit uns zu entdecken und zu erschaffen? Klicken Sie auf [|link_sf_facebook|] und treten Sie noch heute bei!"
+
+#: ../ai_interaction/ai_interaction.rst:16
+msgid "Think · Talk · Drive —  AI-Powered with Multi-LLMs"
+msgstr "Denken · Sprechen · Fahren — KI-gestützt mit Multi-LLMs"
+
+#: ../ai_interaction/ai_interaction.rst:18
+msgid ""
+"Go beyond movement and vision by adding **speech** and **AI**. Here you "
+"will explore text-to-speech (TTS), speech-to-text (STT), and large "
+"language models (LLMs) to make your Fusion HAT+ talk, listen, and even "
+"chat with you like a smart robot."
+msgstr ""
+"Gehen Sie über Bewegung und Sehen hinaus, indem Sie **Sprache** und **KI** hinzufügen. Hier erkunden Sie Text-to-Speech ( TTS ), Speech-to-Text ( STT ) und große Sprachmodelle ( LLMs ), um Ihren Fusion HAT+ sprechen, zuhören und sogar wie ein intelligenter Roboter mit Ihnen chatten zu lassen."
