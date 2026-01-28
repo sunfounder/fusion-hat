@@ -280,11 +280,11 @@ int fusion_hat_pwm_probe(struct fusion_hat_dev *dev) {
     // Initialize all channels with default period and prescaler values
     for (i = 0; i < FUSION_HAT_PWM_CHANNELS; i++) {
         // Set default period
-        ret = fusion_hat_write_period_value(dev->client, i, PWM_PERIOD_VALUE);
-        if (ret < 0) {
-            dev_err(&dev->client->dev, "Failed to initialize channel %d: %d\n", i, ret);
-            return ret;
-        }
+        // ret = fusion_hat_write_period_value(dev->client, i, PWM_PERIOD_VALUE);
+        // if (ret < 0) {
+        //     dev_err(&dev->client->dev, "Failed to initialize channel %d: %d\n", i, ret);
+        //     return ret;
+        // }
         
         // Set default prescaler
         ret = fusion_hat_write_prescaler_value(dev->client, i, PWM_DEFAULT_PRESCALER);
