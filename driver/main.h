@@ -24,7 +24,7 @@
 #include <linux/input.h>
 
 // Driver version
-#define VERSION "1.0.0"
+#define VERSION "1.0.1"
 
 // Device name and I2C address
 #define FUSION_HAT_NAME "fusion_hat"
