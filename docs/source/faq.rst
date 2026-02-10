@@ -33,3 +33,15 @@ When your script is running but the speaker is not producing sound, there could 
 #. Check if the ``i2samp.sh`` script has been installed. For detailed instructions, please refer to: :ref:`install_fusion_hat`.
 #. When running scripts related to speakers, it's necessary to add ``sudo`` to obtain administrative privileges. For example, ``sudo python3 tts.py``.
 #. Don't using Raspberry Pi's built-in programming tools, like Geany to run Speaker-related scripts. These tools run with standard user privileges, while hardware control, such as managing speakers, often requires higher permissions.
+
+
+Q4: I encounter the error: "RuntimeError: Cannot determine SOC peripheral base address".
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+A: This is because the RPi.GPIO library is pre-installed in your Raspberry Pi, and it is incompatible with the Fusion HAT+. You need to uninstall the RPi.GPIO library.
+
+.. code-block:: bash
+
+   sudo pip uninstall RPi.GPIO --break
+   sudo rm -rf /usr/lib/python3/dist-packages/RPi.GPIO*
+
+After uninstallation, you should be able to use the Fusion HAT+ normally.
