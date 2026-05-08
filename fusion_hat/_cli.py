@@ -15,9 +15,11 @@ def test_speaker():
     print(f"Test Fusion-HAT speaker.")
     from .device import enable_speaker, disable_speaker
     from ._utils import run_command
-    enable_speaker()
-    run_command("speaker-test -l3 -c2 -t wav")
-    disable_speaker()
+    try:
+        enable_speaker()
+        run_command("speaker-test -l3 -c2 -t wav")
+    finally:
+        disable_speaker()
 
 def print_version():
     from ._version import __version__
