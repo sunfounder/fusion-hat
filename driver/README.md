@@ -2,9 +2,22 @@
 
 ## Install
 
-```
+```bash
 make all
 sudo make install
+```
+
+The install script auto-detects DKMS availability:
+- **With DKMS**: driver is registered with DKMS and auto-rebuilds after kernel updates — won't go missing
+- **Without DKMS**: traditional install (module only works for the current kernel). Install DKMS first:
+  ```bash
+  sudo apt-get install dkms
+  ```
+
+## Check status
+
+```bash
+make status
 ```
 
 ## Debug record

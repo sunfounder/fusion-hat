@@ -24,7 +24,7 @@
 #include <linux/workqueue.h>
 
 // Driver version
-#define VERSION "1.0.1"
+#define VERSION "1.0.2"
 
 // Device name and I2C address
 #define FUSION_HAT_NAME "fusion_hat"

@@ -6,6 +6,9 @@
 KDIR ?= /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 
+# Extract version from main.h
+DRIVER_VERSION := $(shell grep '^\#define VERSION' main.h | awk '{print $$3}' | tr -d '"')
+
 # Module definition - Combine all source files into a single module
 obj-m += fusion_hat.o
 fusion_hat-objs := \
@@ -36,6 +39,9 @@ OVERLAY_DIRS := \
 
 # Find the first existing overlay directory
 OVERLAY_DIR := $(firstword $(wildcard $(OVERLAY_DIRS)))
+
+# DKMS source destination
+DKMS_SRC := /usr/src/fusion_hat-$(DRIVER_VERSION)
 
 # Default target - Compile kernel module and device tree overlay
 all:
@@ -81,11 +87,54 @@ install-overlay:
 	fi
 	@cp -f $(DTBO_NAME) $(OVERLAY_DIR)/ || { echo "Error: Permission denied. Please run with sudo privileges."; exit 1; }
 
-# Full install target - Install both module and device tree overlay
+# DKMS install - register module with DKMS so it auto-rebuilds on kernel updates
+dkms_install:
+	@echo "Installing Fusion Hat driver via DKMS (version $(DRIVER_VERSION))..."
+	@# Check if DKMS is installed
+	@if ! command -v dkms >/dev/null 2>&1; then \
+	    echo "DKMS not found. Installing dkms package..."; \
+	    sudo apt-get update && sudo apt-get install -y dkms || { \
+	        echo "Error: Failed to install DKMS. Please install it manually: sudo apt-get install dkms"; \
+	        exit 1; \
+	    }; \
+	fi
+	@# Remove any existing DKMS registration for this module
+	-@sudo dkms remove -m fusion_hat -v $(DRIVER_VERSION) --all 2>/dev/null || true
+	@# Copy source files to /usr/src/
+	@echo "Copying source to $(DKMS_SRC)..."
+	@sudo mkdir -p $(DKMS_SRC)
+	@sudo cp -f *.c *.h Makefile dkms.conf $(DKMS_SRC)/
+	@# Generate dkms.conf with correct version at destination
+	@sudo sed -i 's/^PACKAGE_VERSION=.*/PACKAGE_VERSION="$(DRIVER_VERSION)"/' $(DKMS_SRC)/dkms.conf
+	@# Add, build, and install via DKMS
+	@sudo dkms add -m fusion_hat -v $(DRIVER_VERSION)
+	@sudo dkms build -m fusion_hat -v $(DRIVER_VERSION)
+	@sudo dkms install -m fusion_hat -v $(DRIVER_VERSION)
+	@echo "DKMS installation completed. The driver will auto-rebuild on kernel updates."
+
+# DKMS uninstall - remove module from DKMS
+dkms_uninstall:
+	@echo "Removing Fusion Hat driver from DKMS..."
+	@if command -v dkms >/dev/null 2>&1; then \
+	    sudo dkms remove -m fusion_hat -v $(DRIVER_VERSION) --all || echo "DKMS module not found."; \
+	    sudo rm -rf $(DKMS_SRC) || echo "Source directory already removed."; \
+	fi
+	@echo "DKMS uninstall completed."
+
+# Full install target - uses DKMS if available, falls back to traditional method
 install:
 	@echo "Installing Fusion Hat driver and device tree overlay..."
-	rmmod fusion_hat || echo "Warning: Failed to unload fusion_hat module. It may be in use or require additional privileges."
-	@$(MAKE) modules_install
+	@# Unload module if loaded
+	-@sudo rmmod fusion_hat 2>/dev/null || echo "Module not currently loaded."
+	@# Try DKMS first, fall back to traditional install
+	@if command -v dkms >/dev/null 2>&1; then \
+	    echo "DKMS detected, using DKMS for module installation..."; \
+	    $(MAKE) dkms_install; \
+	else \
+	    echo "DKMS not found, using traditional installation (driver will NOT auto-rebuild on kernel updates)."; \
+	    echo "Install DKMS (sudo apt-get install dkms) and re-run 'sudo make install' for auto-rebuild support."; \
+	    $(MAKE) modules_install; \
+	fi
 	@$(MAKE) install-overlay
 	@echo "Loading fusion_hat module..."
 	@sudo modprobe fusion_hat || echo "Warning: Failed to load fusion_hat module. Please check the driver installation."
@@ -99,10 +148,48 @@ uninstall:
 	    echo "Unloading fusion_hat module..."; \
 	    sudo rmmod fusion_hat || echo "Warning: Failed to unload fusion_hat module. It may be in use or require additional privileges."; \
 	fi
-	# Try removing from both possible locations
+	# Try DKMS uninstall first
+	-@$(MAKE) dkms_uninstall
+	# Also try removing from traditional locations
 	rm -f /lib/modules/$(shell uname -r)/extra/fusion_hat.ko /lib/modules/$(shell uname -r)/updates/fusion_hat.ko || echo "Warning: Module file not found or permission denied."
 	@echo "Updating module dependencies..."
 	depmod -a || echo "Note: There might be module dependency issues. Please check if all Fusion Hat modules are properly removed."
 	@echo "Removing device tree overlay from $(OVERLAY_DIR)/"
 	rm -f $(OVERLAY_DIR)/$(DTBO_NAME) || { echo "Error: Permission denied or overlay file not found. Please run with sudo privileges."; exit 1; }
 	@echo "Uninstall completed. You may need to reboot to fully remove all traces of the module."
+
+# Status - check driver installation state
+status:
+	@echo "=== Fusion Hat Driver Status ==="
+	@echo ""
+	@# Check if module file exists
+	@if [ -f /lib/modules/$(shell uname -r)/extra/fusion_hat.ko ] || [ -f /lib/modules/$(shell uname -r)/updates/fusion_hat.ko ]; then \
+	    echo "Module file    : INSTALLED"; \
+	else \
+	    echo "Module file    : MISSING"; \
+	fi
+	@# Check DKMS registration
+	@if command -v dkms >/dev/null 2>&1; then \
+	    if dkms status fusion_hat 2>/dev/null | grep -q fusion_hat; then \
+	        echo "DKMS status    : $(shell dkms status fusion_hat 2>/dev/null | head -1)"; \
+	    else \
+	        echo "DKMS status    : not registered (run 'sudo make install' to register)"; \
+	    fi; \
+	else \
+	    echo "DKMS status    : DKMS not installed (run 'sudo apt-get install dkms')"; \
+	fi
+	@# Check if module is loaded
+	@if lsmod | grep -q fusion_hat; then \
+	    echo "Module loaded  : YES"; \
+	else \
+	    echo "Module loaded  : NO"; \
+	fi
+	@# Check sysfs interface
+	@if [ -d /sys/class/fusion_hat ]; then \
+	    echo "sysfs interface: /sys/class/fusion_hat/ EXISTS"; \
+	else \
+	    echo "sysfs interface: /sys/class/fusion_hat/ MISSING"; \
+	fi
+	@echo ""
+
+.PHONY: dkms_install dkms_uninstall status

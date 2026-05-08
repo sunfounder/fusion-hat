@@ -5,3 +5,5 @@ __pycache__
 bk/
 backup/
 *secret*
+.claude/*
+CLAUDE.md
