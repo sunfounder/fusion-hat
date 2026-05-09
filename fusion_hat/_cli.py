@@ -33,6 +33,56 @@ def scan_i2c():
     devices = ["0x{:02X}".format(device) for device in devices]
     print(f"Found devices: {devices}")
 
+def print_doctor():
+    from fusion_hat.device import doctor
+
+    print("")
+    print("=" * 50)
+    print("  Fusion Hat Driver Status")
+    print("=" * 50)
+    print("")
+
+    result = doctor()
+
+    status_icon = {True: "OK", False: "FAIL"}
+
+    checks = [
+        ("EEPROM detected", result["detected"]),
+        ("Module file   ", result["module_file"]),
+        ("Module loaded ", result["module_loaded"]),
+        ("sysfs interface", result["sysfs"]),
+    ]
+
+    for label, ok in checks:
+        icon = status_icon[ok]
+        print(f"  [{icon}]  {label}")
+
+    # DKMS is informational
+    dkms = result["dkms_status"]
+    if dkms == "DKMS not installed":
+        print(f"  [ -]  DKMS          : {dkms}")
+    elif dkms == "not registered":
+        print(f"  [WARN] DKMS        : {dkms} (run 'sudo make install' to register)")
+    else:
+        print(f"  [OK]  DKMS          : {dkms}")
+
+    print("")
+
+    if not result["overall"]:
+        print("  Some checks failed.")
+        if not result["detected"]:
+            print("  -> Is the Fusion Hat properly seated on the GPIO header?")
+        if not result["module_file"]:
+            print("  -> Run: cd driver && sudo make install")
+        if not result["module_loaded"]:
+            print("  -> Run: sudo modprobe fusion_hat")
+        if not result["sysfs"]:
+            print("  -> Driver may not be loaded or compatible with this kernel.")
+
+    print("")
+    print("=" * 50)
+    print("")
+
 def print_info():
     from fusion_hat.device import NAME
     from fusion_hat.device import ID
@@ -47,6 +97,9 @@ def print_info():
     from fusion_hat.device import get_driver_version
     from fusion_hat.device import get_led
     from fusion_hat.battery import Battery
+
+    # Run doctor check first
+    print_doctor()
 
     raise_if_fusion_hat_not_ready()
 
@@ -86,6 +139,7 @@ def main():
         "version": print_version,
         "scan_i2c": scan_i2c,
         "info": print_info,
+        "doctor": print_doctor,
     }
 
     parser = argparse.ArgumentParser(description='fusion_hat command line interface')

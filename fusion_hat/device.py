@@ -59,6 +59,7 @@ __all__ = [
     'VENDOR',
     'is_detected',
     'is_driver_loaded',
+    'doctor',
     'is_installed',
     'is_connected',
     'enable_speaker',
@@ -181,6 +182,66 @@ def raise_if_fusion_hat_not_ready() -> bool:
             "Please ensure the Fusion Hat kernel module is installed properly."
         )
     
+def doctor() -> dict:
+    """ Comprehensive driver and hardware health check
+
+    Checks EEPROM detection, kernel module file, DKMS registration,
+    module load state, and sysfs interface — mirroring the driver
+    Makefile ``status`` target.
+
+    Returns:
+        dict with keys: detected, module_file, dkms_status, module_loaded,
+        sysfs, and overall (bool for pass/fail checks)
+    """
+    import platform
+    from ._utils import run_command
+
+    result = {
+        "detected": False,
+        "module_file": False,
+        "dkms_status": "",
+        "module_loaded": False,
+        "sysfs": False,
+        "overall": True,
+    }
+
+    # 1. EEPROM detection
+    result["detected"] = is_detected()
+
+    # 2. Module .ko file installed
+    kv = platform.uname().release
+    result["module_file"] = (
+        os.path.exists(f"/lib/modules/{kv}/extra/fusion_hat.ko")
+        or os.path.exists(f"/lib/modules/{kv}/updates/fusion_hat.ko")
+    )
+
+    # 3. DKMS registration
+    _, dkms_out = run_command("dkms status fusion_hat 2>/dev/null || true")
+    if dkms_out.strip():
+        result["dkms_status"] = dkms_out.strip()
+    else:
+        _, has_dkms = run_command("command -v dkms >/dev/null 2>&1 && echo yes || echo no")
+        if has_dkms.strip() == "yes":
+            result["dkms_status"] = "not registered"
+        else:
+            result["dkms_status"] = "DKMS not installed"
+
+    # 4. Module loaded (check /sys/module/fusion_hat)
+    result["module_loaded"] = os.path.exists("/sys/module/fusion_hat")
+
+    # 5. sysfs interface
+    result["sysfs"] = is_driver_loaded()
+
+    # Overall pass: detected + module_file + module_loaded + sysfs
+    result["overall"] = all([
+        result["detected"],
+        result["module_file"],
+        result["module_loaded"],
+        result["sysfs"],
+    ])
+
+    return result
+
 def require_fusion_hat(func: Callable[..., Any]) -> Callable[..., Any]:
     """ Decorator to require Fusion HAT
 
