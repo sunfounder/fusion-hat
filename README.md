@@ -100,16 +100,26 @@ $ fusion_hat doctor
 $ fusion_hat info
 
 ==================================================
+  Fusion Hat Device Info
+==================================================
 
                 Name: Fusion Hat
                   ID: fusion_hat
                 UUID: 9daeea78-0000-0774-000a-582369ac3e02
-      Library Version: 1.2.0
+          Product ID: 1908
+         Product Ver: 10
+              Vendor: SunFounder
+     Library Version: 1.2.0
     Firmware Version: 1.0.2
       Driver Version: 1.0.2
+   User Button State: Released
+       Speaker State: Disabled
+      User LED State: Off
        Battery level: 83%
      Battery voltage: 8.06 V
     Battery charging: No
+
+==================================================
 ```
 
 ## About SunFounder
