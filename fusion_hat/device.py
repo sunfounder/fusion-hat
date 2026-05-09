@@ -240,18 +240,16 @@ def doctor() -> dict:
     # 6. I2C 0x17 — onboard MCU
     result["i2c_0x17"] = False
     try:
-        _, i2c_out = run_command("i2cdetect -y 1 0x17 0x17 2>/dev/null")
+        # Scan range covering the 0x10 row so i2cdetect emits -- placeholders
+        _, i2c_out = run_command("i2cdetect -y 1 0x10 0x1f 2>/dev/null")
         if i2c_out.strip():
-            lines = i2c_out.strip().split("\n")
-            for line in lines:
-                # e.g. "10: -- -- -- -- -- -- -- 17 -- -- -- -- -- -- -- --"
-                if "10:" in line.lower() or "10:" in line:
-                    parts = line.split(":")[-1].strip().split()
-                    if len(parts) >= 8:
-                        val = parts[7]  # 8th entry in row 0x10 is 0x17
-                        if val in ("17", "UU"):
-                            result["i2c_0x17"] = True
-                            break
+            for line in i2c_out.strip().split("\n"):
+                if line.startswith("10:"):
+                    entries = line[3:].strip().split()
+                    # entries[7] corresponds to address 0x17 (0x10 + 7)
+                    if len(entries) > 7 and entries[7] in ("17", "UU"):
+                        result["i2c_0x17"] = True
+                    break
     except Exception:
         pass
 
