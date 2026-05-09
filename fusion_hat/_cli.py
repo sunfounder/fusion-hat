@@ -130,6 +130,7 @@ def _show_doctor_result(result):
     print("")
 
 def print_info():
+    from fusion_hat._version import __version__
     from fusion_hat.device import NAME
     from fusion_hat.device import ID
     from fusion_hat.device import UUID
@@ -144,9 +145,6 @@ def print_info():
     from fusion_hat.device import get_led
     from fusion_hat.battery import Battery
 
-    # Run doctor check first
-    print_doctor()
-
     raise_if_fusion_hat_not_ready()
 
     battery = Battery()
@@ -158,6 +156,7 @@ def print_info():
         "Product ID": PRODUCT_ID,
         "Product Ver": PRODUCT_VER,
         "Vendor": VENDOR,
+        "Library Version": __version__,
         "Firmware Version": get_firmware_version(),
         "Driver Version": get_driver_version(),
 

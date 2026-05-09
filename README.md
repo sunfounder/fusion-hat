@@ -68,7 +68,7 @@ fusion_hat <command>
 
 | Command | Description |
 |---------|-------------|
-| `info` | Show device info, battery status, button/LED/speaker state. Runs a driver health check first. |
+| `info` | Show device info, library/driver/firmware versions, battery, button, LED, and speaker state. |
 | `doctor` | Run driver and hardware health checks: EEPROM, module file, module load, sysfs, I2C MCU (0x17), DKMS. |
 | `doctor --fix` | Run health checks and auto-repair issues (e.g. load the kernel module if not loaded, or build and install the driver). |
 | `version` | Print the library version. |
@@ -100,15 +100,11 @@ $ fusion_hat doctor
 $ fusion_hat info
 
 ==================================================
-  Fusion Hat Driver Status
-==================================================
-  ... (doctor check output)
-
-==================================================
 
                 Name: Fusion Hat
                   ID: fusion_hat
                 UUID: 9daeea78-0000-0774-000a-582369ac3e02
+      Library Version: 1.2.0
     Firmware Version: 1.0.2
       Driver Version: 1.0.2
        Battery level: 83%
