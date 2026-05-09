@@ -264,6 +264,88 @@ def doctor() -> dict:
 
     return result
 
+
+def _find_driver_src() -> str:
+    """Find the Fusion Hat driver source directory.
+
+    Returns:
+        str: path to driver source directory, or empty string if not found
+    """
+    import platform
+    candidates = []
+    # Check alongside the fusion_hat Python package
+    try:
+        import fusion_hat
+        pkg_dir = os.path.dirname(fusion_hat.__file__)
+        repo = os.path.dirname(pkg_dir)
+        candidates.append(os.path.join(repo, "driver"))
+    except Exception:
+        pass
+    # Common install paths
+    candidates += [
+        "/home/pi/fusion-hat/driver",
+        os.path.expanduser("~/fusion-hat/driver"),
+    ]
+    # DKMS source
+    try:
+        kv = platform.uname().release
+        candidates.append(f"/usr/src/fusion_hat-{kv}")
+    except Exception:
+        pass
+    for p in candidates:
+        if os.path.isdir(p) and os.path.isfile(os.path.join(p, "Makefile")):
+            return os.path.realpath(p)
+    return ""
+
+
+def doctor_fix() -> dict:
+    """Run doctor and attempt to fix any issues found.
+
+    Fixable issues:
+    - Module not loaded (but file present): ``modprobe fusion_hat``
+    - Module file missing (driver source found): ``make modules_install``
+
+    Returns:
+        dict with ``before`` (initial check), ``fixes`` (list of fix actions
+        attempted), ``after`` (final check), and ``fixed`` (bool).
+    """
+    from ._utils import run_command
+
+    before = doctor()
+    fixes = []
+
+    if before["overall"]:
+        return {"before": before, "fixes": fixes, "after": before, "fixed": True}
+
+    # Fix 1: module file exists but not loaded → modprobe
+    if before["module_file"] and not before["module_loaded"]:
+        fixes.append("modprobe fusion_hat")
+        run_command("sudo modprobe fusion_hat 2>/dev/null")
+
+    # Fix 2: module file missing → try to install
+    if not before["module_file"]:
+        driver_dir = _find_driver_src()
+        if driver_dir:
+            fixes.append(f"cd {driver_dir} && sudo make modules_install")
+            run_command(
+                f"cd {driver_dir} && sudo make modules_install 2>/dev/null"
+            )
+            run_command("sudo depmod -a 2>/dev/null")
+            # Try loading after install
+            if not before["module_loaded"]:
+                fixes.append("modprobe fusion_hat (after install)")
+                run_command("sudo modprobe fusion_hat 2>/dev/null")
+        else:
+            fixes.append("driver source not found — cannot auto-install")
+
+    after = doctor()
+    return {
+        "before": before,
+        "fixes": fixes,
+        "after": after,
+        "fixed": after["overall"],
+    }
+
 def require_fusion_hat(func: Callable[..., Any]) -> Callable[..., Any]:
     """ Decorator to require Fusion HAT
 

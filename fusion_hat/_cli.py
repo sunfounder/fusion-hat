@@ -33,17 +33,78 @@ def scan_i2c():
     devices = ["0x{:02X}".format(device) for device in devices]
     print(f"Found devices: {devices}")
 
-def print_doctor():
-    from fusion_hat.device import doctor
+def print_doctor(fix: bool = False):
+    if fix:
+        from fusion_hat.device import doctor_fix
+        result = doctor_fix()
+        before = result["before"]
+        after = result["after"]
+        fixes = result["fixes"]
 
-    print("")
-    print("=" * 50)
-    print("  Fusion Hat Driver Status")
-    print("=" * 50)
-    print("")
+        print("")
+        print("=" * 50)
+        print("  Fusion Hat Driver Doctor (--fix)")
+        print("=" * 50)
 
-    result = doctor()
+        # Show before state
+        print("")
+        print("  [Before]")
+        _show_doctor_result(before)
 
+        # Show fixes attempted
+        if fixes:
+            print("  [Actions]")
+            for action in fixes:
+                print(f"    -> {action}")
+            print("")
+
+        # Show after state
+        print("  [After]")
+        _show_doctor_result(after)
+
+        if result["fixed"]:
+            print("  All issues resolved.")
+        else:
+            print("  Some issues could not be auto-fixed.")
+            if not after["detected"]:
+                print("  -> Fusion Hat not detected. Check physical connection.")
+            if not after["module_file"] and not before["module_file"]:
+                print("  -> Driver source not found. Clone the repo and run: cd driver && sudo make install")
+        print("")
+        print("=" * 50)
+        print("")
+    else:
+        from fusion_hat.device import doctor
+        print("")
+        print("=" * 50)
+        print("  Fusion Hat Driver Status")
+        print("=" * 50)
+        print("")
+        result = doctor()
+        _show_doctor_result(result)
+
+        if not result["overall"]:
+            print("  Some checks failed.")
+            if not result["detected"]:
+                print("  -> Is the Fusion Hat properly seated on the GPIO header?")
+            if not result["module_file"]:
+                print("  -> Run: cd driver && sudo make install")
+            if not result["module_loaded"]:
+                print("  -> Run: sudo modprobe fusion_hat")
+            if not result["sysfs"]:
+                print("  -> Driver may not be loaded or compatible with this kernel.")
+            if not result["i2c_0x17"]:
+                print("  -> Onboard MCU not detected on I2C bus. Check: i2cdetect -y 1")
+            print("")
+            print("  Tip: run 'fusion_hat doctor --fix' to auto-fix.")
+
+        print("")
+        print("=" * 50)
+        print("")
+
+
+def _show_doctor_result(result):
+    """Render a single doctor result dict to stdout."""
     status_icon = {True: "OK", False: "FAIL"}
 
     checks = [
@@ -58,7 +119,6 @@ def print_doctor():
         icon = status_icon[ok]
         print(f"  [{icon}]  {label}")
 
-    # DKMS is informational
     dkms = result["dkms_status"]
     if dkms == "DKMS not installed":
         print(f"  [ -]  DKMS          : {dkms}")
@@ -67,23 +127,6 @@ def print_doctor():
     else:
         print(f"  [OK]  DKMS          : {dkms}")
 
-    print("")
-
-    if not result["overall"]:
-        print("  Some checks failed.")
-        if not result["detected"]:
-            print("  -> Is the Fusion Hat properly seated on the GPIO header?")
-        if not result["module_file"]:
-            print("  -> Run: cd driver && sudo make install")
-        if not result["module_loaded"]:
-            print("  -> Run: sudo modprobe fusion_hat")
-        if not result["sysfs"]:
-            print("  -> Driver may not be loaded or compatible with this kernel.")
-        if not result["i2c_0x17"]:
-            print("  -> Onboard MCU not detected on I2C bus. Check: i2cdetect -y 1")
-
-    print("")
-    print("=" * 50)
     print("")
 
 def print_info():
@@ -147,6 +190,13 @@ def main():
 
     parser = argparse.ArgumentParser(description='fusion_hat command line interface')
     parser.add_argument('option', choices=CHOICES.keys(), help='option')
+    parser.add_argument('--fix', action='store_true', help='auto fix driver issues (doctor only)')
     args = parser.parse_args()
 
-    CHOICES[args.option]()
+    if args.fix and args.option != "doctor":
+        parser.error("--fix is only valid with 'doctor'")
+
+    if args.option == "doctor":
+        CHOICES[args.option](fix=args.fix)
+    else:
+        CHOICES[args.option]()
