@@ -125,7 +125,10 @@ def _show_doctor_result(result):
     elif dkms == "not registered":
         print(f"  [WARN] DKMS        : {dkms} (run 'sudo make install' to register)")
     else:
-        print(f"  [OK]  DKMS          : {dkms}")
+        lines = dkms.strip().split("\n")
+        print(f"  [OK]  DKMS          : {lines[0]}")
+        for line in lines[1:]:
+            print(f"                         {line}")
 
     print("")
 
@@ -169,10 +172,15 @@ def print_info():
     }
 
     print("")
-    print("="*50)
+    print("=" * 50)
+    print("  Fusion Hat Device Info")
+    print("=" * 50)
     print("")
     for key, value in datas.items():
-        print(f"{key:>20}: {value}")
+        print(f"  {key:>18}: {value}")
+    print("")
+    print("=" * 50)
+    print("")
 
 def main():
     """ fusion_hat command line interface """
