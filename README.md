@@ -7,9 +7,9 @@ Quick Links:
 - [Fusion Hat](#fusion-hat)
   - [About Fusion Hat](#about-fusion-hat)
   - [Installation](#installation)
+  - [CLI Commands](#cli-commands)
   - [Create docs](#create-docs)
   - [Debug record](#debug-record)
-  - [TODO](#todo)
   - [About SunFounder](#about-sunfounder)
   - [Contact us](#contact-us)
 
@@ -58,9 +58,63 @@ cd ~/fusion-hat/driver && make all && sudo make install
 cd ~/fusion-hat/examples
 ```
 
-## TODO
+## CLI Commands
 
-- [ ] 帮我添加一个doctor命令, 运行命令的时候, 去检查fusion hat有没有问题, 有问题的话, 具体是什么问题, 如果没有问题, 就打印info命令的信息出来. 
+After installing the library, use the `fusion_hat` command:
+
+```bash
+fusion_hat <command>
+```
+
+| Command | Description |
+|---------|-------------|
+| `info` | Show device info, battery status, button/LED/speaker state. Runs a driver health check first. |
+| `doctor` | Run driver and hardware health checks: EEPROM, module file, module load, sysfs, I2C MCU (0x17), DKMS. |
+| `doctor --fix` | Run health checks and auto-repair issues (e.g. load the kernel module if not loaded, or build and install the driver). |
+| `version` | Print the library version. |
+| `scan_i2c` | Scan the I2C bus and list detected device addresses. |
+| `enable_speaker` | Enable the onboard speaker. |
+| `disable_speaker` | Disable the onboard speaker. |
+| `test_speaker` | Enable speaker, play a test tone, then disable speaker. |
+
+Example output:
+
+```bash
+$ fusion_hat doctor
+
+==================================================
+  Fusion Hat Driver Status
+==================================================
+
+  [OK]  EEPROM detected
+  [OK]  Module file
+  [OK]  Module loaded
+  [OK]  sysfs interface
+  [OK]  I2C MCU (0x17)
+  [OK]  DKMS          : fusion_hat/1.0.2, 6.12.47+rpt-rpi-2712, aarch64: installed
+
+==================================================
+```
+
+```bash
+$ fusion_hat info
+
+==================================================
+  Fusion Hat Driver Status
+==================================================
+  ... (doctor check output)
+
+==================================================
+
+                Name: Fusion Hat
+                  ID: fusion_hat
+                UUID: 9daeea78-0000-0774-000a-582369ac3e02
+    Firmware Version: 1.0.2
+      Driver Version: 1.0.2
+       Battery level: 83%
+     Battery voltage: 8.06 V
+    Battery charging: No
+```
 
 ## About SunFounder
 
