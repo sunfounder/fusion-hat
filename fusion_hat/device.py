@@ -186,12 +186,12 @@ def doctor() -> dict:
     """ Comprehensive driver and hardware health check
 
     Checks EEPROM detection, kernel module file, DKMS registration,
-    module load state, and sysfs interface — mirroring the driver
-    Makefile ``status`` target.
+    module load state, sysfs interface, and onboard MCU I2C presence
+    at address 0x17 — mirroring the driver Makefile ``status`` target.
 
     Returns:
         dict with keys: detected, module_file, dkms_status, module_loaded,
-        sysfs, and overall (bool for pass/fail checks)
+        sysfs, i2c_0x17, and overall (bool for pass/fail checks)
     """
     import platform
     from ._utils import run_command
@@ -202,18 +202,23 @@ def doctor() -> dict:
         "dkms_status": "",
         "module_loaded": False,
         "sysfs": False,
+        "i2c_0x17": False,
         "overall": True,
     }
 
     # 1. EEPROM detection
     result["detected"] = is_detected()
 
-    # 2. Module .ko file installed
+    # 2. Module .ko file installed (check .ko and .ko.xz in standard paths)
     kv = platform.uname().release
-    result["module_file"] = (
-        os.path.exists(f"/lib/modules/{kv}/extra/fusion_hat.ko")
-        or os.path.exists(f"/lib/modules/{kv}/updates/fusion_hat.ko")
-    )
+    ko_paths = [
+        f"/lib/modules/{kv}/extra/fusion_hat.ko",
+        f"/lib/modules/{kv}/updates/fusion_hat.ko",
+        f"/lib/modules/{kv}/extra/fusion_hat.ko.xz",
+        f"/lib/modules/{kv}/updates/fusion_hat.ko.xz",
+        f"/lib/modules/{kv}/updates/dkms/fusion_hat.ko.xz",
+    ]
+    result["module_file"] = any(os.path.exists(p) for p in ko_paths)
 
     # 3. DKMS registration
     _, dkms_out = run_command("dkms status fusion_hat 2>/dev/null || true")
@@ -232,12 +237,31 @@ def doctor() -> dict:
     # 5. sysfs interface
     result["sysfs"] = is_driver_loaded()
 
-    # Overall pass: detected + module_file + module_loaded + sysfs
+    # 6. I2C 0x17 — onboard MCU
+    result["i2c_0x17"] = False
+    try:
+        _, i2c_out = run_command("i2cdetect -y 1 0x17 0x17 2>/dev/null")
+        if i2c_out.strip():
+            lines = i2c_out.strip().split("\n")
+            for line in lines:
+                # e.g. "10: -- -- -- -- -- -- -- 17 -- -- -- -- -- -- -- --"
+                if "10:" in line.lower() or "10:" in line:
+                    parts = line.split(":")[-1].strip().split()
+                    if len(parts) >= 8:
+                        val = parts[7]  # 8th entry in row 0x10 is 0x17
+                        if val in ("17", "UU"):
+                            result["i2c_0x17"] = True
+                            break
+    except Exception:
+        pass
+
+    # Overall pass: detected + module_file + module_loaded + sysfs + i2c_0x17
     result["overall"] = all([
         result["detected"],
         result["module_file"],
         result["module_loaded"],
         result["sysfs"],
+        result["i2c_0x17"],
     ])
 
     return result

@@ -51,6 +51,7 @@ def print_doctor():
         ("Module file   ", result["module_file"]),
         ("Module loaded ", result["module_loaded"]),
         ("sysfs interface", result["sysfs"]),
+        ("I2C MCU (0x17)", result["i2c_0x17"]),
     ]
 
     for label, ok in checks:
@@ -78,6 +79,8 @@ def print_doctor():
             print("  -> Run: sudo modprobe fusion_hat")
         if not result["sysfs"]:
             print("  -> Driver may not be loaded or compatible with this kernel.")
+        if not result["i2c_0x17"]:
+            print("  -> Onboard MCU not detected on I2C bus. Check: i2cdetect -y 1")
 
     print("")
     print("=" * 50)
