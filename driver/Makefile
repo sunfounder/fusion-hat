@@ -98,8 +98,12 @@ dkms_install:
 	        exit 1; \
 	    }; \
 	fi
-	@# Remove any existing DKMS registration for this module
-	-@sudo dkms remove -m fusion_hat -v $(DRIVER_VERSION) --all 2>/dev/null || true
+	@# Clean up any old non-DKMS module files (left over from prior modules_install)
+	@sudo rm -f /lib/modules/$(shell uname -r)/extra/fusion_hat.ko* /lib/modules/$(shell uname -r)/updates/fusion_hat.ko* 2>/dev/null || true
+	@# Remove ALL previous DKMS registrations for this module (any version)
+	-@for ver in $$(dkms status fusion_hat 2>/dev/null | sed -n 's/^fusion_hat\/\([^,]*\).*/\1/p' | sort -u); do \
+	    sudo dkms remove -m fusion_hat -v $$ver --all 2>/dev/null || true; \
+	done
 	@# Copy source files to /usr/src/
 	@echo "Copying source to $(DKMS_SRC)..."
 	@sudo mkdir -p $(DKMS_SRC)
