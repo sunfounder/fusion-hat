@@ -154,6 +154,7 @@ class PWM(_Base):
             return self._period
         self.log.debug(f"PWM channel {self.channel} period: {period}")
         self.write_period(period)
+        self._period = period
         return self._period
 
     def duty_cycle(self, duty_cycle: Optional[int]=None) -> int:
