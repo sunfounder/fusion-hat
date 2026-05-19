@@ -118,7 +118,9 @@ def print_doctor(fix: bool = False):
 
 def _show_doctor_result(result):
     """Render a single doctor result dict to stdout."""
-    ok_icon = {True: "✓", False: "✗"}
+    GREEN = "\033[32m"
+    RED = "\033[31m"
+    RESET = "\033[0m"
 
     checks = [
         ("EEPROM detection ", result["detected"]),
@@ -129,17 +131,19 @@ def _show_doctor_result(result):
     ]
 
     for label, ok in checks:
-        icon = ok_icon[ok]
-        print(f"  [{icon}] {label}")
+        if ok:
+            print(f"  {GREEN}✓{RESET} {label}")
+        else:
+            print(f"  {RED}✗{RESET} {label}")
 
     dkms = result["dkms_status"]
     if dkms == "DKMS not installed":
-        print(f"  [ -] DKMS             : {dkms}")
+        print(f"   - DKMS             : {dkms}")
     elif dkms == "not registered":
-        print(f"  [✗] DKMS           : {dkms} (run 'sudo make install' to register)")
+        print(f"  {RED}✗{RESET} DKMS           : {dkms} (run 'sudo make install' to register)")
     else:
         lines = dkms.strip().split("\n")
-        print(f"  [✓] DKMS            : {lines[0]}")
+        print(f"  {GREEN}✓{RESET} DKMS            : {lines[0]}")
         for line in lines[1:]:
             print(f"                         {line}")
 
