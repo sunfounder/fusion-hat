@@ -118,28 +118,28 @@ def print_doctor(fix: bool = False):
 
 def _show_doctor_result(result):
     """Render a single doctor result dict to stdout."""
-    status_icon = {True: "OK", False: "FAIL"}
+    ok_icon = {True: "✓", False: "✗"}
 
     checks = [
-        ("EEPROM detected", result["detected"]),
-        ("Module file   ", result["module_file"]),
-        ("Module loaded ", result["module_loaded"]),
-        ("sysfs interface", result["sysfs"]),
-        ("I2C MCU (0x17)", result["i2c_0x17"]),
+        ("EEPROM detection ", result["detected"]),
+        ("Module file      ", result["module_file"]),
+        ("Module loaded    ", result["module_loaded"]),
+        ("sysfs interface  ", result["sysfs"]),
+        ("I2C MCU (0x17)   ", result["i2c_0x17"]),
     ]
 
     for label, ok in checks:
-        icon = status_icon[ok]
-        print(f"  [{icon}]  {label}")
+        icon = ok_icon[ok]
+        print(f"  [{icon}] {label}")
 
     dkms = result["dkms_status"]
     if dkms == "DKMS not installed":
-        print(f"  [ -]  DKMS          : {dkms}")
+        print(f"  [ -] DKMS             : {dkms}")
     elif dkms == "not registered":
-        print(f"  [WARN] DKMS        : {dkms} (run 'sudo make install' to register)")
+        print(f"  [✗] DKMS           : {dkms} (run 'sudo make install' to register)")
     else:
         lines = dkms.strip().split("\n")
-        print(f"  [OK]  DKMS          : {lines[0]}")
+        print(f"  [✓] DKMS            : {lines[0]}")
         for line in lines[1:]:
             print(f"                         {line}")
 
