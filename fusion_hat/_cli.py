@@ -132,6 +132,14 @@ def _show_doctor_result(result):
 
     print("")
 
+def print_update_eeprom(erase: bool = False):
+    print("Update Fusion-HAT EEPROM.")
+    from .device import update_eeprom
+    success = update_eeprom(erase=erase)
+    if not success:
+        print("EEPROM update did not complete successfully.")
+        print("Check the output above for details.")
+
 def print_info():
     from fusion_hat._version import __version__
     from fusion_hat.device import NAME
@@ -193,17 +201,23 @@ def main():
         "scan_i2c": scan_i2c,
         "info": print_info,
         "doctor": print_doctor,
+        "update_eeprom": print_update_eeprom,
     }
 
     parser = argparse.ArgumentParser(description='fusion_hat command line interface')
     parser.add_argument('option', choices=CHOICES.keys(), help='option')
     parser.add_argument('--fix', action='store_true', help='auto fix driver issues (doctor only)')
+    parser.add_argument('--erase', action='store_true', help='erase EEPROM before flashing (update_eeprom only)')
     args = parser.parse_args()
 
     if args.fix and args.option != "doctor":
         parser.error("--fix is only valid with 'doctor'")
+    if args.erase and args.option != "update_eeprom":
+        parser.error("--erase is only valid with 'update_eeprom'")
 
     if args.option == "doctor":
         CHOICES[args.option](fix=args.fix)
+    elif args.option == "update_eeprom":
+        CHOICES[args.option](erase=args.erase)
     else:
         CHOICES[args.option]()
