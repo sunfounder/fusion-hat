@@ -76,6 +76,8 @@ fusion_hat <command>
 | `enable_speaker` | Enable the onboard speaker. |
 | `disable_speaker` | Disable the onboard speaker. |
 | `test_speaker` | Enable speaker, play a test tone, then disable speaker. |
+| `update_eeprom` | Download and reflash the HAT EEPROM. Guides through hardware steps (shorting write-protect pins). |
+| `update_eeprom --erase` | Erase EEPROM first (write blank), then reflash. Useful for testing. |
 
 Example output:
 
@@ -86,12 +88,12 @@ $ fusion_hat doctor
   Fusion Hat Driver Status
 ==================================================
 
-  [OK]  EEPROM detected
-  [OK]  Module file
-  [OK]  Module loaded
-  [OK]  sysfs interface
-  [OK]  I2C MCU (0x17)
-  [OK]  DKMS          : fusion_hat/1.0.2, 6.12.47+rpt-rpi-2712, aarch64: installed
+  ✓ EEPROM detection
+  ✓ Module file
+  ✓ Module loaded
+  ✓ sysfs interface
+  ✓ I2C MCU (0x17)
+  ✓ DKMS            : fusion_hat/1.0.2, 6.12.47+rpt-rpi-2712, aarch64: installed
 
 ==================================================
 ```
