@@ -480,49 +480,47 @@ def get_driver_version() -> str:
 def update_eeprom(erase: bool = False) -> bool:
     """Reflash the Fusion Hat EEPROM via I2C GPIO bit-banging.
 
-    Downloads the EEPROM binary and flash script, sets up a bit-banged
-    I2C bus on GPIO 0/1, and writes the EEPROM. The user must short the
-    two outermost holes of the 5-pin header next to the EEPROM chip to
-    enable writing.
+    Downloads the flash script, sets up a bit-banged I2C bus on GPIO 0/1,
+    and writes the EEPROM. The user must short the two outermost holes of
+    the 5-pin header next to the EEPROM chip to enable writing.
 
     Args:
-        erase: If True, erase the EEPROM first (write all 0xFF) before
-               writing the correct data. Useful for testing.
+        erase: If True, only erase the EEPROM (write all 0xFF).
+               The EEPROM binary is not downloaded in this mode.
 
     Returns:
-        bool: True if flashing succeeded
+        bool: True if the operation succeeded
     """
     import tempfile
     from ._utils import run_command
 
-    EEPROM_URL = (
-        "https://github.com/sunfounder/sunfounder-hat-helper/raw/refs/heads/"
-        "main/eeproms/o1908v10_fusion_hat.eep"
-    )
     SCRIPT_URL = (
         "https://github.com/sunfounder/sunfounder-hat-helper/raw/refs/heads/"
         "main/scripts/eepflash.sh"
     )
+    EEPROM_URL = (
+        "https://github.com/sunfounder/sunfounder-hat-helper/raw/refs/heads/"
+        "main/eeproms/o1908v10_fusion_hat.eep"
+    )
+
+    # Check sudo access before starting
+    _, sudo_check = run_command("sudo -v 2>&1")
+    if sudo_check.strip():
+        print("This command requires sudo access. Please run with a user that has sudo privileges.")
+        return False
 
     tmpdir = tempfile.mkdtemp(prefix="fusion_hat_eeprom_")
-    eeprom_file = os.path.join(tmpdir, "o1908v10_fusion_hat.eep")
     script_file = os.path.join(tmpdir, "eepflash.sh")
 
     try:
         print("")
         print("=" * 60)
-        print("  Fusion Hat EEPROM Update")
+        print("  Fusion Hat EEPROM", "Erase" if erase else "Update")
         print("=" * 60)
         print("")
 
-        # 1. Download files
-        print("  [1/5] Downloading EEPROM files...")
-        _, out = run_command(f"wget -q -O {eeprom_file} {EEPROM_URL} 2>&1")
-        if not os.path.isfile(eeprom_file) or os.path.getsize(eeprom_file) == 0:
-            print(f"  [FAIL] Failed to download EEPROM binary from {EEPROM_URL}")
-            return False
-        print(f"  [OK]  Downloaded: {os.path.basename(eeprom_file)} ({os.path.getsize(eeprom_file)} bytes)")
-
+        # 1. Download eepflash.sh
+        print("  [1/4] Downloading eepflash.sh...")
         _, out = run_command(f"wget -q -O {script_file} {SCRIPT_URL} 2>&1")
         if not os.path.isfile(script_file) or os.path.getsize(script_file) == 0:
             print(f"  [FAIL] Failed to download eepflash.sh from {SCRIPT_URL}")
@@ -532,7 +530,7 @@ def update_eeprom(erase: bool = False) -> bool:
 
         # 2. Set up I2C GPIO bus
         print("")
-        print("  [2/5] Setting up I2C GPIO bus (bus 9 on GPIO 0/1)...")
+        print("  [2/4] Setting up I2C GPIO bus (bus 9 on GPIO 0/1)...")
         _, dtoverlay_out = run_command(
             "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
         )
@@ -542,25 +540,26 @@ def update_eeprom(erase: bool = False) -> bool:
             return False
         print("  [OK]  /dev/i2c-9 created")
 
-        # 3. Erase (optional)
+        # 3. Prepare the file to write
         if erase:
-            print("")
-            print("  [3/5] Erasing EEPROM (writing blank 0xFF)...")
-            blank_file = os.path.join(tmpdir, "blank.eep")
-            with open(blank_file, "wb") as f:
-                f.write(b"\xff" * 256)
-            _, erase_out = run_command(
-                f"sudo bash {script_file} -w -f={blank_file} -t=24c02 -a=50 -d=/dev/i2c-9 2>&1"
-            )
-            # Erase always "fails" verification since we're writing blank data
-            print(f"  [OK]  EEPROM erased (verification mismatch is expected)")
-            step = 4
+            write_file = os.path.join(tmpdir, "blank.eep")
+            with open(write_file, "wb") as f:
+                f.write(b"\xff" * 4096)
+            label = "Erase"
         else:
-            step = 3
+            print("")
+            print("  [3/4] Downloading EEPROM binary...")
+            write_file = os.path.join(tmpdir, "o1908v10_fusion_hat.eep")
+            _, out = run_command(f"wget -q -O {write_file} {EEPROM_URL} 2>&1")
+            if not os.path.isfile(write_file) or os.path.getsize(write_file) == 0:
+                print(f"  [FAIL] Failed to download EEPROM binary from {EEPROM_URL}")
+                return False
+            print(f"  [OK]  Downloaded: {os.path.basename(write_file)} ({os.path.getsize(write_file)} bytes)")
+            label = "Flash"
 
         # 4. Instruct user to short write-protect pins
         print("")
-        print(f"  [{step}/5] *** ACTION REQUIRED ***")
+        print("  *** ACTION REQUIRED ***")
         print("")
         print("  The EEPROM chip is write-protected. To enable writing,")
         print("  short the two OUTERMOST holes of the 5-pin header next to")
@@ -575,13 +574,16 @@ def update_eeprom(erase: bool = False) -> bool:
         print("")
         input("  Press ENTER after you have shorted the pins...")
 
-        # 5. Flash the EEPROM
+        # 5. Write to EEPROM
         print("")
-        print(f"  [{step + 1}/5] Flashing EEPROM...")
+        print(f"  [4/4] Writing EEPROM ({label.lower()})...")
         _, flash_out = run_command(
-            f"sudo bash {script_file} -w -f={eeprom_file} -t=24c02 -a=50 -d=/dev/i2c-9 2>&1"
+            f"sudo bash {script_file} -w -f={write_file} -t=24c32 -a=50 -d=/dev/i2c-9 2>&1"
         )
         print(flash_out)
+        if "done" not in flash_out.lower():
+            print("  [FAIL] EEPROM write failed. Check output above for details.")
+            return False
 
         # 6. Remove short
         print("")
@@ -590,14 +592,13 @@ def update_eeprom(erase: bool = False) -> bool:
         input("  Press ENTER after you have removed the short...")
 
         print("")
-        print("  EEPROM flash complete.")
+        print(f"  EEPROM {label.lower()} complete.")
         print("  A reboot is required for the Raspberry Pi to detect the HAT.")
         print(f"  Temporary files kept at: {tmpdir}")
         print("")
         print("=" * 60)
         print("")
 
-        # Don't clean up tmpdir so user can inspect/reuse files
         return True
 
     except (KeyboardInterrupt, EOFError):
