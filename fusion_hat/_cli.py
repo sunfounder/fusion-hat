@@ -132,7 +132,7 @@ def print_update_eeprom(erase: bool = False):
         print("EEPROM update did not complete successfully.")
         print("Check the output above for details.")
 
-def setup_speaker():
+def setup_speaker(skip_test: bool = False):
     from ._utils import run_command
     import os
     script = os.path.join(os.path.dirname(__file__), "scripts", "setup_fusion_hat_audio.sh")
@@ -140,7 +140,8 @@ def setup_speaker():
         print(f"Script not found: {script}")
         return
     print("Setting up speaker...")
-    status, output = run_command(f"sudo bash {script} 2>&1")
+    args = "--skip-test" if skip_test else ""
+    status, output = run_command(f"sudo bash {script} {args} 2>&1")
     print(output)
     if status is not None and status != 0:
         print(f"Setup speaker failed with exit code {status}.")
@@ -216,16 +217,21 @@ def main():
     parser.add_argument('option', choices=CHOICES.keys(), help='option')
     parser.add_argument('--fix', action='store_true', help='auto fix driver issues (doctor only)')
     parser.add_argument('--erase', action='store_true', help='erase EEPROM before flashing (update_eeprom only)')
+    parser.add_argument('--skip-test', action='store_true', help='skip speaker test (setup_speaker only)')
     args = parser.parse_args()
 
     if args.fix and args.option != "doctor":
         parser.error("--fix is only valid with 'doctor'")
     if args.erase and args.option != "update_eeprom":
         parser.error("--erase is only valid with 'update_eeprom'")
+    if args.skip_test and args.option != "setup_speaker":
+        parser.error("--skip-test is only valid with 'setup_speaker'")
 
     if args.option == "doctor":
         CHOICES[args.option](fix=args.fix)
     elif args.option == "update_eeprom":
         CHOICES[args.option](erase=args.erase)
+    elif args.option == "setup_speaker":
+        CHOICES[args.option](skip_test=args.skip_test)
     else:
         CHOICES[args.option]()
