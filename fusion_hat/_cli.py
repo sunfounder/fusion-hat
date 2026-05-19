@@ -43,42 +43,25 @@ def print_doctor(fix: bool = False):
 
         print("")
         print("=" * 50)
-        print("  Fusion Hat Driver Doctor (--fix)")
+        print("  Fusion Hat Doctor (--fix)")
         print("=" * 50)
-
-        # Show before state
         print("")
-        print("  [Before]")
-        _show_doctor_result(before)
-
-        # Show fixes attempted
-        if fixes:
-            print("  [Actions]")
-            for action in fixes:
-                print(f"    -> {action}")
-            print("")
-
-        # Show after state
-        print("  [After]")
-        _show_doctor_result(after)
 
         if result["fixed"]:
-            print("  All issues resolved.")
+            print("  All checks pass. Nothing to fix.")
         else:
+            for action in fixes:
+                print(f"  → {action}")
+
             if not after["detected"]:
-                # Check if we attempted an EEPROM fix
-                eeprom_flashed = any("EEPROM reflash" in f for f in fixes)
+                eeprom_flashed = any("reflashed" in f for f in fixes)
                 if eeprom_flashed:
-                    print("  EEPROM flashed successfully.")
-                    print("  A reboot is required for the Pi to detect the HAT.")
-                    print("  Run 'sudo reboot', then 'fusion_hat doctor' to verify.")
-                else:
+                    print("")
+                    print("  Reboot required for the Pi to detect the HAT.")
+                elif not any("reflash failed" in f for f in fixes):
+                    print("")
                     print("  EEPROM not detected. Check physical connection.")
-                    print("  Run 'fusion_hat doctor --fix' to attempt EEPROM reflash.")
-            else:
-                print("  Some issues could not be auto-fixed.")
-                if not after["module_file"] and not before["module_file"]:
-                    print("  -> Driver source not found. Clone the repo and run: cd driver && sudo make install")
+
         print("")
         print("=" * 50)
         print("")

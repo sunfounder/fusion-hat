@@ -321,15 +321,11 @@ def doctor_fix() -> dict:
 
     # Fix 1: EEPROM not detected → reflash
     if not before["detected"]:
-        print("")
-        print("  The EEPROM may be blank or corrupt.")
-        print("  Attempting EEPROM reflash...")
-        print("")
         ok = update_eeprom(erase=False)
         if ok:
-            fixes.append("EEPROM reflash — reboot required to take effect")
+            fixes.append("EEPROM reflashed — reboot required")
         else:
-            fixes.append("EEPROM reflash failed — check output above for details")
+            fixes.append("EEPROM reflash failed")
         after = doctor()
         return {
             "before": before,
@@ -554,13 +550,13 @@ def update_eeprom(erase: bool = False) -> bool:
 
         # 1. Prepare the file to write
         if erase:
-            print("  [1/5] Preparing blank EEPROM image (4096 bytes of 0xFF)...")
+            print("  [1/4] Preparing blank EEPROM image...")
             write_file = os.path.join(tmpdir, "blank.eep")
             with open(write_file, "wb") as f:
                 f.write(b"\xff" * 4096)
             print(f"  [OK]  Created blank image")
         else:
-            print("  [1/5] Downloading EEPROM binary...")
+            print("  [1/4] Downloading EEPROM binary...")
             write_file = os.path.join(tmpdir, "o1908v10_fusion_hat.eep")
             _, out = run_command(f"wget -q -O {write_file} {EEPROM_URL} 2>&1")
             if not os.path.isfile(write_file) or os.path.getsize(write_file) == 0:
@@ -568,21 +564,9 @@ def update_eeprom(erase: bool = False) -> bool:
                 return False
             print(f"  [OK]  Downloaded: {os.path.basename(write_file)} ({os.path.getsize(write_file)} bytes)")
 
-        # 2. Set up I2C GPIO bus
+        # 2. Instruct user to short write-protect pins
         print("")
-        print("  [2/5] Setting up I2C GPIO bus (bus 9 on GPIO 0/1)...")
-        _, dtoverlay_out = run_command(
-            "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
-        )
-        if not os.path.exists("/dev/i2c-9"):
-            print("  [FAIL] /dev/i2c-9 not created. Check if dtoverlay succeeded.")
-            print(f"  Output: {dtoverlay_out.strip()}")
-            return False
-        print("  [OK]  /dev/i2c-9 created")
-
-        # 3. Instruct user to short write-protect pins
-        print("")
-        print("  [3/5] Short write-protect pins")
+        print("  [2/4] Short write-protect pins")
         print("")
         print("  The EEPROM chip is write-protected. To enable writing,")
         print("  short the two OUTERMOST holes of the 5-pin header next to")
@@ -597,23 +581,23 @@ def update_eeprom(erase: bool = False) -> bool:
         print("")
         input("  Press ENTER after you have shorted the pins...")
 
-        # 4. Write to EEPROM
+        # 3. Write to EEPROM
         print("")
         if erase:
-            print("  [4/5] Erase EEPROM...")
+            print("  [3/4] Erase EEPROM...")
         else:
-            print("  [4/5] Flash EEPROM...")
+            print("  [3/4] Flash EEPROM...")
         _, flash_out = run_command(
-            f"sudo {eepflash} -y -w -f={write_file} -t=24c32 -a=50 -d=9 2>&1"
+            f"sudo {eepflash} -y -w -f={write_file} -t=24c32 -a=50 2>&1"
         )
         print(flash_out)
         if "done" not in flash_out.lower():
             print("  [FAIL] EEPROM write failed. Check output above for details.")
             return False
 
-        # 5. Remove short
+        # 4. Remove short
         print("")
-        print("  [5/5] Remove short from write-protect pins")
+        print("  [4/4] Remove short from write-protect pins")
         print("")
         print("  Remove the short from the EEPROM write-protect pins now.")
         input("  Press ENTER after you have removed the short...")
