@@ -483,15 +483,9 @@ def _get_eepflash_script() -> str:
     Returns:
         str: path to eepflash.sh, or empty string if not found
     """
-    try:
-        import fusion_hat
-        pkg_dir = os.path.dirname(fusion_hat.__file__)
-        repo = os.path.dirname(pkg_dir)
-        script = os.path.join(repo, "scripts", "eepflash.sh")
-        if os.path.isfile(script):
-            return script
-    except Exception:
-        pass
+    script = os.path.join(os.path.dirname(__file__), "scripts", "eepflash.sh")
+    if os.path.isfile(script):
+        return script
     return ""
 
 

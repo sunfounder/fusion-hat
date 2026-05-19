@@ -43,6 +43,9 @@ Issues = "https://github.com/sunfounder/fusion-hat/issues"
 [tool.setuptools.packages.find]
 include = ["fusion_hat*"]
 
+[tool.setuptools.package-data]
+"fusion_hat" = ["scripts/*"]
+
 [tool.setuptools.dynamic]
 version = {attr = "fusion_hat._version.__version__"}
 
