@@ -52,15 +52,8 @@ def print_doctor(fix: bool = False):
         else:
             for action in fixes:
                 print(f"  → {action}")
-
-            if not after["detected"]:
-                eeprom_flashed = any("reflashed" in f for f in fixes)
-                if eeprom_flashed:
-                    print("")
-                    print("  Reboot required for the Pi to detect the HAT.")
-                elif not any("reflash failed" in f for f in fixes):
-                    print("")
-                    print("  EEPROM not detected. Check physical connection.")
+            if not after["detected"] and not any("reflash" in f for f in fixes):
+                print("  EEPROM not detected. Check physical connection.")
 
         print("")
         print("=" * 50)

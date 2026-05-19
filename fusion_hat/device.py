@@ -595,20 +595,20 @@ def update_eeprom(erase: bool = False) -> bool:
             print("  [FAIL] EEPROM write failed. Check output above for details.")
             return False
 
-        # 4. Remove short
+        # 4. Remove short and reboot
         print("")
-        print("  [4/4] Remove short from write-protect pins")
+        print("  [4/4] Remove short. Then reboot to detect the HAT.")
         print("")
-        print("  Remove the short from the EEPROM write-protect pins now.")
-        input("  Press ENTER after you have removed the short...")
-
+        print("  Remove the short from the write-protect pins now.")
+        input("  Press ENTER after removing the short...")
         print("")
-        print("  EEPROM", "erase" if erase else "flash", "complete.")
-        print("  A reboot is required for the Raspberry Pi to detect the HAT.")
-        print(f"  Temporary files kept at: {tmpdir}")
-        print("")
-        print("=" * 60)
-        print("")
+        answer = input("  Reboot now? (y/N): ").strip().lower()
+        if answer in ("y", "yes"):
+            print("  Rebooting...")
+            run_command("sudo reboot 2>&1")
+        else:
+            print("  Reboot later with: sudo reboot")
+            print("  Then verify with: fusion_hat doctor")
 
         return True
 
