@@ -65,11 +65,20 @@ def print_doctor(fix: bool = False):
         if result["fixed"]:
             print("  All issues resolved.")
         else:
-            print("  Some issues could not be auto-fixed.")
             if not after["detected"]:
-                print("  -> Fusion Hat not detected. Check physical connection.")
-            if not after["module_file"] and not before["module_file"]:
-                print("  -> Driver source not found. Clone the repo and run: cd driver && sudo make install")
+                # Check if we attempted an EEPROM fix
+                eeprom_flashed = any("EEPROM reflash" in f for f in fixes)
+                if eeprom_flashed:
+                    print("  EEPROM flashed successfully.")
+                    print("  A reboot is required for the Pi to detect the HAT.")
+                    print("  Run 'sudo reboot', then 'fusion_hat doctor' to verify.")
+                else:
+                    print("  EEPROM not detected. Check physical connection.")
+                    print("  Run 'fusion_hat doctor --fix' to attempt EEPROM reflash.")
+            else:
+                print("  Some issues could not be auto-fixed.")
+                if not after["module_file"] and not before["module_file"]:
+                    print("  -> Driver source not found. Clone the repo and run: cd driver && sudo make install")
         print("")
         print("=" * 50)
         print("")
@@ -84,19 +93,23 @@ def print_doctor(fix: bool = False):
         _show_doctor_result(result)
 
         if not result["overall"]:
-            print("  Some checks failed.")
             if not result["detected"]:
-                print("  -> Is the Fusion Hat properly seated on the GPIO header?")
-            if not result["module_file"]:
-                print("  -> Run: cd driver && sudo make install")
-            if not result["module_loaded"]:
-                print("  -> Run: sudo modprobe fusion_hat")
-            if not result["sysfs"]:
-                print("  -> Driver may not be loaded or compatible with this kernel.")
-            if not result["i2c_0x17"]:
-                print("  -> Onboard MCU not detected on I2C bus. Check: i2cdetect -y 1")
-            print("")
-            print("  Tip: run 'fusion_hat doctor --fix' to auto-fix.")
+                print("  EEPROM not detected — this may be the root cause of other failures.")
+                print("  First, check the Fusion Hat is properly seated on the GPIO header.")
+                print("  If it is, the EEPROM may be blank or corrupt.")
+                print("  Run 'fusion_hat doctor --fix' to reflash the EEPROM.")
+            else:
+                print("  Some checks failed.")
+                if not result["module_file"]:
+                    print("  -> Run: cd driver && sudo make install")
+                if not result["module_loaded"]:
+                    print("  -> Run: sudo modprobe fusion_hat")
+                if not result["sysfs"]:
+                    print("  -> Driver may not be loaded or compatible with this kernel.")
+                if not result["i2c_0x17"]:
+                    print("  -> Onboard MCU not detected on I2C bus. Check: i2cdetect -y 1")
+                print("")
+                print("  Tip: run 'fusion_hat doctor --fix' to auto-fix.")
 
         print("")
         print("=" * 50)

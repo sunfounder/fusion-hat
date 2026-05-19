@@ -303,6 +303,7 @@ def doctor_fix() -> dict:
     """Run doctor and attempt to fix any issues found.
 
     Fixable issues:
+    - EEPROM not detected: reflash EEPROM via update_eeprom()
     - Module not loaded (but file present): ``modprobe fusion_hat``
     - Module file missing (driver source found): ``make modules_install``
 
@@ -318,12 +319,31 @@ def doctor_fix() -> dict:
     if before["overall"]:
         return {"before": before, "fixes": fixes, "after": before, "fixed": True}
 
-    # Fix 1: module file exists but not loaded → modprobe
+    # Fix 1: EEPROM not detected → reflash
+    if not before["detected"]:
+        print("")
+        print("  The EEPROM may be blank or corrupt.")
+        print("  Attempting EEPROM reflash...")
+        print("")
+        ok = update_eeprom(erase=False)
+        if ok:
+            fixes.append("EEPROM reflash — reboot required to take effect")
+        else:
+            fixes.append("EEPROM reflash failed — check output above for details")
+        after = doctor()
+        return {
+            "before": before,
+            "fixes": fixes,
+            "after": after,
+            "fixed": after["overall"],
+        }
+
+    # Fix 2: module file exists but not loaded → modprobe
     if before["module_file"] and not before["module_loaded"]:
         fixes.append("modprobe fusion_hat")
         run_command("sudo modprobe fusion_hat 2>/dev/null")
 
-    # Fix 2: module file missing → try to install
+    # Fix 3: module file missing → try to install
     if not before["module_file"]:
         driver_dir = _find_driver_src()
         if driver_dir:
