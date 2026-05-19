@@ -94,10 +94,9 @@ def print_doctor(fix: bool = False):
 
         if not result["overall"]:
             if not result["detected"]:
-                print("  EEPROM not detected — this may be the root cause of other failures.")
-                print("  First, check the Fusion Hat is properly seated on the GPIO header.")
-                print("  If it is, the EEPROM may be blank or corrupt.")
-                print("  Run 'fusion_hat doctor --fix' to reflash the EEPROM.")
+                print("  EEPROM not detected.")
+                print("  → Check the HAT is properly seated on the GPIO header.")
+                print("  → If it is, reflash the EEPROM: fusion_hat doctor --fix")
             else:
                 print("  Some checks failed.")
                 if not result["module_file"]:
