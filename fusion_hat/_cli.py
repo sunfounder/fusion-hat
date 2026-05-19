@@ -132,6 +132,21 @@ def print_update_eeprom(erase: bool = False):
         print("EEPROM update did not complete successfully.")
         print("Check the output above for details.")
 
+def setup_speaker():
+    from ._utils import run_command
+    import os
+    script = os.path.join(os.path.dirname(__file__), "scripts", "setup_fusion_hat_audio.sh")
+    if not os.path.isfile(script):
+        print(f"Script not found: {script}")
+        return
+    print("Setting up speaker...")
+    status, output = run_command(f"sudo bash {script} 2>&1")
+    print(output)
+    if status is not None and status != 0:
+        print(f"Setup speaker failed with exit code {status}.")
+    else:
+        print("Speaker setup complete.")
+
 def print_info():
     from fusion_hat._version import __version__
     from fusion_hat.device import NAME
@@ -194,6 +209,7 @@ def main():
         "info": print_info,
         "doctor": print_doctor,
         "update_eeprom": print_update_eeprom,
+        "setup_speaker": setup_speaker,
     }
 
     parser = argparse.ArgumentParser(description='fusion_hat command line interface')

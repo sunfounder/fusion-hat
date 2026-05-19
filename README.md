@@ -25,10 +25,10 @@ Install Fusion Hat
 curl -sSL https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/install-fusion-hat.sh | sudo bash
 ```
 
-After install finished, please reboot your Raspberry Pi. After reboot, Run this command again to enable audio
+After install finished, please reboot your Raspberry Pi. After reboot, run this command to enable audio:
 
 ```bash
-sudo /opt/setup_fusion_hat_audio.sh
+fusion_hat setup_speaker
 ```
 
 ## Create docs
@@ -78,6 +78,7 @@ fusion_hat <command>
 | `test_speaker` | Enable speaker, play a test tone, then disable speaker. |
 | `update_eeprom` | Download and reflash the HAT EEPROM. Guides through hardware steps (shorting write-protect pins). |
 | `update_eeprom --erase` | Erase EEPROM first (write blank), then reflash. Useful for testing. |
+| `setup_speaker` | Run the audio setup script `/opt/setup_fusion_hat_audio.sh`. Run this after reboot to enable speaker output. |
 
 Example output:
 
