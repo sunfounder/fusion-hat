@@ -374,12 +374,18 @@ def doctor_fix() -> dict:
             "fixed": after["overall"],
         }
 
-    # Fix 2: module file exists but not loaded → modprobe
+    # Fix 2: module loaded but sysfs missing → reload module
+    if before["module_loaded"] and not before["sysfs"]:
+        fixes.append("reload fusion_hat module")
+        run_command("sudo rmmod fusion_hat 2>/dev/null")
+        run_command("sudo modprobe fusion_hat 2>/dev/null")
+
+    # Fix 3: module file exists but not loaded → modprobe
     if before["module_file"] and not before["module_loaded"]:
         fixes.append("modprobe fusion_hat")
         run_command("sudo modprobe fusion_hat 2>/dev/null")
 
-    # Fix 3: module file missing → try to install
+    # Fix 4: module file missing → try to install
     if not before["module_file"]:
         driver_dir = _find_driver_src()
         if driver_dir:
