@@ -138,25 +138,13 @@ def is_eeprom_readable() -> tuple:
             if not os.path.exists("/dev/i2c-9"):
                 return (False, False)
 
-        # Scan for EEPROM at 0x50 on bus 9 (no sudo needed for i2c group)
-        status, i2c_out = run_command("i2cdetect -y 9 0x50 0x50 2>/dev/null")
-
-        # Parse: row "50: 50" or "50: UU" means chip present
-        chip_found = False
-        for line in i2c_out.split("\n"):
-            stripped = line.strip()
-            if stripped.startswith("50:") or stripped.startswith("50 "):
-                parts = stripped.split(":")
-                if len(parts) >= 2:
-                    val = parts[1].strip().split()[0] if parts[1].strip() else ""
-                    if val in ("50", "UU"):
-                        chip_found = True
-                break
-
-        if not chip_found:
+        # Check if EEPROM chip responds at 0x50
+        status, out = run_command("i2cget -y 9 0x50 0x00 2>&1")
+        if status != 0 and "busy" not in out.lower():
             return (False, False)
 
-        # Chip is present — read content via at24 sysfs
+        # Chip is present — read content via at24 sysfs (root-only file)
+        import tempfile
         os.system("sudo modprobe at24 2>/dev/null")
         dev_path = "/sys/class/i2c-dev/i2c-9/device"
         eeprom_path = f"{dev_path}/9-0050/eeprom"
@@ -164,14 +152,16 @@ def is_eeprom_readable() -> tuple:
             run_command(
                 f"echo 24c32 0x50 | sudo tee {dev_path}/new_device > /dev/null 2>&1"
             )
-        if os.path.isfile(eeprom_path):
-            with open(eeprom_path, "rb") as f:
+        tmp = tempfile.mkdtemp(prefix="eeprom_read_")
+        dump = os.path.join(tmp, "eeprom.bin")
+        run_command(f"sudo dd if={eeprom_path} of={dump} bs=4096 count=1 2>/dev/null")
+        run_command(
+            f"echo 0x50 | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
+        )
+        if os.path.isfile(dump) and os.path.getsize(dump) > 4:
+            with open(dump, "rb") as f:
                 data = f.read()
-            # Clean up device
-            run_command(
-                f"echo 0x50 | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
-            )
-            valid = data != b"\xff" * len(data) and len(data) > 4
+            valid = data != b"\xff" * len(data)
             return (True, valid)
     except Exception:
         pass
