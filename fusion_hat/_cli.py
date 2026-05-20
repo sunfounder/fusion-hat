@@ -76,8 +76,8 @@ def print_doctor(fix: bool = False):
                     print("  HAT not detected — EEPROM is blank or has invalid data.")
                     print("  → Run: fusion_hat doctor --fix")
                 else:
-                    print("  HAT not detected — EEPROM has valid data but needs a reboot.")
-                    print("  → Run: sudo reboot")
+                    print("  HAT not detected but EEPROM has valid data.")
+                    print("  → If you just flashed the EEPROM, reboot to apply: sudo reboot")
             else:
                 print("  Some checks failed.")
                 if not result["module_file"]:
