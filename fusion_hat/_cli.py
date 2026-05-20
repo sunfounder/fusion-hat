@@ -34,6 +34,10 @@ def scan_i2c():
     print(f"Found devices: {devices}")
 
 def print_doctor(fix: bool = False):
+    # Prompt for sudo early so password prompt appears before the banner
+    import os as _os
+    _os.system("sudo -v 2>/dev/null")
+
     if fix:
         from fusion_hat.device import doctor_fix
         result = doctor_fix()
@@ -143,6 +147,8 @@ def _show_doctor_result(result):
     print("")
 
 def print_update_eeprom(erase: bool = False):
+    import os as _os
+    _os.system("sudo -v 2>/dev/null")
     print("Update Fusion-HAT EEPROM.")
     from .device import update_eeprom
     success = update_eeprom(erase=erase)
