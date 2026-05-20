@@ -139,7 +139,13 @@ def is_eeprom_readable() -> tuple:
                 return (False, False)
 
         # Scan for EEPROM at 0x50 on bus 9 (no sudo needed for i2c group)
-        _, i2c_out = run_command("i2cdetect -y 9 0x50 0x50 2>/dev/null")
+        status, i2c_out = run_command("i2cdetect -y 9 0x50 0x50 2>/dev/null")
+        # DEBUG: write scan output to a temp file for inspection
+        try:
+            with open("/tmp/doctor_eeprom_debug.txt", "w") as df:
+                df.write(f"status={status}\nraw=\n{i2c_out}\n")
+        except Exception:
+            pass
         # Parse: row "50: 50" or "50: UU" means chip present
         chip_found = False
         for line in i2c_out.strip().split("\n"):
