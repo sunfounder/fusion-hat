@@ -70,9 +70,12 @@ def print_doctor(fix: bool = False):
 
         if not result["overall"]:
             if not result["detected"]:
-                print("  EEPROM not detected.")
-                print("  → Check the HAT is properly seated on the GPIO header.")
-                print("  → If it is, reflash the EEPROM: fusion_hat doctor --fix")
+                print("  EEPROM not detected in device-tree.")
+                if result.get("eeprom_readable"):
+                    print("  → Chip is readable — content may be invalid. Reflash: fusion_hat doctor --fix")
+                else:
+                    print("  → Chip not readable. Check the HAT is properly seated.")
+                    print("  → If it is, the EEPROM may need reflashing: fusion_hat doctor --fix")
             else:
                 print("  Some checks failed.")
                 if not result["module_file"]:
@@ -99,6 +102,13 @@ def _show_doctor_result(result):
 
     checks = [
         ("EEPROM detection ", result["detected"]),
+    ]
+
+    # If device-tree didn't see it, check if the chip is physically readable
+    if not result["detected"] and "eeprom_readable" in result:
+        checks.append(("  EEPROM readable", result["eeprom_readable"]))
+
+    checks += [
         ("Module file      ", result["module_file"]),
         ("Module loaded    ", result["module_loaded"]),
         ("sysfs interface  ", result["sysfs"]),

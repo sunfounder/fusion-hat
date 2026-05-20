@@ -26,9 +26,15 @@ sphinx-apidoc -f -d 1 -e -M -P -T -o source/api ../fusion_hat
 
 **CLI commands (available via `fusion_hat` entry point):**
 ```bash
-fusion_hat info           # Show device info, battery, button, speaker state
-fusion_hat version        # Print library version
-fusion_hat scan_i2c       # Scan I2C bus for devices
+fusion_hat info              # Show device info, battery, button, speaker state
+fusion_hat doctor            # Run driver/hardware health checks
+fusion_hat doctor --fix      # Auto-repair (EEPROM reflash, modprobe, etc.)
+fusion_hat update_eeprom     # Reflash HAT EEPROM (guides through hardware steps)
+fusion_hat update_eeprom --erase  # Erase EEPROM only (for testing)
+fusion_hat setup_speaker     # Run audio setup (bundled script)
+fusion_hat setup_speaker --skip-test  # Setup without speaker test
+fusion_hat version           # Print library version
+fusion_hat scan_i2c          # Scan I2C bus for devices
 fusion_hat enable_speaker|disable_speaker|test_speaker
 ```
 
@@ -50,7 +56,8 @@ The Python library talks to hardware through two paths:
 | `fusion_hat/_base.py` | Base class providing a `self.log` Logger to all hardware classes |
 | `fusion_hat/_utils.py` | Utilities: `mapping()`, `constrain()`, `retry` decorator, `run_command()` |
 | `fusion_hat/_i2c.py` | I2C bus wrapper with auto-retry on OSError (5 attempts) |
-| `fusion_hat/device.py` | Device identity constants, detection (`is_detected`, `is_driver_loaded`), and the `@require_fusion_hat` decorator that gates hardware access |
+| `fusion_hat/device.py` | Device identity, detection (`is_detected`, `is_driver_loaded`), `doctor()`/`doctor_fix()` health checks, `update_eeprom()` EEPROM reflash, `@require_fusion_hat` decorator |
+| `fusion_hat/scripts/` | Bundled shell scripts: `eepflash.sh` (EEPROM flashing), `setup_fusion_hat_audio.sh` (audio config) |
 | `fusion_hat/pin.py` | GPIO pin wrapper around `RPi.GPIO` with active-state abstraction and interrupt callbacks |
 | `fusion_hat/pwm.py` | PWM channel control via sysfs; `Servo` extends this |
 | `fusion_hat/motor.py` | DC motors — maps motor names (M0-M3) to PWM pin pairs, handles direction via two channels |

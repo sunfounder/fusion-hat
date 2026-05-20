@@ -119,6 +119,41 @@ def is_detected() -> bool:
                         return True
     return False
 
+def is_eeprom_readable() -> bool:
+    """Check if the EEPROM chip can be read directly via bit-banged I2C.
+
+    Bypasses device-tree detection. Sets up a bit-banged I2C bus on
+    GPIO 0/1, reads the EEPROM via eepflash.sh, and checks that the
+    data is non-blank. Used when device-tree detection fails to
+    determine if the chip physically exists.
+
+    Returns:
+        bool: True if EEPROM was read successfully and contains data
+    """
+    import tempfile
+    from ._utils import run_command
+
+    eepflash = _get_eepflash_script()
+    if not eepflash:
+        return False
+
+    try:
+        # Read EEPROM into temp file
+        tmp = tempfile.mkdtemp(prefix="fusion_hat_eeprom_check_")
+        eep_file = os.path.join(tmp, "read.eep")
+        _, out = run_command(
+            f"sudo bash {eepflash} -y -r -f={eep_file} -t=24c32 -a=50 2>&1"
+        )
+        if not os.path.isfile(eep_file) or os.path.getsize(eep_file) < 4:
+            return False
+        # Check data is not all 0xFF (blank)
+        with open(eep_file, "rb") as f:
+            data = f.read()
+        return data != b"\xff" * len(data)
+    except Exception:
+        return False
+
+
 def is_driver_loaded() -> bool:
     """ Check if Fusion Hat driver is loaded
 
@@ -199,6 +234,7 @@ def doctor() -> dict:
 
     result = {
         "detected": False,
+        "eeprom_readable": False,
         "module_file": False,
         "dkms_status": "",
         "module_loaded": False,
@@ -209,6 +245,10 @@ def doctor() -> dict:
 
     # 1. EEPROM detection
     result["detected"] = is_detected()
+
+    # 1b. If device-tree didn't pick it up, try reading the chip directly
+    if not result["detected"]:
+        result["eeprom_readable"] = is_eeprom_readable()
 
     # 2. Module .ko file installed (check .ko and .ko.xz in standard paths)
     kv = platform.uname().release

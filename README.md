@@ -77,8 +77,8 @@ fusion_hat <command>
 | `disable_speaker` | Disable the onboard speaker. |
 | `test_speaker` | Enable speaker, play a test tone, then disable speaker. |
 | `update_eeprom` | Download and reflash the HAT EEPROM. Guides through hardware steps (shorting write-protect pins). |
-| `update_eeprom --erase` | Erase EEPROM first (write blank), then reflash. Useful for testing. |
-| `setup_speaker` | Run the audio setup script `/opt/setup_fusion_hat_audio.sh`. Run this after reboot to enable speaker output. |
+| `update_eeprom --erase` | Erase EEPROM only (write blank 0xFF). Use before `update_eeprom` to test a blank-to-flash cycle. |
+| `setup_speaker` | Configure audio (ALSA/PulseAudio). Run after reboot to enable the speaker. Use `--skip-test` to skip the speaker test. |
 
 Example output:
 
@@ -112,7 +112,7 @@ $ fusion_hat info
           Product ID: 1908
          Product Ver: 10
               Vendor: SunFounder
-     Library Version: 1.2.0
+     Library Version: 1.2.2
     Firmware Version: 1.0.2
       Driver Version: 1.0.2
    User Button State: Released
