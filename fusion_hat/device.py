@@ -140,22 +140,34 @@ def is_eeprom_readable() -> tuple:
             if not os.path.exists("/dev/i2c-9"):
                 return (False, False)
 
-        # Scan for EEPROM at 0x50
+        # Scan for EEPROM at 0x50 on bus 9
         _, i2c_out = run_command("sudo i2cdetect -y 9 0x50 0x50 2>/dev/null")
-        if "50" not in i2c_out:
+        # Parse: row "50: 50" or "50: UU" means chip present
+        chip_found = False
+        for line in i2c_out.strip().split("\n"):
+            if line.startswith("50:"):
+                entries = line[3:].strip().split()
+                if entries and entries[0] in ("50", "UU"):
+                    chip_found = True
+                break
+
+        if not chip_found:
             return (False, False)
 
-        # Chip is present — read content
+        # Chip is present — read content via at24 sysfs
         run_command("sudo modprobe at24 2>/dev/null")
-        run_command(
-            "echo 24c32 0x50 | sudo tee /sys/class/i2c-dev/i2c-9/device/new_device > /dev/null 2>&1"
-        )
-        eeprom_path = "/sys/class/i2c-dev/i2c-9/device/9-0050/eeprom"
+        dev_path = "/sys/class/i2c-dev/i2c-9/device"
+        eeprom_path = f"{dev_path}/9-0050/eeprom"
+        if not os.path.isfile(eeprom_path):
+            run_command(
+                f"echo 24c32 0x50 | sudo tee {dev_path}/new_device > /dev/null 2>&1"
+            )
         if os.path.isfile(eeprom_path):
             with open(eeprom_path, "rb") as f:
                 data = f.read()
+            # Clean up device
             run_command(
-                "echo 0x50 | sudo tee /sys/class/i2c-dev/i2c-9/device/delete_device > /dev/null 2>&1"
+                f"echo 0x50 | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
             )
             valid = data != b"\xff" * len(data) and len(data) > 4
             return (True, valid)
