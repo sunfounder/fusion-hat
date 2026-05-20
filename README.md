@@ -112,7 +112,7 @@ $ fusion_hat info
           Product ID: 1908
          Product Ver: 10
               Vendor: SunFounder
-     Library Version: 1.3.0
+     Library Version: 1.3.1
     Firmware Version: 1.0.2
       Driver Version: 1.0.2
    User Button State: Released
