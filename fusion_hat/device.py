@@ -120,38 +120,48 @@ def is_detected() -> bool:
     return False
 
 def is_eeprom_readable() -> bool:
-    """Check if the EEPROM chip can be read directly via bit-banged I2C.
+    """Check if the EEPROM chip is physically present via I2C scan.
 
-    Bypasses device-tree detection. Sets up a bit-banged I2C bus on
-    GPIO 0/1, reads the EEPROM via eepflash.sh, and checks that the
-    data is non-blank. Used when device-tree detection fails to
-    determine if the chip physically exists.
+    Sets up a bit-banged I2C bus on GPIO 0/1 (bus 9) and scans for
+    the EEPROM at address 0x50. If found, reads the chip to check
+    whether it contains valid data or is blank.
 
     Returns:
-        bool: True if EEPROM was read successfully and contains data
+        bool: True if EEPROM chip was found and contains data
     """
-    import tempfile
     from ._utils import run_command
 
-    eepflash = _get_eepflash_script()
-    if not eepflash:
-        return False
-
     try:
-        # Read EEPROM into temp file
-        tmp = tempfile.mkdtemp(prefix="fusion_hat_eeprom_check_")
-        eep_file = os.path.join(tmp, "read.eep")
-        _, out = run_command(
-            f"sudo bash {eepflash} -y -r -f={eep_file} -t=24c32 -a=50 2>&1"
-        )
-        if not os.path.isfile(eep_file) or os.path.getsize(eep_file) < 4:
+        # Set up I2C GPIO bus if not present
+        if not os.path.exists("/dev/i2c-9"):
+            run_command(
+                "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
+            )
+            if not os.path.exists("/dev/i2c-9"):
+                return False
+
+        # Scan for EEPROM at 0x50
+        _, i2c_out = run_command("sudo i2cdetect -y 9 0x50 0x50 2>/dev/null")
+        if "50" not in i2c_out:
             return False
-        # Check data is not all 0xFF (blank)
-        with open(eep_file, "rb") as f:
-            data = f.read()
-        return data != b"\xff" * len(data)
+
+        # Chip is present — try reading content via sysfs
+        run_command("sudo modprobe at24 2>/dev/null")
+        run_command(
+            "echo 24c32 0x50 | sudo tee /sys/class/i2c-dev/i2c-9/device/new_device > /dev/null 2>&1"
+        )
+        eeprom_path = "/sys/class/i2c-dev/i2c-9/device/9-0050/eeprom"
+        if os.path.isfile(eeprom_path):
+            with open(eeprom_path, "rb") as f:
+                data = f.read()
+            # Clean up
+            run_command(
+                "echo 0x50 | sudo tee /sys/class/i2c-dev/i2c-9/device/delete_device > /dev/null 2>&1"
+            )
+            return data != b"\xff" * len(data) and len(data) > 4
     except Exception:
-        return False
+        pass
+    return False
 
 
 def is_driver_loaded() -> bool:
