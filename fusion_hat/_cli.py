@@ -70,12 +70,12 @@ def print_doctor(fix: bool = False):
 
         if not result["overall"]:
             if not result["detected"]:
-                print("  EEPROM not detected in device-tree.")
+                print("  HAT not detected by the system.")
                 if result.get("eeprom_readable"):
-                    print("  → Chip is readable — content may be invalid. Reflash: fusion_hat doctor --fix")
+                    print("  → EEPROM chip is readable — content may be invalid. Run: fusion_hat doctor --fix")
                 else:
-                    print("  → Chip not readable. Check the HAT is properly seated.")
-                    print("  → If it is, the EEPROM may need reflashing: fusion_hat doctor --fix")
+                    print("  → EEPROM chip not readable. Check the HAT is properly seated.")
+                    print("  → If it is, the EEPROM may be blank. Run: fusion_hat doctor --fix")
             else:
                 print("  Some checks failed.")
                 if not result["module_file"]:
@@ -101,10 +101,10 @@ def _show_doctor_result(result):
     RESET = "\033[0m"
 
     checks = [
-        ("EEPROM detection ", result["detected"]),
+        ("HAT detected      ", result["detected"]),
     ]
 
-    # If device-tree didn't see it, check if the chip is physically readable
+    # If not detected, try reading the EEPROM chip directly
     if not result["detected"] and "eeprom_readable" in result:
         checks.append(("  EEPROM readable", result["eeprom_readable"]))
 
