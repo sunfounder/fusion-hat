@@ -295,7 +295,7 @@ def doctor() -> dict:
     result["i2c_0x17"] = False
     try:
         # Scan range covering the 0x10 row so i2cdetect emits -- placeholders
-        _, i2c_out = run_command("i2cdetect -y 1 0x10 0x1f 2>/dev/null")
+        _, i2c_out = run_command("sudo i2cdetect -y 1 0x10 0x1f 2>/dev/null")
         if i2c_out.strip():
             for line in i2c_out.strip().split("\n"):
                 if line.startswith("10:"):
