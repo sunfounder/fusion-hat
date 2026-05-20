@@ -635,14 +635,10 @@ def update_eeprom(erase: bool = False) -> bool:
             print("  [FAIL] EEPROM write failed. Check output above for details.")
             return False
 
-        # 4. Remove short and reboot
+        # 4. Done — offer reboot
         print("")
-        print("  [4/4] Remove short. Then reboot to detect the HAT.")
-        print("")
-        print("  Remove the short from the write-protect pins now.")
-        input("  Press ENTER after removing the short...")
-        print("")
-        answer = input("  Reboot now? (y/N): ").strip().lower()
+        print("  [4/4] Done. You can remove the short from the write-protect pins now.")
+        answer = input("  Reboot to detect the HAT? (y/N): ").strip().lower()
         if answer in ("y", "yes"):
             print("  Rebooting...")
             run_command("sudo reboot 2>&1")
