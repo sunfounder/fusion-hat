@@ -69,11 +69,18 @@ def print_doctor(fix: bool = False):
 
         if not result["overall"]:
             if not result["detected"]:
-                print("  HAT not detected by the system.")
-                if result.get("eeprom_readable"):
-                    print("  → EEPROM chip is readable — content may be invalid. Run: fusion_hat doctor --fix")
+                if result["i2c_0x17"]:
+                    print("  HAT is present (I2C MCU found) but not detected by the system.")
+                    print("")
+                    if result.get("eeprom_readable"):
+                        print("  → EEPROM is readable but content may be invalid.")
+                    else:
+                        print("  → EEPROM is blank or unreadable.")
+                    print("  → Run: fusion_hat doctor --fix")
                 else:
-                    print("  → EEPROM chip not readable. Check the HAT is properly seated.")
+                    print("  HAT not detected on I2C bus.")
+                    print("")
+                    print("  → Check the HAT is properly seated on the GPIO header.")
                     print("  → If it is, the EEPROM may be blank. Run: fusion_hat doctor --fix")
             else:
                 print("  Some checks failed.")
@@ -99,26 +106,28 @@ def _show_doctor_result(result):
     RED = "\033[31m"
     RESET = "\033[0m"
 
-    checks = [
-        ("HAT detected      ", result["detected"]),
+    def _icon(ok):
+        return f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
+
+    lines = [
+        (_icon(result["detected"]), "HAT detected"),
     ]
 
-    # If not detected, try reading the EEPROM chip directly
+    # I2C MCU tells us if the HAT is physically present
+    lines.append((_icon(result["i2c_0x17"]), "I2C MCU (0x17)"))
+
+    # If HAT not detected but MCU is present, check EEPROM directly
     if not result["detected"] and "eeprom_readable" in result:
-        checks.append(("  EEPROM readable", result["eeprom_readable"]))
+        lines.append((_icon(result["eeprom_readable"]), "  EEPROM readable"))
 
-    checks += [
-        ("Module file      ", result["module_file"]),
-        ("Module loaded    ", result["module_loaded"]),
-        ("sysfs interface  ", result["sysfs"]),
-        ("I2C MCU (0x17)   ", result["i2c_0x17"]),
+    lines += [
+        (_icon(result["module_file"]), "Module file"),
+        (_icon(result["module_loaded"]), "Module loaded"),
+        (_icon(result["sysfs"]), "sysfs interface"),
     ]
 
-    for label, ok in checks:
-        if ok:
-            print(f"  {GREEN}✓{RESET} {label}")
-        else:
-            print(f"  {RED}✗{RESET} {label}")
+    for icon, label in lines:
+        print(f"  {icon} {label}")
 
     dkms = result["dkms_status"]
     if dkms == "DKMS not installed":
