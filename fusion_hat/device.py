@@ -137,12 +137,17 @@ def is_eeprom_readable() -> tuple:
 
         # Set up I2C GPIO bus if not present
         if not os.path.exists("/dev/i2c-9"):
-            os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
+            rc = os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
             if not os.path.exists("/dev/i2c-9"):
                 return (False, False)
 
         # Scan for EEPROM at 0x50 on bus 9
-        _, i2c_out = run_command("sudo i2cdetect -y 9 0x50 0x50 2>/dev/null")
+        import subprocess
+        result = subprocess.run(
+            ["sudo", "i2cdetect", "-y", "9", "0x50", "0x50"],
+            capture_output=True, text=True
+        )
+        i2c_out = result.stdout
         # Parse: row "50: 50" or "50: UU" means chip present
         chip_found = False
         for line in i2c_out.strip().split("\n"):
