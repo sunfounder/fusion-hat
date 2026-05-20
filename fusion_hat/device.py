@@ -588,7 +588,7 @@ def update_eeprom(erase: bool = False) -> bool:
         else:
             print("  [3/4] Flash EEPROM...")
         _, flash_out = run_command(
-            f"sudo {eepflash} -y -w -f={write_file} -t=24c32 -a=50 2>&1"
+            f"sudo bash {eepflash} -y -w -f={write_file} -t=24c32 -a=50 2>&1"
         )
         print(flash_out)
         if "done" not in flash_out.lower():
