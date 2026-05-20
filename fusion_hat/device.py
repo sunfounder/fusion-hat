@@ -132,11 +132,9 @@ def is_eeprom_readable() -> tuple:
     from ._utils import run_command
 
     try:
-        # Set up I2C GPIO bus if not present
+        # Set up I2C GPIO bus if not present (use os.system for TTY access)
         if not os.path.exists("/dev/i2c-9"):
-            run_command(
-                "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
-            )
+            os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
             if not os.path.exists("/dev/i2c-9"):
                 return (False, False)
 
@@ -155,7 +153,7 @@ def is_eeprom_readable() -> tuple:
             return (False, False)
 
         # Chip is present — read content via at24 sysfs
-        run_command("sudo modprobe at24 2>/dev/null")
+        os.system("sudo modprobe at24 2>/dev/null")
         dev_path = "/sys/class/i2c-dev/i2c-9/device"
         eeprom_path = f"{dev_path}/9-0050/eeprom"
         if not os.path.isfile(eeprom_path):
