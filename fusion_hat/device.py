@@ -119,15 +119,15 @@ def is_detected() -> bool:
                         return True
     return False
 
-def is_eeprom_readable() -> bool:
-    """Check if the EEPROM chip is physically present via I2C scan.
+def is_eeprom_readable() -> tuple:
+    """Check the EEPROM chip directly via bit-banged I2C (bus 9).
 
-    Sets up a bit-banged I2C bus on GPIO 0/1 (bus 9) and scans for
-    the EEPROM at address 0x50. If found, reads the chip to check
-    whether it contains valid data or is blank.
+    Sets up a bit-banged I2C bus on GPIO 0/1, scans for the EEPROM
+    at address 0x50, then reads its content via at24 sysfs.
 
     Returns:
-        bool: True if EEPROM chip was found and contains data
+        (present, valid): present=True if chip responds at 0x50,
+        valid=True if chip has non-blank data
     """
     from ._utils import run_command
 
@@ -138,14 +138,14 @@ def is_eeprom_readable() -> bool:
                 "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
             )
             if not os.path.exists("/dev/i2c-9"):
-                return False
+                return (False, False)
 
         # Scan for EEPROM at 0x50
         _, i2c_out = run_command("sudo i2cdetect -y 9 0x50 0x50 2>/dev/null")
         if "50" not in i2c_out:
-            return False
+            return (False, False)
 
-        # Chip is present — try reading content via sysfs
+        # Chip is present — read content
         run_command("sudo modprobe at24 2>/dev/null")
         run_command(
             "echo 24c32 0x50 | sudo tee /sys/class/i2c-dev/i2c-9/device/new_device > /dev/null 2>&1"
@@ -154,14 +154,14 @@ def is_eeprom_readable() -> bool:
         if os.path.isfile(eeprom_path):
             with open(eeprom_path, "rb") as f:
                 data = f.read()
-            # Clean up
             run_command(
                 "echo 0x50 | sudo tee /sys/class/i2c-dev/i2c-9/device/delete_device > /dev/null 2>&1"
             )
-            return data != b"\xff" * len(data) and len(data) > 4
+            valid = data != b"\xff" * len(data) and len(data) > 4
+            return (True, valid)
     except Exception:
         pass
-    return False
+    return (False, False)
 
 
 def is_driver_loaded() -> bool:
@@ -244,7 +244,8 @@ def doctor() -> dict:
 
     result = {
         "detected": False,
-        "eeprom_readable": False,
+        "eeprom_present": False,
+        "eeprom_valid": False,
         "module_file": False,
         "dkms_status": "",
         "module_loaded": False,
@@ -256,9 +257,11 @@ def doctor() -> dict:
     # 1. EEPROM detection
     result["detected"] = is_detected()
 
-    # 1b. If device-tree didn't pick it up, try reading the chip directly
+    # 1b. If device-tree didn't pick it up, check the chip directly via I2C
     if not result["detected"]:
-        result["eeprom_readable"] = is_eeprom_readable()
+        present, valid = is_eeprom_readable()
+        result["eeprom_present"] = present
+        result["eeprom_valid"] = valid
 
     # 2. Module .ko file installed (check .ko and .ko.xz in standard paths)
     kv = platform.uname().release

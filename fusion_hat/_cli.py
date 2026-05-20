@@ -69,19 +69,22 @@ def print_doctor(fix: bool = False):
 
         if not result["overall"]:
             if not result["detected"]:
-                if result["i2c_0x17"]:
-                    print("  HAT is present (I2C MCU found) but not detected by the system.")
-                    print("")
-                    if result.get("eeprom_readable"):
-                        print("  → EEPROM is readable but content may be invalid.")
-                    else:
-                        print("  → EEPROM is blank or unreadable.")
-                    print("  → Run: fusion_hat doctor --fix")
-                else:
-                    print("  HAT not detected on I2C bus.")
+                hat_present = result["i2c_0x17"] or result.get("eeprom_present", False)
+                if not hat_present:
+                    print("  HAT not detected — neither MCU nor EEPROM respond.")
                     print("")
                     print("  → Check the HAT is properly seated on the GPIO header.")
-                    print("  → If it is, the EEPROM may be blank. Run: fusion_hat doctor --fix")
+                else:
+                    print("  HAT is connected but not recognized by the system.")
+                    print("")
+                    if result.get("eeprom_present"):
+                        if result.get("eeprom_valid"):
+                            print("  → EEPROM has data but is not recognized.")
+                        else:
+                            print("  → EEPROM is blank or contains invalid data.")
+                    else:
+                        print("  → EEPROM chip not responding on I2C.")
+                    print("  → Run: fusion_hat doctor --fix")
             else:
                 print("  Some checks failed.")
                 if not result["module_file"]:
@@ -113,12 +116,13 @@ def _show_doctor_result(result):
         (_icon(result["detected"]), "HAT detected"),
     ]
 
-    # I2C MCU tells us if the HAT is physically present
-    lines.append((_icon(result["i2c_0x17"]), "I2C MCU (0x17)"))
-
-    # If HAT not detected but MCU is present, check EEPROM directly
-    if not result["detected"] and "eeprom_readable" in result:
-        lines.append((_icon(result["eeprom_readable"]), "  EEPROM readable"))
+    if not result["detected"]:
+        # Show physical presence indicators
+        lines.append((_icon(result["i2c_0x17"]), "  I2C MCU (0x17)"))
+        if "eeprom_present" in result:
+            lines.append((_icon(result["eeprom_present"]), "  EEPROM chip (0x50)"))
+        if result.get("eeprom_present"):
+            lines.append((_icon(result["eeprom_valid"]), "  EEPROM content"))
 
     lines += [
         (_icon(result["module_file"]), "Module file"),
