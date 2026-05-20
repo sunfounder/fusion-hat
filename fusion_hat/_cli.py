@@ -69,21 +69,14 @@ def print_doctor(fix: bool = False):
 
         if not result["overall"]:
             if not result["detected"]:
-                hat_present = result["i2c_0x17"] or result.get("eeprom_present", False)
-                if not hat_present:
-                    print("  HAT not detected — neither MCU nor EEPROM respond.")
-                    print("")
+                if not result.get("eeprom_present", False):
+                    print("  HAT not detected — EEPROM chip not found on I2C.")
                     print("  → Check the HAT is properly seated on the GPIO header.")
+                elif not result.get("eeprom_valid", False):
+                    print("  HAT not detected — EEPROM is blank or has invalid data.")
+                    print("  → Run: fusion_hat doctor --fix")
                 else:
-                    print("  HAT is connected but not recognized by the system.")
-                    print("")
-                    if result.get("eeprom_present"):
-                        if result.get("eeprom_valid"):
-                            print("  → EEPROM has data but is not recognized.")
-                        else:
-                            print("  → EEPROM is blank or contains invalid data.")
-                    else:
-                        print("  → EEPROM chip not responding on I2C.")
+                    print("  HAT not detected — EEPROM has data but system doesn't recognize it.")
                     print("  → Run: fusion_hat doctor --fix")
             else:
                 print("  Some checks failed.")
@@ -116,16 +109,16 @@ def _show_doctor_result(result):
         (_icon(result["detected"]), "HAT detected"),
     ]
 
-    if not result.get("i2c_enabled", True):
-        lines.append((_icon(False), "  I2C enabled"))
-
+    # If not detected, show EEPROM diagnosis via I2C bus 9
     if not result["detected"]:
-        if result.get("i2c_enabled", True):
-            lines.append((_icon(result["i2c_0x17"]), "  I2C MCU (0x17)"))
         if "eeprom_present" in result:
-            lines.append((_icon(result["eeprom_present"]), "  EEPROM chip (0x50)"))
+            lines.append((_icon(result["eeprom_present"]), "EEPROM chip (0x50)"))
         if result.get("eeprom_present"):
-            lines.append((_icon(result["eeprom_valid"]), "  EEPROM content"))
+            lines.append((_icon(result["eeprom_valid"]), "EEPROM content"))
+
+    lines += [
+        (_icon(result["i2c_0x17"]), "I2C MCU (0x17)"),
+    ]
 
     lines += [
         (_icon(result["module_file"]), "Module file"),
