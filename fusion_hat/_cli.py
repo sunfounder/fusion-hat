@@ -116,9 +116,12 @@ def _show_doctor_result(result):
         (_icon(result["detected"]), "HAT detected"),
     ]
 
+    if not result.get("i2c_enabled", True):
+        lines.append((_icon(False), "  I2C enabled"))
+
     if not result["detected"]:
-        # Show physical presence indicators
-        lines.append((_icon(result["i2c_0x17"]), "  I2C MCU (0x17)"))
+        if result.get("i2c_enabled", True):
+            lines.append((_icon(result["i2c_0x17"]), "  I2C MCU (0x17)"))
         if "eeprom_present" in result:
             lines.append((_icon(result["eeprom_present"]), "  EEPROM chip (0x50)"))
         if result.get("eeprom_present"):

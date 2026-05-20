@@ -256,6 +256,7 @@ def doctor() -> dict:
 
     result = {
         "detected": False,
+        "i2c_enabled": False,
         "eeprom_present": False,
         "eeprom_valid": False,
         "module_file": False,
@@ -268,6 +269,9 @@ def doctor() -> dict:
 
     # 1. EEPROM detection
     result["detected"] = is_detected()
+
+    # 1a. I2C enabled?
+    result["i2c_enabled"] = os.path.exists("/dev/i2c-1")
 
     # 1b. If device-tree didn't pick it up, check the chip directly via I2C
     if not result["detected"]:
@@ -384,7 +388,13 @@ def doctor_fix() -> dict:
     if before["overall"]:
         return {"before": before, "fixes": fixes, "after": before, "fixed": True}
 
-    # Fix 1: EEPROM not detected → reflash
+    # Fix 1: I2C not enabled → enable it
+    if not before["i2c_enabled"]:
+        fixes.append("enable I2C")
+        run_command("sudo raspi-config nonint do_i2c 0 2>/dev/null")
+        run_command("sudo modprobe i2c-dev 2>/dev/null")
+
+    # Fix 2: EEPROM not detected → reflash
     if not before["detected"]:
         ok = update_eeprom(erase=False)
         if ok:
