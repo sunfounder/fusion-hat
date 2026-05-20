@@ -47,13 +47,12 @@ def print_doctor(fix: bool = False):
         print("=" * 50)
         print("")
 
-        if result["fixed"]:
-            print("  All checks pass. Nothing to fix.")
-        else:
+        if fixes:
             for action in fixes:
                 print(f"  → {action}")
-            if not after["detected"] and not any("reflash" in f for f in fixes):
-                print("  EEPROM not detected. Check physical connection.")
+        if result["fixed"]:
+            if not fixes:
+                print("  All checks pass. Nothing to fix.")
 
         print("")
         print("=" * 50)
