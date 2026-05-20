@@ -132,7 +132,10 @@ def is_eeprom_readable() -> tuple:
     from ._utils import run_command
 
     try:
-        # Set up I2C GPIO bus if not present (use os.system for TTY access)
+        # Ensure sudo access before running captured commands
+        os.system("sudo -v 2>/dev/null")
+
+        # Set up I2C GPIO bus if not present
         if not os.path.exists("/dev/i2c-9"):
             os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
             if not os.path.exists("/dev/i2c-9"):
