@@ -141,9 +141,19 @@ def is_eeprom_readable() -> tuple:
             if not os.path.exists("/dev/i2c-9"):
                 return (False, False)
 
-        # Check if EEPROM chip responds at 0x50
-        status, out = run_command("i2cget -y 9 0x50 0x00 2>&1")
-        if status != 0 and "busy" not in out.lower():
+        # Check if EEPROM chip responds at 0x50 on bus 9
+        _, out = run_command("i2cdetect -y 9 0x50 0x50 2>/dev/null")
+        chip_found = False
+        for line in out.split("\n"):
+            stripped = line.strip()
+            if stripped.startswith("50:") or stripped.startswith("50 "):
+                parts = stripped.split(":")
+                if len(parts) >= 2:
+                    val = parts[1].strip().split()[0] if parts[1].strip() else ""
+                    if val in ("50", "UU"):
+                        chip_found = True
+                break
+        if not chip_found:
             return (False, False)
 
         # Chip is present — read content via at24 sysfs (root-only file)
