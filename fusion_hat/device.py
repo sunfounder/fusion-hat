@@ -119,6 +119,33 @@ def is_detected() -> bool:
                         return True
     return False
 
+def _detect_eeprom_addr() -> int | None:
+    """Scan I2C bus 9 for an EEPROM at valid HAT addresses (0x50-0x53).
+
+    Returns:
+        int: the detected address (0x50-0x53), or None if not found
+    """
+    from ._utils import run_command
+
+    if not os.path.exists("/dev/i2c-9"):
+        os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
+        if not os.path.exists("/dev/i2c-9"):
+            return None
+
+    _, out = run_command("i2cdetect -y 9 0x50 0x53 2>/dev/null")
+    for line in out.split("\n"):
+        stripped = line.strip()
+        if stripped.startswith("50:") or stripped.startswith("50 "):
+            parts = stripped.split(":")
+            if len(parts) >= 2:
+                addrs = parts[1].strip().split()
+                for i, val in enumerate(addrs[:4]):
+                    if val in ("50", "51", "52", "53", "UU"):
+                        return 0x50 + i
+            break
+    return None
+
+
 def is_eeprom_readable() -> tuple:
     """Check the EEPROM chip directly via bit-banged I2C (bus 9).
 
@@ -135,41 +162,24 @@ def is_eeprom_readable() -> tuple:
         # Ensure sudo is available before running sudo commands
         os.system("sudo -v 2>/dev/null")
 
-        # Set up I2C GPIO bus if not present
-        if not os.path.exists("/dev/i2c-9"):
-            os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
-            if not os.path.exists("/dev/i2c-9"):
-                return (False, False)
-
-        # Check if EEPROM chip responds at 0x50 on bus 9
-        _, out = run_command("i2cdetect -y 9 0x50 0x50 2>/dev/null")
-        chip_found = False
-        for line in out.split("\n"):
-            stripped = line.strip()
-            if stripped.startswith("50:") or stripped.startswith("50 "):
-                parts = stripped.split(":")
-                if len(parts) >= 2:
-                    val = parts[1].strip().split()[0] if parts[1].strip() else ""
-                    if val in ("50", "UU"):
-                        chip_found = True
-                break
-        if not chip_found:
+        addr = _detect_eeprom_addr()
+        if addr is None:
             return (False, False)
 
         # Chip is present — read content via at24 sysfs (root-only file)
         import tempfile
         os.system("sudo modprobe at24 2>/dev/null")
         dev_path = "/sys/class/i2c-dev/i2c-9/device"
-        eeprom_path = f"{dev_path}/9-0050/eeprom"
+        eeprom_path = f"{dev_path}/9-00{addr:02x}/eeprom"
         if not os.path.isfile(eeprom_path):
             run_command(
-                f"echo 24c32 0x50 | sudo tee {dev_path}/new_device > /dev/null 2>&1"
+                f"echo 24c32 0x{addr:02x} | sudo tee {dev_path}/new_device > /dev/null 2>&1"
             )
         tmp = tempfile.mkdtemp(prefix="eeprom_read_")
         dump = os.path.join(tmp, "eeprom.bin")
         run_command(f"sudo dd if={eeprom_path} of={dump} bs=4096 count=1 2>/dev/null")
         run_command(
-            f"echo 0x50 | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
+            f"echo 0x{addr:02x} | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
         )
         if os.path.isfile(dump) and os.path.getsize(dump) > 4:
             with open(dump, "rb") as f:
@@ -650,6 +660,14 @@ def update_eeprom(erase: bool = False) -> bool:
                 return False
             print(f"  [OK]  Downloaded: {os.path.basename(write_file)} ({os.path.getsize(write_file)} bytes)")
 
+        # Detect EEPROM address
+        addr = _detect_eeprom_addr()
+        if addr is None:
+            print("  [FAIL] EEPROM not found on I2C bus 9. Check the HAT is properly seated.")
+            return False
+        print(f"  EEPROM found at address 0x{addr:02x}")
+        print("")
+
         # 2. Instruct user to short write-protect pins
         print("")
         print("  [2/4] Short write-protect pins")
@@ -679,7 +697,7 @@ def update_eeprom(erase: bool = False) -> bool:
         else:
             print("  [3/4] Flash EEPROM...")
         _, flash_out = run_command(
-            f"sudo bash {eepflash} -y -w -f={write_file} -t=24c32 -a=50 2>&1"
+            f"sudo bash {eepflash} -y -w -f={write_file} -t=24c32 -a={addr:02x} 2>&1"
         )
         print(flash_out)
         if "done" not in flash_out.lower():
