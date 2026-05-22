@@ -171,10 +171,6 @@ def _detect_hat_detail() -> dict:
         steps.append({
             "step": "device-tree hat directory",
             "ok": False,
-            "detail": (
-                f"No 'hat' directory in {HAT_DEVICE_TREE}. "
-                "The Pi firmware did not detect a HAT EEPROM at boot."
-            ),
         })
         return result
 
