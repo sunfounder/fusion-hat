@@ -292,13 +292,23 @@ def _detect_hat_detail() -> dict:
 def _detect_eeprom_addr() -> int | None:
     """Scan I2C bus 9 for an EEPROM at valid HAT addresses (0x50-0x53).
 
+    Creates /dev/i2c-9 via dtoverlay i2c-gpio on GPIO 0/1 if the bus
+    does not already exist.  Waits briefly for the device node to appear
+    because the kernel may take a moment after applying the overlay.
+
     Returns:
         int: the detected address (0x50-0x53), or None if not found
     """
+    import time
     from ._utils import run_command
 
     if not os.path.exists("/dev/i2c-9"):
         os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
+        # The device node may take a moment to appear after dtoverlay
+        for _ in range(10):
+            if os.path.exists("/dev/i2c-9"):
+                break
+            time.sleep(0.1)
         if not os.path.exists("/dev/i2c-9"):
             return None
 
@@ -364,23 +374,32 @@ def is_eeprom_readable() -> tuple:
 def _check_eeprom_direct_detail() -> dict:
     """Check the EEPROM chip directly via bit-banged I2C bus 9 — with step-by-step detail.
 
-    Each phase (bus setup, address scan, data read, blank check) is tracked
-    individually so the caller can pinpoint exactly where the failure occurred.
+    Each phase (bus setup, address scan, data read, content verification)
+    is tracked individually so the caller can pinpoint exactly where the
+    failure occurred.
 
     Returns:
         dict with keys:
         - present (bool): chip responds at a valid HAT address (0x50-0x53)
-        - valid (bool): chip has non-blank (programmed) data
+        - valid (bool): chip has data that matches the reference EEPROM binary
         - addr (int|None): detected EEPROM I2C address
         - i2c_bus_ok (bool): /dev/i2c-9 was available or created successfully
         - scan_ok (bool): i2cdetect found a device at a valid address
         - data_size (int|None): bytes read from eeprom
         - data_is_blank (bool|None): True if all bytes are 0xFF
+        - data_matches_ref (bool|None): True if data matches reference binary
         - dtoverlay_error (str|None): error from dtoverlay if bus creation failed
         - scan_raw (str|None): raw i2cdetect output for the 0x50 row
         - steps (list[dict]): ordered log of each diagnostic step
     """
+    import time
+    import tempfile
     from ._utils import run_command
+
+    EEPROM_REF_URL = (
+        "https://github.com/sunfounder/sunfounder-hat-helper/raw/refs/heads/"
+        "main/eeproms/o1908v10_fusion_hat.eep"
+    )
 
     steps: list[dict] = []
     result: dict = {
@@ -391,24 +410,24 @@ def _check_eeprom_direct_detail() -> dict:
         "scan_ok": False,
         "data_size": None,
         "data_is_blank": None,
+        "data_matches_ref": None,
         "dtoverlay_error": None,
         "scan_raw": None,
         "steps": steps,
     }
 
     # ── Step 1: ensure /dev/i2c-9 exists ──
-    bus_9_exists = os.path.exists("/dev/i2c-9")
-    if not bus_9_exists:
-        rc = os.system(
-            "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null"
+    if not os.path.exists("/dev/i2c-9"):
+        _, err = run_command(
+            "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
         )
-        bus_9_exists = os.path.exists("/dev/i2c-9")
-        if not bus_9_exists:
-            # Capture dtoverlay stderr
-            _, err = run_command(
-                "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
-            )
-            result["dtoverlay_error"] = err.strip() if err else "dtoverlay returned OK but /dev/i2c-9 not created"
+        # The device node may take a moment to appear after dtoverlay
+        for _ in range(10):
+            if os.path.exists("/dev/i2c-9"):
+                break
+            time.sleep(0.1)
+        if not os.path.exists("/dev/i2c-9"):
+            result["dtoverlay_error"] = err.strip() if err else "dtoverlay exited OK but /dev/i2c-9 not created"
             steps.append({
                 "step": "I2C bus 9 (GPIO 0/1)",
                 "ok": False,
@@ -433,7 +452,6 @@ def _check_eeprom_direct_detail() -> dict:
     result["i2c_bus_ok"] = True
 
     # ── Step 2: scan for EEPROM at 0x50-0x53 ──
-    # Check if i2cdetect is available
     _, which_out = run_command("which i2cdetect 2>/dev/null")
     if not which_out.strip():
         steps.append({
@@ -483,9 +501,8 @@ def _check_eeprom_direct_detail() -> dict:
 
     # ── Step 3: read EEPROM content via at24 ──
     result["present"] = True
+    data = b""
     try:
-        import tempfile
-
         os.system("sudo modprobe at24 2>/dev/null")
         dev_path = "/sys/class/i2c-dev/i2c-9/device"
         eeprom_path = f"{dev_path}/9-00{addr:02x}/eeprom"
@@ -532,21 +549,86 @@ def _check_eeprom_direct_detail() -> dict:
             steps.append({
                 "step": "Read EEPROM data",
                 "ok": True,
-                "detail": f"Read {len(data)} bytes — data is BLANK (all 0xFF). EEPROM was not programmed.",
+                "detail": (
+                    f"Read {len(data)} bytes — all 0xFF (blank). "
+                    "The EEPROM may not have been programmed correctly, "
+                    "or the write may have failed (e.g. write-protect was still active)."
+                ),
             })
-        else:
-            result["valid"] = True
-            steps.append({
-                "step": "Read EEPROM data",
-                "ok": True,
-                "detail": f"Read {len(data)} bytes — data is valid (non-blank).",
-            })
+            return result
+
+        # Data is non-blank — report size
+        steps.append({
+            "step": "Read EEPROM data",
+            "ok": True,
+            "detail": f"Read {len(data)} bytes (non-blank).",
+        })
 
     except Exception as e:
         steps.append({
             "step": "Read EEPROM data",
             "ok": False,
             "detail": f"Exception while reading EEPROM: {e}",
+        })
+        return result
+
+    # ── Step 4: compare with reference EEPROM binary ──
+    try:
+        ref_tmp = tempfile.mkdtemp(prefix="eeprom_ref_")
+        ref_file = os.path.join(ref_tmp, "reference.eep")
+        _, _ = run_command(f"wget -q -O {ref_file} {EEPROM_REF_URL} 2>&1")
+
+        if os.path.isfile(ref_file) and os.path.getsize(ref_file) > 0:
+            with open(ref_file, "rb") as f:
+                ref_data = f.read()
+
+            if data == ref_data:
+                result["valid"] = True
+                result["data_matches_ref"] = True
+                steps.append({
+                    "step": "Verify EEPROM content",
+                    "ok": True,
+                    "detail": (
+                        f"Content matches reference EEPROM binary "
+                        f"({len(ref_data)} bytes) — EEPROM is correctly programmed."
+                    ),
+                })
+            else:
+                result["valid"] = False
+                result["data_matches_ref"] = False
+                detail = (
+                    f"Content DIFFERS from reference ({len(ref_data)} bytes). "
+                    "The EEPROM data may be corrupted or from a different version."
+                )
+                if len(data) != len(ref_data):
+                    detail += f" (size mismatch: got {len(data)}, expected {len(ref_data)})"
+                steps.append({
+                    "step": "Verify EEPROM content",
+                    "ok": False,
+                    "detail": detail,
+                })
+        else:
+            # Can't download reference — accept non-blank as valid
+            result["valid"] = True
+            result["data_matches_ref"] = None
+            steps.append({
+                "step": "Verify EEPROM content",
+                "ok": True,
+                "detail": (
+                    "Cannot download reference binary for comparison. "
+                    "Accepting non-blank data as valid."
+                ),
+            })
+    except Exception as e:
+        result["valid"] = True
+        result["data_matches_ref"] = None
+        steps.append({
+            "step": "Verify EEPROM content",
+            "ok": True,
+            "detail": (
+                f"Reference comparison skipped ({e}). "
+                "Accepting non-blank data as valid."
+            ),
         })
 
     return result

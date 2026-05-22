@@ -93,12 +93,13 @@ def print_doctor(fix: bool = False):
                     print("  → Check the HAT is properly seated on the GPIO header.")
                     print("  → The EEPROM chip may be damaged. Try a different Fusion Hat.")
                 elif data_is_blank:
-                    print("  HAT not detected — EEPROM is blank (all 0xFF).")
-                    print("  → The EEPROM was not programmed. Run: fusion_hat update_eeprom")
+                    print("  HAT not detected — EEPROM appears to be blank or was not programmed.")
+                    print("  → The EEPROM may not have been written correctly. Run: fusion_hat update_eeprom")
                     print("  → Ensure write-protect pins are properly shorted during flashing.")
                 elif not result.get("eeprom_valid", False):
-                    print("  HAT not detected — EEPROM data may be corrupt.")
-                    print("  → Run: fusion_hat update_eeprom")
+                    print("  HAT not detected — EEPROM data does not match expected content.")
+                    print("  → The EEPROM may be corrupted or contain data from a different version.")
+                    print("  → Run: fusion_hat update_eeprom  to re-program the EEPROM.")
                 else:
                     print("  HAT not detected but EEPROM has valid data.")
                     print("  → If you just flashed the EEPROM, reboot to apply: sudo reboot")
