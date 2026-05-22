@@ -542,7 +542,7 @@ def _check_eeprom_direct_detail() -> dict:
             result["valid"] = False
             steps.append({
                 "step": "Read EEPROM data",
-                "ok": True,
+                "ok": False,
                 "detail": (
                     f"Read {len(data)} bytes — all 0xFF (blank or corrupted)."
                 ),
