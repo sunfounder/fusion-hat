@@ -574,26 +574,32 @@ def _check_eeprom_direct_detail() -> dict:
             with open(ref_file, "rb") as f:
                 ref_data = f.read()
 
-            if data == ref_data:
+            # Compare only up to the reference size (read data is full chip,
+            # typically 4096 bytes; reference is just the programmed payload)
+            if len(data) >= len(ref_data) and data[:len(ref_data)] == ref_data:
                 result["valid"] = True
                 result["data_matches_ref"] = True
                 steps.append({
                     "step": "Verify EEPROM content",
                     "ok": True,
                     "detail": (
-                        f"Content matches reference EEPROM binary "
-                        f"({len(ref_data)} bytes) — EEPROM is correctly programmed."
+                        f"First {len(ref_data)} bytes match reference — "
+                        "EEPROM is correctly programmed."
                     ),
                 })
             else:
                 result["valid"] = False
                 result["data_matches_ref"] = False
-                detail = (
-                    f"Content DIFFERS from reference ({len(ref_data)} bytes). "
-                    "The EEPROM data may be corrupted or from a different version."
-                )
-                if len(data) != len(ref_data):
-                    detail += f" (size mismatch: got {len(data)}, expected {len(ref_data)})"
+                if len(data) < len(ref_data):
+                    detail = (
+                        f"Read only {len(data)} bytes, reference is {len(ref_data)} bytes. "
+                        "EEPROM data may be truncated or corrupted."
+                    )
+                else:
+                    detail = (
+                        f"Content DIFFERS from reference ({len(ref_data)} bytes). "
+                        "The EEPROM data may be corrupted or from a different version."
+                    )
                 steps.append({
                     "step": "Verify EEPROM content",
                     "ok": False,
