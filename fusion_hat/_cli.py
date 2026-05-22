@@ -84,26 +84,24 @@ def print_doctor(fix: bool = False):
                     if dtoverlay_err:
                         print(f"  dtoverlay: {dtoverlay_err}")
                     print("  → GPIO 0/1 may be in use or unavailable on this Pi model.")
-                    print("  → Try: sudo i2cdetect -y 0 0x50 0x53  (use i2c-0 if available)")
                 elif not scan_ok:
                     print("  HAT not detected — EEPROM chip not responding on I2C bus 9.")
                     scan_raw = eeprom_detail.get("scan_raw", "")
                     if scan_raw:
                         print(f"  i2cdetect row 50: {scan_raw}")
                     print("  → Check the HAT is properly seated on the GPIO header.")
-                    print("  → The EEPROM chip may be damaged. Try a different Fusion Hat.")
                 elif data_is_blank:
-                    print("  HAT not detected — EEPROM appears to be blank or was not programmed.")
-                    print("  → The EEPROM may not have been written correctly. Run: fusion_hat update_eeprom")
-                    print("  → Ensure write-protect pins are properly shorted during flashing.")
+                    print("  EEPROM is blank or corrupted.")
+                    print("")
+                    print("  → Run: fusion_hat doctor --fix")
                 elif not result.get("eeprom_valid", False):
-                    print("  HAT not detected — EEPROM data does not match expected content.")
-                    print("  → The EEPROM may be corrupted or contain data from a different version.")
-                    print("  → Run: fusion_hat update_eeprom  to re-program the EEPROM.")
+                    print("  EEPROM data does not match expected content.")
+                    print("")
+                    print("  → Run: fusion_hat doctor --fix")
                 else:
                     print("  HAT not detected but EEPROM has valid data.")
-                    print("  → If you just flashed the EEPROM, reboot to apply: sudo reboot")
-                    print("  → If problem persists, check /boot/firmware/config.txt for conflicts.")
+                    print("")
+                    print("  → Run: sudo reboot")
             else:
                 print("  Some checks failed.")
                 if not result["module_file"]:

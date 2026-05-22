@@ -173,9 +173,7 @@ def _detect_hat_detail() -> dict:
             "ok": False,
             "detail": (
                 f"No 'hat' directory in {HAT_DEVICE_TREE}. "
-                f"Found entries matching 'hat': {hat_entries if hat_entries else 'none'}. "
-                "The Raspberry Pi firmware reads the HAT EEPROM at boot; "
-                "if the EEPROM is blank or unreadable, no /hat/ node is created."
+                "The Pi firmware did not detect a HAT EEPROM at boot."
             ),
         })
         return result
@@ -550,9 +548,7 @@ def _check_eeprom_direct_detail() -> dict:
                 "step": "Read EEPROM data",
                 "ok": True,
                 "detail": (
-                    f"Read {len(data)} bytes — all 0xFF (blank). "
-                    "The EEPROM may not have been programmed correctly, "
-                    "or the write may have failed (e.g. write-protect was still active)."
+                    f"Read {len(data)} bytes — all 0xFF (blank or corrupted)."
                 ),
             })
             return result
