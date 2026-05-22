@@ -132,7 +132,8 @@ def _show_detail_steps(steps, indent="      "):
         print(f"{indent}{icon} {s['step']}")
         detail = s.get("detail", "")
         if detail:
-            print(f"{indent}   {detail}")
+            for line in detail.split("\n"):
+                print(f"{indent}   {line}")
 
 
 def _show_doctor_result(result):

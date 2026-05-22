@@ -576,7 +576,8 @@ def _check_eeprom_direct_detail() -> dict:
 
             # Compare only up to the reference size (read data is full chip,
             # typically 4096 bytes; reference is just the programmed payload)
-            if len(data) >= len(ref_data) and data[:len(ref_data)] == ref_data:
+            cmp_len = min(len(data), len(ref_data))
+            if data[:cmp_len] == ref_data[:cmp_len] and len(data) >= len(ref_data):
                 result["valid"] = True
                 result["data_matches_ref"] = True
                 steps.append({
@@ -590,20 +591,36 @@ def _check_eeprom_direct_detail() -> dict:
             else:
                 result["valid"] = False
                 result["data_matches_ref"] = False
+                # Build a detailed diff
+                lines = []
                 if len(data) < len(ref_data):
-                    detail = (
-                        f"Read only {len(data)} bytes, reference is {len(ref_data)} bytes. "
-                        "EEPROM data may be truncated or corrupted."
+                    lines.append(
+                        f"Size mismatch: read {len(data)} bytes, "
+                        f"reference is {len(ref_data)} bytes."
                     )
-                else:
-                    detail = (
-                        f"Content DIFFERS from reference ({len(ref_data)} bytes). "
-                        "The EEPROM data may be corrupted or from a different version."
+                # Find first differing byte
+                first_diff = None
+                for i in range(cmp_len):
+                    if data[i] != ref_data[i]:
+                        first_diff = i
+                        break
+                if first_diff is not None:
+                    start = max(0, first_diff - 4)
+                    end = min(cmp_len, first_diff + 12)
+                    read_hex = " ".join(f"{data[i]:02X}" for i in range(start, end))
+                    ref_hex = " ".join(f"{ref_data[i]:02X}" for i in range(start, end))
+                    lines.append(f"First diff at offset 0x{first_diff:04X}:")
+                    lines.append(f"  Read : {read_hex}")
+                    lines.append(f"  Ref  : {ref_hex}")
+                elif len(data) < len(ref_data):
+                    lines.append(
+                        f"Truncated at byte {len(data)}, "
+                        f"missing {len(ref_data) - len(data)} bytes."
                     )
                 steps.append({
                     "step": "Verify EEPROM content",
                     "ok": False,
-                    "detail": detail,
+                    "detail": "\n".join(lines),
                 })
         else:
             # Can't download reference — accept non-blank as valid
