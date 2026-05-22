@@ -119,6 +119,176 @@ def is_detected() -> bool:
                         return True
     return False
 
+def _detect_hat_detail() -> dict:
+    """Detect Fusion Hat via device-tree with step-by-step detail.
+
+    Breaks down ``is_detected()`` into individual checks so callers can
+    see exactly *why* detection failed instead of a binary yes/no.
+
+    Returns:
+        dict with keys:
+        - detected (bool): overall detection result
+        - hat_dir (str|None): path under /proc/device-tree/ (e.g. ``hat``)
+        - uuid_file (bool): whether the uuid file exists
+        - uuid_value (str|None): raw UUID string read from device-tree
+        - product_id_match (bool|None): does the product_id segment match?
+        - product_id_expected (str): expected hex product id
+        - product_id_found (str|None): actual hex product id parsed
+        - product_ver_expected (str): expected hex product version
+        - product_ver_found (str|None): actual hex product version parsed
+        - vendor_found (str|None): vendor string from device-tree
+        - product_found (str|None): product string from device-tree
+        - steps (list[dict]): ordered log of each diagnostic step
+    """
+    steps: list[dict] = []
+    result: dict[str, Any] = {
+        "detected": False,
+        "hat_dir": None,
+        "uuid_file": False,
+        "uuid_value": None,
+        "product_id_match": None,
+        "product_id_expected": f"0x{PRODUCT_ID:04X}",
+        "product_id_found": None,
+        "product_ver_expected": f"0x{PRODUCT_VER:04X}",
+        "product_ver_found": None,
+        "vendor_found": None,
+        "product_found": None,
+        "steps": steps,
+    }
+
+    # Step 1 — find a hat directory under /proc/device-tree/
+    hat_dir = None
+    hat_entries = []
+    for entry in os.listdir(HAT_DEVICE_TREE):
+        if "hat" in entry.lower():
+            hat_entries.append(entry)
+            candidate = os.path.join(HAT_DEVICE_TREE, entry)
+            if os.path.isdir(candidate):
+                hat_dir = candidate
+                break
+
+    if hat_dir is None:
+        steps.append({
+            "step": "device-tree hat directory",
+            "ok": False,
+            "detail": (
+                f"No 'hat' directory in {HAT_DEVICE_TREE}. "
+                f"Found entries matching 'hat': {hat_entries if hat_entries else 'none'}. "
+                "The Raspberry Pi firmware reads the HAT EEPROM at boot; "
+                "if the EEPROM is blank or unreadable, no /hat/ node is created."
+            ),
+        })
+        return result
+
+    result["hat_dir"] = hat_dir
+    steps.append({
+        "step": "device-tree hat directory",
+        "ok": True,
+        "detail": f"Found: {hat_dir}",
+    })
+
+    # Step 2 — read the uuid file
+    uuid_path = os.path.join(hat_dir, "uuid")
+    if not os.path.exists(uuid_path) or not os.path.isfile(uuid_path):
+        steps.append({
+            "step": "uuid file",
+            "ok": False,
+            "detail": f"uuid file not found at {uuid_path}",
+        })
+        return result
+
+    result["uuid_file"] = True
+    raw_uuid = ""
+    try:
+        with open(uuid_path, "rb") as f:
+            raw = f.read()
+        raw_uuid = raw.rstrip(b"\x00").decode("utf-8", errors="replace").strip()
+        result["uuid_value"] = raw_uuid
+    except Exception as e:
+        steps.append({
+            "step": "uuid file",
+            "ok": False,
+            "detail": f"Cannot read {uuid_path}: {e}",
+        })
+        return result
+
+    steps.append({
+        "step": "uuid file",
+        "ok": True,
+        "detail": f"UUID = {raw_uuid}",
+    })
+
+    # Step 3 — parse and validate product_id
+    parts = raw_uuid.split("-")
+    if len(parts) < 3:
+        steps.append({
+            "step": "product_id check",
+            "ok": False,
+            "detail": f"UUID has unexpected format (expected 3+ dash-separated segments, got {len(parts)}): {raw_uuid}",
+        })
+        return result
+
+    try:
+        product_id = int(parts[2], 16)
+        result["product_id_found"] = f"0x{product_id:04X}"
+        if product_id == PRODUCT_ID:
+            result["product_id_match"] = True
+            result["detected"] = True
+            steps.append({
+                "step": "product_id check",
+                "ok": True,
+                "detail": f"product_id=0x{product_id:04X} matches expected 0x{PRODUCT_ID:04X}",
+            })
+        else:
+            result["product_id_match"] = False
+            steps.append({
+                "step": "product_id check",
+                "ok": False,
+                "detail": (
+                    f"product_id mismatch: expected 0x{PRODUCT_ID:04X}, "
+                    f"got 0x{product_id:04X}"
+                ),
+            })
+    except ValueError:
+        steps.append({
+            "step": "product_id check",
+            "ok": False,
+            "detail": f"Cannot parse product_id from UUID segment '{parts[2]}'",
+        })
+        return result
+
+    # Step 4 — parse product_ver from UUID
+    if len(parts) >= 4:
+        try:
+            product_ver = int(parts[3], 16)
+            result["product_ver_found"] = f"0x{product_ver:04X}"
+            steps.append({
+                "step": "product_ver check",
+                "ok": product_ver == PRODUCT_VER,
+                "detail": (
+                    f"product_ver=0x{product_ver:04X}"
+                    + (f" (matches)" if product_ver == PRODUCT_VER else
+                       f" (expected 0x{PRODUCT_VER:04X})")
+                ),
+            })
+        except ValueError:
+            pass
+
+    # Step 5 — read optional vendor / product strings
+    for field, label in [("vendor", "Vendor"), ("product", "Product")]:
+        p = os.path.join(hat_dir, field)
+        if os.path.isfile(p):
+            try:
+                with open(p, "rb") as f:
+                    val = f.read().rstrip(b"\x00").decode("utf-8", errors="replace").strip()
+                result[f"{field}_found"] = val
+                steps.append({"step": f"{field} string", "ok": True, "detail": f"{label} = {val}"})
+            except Exception:
+                pass
+
+    return result
+
+
 def _detect_eeprom_addr() -> int | None:
     """Scan I2C bus 9 for an EEPROM at valid HAT addresses (0x50-0x53).
 
@@ -191,6 +361,197 @@ def is_eeprom_readable() -> tuple:
     return (False, False)
 
 
+def _check_eeprom_direct_detail() -> dict:
+    """Check the EEPROM chip directly via bit-banged I2C bus 9 — with step-by-step detail.
+
+    Each phase (bus setup, address scan, data read, blank check) is tracked
+    individually so the caller can pinpoint exactly where the failure occurred.
+
+    Returns:
+        dict with keys:
+        - present (bool): chip responds at a valid HAT address (0x50-0x53)
+        - valid (bool): chip has non-blank (programmed) data
+        - addr (int|None): detected EEPROM I2C address
+        - i2c_bus_ok (bool): /dev/i2c-9 was available or created successfully
+        - scan_ok (bool): i2cdetect found a device at a valid address
+        - data_size (int|None): bytes read from eeprom
+        - data_is_blank (bool|None): True if all bytes are 0xFF
+        - dtoverlay_error (str|None): error from dtoverlay if bus creation failed
+        - scan_raw (str|None): raw i2cdetect output for the 0x50 row
+        - steps (list[dict]): ordered log of each diagnostic step
+    """
+    from ._utils import run_command
+
+    steps: list[dict] = []
+    result: dict = {
+        "present": False,
+        "valid": False,
+        "addr": None,
+        "i2c_bus_ok": False,
+        "scan_ok": False,
+        "data_size": None,
+        "data_is_blank": None,
+        "dtoverlay_error": None,
+        "scan_raw": None,
+        "steps": steps,
+    }
+
+    # ── Step 1: ensure /dev/i2c-9 exists ──
+    bus_9_exists = os.path.exists("/dev/i2c-9")
+    if not bus_9_exists:
+        rc = os.system(
+            "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null"
+        )
+        bus_9_exists = os.path.exists("/dev/i2c-9")
+        if not bus_9_exists:
+            # Capture dtoverlay stderr
+            _, err = run_command(
+                "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
+            )
+            result["dtoverlay_error"] = err.strip() if err else "dtoverlay returned OK but /dev/i2c-9 not created"
+            steps.append({
+                "step": "I2C bus 9 (GPIO 0/1)",
+                "ok": False,
+                "detail": (
+                    f"Cannot create /dev/i2c-9 via dtoverlay. "
+                    f"GPIO 0/1 may be in use by another driver or unavailable on this Pi model. "
+                    f"dtoverlay says: {result['dtoverlay_error']}"
+                ),
+            })
+            return result
+        steps.append({
+            "step": "I2C bus 9 (GPIO 0/1)",
+            "ok": True,
+            "detail": "Created /dev/i2c-9 via dtoverlay i2c-gpio",
+        })
+    else:
+        steps.append({
+            "step": "I2C bus 9 (GPIO 0/1)",
+            "ok": True,
+            "detail": "/dev/i2c-9 already exists",
+        })
+    result["i2c_bus_ok"] = True
+
+    # ── Step 2: scan for EEPROM at 0x50-0x53 ──
+    # Check if i2cdetect is available
+    _, which_out = run_command("which i2cdetect 2>/dev/null")
+    if not which_out.strip():
+        steps.append({
+            "step": "Scan EEPROM (0x50-0x53)",
+            "ok": False,
+            "detail": "i2cdetect not found. Install i2c-tools: sudo apt install i2c-tools",
+        })
+        return result
+
+    _, out = run_command("i2cdetect -y 9 0x50 0x53 2>/dev/null")
+    addr = None
+    raw_50_line = ""
+    for line in out.split("\n"):
+        stripped = line.strip()
+        if stripped.startswith("50:") or stripped.startswith("50 "):
+            raw_50_line = stripped
+            parts = stripped.split(":")
+            if len(parts) >= 2:
+                addrs = parts[1].strip().split()
+                for i, val in enumerate(addrs[:4]):
+                    if val in ("50", "51", "52", "53", "UU"):
+                        addr = 0x50 + i
+                        break
+            break
+
+    result["scan_raw"] = raw_50_line
+
+    if addr is None:
+        steps.append({
+            "step": "Scan EEPROM (0x50-0x53)",
+            "ok": False,
+            "detail": (
+                f"No EEPROM responding at 0x50-0x53 on bus 9. "
+                f"i2cdetect row: {raw_50_line if raw_50_line else '(empty)'}. "
+                "Check the HAT is properly seated and the EEPROM chip is functional."
+            ),
+        })
+        return result
+
+    result["addr"] = addr
+    result["scan_ok"] = True
+    steps.append({
+        "step": "Scan EEPROM (0x50-0x53)",
+        "ok": True,
+        "detail": f"EEPROM responds at 0x{addr:02x} on bus 9",
+    })
+
+    # ── Step 3: read EEPROM content via at24 ──
+    result["present"] = True
+    try:
+        import tempfile
+
+        os.system("sudo modprobe at24 2>/dev/null")
+        dev_path = "/sys/class/i2c-dev/i2c-9/device"
+        eeprom_path = f"{dev_path}/9-00{addr:02x}/eeprom"
+
+        if not os.path.isfile(eeprom_path):
+            _, reg_out = run_command(
+                f"echo 24c32 0x{addr:02x} | sudo tee {dev_path}/new_device 2>&1"
+            )
+            if not os.path.isfile(eeprom_path):
+                steps.append({
+                    "step": "at24 EEPROM driver",
+                    "ok": False,
+                    "detail": (
+                        f"Cannot register 24c32 at 0x{addr:02x} on bus 9. "
+                        f"new_device write returned: {reg_out.strip()}"
+                    ),
+                })
+                return result
+
+        tmp = tempfile.mkdtemp(prefix="eeprom_read_")
+        dump = os.path.join(tmp, "eeprom.bin")
+        run_command(f"sudo dd if={eeprom_path} of={dump} bs=4096 count=1 2>/dev/null")
+        run_command(
+            f"echo 0x{addr:02x} | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
+        )
+
+        if not os.path.isfile(dump) or os.path.getsize(dump) <= 4:
+            steps.append({
+                "step": "Read EEPROM data",
+                "ok": False,
+                "detail": "EEPROM read returned empty or too-small file (< 4 bytes).",
+            })
+            return result
+
+        result["data_size"] = os.path.getsize(dump)
+        with open(dump, "rb") as f:
+            data = f.read()
+
+        is_blank = data == b"\xff" * len(data)
+        result["data_is_blank"] = is_blank
+
+        if is_blank:
+            result["valid"] = False
+            steps.append({
+                "step": "Read EEPROM data",
+                "ok": True,
+                "detail": f"Read {len(data)} bytes — data is BLANK (all 0xFF). EEPROM was not programmed.",
+            })
+        else:
+            result["valid"] = True
+            steps.append({
+                "step": "Read EEPROM data",
+                "ok": True,
+                "detail": f"Read {len(data)} bytes — data is valid (non-blank).",
+            })
+
+    except Exception as e:
+        steps.append({
+            "step": "Read EEPROM data",
+            "ok": False,
+            "detail": f"Exception while reading EEPROM: {e}",
+        })
+
+    return result
+
+
 def is_driver_loaded() -> bool:
     """ Check if Fusion Hat driver is loaded
 
@@ -256,15 +617,17 @@ def raise_if_fusion_hat_not_ready() -> bool:
         )
     
 def doctor() -> dict:
-    """ Comprehensive driver and hardware health check
+    """Comprehensive driver and hardware health check.
 
-    Checks EEPROM detection, kernel module file, DKMS registration,
-    module load state, sysfs interface, and onboard MCU I2C presence
-    at address 0x17 — mirroring the driver Makefile ``status`` target.
+    Checks HAT device-tree detection, EEPROM chip (direct I2C), kernel
+    module file, DKMS registration, module load state, sysfs interface,
+    and onboard MCU I2C presence at 0x17.
 
     Returns:
-        dict with keys: detected, module_file, dkms_status, module_loaded,
-        sysfs, i2c_0x17, and overall (bool for pass/fail checks)
+        dict with keys: detected, i2c_enabled, eeprom_present, eeprom_valid,
+        module_file, dkms_status, module_loaded, sysfs, i2c_0x17, overall,
+        plus *hat_detail* and *eeprom_detail* sub-dicts that record every
+        diagnostic step so callers can explain exactly *why* a check failed.
     """
     import platform
     from ._utils import run_command
@@ -280,19 +643,25 @@ def doctor() -> dict:
         "sysfs": False,
         "i2c_0x17": False,
         "overall": True,
+        # Detailed sub-diagnostics
+        "hat_detail": None,
+        "eeprom_detail": None,
     }
 
-    # 1. EEPROM detection
-    result["detected"] = is_detected()
+    # 1. HAT device-tree detection (detailed)
+    hat_detail = _detect_hat_detail()
+    result["hat_detail"] = hat_detail
+    result["detected"] = hat_detail["detected"]
 
     # 1a. I2C enabled?
     result["i2c_enabled"] = os.path.exists("/dev/i2c-1")
 
     # 1b. If device-tree didn't pick it up, check the chip directly via I2C
     if not result["detected"]:
-        present, valid = is_eeprom_readable()
-        result["eeprom_present"] = present
-        result["eeprom_valid"] = valid
+        eeprom_detail = _check_eeprom_direct_detail()
+        result["eeprom_detail"] = eeprom_detail
+        result["eeprom_present"] = eeprom_detail["present"]
+        result["eeprom_valid"] = eeprom_detail["valid"]
 
     # 2. Module .ko file installed (check .ko and .ko.xz in standard paths)
     kv = platform.uname().release

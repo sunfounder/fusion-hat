@@ -73,15 +73,36 @@ def print_doctor(fix: bool = False):
 
         if not result["overall"]:
             if not result["detected"]:
-                if not result.get("eeprom_present", False):
-                    print("  HAT not detected — EEPROM chip not found on I2C.")
+                eeprom_detail = result.get("eeprom_detail") or {}
+                i2c_bus_ok = eeprom_detail.get("i2c_bus_ok", False)
+                scan_ok = eeprom_detail.get("scan_ok", False)
+                data_is_blank = eeprom_detail.get("data_is_blank")
+
+                if not i2c_bus_ok:
+                    print("  Cannot communicate with EEPROM — I2C bus 9 not available.")
+                    dtoverlay_err = eeprom_detail.get("dtoverlay_error", "")
+                    if dtoverlay_err:
+                        print(f"  dtoverlay: {dtoverlay_err}")
+                    print("  → GPIO 0/1 may be in use or unavailable on this Pi model.")
+                    print("  → Try: sudo i2cdetect -y 0 0x50 0x53  (use i2c-0 if available)")
+                elif not scan_ok:
+                    print("  HAT not detected — EEPROM chip not responding on I2C bus 9.")
+                    scan_raw = eeprom_detail.get("scan_raw", "")
+                    if scan_raw:
+                        print(f"  i2cdetect row 50: {scan_raw}")
                     print("  → Check the HAT is properly seated on the GPIO header.")
+                    print("  → The EEPROM chip may be damaged. Try a different Fusion Hat.")
+                elif data_is_blank:
+                    print("  HAT not detected — EEPROM is blank (all 0xFF).")
+                    print("  → The EEPROM was not programmed. Run: fusion_hat update_eeprom")
+                    print("  → Ensure write-protect pins are properly shorted during flashing.")
                 elif not result.get("eeprom_valid", False):
-                    print("  HAT not detected — EEPROM is blank or has invalid data.")
-                    print("  → Run: fusion_hat doctor --fix")
+                    print("  HAT not detected — EEPROM data may be corrupt.")
+                    print("  → Run: fusion_hat update_eeprom")
                 else:
                     print("  HAT not detected but EEPROM has valid data.")
                     print("  → If you just flashed the EEPROM, reboot to apply: sudo reboot")
+                    print("  → If problem persists, check /boot/firmware/config.txt for conflicts.")
             else:
                 print("  Some checks failed.")
                 if not result["module_file"]:
@@ -100,8 +121,23 @@ def print_doctor(fix: bool = False):
         print("")
 
 
+def _show_detail_steps(steps, indent="      "):
+    """Print diagnostic steps — shows all steps with pass/fail icons."""
+    GREEN = "\033[32m"
+    RED = "\033[31m"
+    RESET = "\033[0m"
+
+    for s in steps:
+        ok = s["ok"]
+        icon = f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
+        print(f"{indent}{icon} {s['step']}")
+        detail = s.get("detail", "")
+        if detail:
+            print(f"{indent}   {detail}")
+
+
 def _show_doctor_result(result):
-    """Render a single doctor result dict to stdout."""
+    """Render a single doctor result dict to stdout with step-by-step detail."""
     GREEN = "\033[32m"
     RED = "\033[31m"
     RESET = "\033[0m"
@@ -109,30 +145,36 @@ def _show_doctor_result(result):
     def _icon(ok):
         return f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
 
-    lines = [
-        (_icon(result["detected"]), "HAT detected"),
-    ]
+    # ── 1. HAT device-tree detection ──
+    hat_detail = result.get("hat_detail") or {}
+    print(f"  {_icon(result['detected'])} HAT detected")
 
-    # If not detected, show EEPROM diagnosis via I2C bus 9
-    if not result["detected"]:
+    if not result["detected"] and hat_detail.get("steps"):
+        print("      HAT device-tree check:")
+        _show_detail_steps(hat_detail["steps"])
+
+    # ── 2. EEPROM direct check (only when HAT not detected) ──
+    eeprom_detail = result.get("eeprom_detail")
+    if eeprom_detail:
+        eeprom_steps = eeprom_detail.get("steps", [])
+        print(f"      Direct EEPROM check (bus 9, GPIO 0/1):")
+        _show_detail_steps(eeprom_steps)
+    elif not result["detected"]:
+        # Old-style result without eeprom_detail (backward compat)
         if "eeprom_present" in result:
-            lines.append((_icon(result["eeprom_present"]), "EEPROM chip (0x50)"))
+            print(f"  {_icon(result['eeprom_present'])} EEPROM chip (0x50)")
         if result.get("eeprom_present"):
-            lines.append((_icon(result["eeprom_valid"]), "EEPROM content"))
+            print(f"  {_icon(result['eeprom_valid'])} EEPROM content")
 
-    lines += [
-        (_icon(result["i2c_0x17"]), "I2C MCU (0x17)"),
-    ]
+    # ── 3. I2C MCU ──
+    print(f"  {_icon(result['i2c_0x17'])} I2C MCU (0x17)")
 
-    lines += [
-        (_icon(result["module_file"]), "Module file"),
-        (_icon(result["module_loaded"]), "Module loaded"),
-        (_icon(result["sysfs"]), "sysfs interface"),
-    ]
+    # ── 4. Driver checks ──
+    print(f"  {_icon(result['module_file'])} Module file")
+    print(f"  {_icon(result['module_loaded'])} Module loaded")
+    print(f"  {_icon(result['sysfs'])} sysfs interface")
 
-    for icon, label in lines:
-        print(f"  {icon} {label}")
-
+    # ── 5. DKMS ──
     dkms = result["dkms_status"]
     if dkms == "DKMS not installed":
         print(f"   - DKMS             : {dkms}")
