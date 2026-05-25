@@ -592,23 +592,25 @@ def _check_eeprom_direct_detail() -> dict:
                 result["valid"] = False
                 result["data_matches_ref"] = False
 
-                # Side-by-side full hex dump: Read | Ref, each line 8 bytes
-                lines = ["Byte-by-byte comparison (Read | Ref):"]
-                dump_len = max(len(data), len(ref_data))
-                for offset in range(0, dump_len, 8):
+                # Side-by-side comparison — only show reference range + a few bytes margin
+                show_len = min(len(ref_data) + 32, len(data))
+                lines = [f"Byte-by-byte comparison (first {show_len} bytes, Read | Ref):"]
+                for offset in range(0, show_len, 8):
                     r = data[offset:offset + 8]
                     t = ref_data[offset:offset + 8] if offset < len(ref_data) else b""
                     r_hex = " ".join(f"{b:02X}" for b in r) if r else ""
                     t_hex = " ".join(f"{b:02X}" for b in t) if t else ""
-                    # Show marker for lines with differences
                     differs = r[:min(len(r), len(t))] != t[:min(len(r), len(t))]
                     marker = "><" if differs else "  "
                     lines.append(f"  {marker} {offset:04X}: {r_hex:<23s} | {t_hex}")
+                if len(data) > show_len:
+                    lines.append(f"  ... ({len(data) - show_len} more bytes, mostly padding)")
 
-                # Full read data dump
+                # Full read data dump — first 128 bytes
+                dump_limit = min(len(data), 128)
                 lines.append("")
-                lines.append(f"Full read data ({len(data)} bytes):")
-                for offset in range(0, min(len(data), 256), 16):
+                lines.append(f"Read data (first {dump_limit} of {len(data)} bytes):")
+                for offset in range(0, dump_limit, 16):
                     chunk = data[offset:offset + 16]
                     hx = " ".join(f"{b:02X}" for b in chunk)
                     asc = "".join(chr(b) if 32 <= b < 127 else "." for b in chunk)
