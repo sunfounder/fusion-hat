@@ -121,9 +121,13 @@ def print_doctor(fix: bool = False):
                 for line in dmesg_hat.strip().split("\n"):
                     print(f"    {line}")
 
+            # Show Tip only when --fix can actually help (not when just needs reboot)
             if not result["overall"]:
-                print("")
-                print("  Tip: run 'fusion_hat doctor --fix' to auto-fix.")
+                eeprom_detail = result.get("eeprom_detail") or {}
+                needs_fix = not (eeprom_detail.get("valid") and not result.get("detected"))
+                if needs_fix:
+                    print("")
+                    print("  Tip: run 'fusion_hat doctor --fix' to auto-fix.")
 
         print("")
         print("=" * 50)
