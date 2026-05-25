@@ -882,7 +882,7 @@ def doctor_fix() -> dict:
 
     # Fix 2: EEPROM not detected → reflash
     if not before["detected"]:
-        ok = update_eeprom(erase=False)
+        ok = update_eeprom(erase=True)
         if ok:
             fixes.append("EEPROM reflashed — reboot required")
         else:
@@ -1080,8 +1080,9 @@ def update_eeprom(erase: bool = False) -> bool:
     header next to the EEPROM chip to enable writing.
 
     Args:
-        erase: If True, only erase the EEPROM (write all 0xFF).
-               The EEPROM binary is not downloaded in this mode.
+        erase: If True, erase the EEPROM (write all 0xFF) BEFORE flashing
+               the correct binary. This ensures a clean write. If False,
+               only flash the binary.
 
     Returns:
         bool: True if the operation succeeded
@@ -1111,17 +1112,22 @@ def update_eeprom(erase: bool = False) -> bool:
     try:
         print("")
         print("=" * 60)
-        print("  Fusion Hat EEPROM", "Erase" if erase else "Update")
+        print("  Fusion Hat EEPROM", "Erase + Update" if erase else "Update")
         print("=" * 60)
         print("")
 
-        # 1. Prepare the file to write
+        # 1. Prepare files to write
         if erase:
-            print("  [1/5] Preparing blank EEPROM image...")
-            write_file = os.path.join(tmpdir, "blank.eep")
-            with open(write_file, "wb") as f:
+            print("  [1/6] Preparing blank + EEPROM binary...")
+            blank_file = os.path.join(tmpdir, "blank.eep")
+            with open(blank_file, "wb") as f:
                 f.write(b"\xff" * 4096)
-            print(f"  [OK]  Created blank image")
+            write_file = os.path.join(tmpdir, "o1908v10_fusion_hat.eep")
+            _, out = run_command(f"wget -q -O {write_file} {EEPROM_URL} 2>&1")
+            if not os.path.isfile(write_file) or os.path.getsize(write_file) == 0:
+                print(f"  [FAIL] Failed to download EEPROM binary from {EEPROM_URL}")
+                return False
+            print(f"  [OK]  Created blank + downloaded ({os.path.getsize(write_file)} bytes)")
         else:
             print("  [1/5] Downloading EEPROM binary...")
             write_file = os.path.join(tmpdir, "o1908v10_fusion_hat.eep")
@@ -1141,7 +1147,10 @@ def update_eeprom(erase: bool = False) -> bool:
 
         # 2. Instruct user to short write-protect pins
         print("")
-        print("  [2/5] Short write-protect pins")
+        if erase:
+            print("  [2/6] Short write-protect pins")
+        else:
+            print("  [2/5] Short write-protect pins")
         print("")
         print("  The EEPROM chip is write-protected. To enable writing,")
         print("  short the two OUTERMOST holes of the 5-pin header next to")
@@ -1161,10 +1170,22 @@ def update_eeprom(erase: bool = False) -> bool:
         print("")
         input("  Press ENTER after you have shorted the pins...")
 
-        # 3. Write to EEPROM
+        # 3. Erase (if requested)
+        if erase:
+            print("")
+            print("  [3/6] Erase EEPROM...")
+            _, erase_out = run_command(
+                f"sudo bash {eepflash} -y -w -f={blank_file} -t=24c32 -a={addr:02x} 2>&1"
+            )
+            print(erase_out)
+            if "done" not in erase_out.lower():
+                print("  [FAIL] EEPROM erase failed. Check output above for details.")
+                return False
+
+        # 4. Flash EEPROM
         print("")
         if erase:
-            print("  [3/5] Erase EEPROM...")
+            print("  [4/6] Flash EEPROM...")
         else:
             print("  [3/5] Flash EEPROM...")
         _, flash_out = run_command(
@@ -1175,9 +1196,10 @@ def update_eeprom(erase: bool = False) -> bool:
             print("  [FAIL] EEPROM write failed. Check output above for details.")
             return False
 
-        # 4. Verify — read back and compare against the written file
+        # 5. Verify — read back and compare against the written file
+        step_verify = "[4/6]" if erase else "[4/5]"
         print("")
-        print("  [4/5] Verifying EEPROM content...")
+        print(f"  {step_verify} Verifying EEPROM content...")
         with open(write_file, "rb") as f:
             expected = f.read()
 
@@ -1231,9 +1253,10 @@ def update_eeprom(erase: bool = False) -> bool:
         else:
             print("  → If write-protect was properly shorted, the EEPROM chip may be damaged.")
 
-        # 5. Done — offer reboot
+        # 6. Done — offer reboot
+        step_done = "[6/6]" if erase else "[5/5]"
         print("")
-        print("  [5/5] Done. You can remove the short from the write-protect pins now.")
+        print(f"  {step_done} Done. You can remove the short from the write-protect pins now.")
         answer = input("  Reboot to detect the HAT? (y/N): ").strip().lower()
         if answer in ("y", "yes"):
             print("  Rebooting...")
