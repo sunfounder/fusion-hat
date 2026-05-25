@@ -112,6 +112,16 @@ def print_doctor(fix: bool = False):
                     print("  -> Driver may not be loaded or compatible with this kernel.")
                 if not result["i2c_0x17"]:
                     print("  -> Onboard MCU not detected on I2C bus. Check: i2cdetect -y 1")
+
+            # Show dmesg if HAT-related messages found
+            dmesg_hat = result.get("dmesg_hat", "")
+            if dmesg_hat:
+                print("")
+                print("  dmesg (HAT/EEPROM/I2C):")
+                for line in dmesg_hat.strip().split("\n"):
+                    print(f"    {line}")
+
+            if not result["overall"]:
                 print("")
                 print("  Tip: run 'fusion_hat doctor --fix' to auto-fix.")
 

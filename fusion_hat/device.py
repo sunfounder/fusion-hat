@@ -591,32 +591,29 @@ def _check_eeprom_direct_detail() -> dict:
             else:
                 result["valid"] = False
                 result["data_matches_ref"] = False
-                # Build a detailed diff
-                lines = []
-                if len(data) < len(ref_data):
-                    lines.append(
-                        f"Size mismatch: read {len(data)} bytes, "
-                        f"reference is {len(ref_data)} bytes."
-                    )
-                # Find first differing byte
-                first_diff = None
-                for i in range(cmp_len):
-                    if data[i] != ref_data[i]:
-                        first_diff = i
-                        break
-                if first_diff is not None:
-                    start = max(0, first_diff - 4)
-                    end = min(cmp_len, first_diff + 12)
-                    read_hex = " ".join(f"{data[i]:02X}" for i in range(start, end))
-                    ref_hex = " ".join(f"{ref_data[i]:02X}" for i in range(start, end))
-                    lines.append(f"First diff at offset 0x{first_diff:04X}:")
-                    lines.append(f"  Read : {read_hex}")
-                    lines.append(f"  Ref  : {ref_hex}")
-                elif len(data) < len(ref_data):
-                    lines.append(
-                        f"Truncated at byte {len(data)}, "
-                        f"missing {len(ref_data) - len(data)} bytes."
-                    )
+
+                # Side-by-side full hex dump: Read | Ref, each line 8 bytes
+                lines = ["Byte-by-byte comparison (Read | Ref):"]
+                dump_len = max(len(data), len(ref_data))
+                for offset in range(0, dump_len, 8):
+                    r = data[offset:offset + 8]
+                    t = ref_data[offset:offset + 8] if offset < len(ref_data) else b""
+                    r_hex = " ".join(f"{b:02X}" for b in r) if r else ""
+                    t_hex = " ".join(f"{b:02X}" for b in t) if t else ""
+                    # Show marker for lines with differences
+                    differs = r[:min(len(r), len(t))] != t[:min(len(r), len(t))]
+                    marker = "><" if differs else "  "
+                    lines.append(f"  {marker} {offset:04X}: {r_hex:<23s} | {t_hex}")
+
+                # Full read data dump
+                lines.append("")
+                lines.append(f"Full read data ({len(data)} bytes):")
+                for offset in range(0, min(len(data), 256), 16):
+                    chunk = data[offset:offset + 16]
+                    hx = " ".join(f"{b:02X}" for b in chunk)
+                    asc = "".join(chr(b) if 32 <= b < 127 else "." for b in chunk)
+                    lines.append(f"  {offset:04X}: {hx:<47s} {asc}")
+
                 steps.append({
                     "step": "Verify EEPROM content",
                     "ok": False,
@@ -803,6 +800,14 @@ def doctor() -> dict:
                     break
     except Exception:
         pass
+
+    # 7. dmesg — look for HAT / EEPROM / I2C boot messages
+    result["dmesg_hat"] = ""
+    _, dmesg_out = run_command(
+        "dmesg 2>/dev/null | grep -i -E 'hat|eeprom.*0x50|i2c.*error|fusionhat|i2c-0' | tail -20 || true"
+    )
+    if dmesg_out.strip():
+        result["dmesg_hat"] = dmesg_out.strip()
 
     # Overall pass: detected + module_file + module_loaded + sysfs + i2c_0x17
     result["overall"] = all([
@@ -1112,13 +1117,13 @@ def update_eeprom(erase: bool = False) -> bool:
 
         # 1. Prepare the file to write
         if erase:
-            print("  [1/4] Preparing blank EEPROM image...")
+            print("  [1/5] Preparing blank EEPROM image...")
             write_file = os.path.join(tmpdir, "blank.eep")
             with open(write_file, "wb") as f:
                 f.write(b"\xff" * 4096)
             print(f"  [OK]  Created blank image")
         else:
-            print("  [1/4] Downloading EEPROM binary...")
+            print("  [1/5] Downloading EEPROM binary...")
             write_file = os.path.join(tmpdir, "o1908v10_fusion_hat.eep")
             _, out = run_command(f"wget -q -O {write_file} {EEPROM_URL} 2>&1")
             if not os.path.isfile(write_file) or os.path.getsize(write_file) == 0:
@@ -1136,7 +1141,7 @@ def update_eeprom(erase: bool = False) -> bool:
 
         # 2. Instruct user to short write-protect pins
         print("")
-        print("  [2/4] Short write-protect pins")
+        print("  [2/5] Short write-protect pins")
         print("")
         print("  The EEPROM chip is write-protected. To enable writing,")
         print("  short the two OUTERMOST holes of the 5-pin header next to")
@@ -1159,9 +1164,9 @@ def update_eeprom(erase: bool = False) -> bool:
         # 3. Write to EEPROM
         print("")
         if erase:
-            print("  [3/4] Erase EEPROM...")
+            print("  [3/5] Erase EEPROM...")
         else:
-            print("  [3/4] Flash EEPROM...")
+            print("  [3/5] Flash EEPROM...")
         _, flash_out = run_command(
             f"sudo bash {eepflash} -y -w -f={write_file} -t=24c32 -a={addr:02x} 2>&1"
         )
@@ -1170,9 +1175,65 @@ def update_eeprom(erase: bool = False) -> bool:
             print("  [FAIL] EEPROM write failed. Check output above for details.")
             return False
 
-        # 4. Done — offer reboot
+        # 4. Verify — read back and compare against the written file
         print("")
-        print("  [4/4] Done. You can remove the short from the write-protect pins now.")
+        print("  [4/5] Verifying EEPROM content...")
+        with open(write_file, "rb") as f:
+            expected = f.read()
+
+        ok = False
+        try:
+            os.system("sudo modprobe at24 2>/dev/null")
+            dev_path = "/sys/class/i2c-dev/i2c-9/device"
+            eeprom_path = f"{dev_path}/9-00{addr:02x}/eeprom"
+            if not os.path.isfile(eeprom_path):
+                run_command(
+                    f"echo 24c32 0x{addr:02x} | sudo tee {dev_path}/new_device > /dev/null 2>&1"
+                )
+            vtmp = tempfile.mkdtemp(prefix="eeprom_verify_")
+            vdump = os.path.join(vtmp, "verify.bin")
+            run_command(f"sudo dd if={eeprom_path} of={vdump} bs=4096 count=1 2>/dev/null")
+            run_command(
+                f"echo 0x{addr:02x} | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
+            )
+            if os.path.isfile(vdump) and os.path.getsize(vdump) > 4:
+                with open(vdump, "rb") as f:
+                    actual = f.read()
+                if len(actual) >= len(expected) and actual[:len(expected)] == expected:
+                    ok = True
+                elif actual == b"\xff" * len(actual):
+                    print("  [FAIL] EEPROM is blank — write may have failed silently.")
+                    print("  → Check that the write-protect pins are securely shorted.")
+                    print("  → Try again and ensure the two outermost holes stay shorted")
+                    print("    during the entire flash step.")
+                else:
+                    # Find first diff for diagnostics
+                    cmp_len = min(len(actual), len(expected))
+                    for i in range(cmp_len):
+                        if actual[i] != expected[i]:
+                            start = max(0, i - 4)
+                            end = min(cmp_len, i + 12)
+                            read_hex = " ".join(f"{actual[j]:02X}" for j in range(start, end))
+                            exp_hex = " ".join(f"{expected[j]:02X}" for j in range(start, end))
+                            print(f"  [FAIL] Content mismatch at offset 0x{i:04X}:")
+                            print(f"    Read : {read_hex}")
+                            print(f"    Wrote: {exp_hex}")
+                            break
+                    else:
+                        if len(actual) < len(expected):
+                            print(f"  [FAIL] Read only {len(actual)} bytes, expected {len(expected)}.")
+        except Exception as e:
+            print(f"  [!] Could not verify: {e}")
+
+        if ok:
+            size_str = f"{len(expected)} bytes" if len(expected) < 1024 else f"{len(expected) / 1024:.1f} KB"
+            print(f"  [OK]  EEPROM verified — {size_str} written correctly.")
+        else:
+            print("  → If write-protect was properly shorted, the EEPROM chip may be damaged.")
+
+        # 5. Done — offer reboot
+        print("")
+        print("  [5/5] Done. You can remove the short from the write-protect pins now.")
         answer = input("  Reboot to detect the HAT? (y/N): ").strip().lower()
         if answer in ("y", "yes"):
             print("  Rebooting...")
