@@ -372,4 +372,4 @@ MODULE_DESCRIPTION("Fusion Hat Driver for Raspberry Pi");
 MODULE_VERSION(VERSION);
 
 // Module dependency declaration
-MODULE_IMPORT_NS(IIO);
+MODULE_IMPORT_NS("IIO");

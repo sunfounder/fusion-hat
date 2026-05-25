@@ -49,21 +49,36 @@ def update():
     print("")
 
     # Pull
-    print("  [1/2] git pull...")
+    print("  [1/3] git pull...")
     _, out = run_command(f"cd {repo_dir} && git pull 2>&1")
     print(out)
     if "Already up to date" in out:
         print("  Already up to date.")
         return
 
-    # Reinstall
-    print("  [2/2] pip install...")
+    # Reinstall Python package
+    print("  [2/3] pip install...")
     _, out = run_command(
         f"cd {repo_dir} && sudo pip install . --break-system-packages --no-deps --no-build-isolation 2>&1"
     )
     for line in out.split("\n"):
         if "Successfully installed" in line or "error:" in line.lower():
             print(f"  {line.strip()}")
+
+    # Build and install kernel driver
+    driver_dir = _os.path.join(repo_dir, "driver")
+    if _os.path.isdir(driver_dir) and _os.path.isfile(_os.path.join(driver_dir, "Makefile")):
+        print("  [3/3] sudo make install (driver)...")
+        _, out = run_command(
+            f"cd {driver_dir} && sudo make install 2>&1"
+        )
+        # Show key lines
+        for line in out.split("\n"):
+            line = line.strip()
+            if line and ("Installing" in line or "completed" in line.lower() or "error" in line.lower() or "DKMS" in line):
+                print(f"  {line}")
+    else:
+        print("  [3/3] Driver not found, skipping.")
 
     # Read new version from disk (current process still has old import)
     new_ver = __version__
