@@ -21,9 +21,65 @@ def test_speaker():
     finally:
         disable_speaker()
 
-def print_version():
+def update():
+    """Update fusion-hat from git and reinstall."""
+    import os as _os
+    from ._utils import run_command
     from ._version import __version__
-    print(f"Fusion HAT library version: {__version__}")
+
+    # Find the repo directory (parent of the installed package)
+    repo_dir = _os.path.dirname(_os.path.dirname(__file__))
+    if not _os.path.isdir(_os.path.join(repo_dir, ".git")):
+        # Fallback: try standard locations
+        for d in ["/home/pi/fusion-hat", _os.path.expanduser("~/fusion-hat")]:
+            if _os.path.isdir(_os.path.join(d, ".git")):
+                repo_dir = d
+                break
+        else:
+            print("[FAIL] Cannot find fusion-hat git repository.")
+            print("  Clone it first: git clone https://github.com/sunfounder/fusion-hat ~/fusion-hat")
+            return
+
+    print(f"  Repository: {repo_dir}")
+    print(f"  Current version: {__version__}")
+    print("")
+
+    # Pull
+    print("  [1/2] git pull...")
+    _, out = run_command(f"cd {repo_dir} && git pull 2>&1")
+    print(out)
+    if "Already up to date" in out:
+        print("  Already up to date.")
+        return
+
+    # Reinstall
+    print("  [2/2] pip install...")
+    _, out = run_command(
+        f"cd {repo_dir} && sudo pip install . --break-system-packages --no-deps --no-build-isolation 2>&1"
+    )
+    for line in out.split("\n"):
+        if "Successfully installed" in line or "error:" in line.lower():
+            print(f"  {line.strip()}")
+
+    # Read new version from disk (current process still has old import)
+    new_ver = __version__
+    try:
+        ver_file = _os.path.join(_os.path.dirname(__file__), "_version.py")
+        with open(ver_file, "r") as f:
+            content = f.read()
+        import re as _re
+        m = _re.search(r"__version__\s*=\s*['\"]([^'\"]+)['\"]", content)
+        if m:
+            new_ver = m.group(1)
+    except Exception:
+        pass
+
+    print("")
+    if new_ver != __version__:
+        print(f"  Updated: {__version__} -> {new_ver}")
+    else:
+        print(f"  Version: {new_ver} (up to date)")
+    print("  Run: fusion_hat doctor")
 
 def scan_i2c():
     print(f"Scan I2C bus.")
@@ -286,6 +342,7 @@ def main():
         "disable_speaker": disable_speaker,
         "test_speaker": test_speaker,
         "version": print_version,
+        "update": update,
         "scan_i2c": scan_i2c,
         "info": print_info,
         "doctor": print_doctor,
