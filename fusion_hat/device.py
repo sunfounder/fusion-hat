@@ -1074,7 +1074,7 @@ def _get_eepflash_script() -> str:
     return ""
 
 
-def update_eeprom(erase: bool = False) -> bool:
+def update_eeprom(erase: bool = False, erase_only: bool = False) -> bool:
     """Reflash the Fusion Hat EEPROM via I2C GPIO bit-banging.
 
     Uses the bundled eepflash.sh script and a bit-banged I2C bus on
@@ -1083,8 +1083,9 @@ def update_eeprom(erase: bool = False) -> bool:
 
     Args:
         erase: If True, erase the EEPROM (write all 0xFF) BEFORE flashing
-               the correct binary. This ensures a clean write. If False,
-               only flash the binary.
+               the correct binary. This ensures a clean write.
+        erase_only: If True, ONLY erase the EEPROM (write all 0xFF) and
+               return. Used for testing. Cannot be combined with erase.
 
     Returns:
         bool: True if the operation succeeded
@@ -1112,15 +1113,25 @@ def update_eeprom(erase: bool = False) -> bool:
     tmpdir = tempfile.mkdtemp(prefix="fusion_hat_eeprom_")
 
     try:
+        title = "Erase Only" if erase_only else ("Erase + Update" if erase else "Update")
+        total = 3 if erase_only else (6 if erase else 5)
+
         print("")
         print("=" * 60)
-        print("  Fusion Hat EEPROM", "Erase + Update" if erase else "Update")
+        print(f"  Fusion Hat EEPROM {title}")
         print("=" * 60)
         print("")
 
         # 1. Prepare files to write
-        if erase:
-            print("  [1/6] Preparing blank + EEPROM binary...")
+        if erase_only:
+            print(f"  [1/{total}] Preparing blank EEPROM image...")
+            write_file = os.path.join(tmpdir, "blank.eep")
+            with open(write_file, "wb") as f:
+                f.write(b"\xff" * 4096)
+            print(f"  [OK]  Created blank image")
+            blank_file = write_file
+        elif erase:
+            print(f"  [1/{total}] Preparing blank + EEPROM binary...")
             blank_file = os.path.join(tmpdir, "blank.eep")
             with open(blank_file, "wb") as f:
                 f.write(b"\xff" * 4096)
@@ -1150,9 +1161,9 @@ def update_eeprom(erase: bool = False) -> bool:
         # 2. Instruct user to short write-protect pins
         print("")
         if erase:
-            print("  [2/6] Short write-protect pins")
+            print(f"  [2/{total}] Short write-protect pins")
         else:
-            print("  [2/5] Short write-protect pins")
+            print(f"  [2/{total}] Short write-protect pins")
         print("")
         print("  The EEPROM chip is write-protected. To enable writing,")
         print("  short the two OUTERMOST holes of the 5-pin header next to")
@@ -1173,9 +1184,9 @@ def update_eeprom(erase: bool = False) -> bool:
         input("  Press ENTER after you have shorted the pins...")
 
         # 3. Erase (if requested)
-        if erase:
+        if erase or erase_only:
             print("")
-            print("  [3/6] Erase EEPROM...")
+            print(f"  [3/{total}] Erase EEPROM...")
             _, erase_out = run_command(
                 f"sudo bash {eepflash} -y -w -f={blank_file} -t=24c32 -a={addr:02x} 2>&1"
             )
@@ -1205,13 +1216,18 @@ def update_eeprom(erase: bool = False) -> bool:
                     if edata == b"\xff" * len(edata):
                         print(f"  [OK]  Erase verified — chip is blank")
                     else:
-                        # Find non-blank bytes
                         non_ff = [hex(i) for i, b in enumerate(edata[:64]) if b != 0xFF]
                         print(f"  [FAIL] Erase did not complete — {len(non_ff)} non-blank bytes found in first 64.")
                         print(f"  → The write-protect may have lost contact. Try again.")
                         return False
             except Exception as e:
                 print(f"  [!] Could not verify erase: {e}")
+
+            # If erase-only, skip flash and go to done
+            if erase_only:
+                print("")
+                print(f"  [3/{total}] Done. You can remove the short from the write-protect pins now.")
+                return True
 
         # 4. Flash EEPROM
         print("")
@@ -1228,7 +1244,7 @@ def update_eeprom(erase: bool = False) -> bool:
             return False
 
         # 5. Verify — read back and compare against the written file
-        step_verify = "[4/6]" if erase else "[4/5]"
+        step_verify = f"[5/{total}]" if erase else f"[4/{total}]"
         print("")
         print(f"  {step_verify} Verifying EEPROM content...")
         with open(write_file, "rb") as f:
@@ -1285,7 +1301,7 @@ def update_eeprom(erase: bool = False) -> bool:
             print("  → If write-protect was properly shorted, the EEPROM chip may be damaged.")
 
         # 6. Done — offer reboot
-        step_done = "[6/6]" if erase else "[5/5]"
+        step_done = f"[6/{total}]" if erase else f"[5/{total}]"
         print("")
         print(f"  {step_done} Done. You can remove the short from the write-protect pins now.")
         answer = input("  Reboot to detect the HAT? (y/N): ").strip().lower()

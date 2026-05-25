@@ -277,12 +277,12 @@ def _show_doctor_result(result):
 
     print("")
 
-def print_update_eeprom(erase: bool = False):
+def print_update_eeprom(erase: bool = False, erase_only: bool = False):
     import os as _os
     _os.system("sudo -v 2>/dev/null")
     print("Update Fusion-HAT EEPROM.")
     from .device import update_eeprom
-    success = update_eeprom(erase=erase)
+    success = update_eeprom(erase=erase, erase_only=erase_only)
     if not success:
         print("EEPROM update did not complete successfully.")
         print("Check the output above for details.")
@@ -373,6 +373,7 @@ def main():
     parser.add_argument('option', choices=CHOICES.keys(), help='option')
     parser.add_argument('--fix', action='store_true', help='auto fix driver issues (doctor only)')
     parser.add_argument('--erase', action='store_true', help='erase EEPROM before flashing (update_eeprom only)')
+    parser.add_argument('--erase-only', action='store_true', help='only erase EEPROM, do not flash (update_eeprom only, for testing)')
     parser.add_argument('--skip-test', action='store_true', help='skip speaker test (setup_speaker only)')
     args = parser.parse_args()
 
@@ -380,13 +381,17 @@ def main():
         parser.error("--fix is only valid with 'doctor'")
     if args.erase and args.option != "update_eeprom":
         parser.error("--erase is only valid with 'update_eeprom'")
+    if args.erase_only and args.option != "update_eeprom":
+        parser.error("--erase-only is only valid with 'update_eeprom'")
+    if args.erase and args.erase_only:
+        parser.error("--erase and --erase-only cannot be used together")
     if args.skip_test and args.option != "setup_speaker":
         parser.error("--skip-test is only valid with 'setup_speaker'")
 
     if args.option == "doctor":
         CHOICES[args.option](fix=args.fix)
     elif args.option == "update_eeprom":
-        CHOICES[args.option](erase=args.erase)
+        CHOICES[args.option](erase=args.erase, erase_only=args.erase_only)
     elif args.option == "setup_speaker":
         CHOICES[args.option](skip_test=args.skip_test)
     else:
