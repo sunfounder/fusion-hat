@@ -21,6 +21,10 @@ def test_speaker():
     finally:
         disable_speaker()
 
+def print_version():
+    from ._version import __version__
+    print(f"Fusion HAT library version: {__version__}")
+
 def update():
     """Update fusion-hat from git and reinstall."""
     import os as _os
