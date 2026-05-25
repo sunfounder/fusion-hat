@@ -1184,6 +1184,35 @@ def update_eeprom(erase: bool = False) -> bool:
                 print("  [FAIL] EEPROM erase failed. Check output above for details.")
                 return False
 
+            # Verify erase — read back and check all 0xFF
+            try:
+                os.system("sudo modprobe at24 2>/dev/null")
+                dev_path = "/sys/class/i2c-dev/i2c-9/device"
+                eeprom_path = f"{dev_path}/9-00{addr:02x}/eeprom"
+                if not os.path.isfile(eeprom_path):
+                    run_command(
+                        f"echo 24c32 0x{addr:02x} | sudo tee {dev_path}/new_device > /dev/null 2>&1"
+                    )
+                evtmp = tempfile.mkdtemp(prefix="eeprom_erase_verify_")
+                edump = os.path.join(evtmp, "erase_verify.bin")
+                run_command(f"sudo dd if={eeprom_path} of={edump} bs=4096 count=1 2>/dev/null")
+                run_command(
+                    f"echo 0x{addr:02x} | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
+                )
+                if os.path.isfile(edump) and os.path.getsize(edump) > 4:
+                    with open(edump, "rb") as f:
+                        edata = f.read()
+                    if edata == b"\xff" * len(edata):
+                        print(f"  [OK]  Erase verified — chip is blank")
+                    else:
+                        # Find non-blank bytes
+                        non_ff = [hex(i) for i, b in enumerate(edata[:64]) if b != 0xFF]
+                        print(f"  [FAIL] Erase did not complete — {len(non_ff)} non-blank bytes found in first 64.")
+                        print(f"  → The write-protect may have lost contact. Try again.")
+                        return False
+            except Exception as e:
+                print(f"  [!] Could not verify erase: {e}")
+
         # 4. Flash EEPROM
         print("")
         if erase:
