@@ -26,11 +26,12 @@ sphinx-apidoc -f -d 1 -e -M -P -T -o source/api ../fusion_hat
 
 **CLI commands (available via `fusion_hat` entry point):**
 ```bash
+fusion_hat update            # Self-update: git pull + pip install
 fusion_hat info              # Show device info, battery, button, speaker state
 fusion_hat doctor            # Run driver/hardware health checks
-fusion_hat doctor --fix      # Auto-repair (EEPROM reflash, modprobe, etc.)
+fusion_hat doctor --fix      # Auto-repair (erase+reflash EEPROM, modprobe, etc.)
 fusion_hat update_eeprom     # Reflash HAT EEPROM (guides through hardware steps)
-fusion_hat update_eeprom --erase  # Erase EEPROM only (for testing)
+fusion_hat update_eeprom --erase  # Erase EEPROM before flashing (clean write)
 fusion_hat setup_speaker     # Run audio setup (bundled script)
 fusion_hat setup_speaker --skip-test  # Setup without speaker test
 fusion_hat version           # Print library version
