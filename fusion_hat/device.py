@@ -1102,6 +1102,8 @@ def force_dt_overlay() -> bool:
     Returns:
         bool: True if the line was added or already present
     """
+    from ._utils import run_command
+
     if _has_dtoverlay():
         print("dtoverlay=sunfounder-fusionhat is already in config.txt.")
         return True
@@ -1110,6 +1112,16 @@ def force_dt_overlay() -> bool:
         return False
 
     print("Added dtoverlay=sunfounder-fusionhat to config.txt.")
+    try:
+        answer = input("  Reboot now to apply? (y/N): ").strip().lower()
+        if answer in ("y", "yes"):
+            print("  Rebooting...")
+            run_command("sudo reboot 2>&1")
+        else:
+            print("  Reboot later with: sudo reboot")
+    except (KeyboardInterrupt, EOFError):
+        print("")
+        print("  Reboot later with: sudo reboot")
     return True
 
 

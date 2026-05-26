@@ -147,9 +147,9 @@ def print_doctor(fix: bool = False):
                     needs_reboot = True
                 elif choice == "2":
                     print("")
-                    force_dt_overlay()
+                    force_dt_overlay()  # prompts for reboot itself
                     fixes.append("force dtoverlay to bypass EEPROM")
-                    needs_reboot = True
+                    needs_reboot = False
                 else:
                     fixes.append("no action selected")
             except (KeyboardInterrupt, EOFError):
