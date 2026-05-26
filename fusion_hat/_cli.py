@@ -390,12 +390,7 @@ def setup_speaker(skip_test: bool = False):
 def print_info():
     from fusion_hat._version import __version__
     from fusion_hat.device import NAME
-    from fusion_hat.device import ID
-    from fusion_hat.device import UUID
-    from fusion_hat.device import PRODUCT_ID
-    from fusion_hat.device import PRODUCT_VER
-    from fusion_hat.device import VENDOR
-    from fusion_hat.device import raise_if_fusion_hat_not_ready
+    from fusion_hat.device import is_driver_loaded
     from fusion_hat.device import get_speaker_state
     from fusion_hat.device import get_usr_btn
     from fusion_hat.device import get_firmware_version
@@ -403,28 +398,30 @@ def print_info():
     from fusion_hat.device import get_led
     from fusion_hat.battery import Battery
 
-    raise_if_fusion_hat_not_ready()
-
-    battery = Battery()
+    hw_ready = is_driver_loaded()
 
     datas = {
         "Name": NAME,
-        "ID": ID,
-        "UUID": UUID,
-        "Product ID": PRODUCT_ID,
-        "Product Ver": PRODUCT_VER,
-        "Vendor": VENDOR,
         "Library Version": __version__,
-        "Firmware Version": get_firmware_version(),
-        "Driver Version": get_driver_version(),
-
-        "User Button State": "Pressed" if get_usr_btn() else "Released",
-        "Speaker State": "Enabled" if get_speaker_state() else "Disabled",
-        "User LED State": "On" if get_led() else "Off",
-        "Battery level": f"{battery.capacity}%",
-        "Battery voltage": f"{battery.voltage} V",
-        "Battery charging": "Yes" if battery.is_charging else "No",
     }
+
+    if hw_ready:
+        datas.update({
+            "Firmware Version": get_firmware_version(),
+            "Driver Version": get_driver_version(),
+            "User Button State": "Pressed" if get_usr_btn() else "Released",
+            "Speaker State": "Enabled" if get_speaker_state() else "Disabled",
+            "User LED State": "On" if get_led() else "Off",
+        })
+        try:
+            battery = Battery()
+            datas.update({
+                "Battery level": f"{battery.capacity}%",
+                "Battery voltage": f"{battery.voltage} V",
+                "Battery charging": "Yes" if battery.is_charging else "No",
+            })
+        except Exception:
+            pass
 
     print("")
     print("=" * 50)
