@@ -57,6 +57,8 @@ __all__ = [
     'PRODUCT_ID',
     'PRODUCT_VER',
     'VENDOR',
+    'DTOVERLAY_NAME',
+    'EEPROM_SCAN_TIMEOUT',
     'is_detected',
     'is_driver_loaded',
     'doctor',
@@ -97,6 +99,7 @@ VENDOR = "SunFounder"
 
 
 DEVICE_PATH = "/sys/class/fusion_hat/fusion_hat/"
+DTOVERLAY_NAME = "sunfounder-fusionhat"
 
 def is_detected() -> bool:
     """ Check if Fusion Hat EEPROM is detected by Raspberry Pi
@@ -156,131 +159,67 @@ def _detect_hat_detail() -> dict:
         "steps": steps,
     }
 
-    # Step 1 — find a hat directory under /proc/device-tree/
+    # Step 1 — scan ALL directories under /proc/device-tree/ for Fusion HAT UUID
+    expected_hex = f"{PRODUCT_ID:04X}"
     hat_dir = None
-    hat_entries = []
+    found_hats = []
     for entry in os.listdir(HAT_DEVICE_TREE):
-        if "hat" in entry.lower():
-            hat_entries.append(entry)
-            candidate = os.path.join(HAT_DEVICE_TREE, entry)
-            if os.path.isdir(candidate):
+        candidate = os.path.join(HAT_DEVICE_TREE, entry)
+        uuid_path = os.path.join(candidate, "uuid")
+        if not os.path.isdir(candidate) or not os.path.isfile(uuid_path):
+            continue
+        try:
+            with open(uuid_path, "rb") as f:
+                raw = f.read().rstrip(b"\x00")
+            raw_uuid = raw.decode("utf-8", errors="replace").strip()
+            found_hats.append((entry, raw_uuid))
+            parts = raw_uuid.split("-")
+            if len(parts) >= 3 and parts[2].upper() == expected_hex:
                 hat_dir = candidate
+                result["hat_dir"] = hat_dir
+                result["uuid_file"] = True
+                result["uuid_value"] = raw_uuid
+                result["detected"] = True
+                result["product_id_match"] = True
+                result["product_id_found"] = f"0x{PRODUCT_ID:04X}"
+                steps.append({
+                    "step": "device-tree hat directory",
+                    "ok": True,
+                    "detail": f"Found Fusion HAT at {hat_dir} (UUID={raw_uuid})",
+                })
+                # Read vendor / product strings
+                for field, label in [("vendor", "Vendor"), ("product", "Product")]:
+                    p = os.path.join(hat_dir, field)
+                    if os.path.isfile(p):
+                        try:
+                            with open(p, "rb") as f2:
+                                val = f2.read().rstrip(b"\x00").decode("utf-8", errors="replace").strip()
+                            result[f"{field}_found"] = val
+                            steps.append({"step": f"{field} string", "ok": True, "detail": f"{label} = {val}"})
+                        except Exception:
+                            pass
                 break
+        except Exception:
+            continue
 
-    if hat_dir is None:
-        steps.append({
-            "step": "device-tree hat directory",
-            "ok": False,
-        })
-        return result
-
-    result["hat_dir"] = hat_dir
-    steps.append({
-        "step": "device-tree hat directory",
-        "ok": True,
-        "detail": f"Found: {hat_dir}",
-    })
-
-    # Step 2 — read the uuid file
-    uuid_path = os.path.join(hat_dir, "uuid")
-    if not os.path.exists(uuid_path) or not os.path.isfile(uuid_path):
-        steps.append({
-            "step": "uuid file",
-            "ok": False,
-            "detail": f"uuid file not found at {uuid_path}",
-        })
-        return result
-
-    result["uuid_file"] = True
-    raw_uuid = ""
-    try:
-        with open(uuid_path, "rb") as f:
-            raw = f.read()
-        raw_uuid = raw.rstrip(b"\x00").decode("utf-8", errors="replace").strip()
-        result["uuid_value"] = raw_uuid
-    except Exception as e:
-        steps.append({
-            "step": "uuid file",
-            "ok": False,
-            "detail": f"Cannot read {uuid_path}: {e}",
-        })
-        return result
-
-    steps.append({
-        "step": "uuid file",
-        "ok": True,
-        "detail": f"UUID = {raw_uuid}",
-    })
-
-    # Step 3 — parse and validate product_id
-    parts = raw_uuid.split("-")
-    if len(parts) < 3:
-        steps.append({
-            "step": "product_id check",
-            "ok": False,
-            "detail": f"UUID has unexpected format (expected 3+ dash-separated segments, got {len(parts)}): {raw_uuid}",
-        })
-        return result
-
-    try:
-        product_id = int(parts[2], 16)
-        result["product_id_found"] = f"0x{product_id:04X}"
-        if product_id == PRODUCT_ID:
-            result["product_id_match"] = True
-            result["detected"] = True
+    if not result["detected"]:
+        if found_hats:
+            names = [n for n, _ in found_hats]
             steps.append({
-                "step": "product_id check",
-                "ok": True,
-                "detail": f"product_id=0x{product_id:04X} matches expected 0x{PRODUCT_ID:04X}",
-            })
-        else:
-            result["product_id_match"] = False
-            steps.append({
-                "step": "product_id check",
+                "step": "device-tree hat directory",
                 "ok": False,
                 "detail": (
-                    f"product_id mismatch: expected 0x{PRODUCT_ID:04X}, "
-                    f"got 0x{product_id:04X}"
+                    f"No Fusion HAT found. Detected other HAT(s): {', '.join(names)}. "
+                    f"Expected product_id=0x{expected_hex}."
                 ),
             })
-    except ValueError:
-        steps.append({
-            "step": "product_id check",
-            "ok": False,
-            "detail": f"Cannot parse product_id from UUID segment '{parts[2]}'",
-        })
-        return result
-
-    # Step 4 — parse product_ver from UUID
-    if len(parts) >= 4:
-        try:
-            product_ver = int(parts[3], 16)
-            result["product_ver_found"] = f"0x{product_ver:04X}"
+        else:
             steps.append({
-                "step": "product_ver check",
-                "ok": product_ver == PRODUCT_VER,
-                "detail": (
-                    f"product_ver=0x{product_ver:04X}"
-                    + (f" (matches)" if product_ver == PRODUCT_VER else
-                       f" (expected 0x{PRODUCT_VER:04X})")
-                ),
+                "step": "device-tree hat directory",
+                "ok": False,
+                "detail": "No HAT device-tree entries found.",
             })
-        except ValueError:
-            pass
-
-    # Step 5 — read optional vendor / product strings
-    for field, label in [("vendor", "Vendor"), ("product", "Product")]:
-        p = os.path.join(hat_dir, field)
-        if os.path.isfile(p):
-            try:
-                with open(p, "rb") as f:
-                    val = f.read().rstrip(b"\x00").decode("utf-8", errors="replace").strip()
-                result[f"{field}_found"] = val
-                steps.append({"step": f"{field} string", "ok": True, "detail": f"{label} = {val}"})
-            except Exception:
-                pass
-
-    return result
+        return result
 
 
 def _detect_eeprom_addr() -> int | None:
@@ -297,7 +236,10 @@ def _detect_eeprom_addr() -> int | None:
     from ._utils import run_command
 
     if not os.path.exists("/dev/i2c-9"):
-        os.system("sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null")
+        run_command(
+            "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>/dev/null",
+            timeout=EEPROM_SCAN_TIMEOUT,
+        )
         # The device node may take a moment to appear after dtoverlay
         for _ in range(10):
             if os.path.exists("/dev/i2c-9"):
@@ -306,7 +248,8 @@ def _detect_eeprom_addr() -> int | None:
         if not os.path.exists("/dev/i2c-9"):
             return None
 
-    _, out = run_command("i2cdetect -y 9 0x50 0x53 2>/dev/null")
+    _, out = run_command("i2cdetect -y 9 0x50 0x53 2>/dev/null",
+                          timeout=EEPROM_SCAN_TIMEOUT)
     for line in out.split("\n"):
         stripped = line.strip()
         if stripped.startswith("50:") or stripped.startswith("50 "):
@@ -365,6 +308,34 @@ def is_eeprom_readable() -> tuple:
     return (False, False)
 
 
+EEPROM_SCAN_TIMEOUT = 5  # seconds — i2cdetect hangs when HAT addresses conflict
+
+import threading as _threading
+
+def _run_func_with_timeout(func, timeout: float, *args, **kwargs):
+    """Run *func* in a daemon thread, return its result or None on timeout.
+
+    When the timeout fires the thread continues running in the background
+    (Python cannot forcibly kill threads), so this should only be used for
+    diagnostic functions where a stale worker is acceptable.
+    """
+    result = [None]
+    done = [False]
+
+    def _target():
+        try:
+            result[0] = func(*args, **kwargs)
+        finally:
+            done[0] = True
+
+    t = _threading.Thread(target=_target, daemon=True)
+    t.start()
+    t.join(timeout)
+    if not done[0]:
+        return None  # timeout
+    return result[0]
+
+
 def _check_eeprom_direct_detail() -> dict:
     """Check the EEPROM chip directly via bit-banged I2C bus 9 — with step-by-step detail.
 
@@ -413,7 +384,8 @@ def _check_eeprom_direct_detail() -> dict:
     # ── Step 1: ensure /dev/i2c-9 exists ──
     if not os.path.exists("/dev/i2c-9"):
         _, err = run_command(
-            "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1"
+            "sudo dtoverlay i2c-gpio i2c_gpio_sda=0 i2c_gpio_scl=1 bus=9 2>&1",
+            timeout=EEPROM_SCAN_TIMEOUT,
         )
         # The device node may take a moment to appear after dtoverlay
         for _ in range(10):
@@ -455,7 +427,8 @@ def _check_eeprom_direct_detail() -> dict:
         })
         return result
 
-    _, out = run_command("i2cdetect -y 9 0x50 0x53 2>/dev/null")
+    _, out = run_command("i2cdetect -y 9 0x50 0x53 2>/dev/null",
+                          timeout=EEPROM_SCAN_TIMEOUT)
     addr = None
     raw_50_line = ""
     for line in out.split("\n"):
@@ -497,13 +470,14 @@ def _check_eeprom_direct_detail() -> dict:
     result["present"] = True
     data = b""
     try:
-        os.system("sudo modprobe at24 2>/dev/null")
+        run_command("sudo modprobe at24 2>/dev/null", timeout=EEPROM_SCAN_TIMEOUT)
         dev_path = "/sys/class/i2c-dev/i2c-9/device"
         eeprom_path = f"{dev_path}/9-00{addr:02x}/eeprom"
 
         if not os.path.isfile(eeprom_path):
             _, reg_out = run_command(
-                f"echo 24c32 0x{addr:02x} | sudo tee {dev_path}/new_device 2>&1"
+                f"echo 24c32 0x{addr:02x} | sudo tee {dev_path}/new_device 2>&1",
+                timeout=EEPROM_SCAN_TIMEOUT,
             )
             if not os.path.isfile(eeprom_path):
                 steps.append({
@@ -518,9 +492,11 @@ def _check_eeprom_direct_detail() -> dict:
 
         tmp = tempfile.mkdtemp(prefix="eeprom_read_")
         dump = os.path.join(tmp, "eeprom.bin")
-        run_command(f"sudo dd if={eeprom_path} of={dump} bs=4096 count=1 2>/dev/null")
+        run_command(f"sudo dd if={eeprom_path} of={dump} bs=4096 count=1 2>/dev/null",
+                    timeout=EEPROM_SCAN_TIMEOUT)
         run_command(
-            f"echo 0x{addr:02x} | sudo tee {dev_path}/delete_device > /dev/null 2>&1"
+            f"echo 0x{addr:02x} | sudo tee {dev_path}/delete_device > /dev/null 2>&1",
+            timeout=EEPROM_SCAN_TIMEOUT,
         )
 
         if not os.path.isfile(dump) or os.path.getsize(dump) <= 4:
@@ -568,7 +544,8 @@ def _check_eeprom_direct_detail() -> dict:
     try:
         ref_tmp = tempfile.mkdtemp(prefix="eeprom_ref_")
         ref_file = os.path.join(ref_tmp, "reference.eep")
-        _, _ = run_command(f"wget -q -O {ref_file} {EEPROM_REF_URL} 2>&1")
+        _, _ = run_command(f"wget -q -O {ref_file} {EEPROM_REF_URL} 2>&1",
+                           timeout=EEPROM_SCAN_TIMEOUT)
 
         if os.path.isfile(ref_file) and os.path.getsize(ref_file) > 0:
             with open(ref_file, "rb") as f:
@@ -622,26 +599,72 @@ def _check_eeprom_direct_detail() -> dict:
                     "detail": "\n".join(lines),
                 })
         else:
-            # Can't download reference — accept non-blank as valid
-            result["valid"] = True
+            # Can't download reference — do local sanity check
+            expected_str = b"sunfounder"
+            fusion_str = b"fusion"
+            uuid_seg = UUID.split("-")[2].encode()  # "0774"
+            data_lower = data.lower()
+            looks_ok = (
+                expected_str in data_lower
+                and (fusion_str in data_lower or uuid_seg in data)
+            )
+            result["valid"] = looks_ok
             result["data_matches_ref"] = None
-            steps.append({
-                "step": "Verify EEPROM content",
-                "ok": True,
-                "detail": (
-                    "Cannot download reference binary for comparison. "
-                    "Accepting non-blank data as valid."
-                ),
-            })
+
+            hex_lines = []
+            dump_limit = min(len(data), 128)
+            hex_lines.append(f"Read data (first {dump_limit} of {len(data)} bytes):")
+            for offset in range(0, dump_limit, 16):
+                chunk = data[offset:offset + 16]
+                hx = " ".join(f"{b:02X}" for b in chunk)
+                asc = "".join(chr(b) if 32 <= b < 127 else "." for b in chunk)
+                hex_lines.append(f"  {offset:04X}: {hx:<47s} {asc}")
+
+            if looks_ok:
+                steps.append({
+                    "step": "Verify EEPROM content",
+                    "ok": True,
+                    "detail": (
+                        "Cannot download reference, but data contains expected "
+                        f"strings (sunfounder or UUID segment).\n" + "\n".join(hex_lines)
+                    ),
+                })
+            else:
+                steps.append({
+                    "step": "Verify EEPROM content",
+                    "ok": False,
+                    "detail": (
+                        "Cannot download reference for full comparison. "
+                        "Data does NOT contain expected strings — "
+                        "likely NOT Fusion HAT EEPROM data.\n"
+                        + "\n".join(hex_lines)
+                    ),
+                })
     except Exception as e:
-        result["valid"] = True
+        # Exception during comparison — do local sanity check
+        expected_str = b"sunfounder"
+        uuid_seg = UUID.split("-")[2].encode()
+        looks_ok = (expected_str in data.lower() or uuid_seg in data)
+        result["valid"] = looks_ok
         result["data_matches_ref"] = None
+
+        hex_lines = []
+        dump_limit = min(len(data), 128)
+        hex_lines.append(f"Read data (first {dump_limit} of {len(data)} bytes):")
+        for offset in range(0, dump_limit, 16):
+            chunk = data[offset:offset + 16]
+            hx = " ".join(f"{b:02X}" for b in chunk)
+            asc = "".join(chr(b) if 32 <= b < 127 else "." for b in chunk)
+            hex_lines.append(f"  {offset:04X}: {hx:<47s} {asc}")
+
         steps.append({
             "step": "Verify EEPROM content",
-            "ok": True,
+            "ok": looks_ok,
             "detail": (
-                f"Reference comparison skipped ({e}). "
-                "Accepting non-blank data as valid."
+                f"Reference comparison failed ({e}). "
+                + ("Data looks like Fusion HAT EEPROM." if looks_ok
+                   else "Data does NOT look like Fusion HAT EEPROM.")
+                + "\n" + "\n".join(hex_lines)
             ),
         })
 
@@ -697,33 +720,117 @@ def is_connected():
 def raise_if_fusion_hat_not_ready() -> bool:
     """ Check if Fusion HAT is ready
 
+    Checks whether the sysfs interface exists (driver loaded and working).
+    If not, prompts the user to run ``fusion_hat doctor`` to diagnose and fix.
+
     Returns:
         bool: True if ready
     """
-    if not is_detected():
-        raise IOError(
-            "Fusion Hat not detected. "
-            "Please ensure the hat is properly seated on the Raspberry Pi."
-        )
-
     if not is_driver_loaded():
         raise IOError(
-            "Fusion Hat driver not loaded. "
-            "Please ensure the Fusion Hat kernel module is installed properly."
+            "Fusion Hat driver not loaded (sysfs interface missing). "
+            "Run 'fusion_hat doctor' to diagnose and fix."
         )
-    
+
+def _find_config_txt() -> str:
+    """Locate the active Raspberry Pi config.txt file.
+
+    Returns:
+        str: path to config.txt (may not exist)
+    """
+    candidates = [
+        "/boot/firmware/config.txt",
+        "/boot/config.txt",
+    ]
+    for p in candidates:
+        if os.path.isfile(p):
+            return p
+    return candidates[0]  # default for Bookworm
+
+
+def _has_dtoverlay() -> bool:
+    """Check if dtoverlay=sunfounder-fusionhat is already in config.txt.
+
+    Returns:
+        bool: True if the uncommented dtoverlay line exists
+    """
+    config = _find_config_txt()
+    if not os.path.isfile(config):
+        return False
+    try:
+        with open(config, "r") as f:
+            for line in f:
+                stripped = line.strip()
+                if f"dtoverlay={DTOVERLAY_NAME}" in stripped and not stripped.startswith("#"):
+                    return True
+    except Exception:
+        pass
+    return False
+
+
+def _add_dtoverlay() -> bool:
+    """Append dtoverlay=sunfounder-fusionhat to config.txt if not present.
+
+    Uses sudo tee -a since /boot/firmware/config.txt requires root.
+
+    Returns:
+        bool: True if the line was added or already present
+    """
+    from ._utils import run_command
+
+    config = _find_config_txt()
+    if not os.path.isfile(config):
+        return False
+    if _has_dtoverlay():
+        return True
+    try:
+        line = f"dtoverlay={DTOVERLAY_NAME}"
+        run_command(
+            f"echo '{line}' | sudo tee -a {config} > /dev/null 2>&1",
+            timeout=10,
+        )
+        return _has_dtoverlay()
+    except Exception:
+        return False
+
+
+def _remove_dtoverlay() -> bool:
+    """Remove dtoverlay=sunfounder-fusionhat from config.txt.
+
+    Uses sudo sed since the file requires root.
+
+    Returns:
+        bool: True if the line was removed or not present
+    """
+    from ._utils import run_command
+
+    config = _find_config_txt()
+    if not os.path.isfile(config):
+        return False
+    if not _has_dtoverlay():
+        return True
+    try:
+        run_command(
+            f"sudo sed -i '/^dtoverlay={DTOVERLAY_NAME}/d' {config}",
+            timeout=10,
+        )
+        return not _has_dtoverlay()
+    except Exception:
+        return False
+
+
 def doctor() -> dict:
     """Comprehensive driver and hardware health check.
 
-    Checks HAT device-tree detection, EEPROM chip (direct I2C), kernel
-    module file, DKMS registration, module load state, sysfs interface,
-    and onboard MCU I2C presence at 0x17.
+    Two-phase approach:
+    1. Quick check — sysfs, module, I2C MCU. If all pass, skip deep checks.
+    2. Deep diagnostic — only when quick check fails: EEPROM, device-tree,
+       dtoverlay, module file, DKMS, dmesg.
 
     Returns:
         dict with keys: detected, i2c_enabled, eeprom_present, eeprom_valid,
-        module_file, dkms_status, module_loaded, sysfs, i2c_0x17, overall,
-        plus *hat_detail* and *eeprom_detail* sub-dicts that record every
-        diagnostic step so callers can explain exactly *why* a check failed.
+        module_file, dkms_status, module_loaded, sysfs, i2c_0x17, dtoverlay,
+        overall, plus *hat_detail* and *eeprom_detail* sub-dicts.
     """
     import platform
     from ._utils import run_command
@@ -733,33 +840,37 @@ def doctor() -> dict:
         "i2c_enabled": False,
         "eeprom_present": False,
         "eeprom_valid": False,
+        "dtoverlay": False,
         "module_file": False,
         "dkms_status": "",
         "module_loaded": False,
         "sysfs": False,
         "i2c_0x17": False,
         "overall": True,
-        # Detailed sub-diagnostics
+        "deep_scan": False,  # True when deep diagnostic ran
         "hat_detail": None,
         "eeprom_detail": None,
     }
 
-    # 1. HAT device-tree detection (detailed)
-    hat_detail = _detect_hat_detail()
-    result["hat_detail"] = hat_detail
-    result["detected"] = hat_detail["detected"]
+    # ── Phase 1: Quick health check ──
+    result["sysfs"] = is_driver_loaded()
+    result["module_loaded"] = os.path.exists("/sys/module/fusion_hat")
 
-    # 1a. I2C enabled?
-    result["i2c_enabled"] = os.path.exists("/dev/i2c-1")
+    # I2C 0x17 — onboard MCU (fast — main I2C bus)
+    try:
+        _, i2c_out = run_command("sudo i2cdetect -y 1 0x10 0x1f 2>/dev/null",
+                                   timeout=EEPROM_SCAN_TIMEOUT)
+        if i2c_out.strip():
+            for line in i2c_out.strip().split("\n"):
+                if line.startswith("10:"):
+                    entries = line[3:].strip().split()
+                    if len(entries) > 7 and entries[7] in ("17", "UU"):
+                        result["i2c_0x17"] = True
+                    break
+    except Exception:
+        pass
 
-    # 1b. If device-tree didn't pick it up, check the chip directly via I2C
-    if not result["detected"]:
-        eeprom_detail = _check_eeprom_direct_detail()
-        result["eeprom_detail"] = eeprom_detail
-        result["eeprom_present"] = eeprom_detail["present"]
-        result["eeprom_valid"] = eeprom_detail["valid"]
-
-    # 2. Module .ko file installed (check .ko and .ko.xz in standard paths)
+    # Module file — quick check
     kv = platform.uname().release
     ko_paths = [
         f"/lib/modules/{kv}/extra/fusion_hat.ko",
@@ -770,7 +881,61 @@ def doctor() -> dict:
     ]
     result["module_file"] = any(os.path.exists(p) for p in ko_paths)
 
-    # 3. DKMS registration
+    result["overall"] = all([
+        result["module_file"],
+        result["module_loaded"],
+        result["sysfs"],
+        result["i2c_0x17"],
+    ])
+
+    # If all quick checks pass, skip deep diagnostic
+    if result["overall"]:
+        return result
+
+    # ── Phase 2: Deep diagnostic (driver not working) ──
+    result["deep_scan"] = True
+
+    # I2C enabled?
+    result["i2c_enabled"] = os.path.exists("/dev/i2c-1")
+
+    # Device-tree detection (fast — reads /proc/device-tree)
+    hat_detail = _detect_hat_detail()
+    result["hat_detail"] = hat_detail
+    result["detected"] = hat_detail["detected"]
+
+    # If device-tree didn't pick it up, check the chip directly via I2C
+    # (with timeout — I2C hangs when multiple HATs conflict on the bus)
+    if not result["detected"]:
+        eeprom_detail = _run_func_with_timeout(
+            _check_eeprom_direct_detail, EEPROM_SCAN_TIMEOUT + 5
+        )
+        if eeprom_detail is None:
+            result["eeprom_detail"] = {
+                "present": False,
+                "valid": False,
+                "timed_out": True,
+                "scan_raw": None,
+                "steps": [{
+                    "step": "EEPROM scan",
+                    "ok": False,
+                    "detail": (
+                        f"Timed out after {EEPROM_SCAN_TIMEOUT + 5}s. "
+                        "Possible I2C address conflict (multiple HATs?). "
+                        "Use 'fusion_hat doctor --fix' to bypass EEPROM."
+                    ),
+                }],
+            }
+            result["eeprom_present"] = False
+            result["eeprom_valid"] = False
+        else:
+            result["eeprom_detail"] = eeprom_detail
+            result["eeprom_present"] = eeprom_detail["present"]
+            result["eeprom_valid"] = eeprom_detail["valid"]
+
+    # Check if dtoverlay is in config.txt (can bypass EEPROM)
+    result["dtoverlay"] = _has_dtoverlay()
+
+    # DKMS registration
     _, dkms_out = run_command("dkms status fusion_hat 2>/dev/null || true")
     if dkms_out.strip():
         result["dkms_status"] = dkms_out.strip()
@@ -781,44 +946,13 @@ def doctor() -> dict:
         else:
             result["dkms_status"] = "DKMS not installed"
 
-    # 4. Module loaded (check /sys/module/fusion_hat)
-    result["module_loaded"] = os.path.exists("/sys/module/fusion_hat")
-
-    # 5. sysfs interface
-    result["sysfs"] = is_driver_loaded()
-
-    # 6. I2C 0x17 — onboard MCU
-    result["i2c_0x17"] = False
-    try:
-        # Scan range covering the 0x10 row so i2cdetect emits -- placeholders
-        _, i2c_out = run_command("sudo i2cdetect -y 1 0x10 0x1f 2>/dev/null")
-        if i2c_out.strip():
-            for line in i2c_out.strip().split("\n"):
-                if line.startswith("10:"):
-                    entries = line[3:].strip().split()
-                    # entries[7] corresponds to address 0x17 (0x10 + 7)
-                    if len(entries) > 7 and entries[7] in ("17", "UU"):
-                        result["i2c_0x17"] = True
-                    break
-    except Exception:
-        pass
-
-    # 7. dmesg — look for HAT / EEPROM / I2C boot messages
+    # dmesg — look for HAT / EEPROM / I2C boot messages
     result["dmesg_hat"] = ""
     _, dmesg_out = run_command(
         "dmesg 2>/dev/null | grep -i -E 'hat|eeprom.*0x50|i2c.*error|fusionhat|i2c-0' | tail -20 || true"
     )
     if dmesg_out.strip():
         result["dmesg_hat"] = dmesg_out.strip()
-
-    # Overall pass: detected + module_file + module_loaded + sysfs + i2c_0x17
-    result["overall"] = all([
-        result["detected"],
-        result["module_file"],
-        result["module_loaded"],
-        result["sysfs"],
-        result["i2c_0x17"],
-    ])
 
     return result
 
@@ -859,14 +993,11 @@ def _find_driver_src() -> str:
 def doctor_fix() -> dict:
     """Run doctor and attempt to fix any issues found.
 
-    Fixable issues:
-    - EEPROM not detected: reflash EEPROM via update_eeprom()
-    - Module not loaded (but file present): ``modprobe fusion_hat``
-    - Module file missing (driver source found): ``make modules_install``
+    For hardware-level issues (EEPROM, device-tree) that need a reboot,
+    prompts the user with y/N.
 
     Returns:
-        dict with ``before`` (initial check), ``fixes`` (list of fix actions
-        attempted), ``after`` (final check), and ``fixed`` (bool).
+        dict with ``before``, ``fixes``, ``after``, ``fixed``.
     """
     from ._utils import run_command
 
@@ -874,55 +1005,84 @@ def doctor_fix() -> dict:
     fixes = []
 
     if before["overall"]:
-        return {"before": before, "fixes": fixes, "after": before, "fixed": True}
+        return {"before": before, "fixes": fixes, "after": before, "fixed": True, "reboot": False}
 
-    # Fix 1: I2C not enabled → enable it
+    eeprom_detail = before.get("eeprom_detail") or {}
+    eeprom_timed_out = eeprom_detail.get("timed_out", False)
+    eeprom_blank = eeprom_detail.get("data_is_blank", False)
+    eeprom_valid = before.get("eeprom_valid", False)
+    eeprom_present = before.get("eeprom_present", False)
+
+    # ── Hardware / device-tree fixes ──
+
+    # I2C not enabled
     if not before["i2c_enabled"]:
         fixes.append("enable I2C")
         run_command("sudo raspi-config nonint do_i2c 0 2>/dev/null")
         run_command("sudo modprobe i2c-dev 2>/dev/null")
 
-    # Fix 2: EEPROM not detected → reflash
-    if not before["detected"]:
-        ok = update_eeprom(erase=True)
-        if ok:
-            fixes.append("EEPROM reflashed — reboot required")
-        else:
-            fixes.append("EEPROM reflash failed")
-        after = doctor()
-        return {
-            "before": before,
-            "fixes": fixes,
-            "after": after,
-            "fixed": after["overall"],
-        }
-
-    # Fix 2: module loaded but sysfs missing → reload module
-    if before["module_loaded"] and not before["sysfs"]:
-        fixes.append("reload fusion_hat module")
-        run_command("sudo rmmod fusion_hat 2>/dev/null")
-        run_command("sudo modprobe fusion_hat 2>/dev/null")
-
-    # Fix 3: module file exists but not loaded → modprobe
-    if before["module_file"] and not before["module_loaded"]:
-        fixes.append("modprobe fusion_hat")
-        run_command("sudo modprobe fusion_hat 2>/dev/null")
-
-    # Fix 4: module file missing → try to install
+    # Module file missing → install
     if not before["module_file"]:
         driver_dir = _find_driver_src()
         if driver_dir:
             fixes.append(f"cd {driver_dir} && sudo make modules_install")
-            run_command(
-                f"cd {driver_dir} && sudo make modules_install 2>/dev/null"
-            )
+            run_command(f"cd {driver_dir} && sudo make modules_install 2>/dev/null")
             run_command("sudo depmod -a 2>/dev/null")
-            # Try loading after install
-            if not before["module_loaded"]:
-                fixes.append("modprobe fusion_hat (after install)")
-                run_command("sudo modprobe fusion_hat 2>/dev/null")
         else:
             fixes.append("driver source not found — cannot auto-install")
+
+    # ── EEPROM / device-tree branch ──
+    reboot = False
+    if not before["detected"]:
+        if eeprom_present and eeprom_valid:
+            fixes.append("EEPROM data valid — reboot to load device-tree")
+            reboot = True
+
+        elif eeprom_present and eeprom_blank:
+            update_eeprom(erase=True)
+            fixes.append("reflash EEPROM (was blank)")
+            reboot = True
+
+        elif eeprom_timed_out:
+            if not before["dtoverlay"]:
+                if _add_dtoverlay():
+                    fixes.append("added dtoverlay to bypass I2C conflict")
+                else:
+                    fixes.append("failed to add dtoverlay")
+            else:
+                fixes.append("dtoverlay already configured")
+            reboot = True
+
+        elif eeprom_present and not eeprom_valid:
+            fixes.append("EEPROM data mismatch — user must choose fix")
+
+        elif not eeprom_present:
+            if not before["dtoverlay"]:
+                if _add_dtoverlay():
+                    fixes.append("EEPROM not found — added dtoverlay as fallback")
+                else:
+                    fixes.append("EEPROM not found — failed to add dtoverlay")
+            else:
+                fixes.append("EEPROM not found — dtoverlay already configured")
+            if not before["module_loaded"]:
+                fixes.append("modprobe fusion_hat")
+                run_command("sudo modprobe fusion_hat 2>/dev/null")
+            reboot = True
+
+        if reboot:
+            return {"before": before, "fixes": fixes, "after": before, "fixed": False, "reboot": True}
+        return {"before": before, "fixes": fixes, "after": before, "fixed": False, "reboot": False}
+
+    # ── Driver-only fixes (device-tree is OK, just driver issues) ──
+
+    if not before["module_loaded"]:
+        fixes.append("modprobe fusion_hat")
+        run_command("sudo modprobe fusion_hat 2>/dev/null")
+
+    if before["module_loaded"] and not before["sysfs"]:
+        fixes.append("reload fusion_hat module")
+        run_command("sudo rmmod fusion_hat 2>/dev/null")
+        run_command("sudo modprobe fusion_hat 2>/dev/null")
 
     after = doctor()
     return {
@@ -930,7 +1090,191 @@ def doctor_fix() -> dict:
         "fixes": fixes,
         "after": after,
         "fixed": after["overall"],
+        "reboot": False,
     }
+
+def force_dt_overlay() -> bool:
+    """Force-add dtoverlay=sunfounder-fusionhat to config.txt.
+
+    This bypasses EEPROM detection entirely — useful when another HAT's
+    I2C address conflicts with the Fusion HAT EEPROM.
+
+    Returns:
+        bool: True if the line was added or already present
+    """
+    if _has_dtoverlay():
+        print("dtoverlay=sunfounder-fusionhat is already in config.txt.")
+        return True
+    if not _add_dtoverlay():
+        print("Failed to write config.txt. Check permissions.")
+        return False
+
+    print("Added dtoverlay=sunfounder-fusionhat to config.txt.")
+    return True
+
+
+def remove_dt_overlay() -> bool:
+    """Remove dtoverlay=sunfounder-fusionhat from config.txt.
+
+    Returns:
+        bool: True if the line was removed or not present
+    """
+    if not _has_dtoverlay():
+        print("dtoverlay=sunfounder-fusionhat is not in config.txt.")
+        return True
+    if _remove_dtoverlay():
+        print("Removed dtoverlay=sunfounder-fusionhat from config.txt.")
+        print("Run 'sudo reboot' if the HAT was previously working via this overlay.")
+        return True
+    print("Failed to update config.txt. Check permissions.")
+    return False
+
+
+def uninstall() -> bool:
+    """Uninstall Fusion HAT: driver, DKMS, overlay, config, Python package.
+
+    Removes: loaded module, DKMS registration + source, .ko files,
+    .dtbo overlay, dtoverlay from config.txt, bit-banged I2C bus,
+    and optionally the Python package.
+
+    Returns:
+        bool: True if uninstall succeeded (or nothing to do)
+    """
+    import platform
+    from ._utils import run_command
+
+    print("")
+    print("=" * 60)
+    print("  Fusion HAT Uninstall")
+    print("=" * 60)
+    print("")
+
+    kv = platform.uname().release
+    ok = True
+
+    # 1. Unload the module
+    print("  [1/7] Unloading kernel module...")
+    if os.path.exists("/sys/module/fusion_hat"):
+        _, out = run_command("sudo rmmod fusion_hat 2>&1")
+        if os.path.exists("/sys/module/fusion_hat"):
+            print(f"  [FAIL] Could not unload fusion_hat: {out.strip()}")
+            ok = False
+        else:
+            print("  [OK] fusion_hat module unloaded")
+    else:
+        print("  [OK] fusion_hat not loaded")
+
+    # 2. DKMS uninstall
+    print("  [2/7] Removing DKMS registration...")
+    _, dkms_status = run_command("dkms status fusion_hat 2>/dev/null || true")
+    if dkms_status.strip():
+        for line in dkms_status.strip().split("\n"):
+            ver = line.split("/")[1].split(",")[0].strip() if "/" in line else ""
+            if ver:
+                run_command(f"sudo dkms remove -m fusion_hat -v {ver} --all 2>/dev/null")
+        _, dkms_after = run_command("dkms status fusion_hat 2>/dev/null || true")
+        if not dkms_after.strip():
+            print("  [OK] DKMS registration removed")
+        else:
+            print(f"  [!] DKMS may still have entries: {dkms_after.strip()}")
+    else:
+        print("  [OK] Not registered with DKMS")
+
+    import glob as _glob
+    for dkms_dir in _glob.glob("/usr/src/fusion_hat-*"):
+        run_command(f"sudo rm -rf {dkms_dir} 2>/dev/null")
+
+    # 3. Remove module files
+    print("  [3/7] Removing kernel module files...")
+    ko_paths = [
+        f"/lib/modules/{kv}/extra/fusion_hat.ko",
+        f"/lib/modules/{kv}/updates/fusion_hat.ko",
+        f"/lib/modules/{kv}/extra/fusion_hat.ko.xz",
+        f"/lib/modules/{kv}/updates/fusion_hat.ko.xz",
+    ]
+    removed = 0
+    for p in ko_paths:
+        if os.path.isfile(p):
+            run_command(f"sudo rm -f {p} 2>/dev/null")
+            if not os.path.isfile(p):
+                removed += 1
+    run_command("sudo depmod -a 2>/dev/null")
+    print(f"  [OK] Removed {removed} module file(s)")
+
+    # 4. Remove dtbo from overlays
+    print("  [4/7] Removing device-tree overlay (.dtbo)...")
+    dtbo_name = "sunfounder-fusionhat.dtbo"
+    overlay_dirs = [
+        "/boot/firmware/overlays",
+        "/boot/overlays",
+    ]
+    dtbo_removed = False
+    for d in overlay_dirs:
+        p = os.path.join(d, dtbo_name)
+        if os.path.isfile(p):
+            run_command(f"sudo rm -f {p} 2>/dev/null")
+            dtbo_removed = True
+    print(f"  [OK] {'Removed' if dtbo_removed else 'Not found'}")
+
+    # 5. Remove dtoverlay from config.txt
+    print("  [5/7] Removing dtoverlay from config.txt...")
+    if _has_dtoverlay():
+        if _remove_dtoverlay():
+            print("  [OK] dtoverlay removed from config.txt")
+        else:
+            print("  [FAIL] Could not remove dtoverlay from config.txt")
+            ok = False
+    else:
+        print("  [OK] No dtoverlay in config.txt")
+
+    # 6. Remove bit-banged I2C bus (if any)
+    print("  [6/7] Removing I2C GPIO bus 9...")
+    if os.path.exists("/dev/i2c-9"):
+        run_command("sudo dtoverlay -r i2c-gpio 2>/dev/null", timeout=10)
+        if not os.path.exists("/dev/i2c-9"):
+            print("  [OK] /dev/i2c-9 removed")
+        else:
+            print("  [OK] /dev/i2c-9 still present (will clear on reboot)")
+    else:
+        print("  [OK] /dev/i2c-9 not present")
+
+    # 7. Uninstall Python package (optional)
+    print("  [7/7] Uninstall Python package...")
+    _, pip_out = run_command(
+        "pip show fusion-hat 2>/dev/null | grep -i location",
+        timeout=10,
+    )
+    if pip_out.strip():
+        try:
+            answer = input("  Uninstall fusion-hat Python package? (y/N): ").strip().lower()
+            if answer in ("y", "yes"):
+                _, out = run_command(
+                    "sudo pip uninstall -y fusion-hat 2>&1",
+                    timeout=30,
+                )
+                if "Successfully uninstalled" in out:
+                    print("  [OK] Python package uninstalled")
+                else:
+                    print(f"  [!] pip uninstall returned: {out.strip()[-120:]}")
+            else:
+                print("  [OK] Skipped")
+        except (KeyboardInterrupt, EOFError):
+            print("")
+            print("  [OK] Skipped")
+    else:
+        print("  [OK] Python package not found")
+
+    print("")
+    if ok:
+        print("  Uninstall complete. Reboot to fully clean up.")
+    else:
+        print("  Uninstall completed with some issues. Check output above.")
+    print("")
+    print("=" * 60)
+    print("")
+
+    return ok
+
 
 def require_fusion_hat(func: Callable[..., Any]) -> Callable[..., Any]:
     """ Decorator to require Fusion HAT

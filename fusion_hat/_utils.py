@@ -41,16 +41,24 @@ def command_exists(cmd: str) -> bool:
     except subprocess.CalledProcessError:
         return False
 
-def run_command(cmd: str) -> tuple:
+def run_command(cmd: str, timeout: float | None = None) -> tuple:
     """ Run command and return status and output
 
     Args:
         cmd (str): command to run
+        timeout (float | None): timeout in seconds, None for no timeout
 
     Returns:
-        tuple: status, output
+        tuple: status, output. On timeout, returns (124, "timed out after Ns")
     """
     import subprocess
+    if timeout is not None:
+        try:
+            r = subprocess.run(
+                cmd, shell=True, capture_output=True, timeout=timeout)
+            return r.returncode, r.stdout.decode('utf-8', errors='replace')
+        except subprocess.TimeoutExpired:
+            return 124, f"timed out after {timeout}s"
     p = subprocess.Popen(
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     result = p.stdout.read().decode('utf-8')
