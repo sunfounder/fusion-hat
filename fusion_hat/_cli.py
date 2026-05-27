@@ -12,31 +12,18 @@ def disable_speaker():
     from .device import disable_speaker
     disable_speaker()
 
-def _get_volume():
-    """Get current ALSA volume for Fusion HAT, or None if unavailable."""
+def _get_pa_volume():
+    """Get current PulseAudio sink volume (first percentage), or None."""
     import re as _re
     import os as _os
-    card = "sndrpigooglevoi"
-    # Try each control name (same order as audio setup script)
-    for ctrl in ("Fusion Hat", "Fusion Hat Playback Volume", "Playback", "Master"):
-        try:
-            raw = _os.popen(
-                f"amixer -c {card} sget '{ctrl}' 2>/dev/null"
-            ).read()
-            m = _re.search(r"\[(\d+)%\]", raw)
-            if m:
-                return (ctrl, m.group(1))
-        except Exception:
-            pass
+    try:
+        raw = _os.popen("pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null").read()
+        m = _re.search(r"(\d+)%", raw)
+        if m:
+            return m.group(1)
+    except Exception:
+        pass
     return None
-
-
-def _set_volume(ctrl, vol):
-    """Set ALSA volume for Fusion HAT."""
-    import os as _os
-    _os.system(
-        f"amixer -c sndrpigooglevoi sset '{ctrl}' {vol}% 2>/dev/null"
-    )
 
 
 def test_speaker():
@@ -44,16 +31,16 @@ def test_speaker():
     import os as _os
     from .device import enable_speaker, disable_speaker
 
-    saved = _get_volume()
+    saved = _get_pa_volume()
 
     try:
         enable_speaker()
         if saved:
-            _set_volume(saved[0], 80)
+            _os.system("pactl set-sink-volume @DEFAULT_SINK@ 80% >/dev/null 2>/dev/null")
         _os.system("aplay -q /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null")
     finally:
         if saved:
-            _set_volume(saved[0], saved[1])
+            _os.system(f"pactl set-sink-volume @DEFAULT_SINK@ {saved}% >/dev/null 2>/dev/null")
         disable_speaker()
 
 def print_version():
