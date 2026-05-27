@@ -12,33 +12,48 @@ def disable_speaker():
     from .device import disable_speaker
     disable_speaker()
 
+def _get_volume():
+    """Get current ALSA volume for Fusion HAT, or None if unavailable."""
+    import re as _re
+    import os as _os
+    card = "sndrpigooglevoi"
+    # Try each control name (same order as audio setup script)
+    for ctrl in ("Fusion Hat Playback Volume", "Playback", "Master"):
+        try:
+            raw = _os.popen(
+                f"amixer -c {card} sget '{ctrl}' 2>/dev/null"
+            ).read()
+            m = _re.search(r"\[(\d+)%\]", raw)
+            if m:
+                return (ctrl, m.group(1))
+        except Exception:
+            pass
+    return None
+
+
+def _set_volume(ctrl, vol):
+    """Set ALSA volume for Fusion HAT."""
+    import os as _os
+    _os.system(
+        f"amixer -c sndrpigooglevoi sset '{ctrl}' {vol}% 2>/dev/null"
+    )
+
+
 def test_speaker():
     print(f"Test Fusion-HAT speaker.")
     import os as _os
-    import re as _re
     from .device import enable_speaker, disable_speaker
 
-    # Save current volume
-    current_vol = None
-    try:
-        raw = _os.popen(
-            "amixer -c sndrpigooglevoi sget 'Fusion Hat Playback Volume' 2>/dev/null"
-        ).read()
-        m = _re.search(r"\[(\d+)%\]", raw)
-        if m:
-            current_vol = m.group(1)
-    except Exception:
-        pass
+    saved = _get_volume()
 
     try:
         enable_speaker()
-        _os.system("amixer -c sndrpigooglevoi sset 'Fusion Hat Playback Volume' 80% 2>/dev/null")
+        if saved:
+            _set_volume(saved[0], 80)
         _os.system("aplay -q /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null")
     finally:
-        if current_vol is not None:
-            _os.system(
-                f"amixer -c sndrpigooglevoi sset 'Fusion Hat Playback Volume' {current_vol}% 2>/dev/null"
-            )
+        if saved:
+            _set_volume(saved[0], saved[1])
         disable_speaker()
 
 def print_version():
