@@ -12,14 +12,35 @@ def disable_speaker():
     from .device import disable_speaker
     disable_speaker()
 
+def _get_pa_volume():
+    """Get current PulseAudio sink volume (first percentage), or None."""
+    import re as _re
+    import os as _os
+    try:
+        raw = _os.popen("pactl get-sink-volume @DEFAULT_SINK@ 2>/dev/null").read()
+        m = _re.search(r"(\d+)%", raw)
+        if m:
+            return m.group(1)
+    except Exception:
+        pass
+    return None
+
+
 def test_speaker():
     print(f"Test Fusion-HAT speaker.")
     import os as _os
     from .device import enable_speaker, disable_speaker
+
+    saved = _get_pa_volume()
+
     try:
         enable_speaker()
+        if saved:
+            _os.system("pactl set-sink-volume @DEFAULT_SINK@ 80% >/dev/null 2>/dev/null")
         _os.system("aplay -q /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null")
     finally:
+        if saved:
+            _os.system(f"pactl set-sink-volume @DEFAULT_SINK@ {saved}% >/dev/null 2>/dev/null")
         disable_speaker()
 
 def print_version():
