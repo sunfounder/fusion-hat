@@ -27,6 +27,7 @@ dependencies = [
   "pyaudio",
   "spidev",
   "pyserial",
+  "argcomplete",
   "pillow",
   "pygame",
   "luma.led_matrix",

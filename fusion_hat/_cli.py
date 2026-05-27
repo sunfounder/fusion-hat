@@ -1,4 +1,5 @@
 
+# PYTHON_ARGCOMPLETE_OK
 import argparse
 
 def enable_speaker():
@@ -482,6 +483,13 @@ def main():
     parser.add_argument('--erase', action='store_true', help='erase EEPROM before flashing (update_eeprom only)')
     parser.add_argument('--erase-only', action='store_true', help='only erase EEPROM, do not flash (update_eeprom only, for testing)')
     parser.add_argument('--skip-test', action='store_true', help='skip speaker test (setup_speaker only)')
+
+    try:
+        import argcomplete
+        argcomplete.autocomplete(parser)
+    except ImportError:
+        pass
+
     args = parser.parse_args()
 
     if args.fix and args.option != "doctor":
