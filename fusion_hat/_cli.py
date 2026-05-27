@@ -458,20 +458,55 @@ def print_uninstall():
     uninstall()
 
 
+def _deprecated(old, new):
+    import sys
+    print(f"[WARN] '{old}' is deprecated, use '{new}' instead.", file=sys.stderr)
+
+
 def main():
     """ fusion_hat command line interface """
 
     parser = argparse.ArgumentParser(description='fusion_hat command line interface')
     sub = parser.add_subparsers(dest='option')
 
-    p = sub.add_parser('enable_speaker', help='Enable speaker')
-    p.set_defaults(_func=lambda a: enable_speaker())
+    # ── speaker subcommand group ──
+    speaker_parser = sub.add_parser('speaker', help='Speaker control')
+    speaker_sub = speaker_parser.add_subparsers(dest='speaker_action')
 
-    p = sub.add_parser('disable_speaker', help='Disable speaker')
-    p.set_defaults(_func=lambda a: disable_speaker())
+    sp = speaker_sub.add_parser('enable', help='Enable speaker')
+    sp.set_defaults(_func=lambda a: enable_speaker())
 
-    p = sub.add_parser('test_speaker', help='Test speaker')
-    p.set_defaults(_func=lambda a: test_speaker())
+    sp = speaker_sub.add_parser('disable', help='Disable speaker')
+    sp.set_defaults(_func=lambda a: disable_speaker())
+
+    sp = speaker_sub.add_parser('test', help='Test speaker')
+    sp.set_defaults(_func=lambda a: test_speaker())
+
+    sp = speaker_sub.add_parser('setup', help='Run audio setup')
+    sp.add_argument('--skip-test', action='store_true', help='skip speaker test')
+    sp.set_defaults(_func=lambda a: setup_speaker(skip_test=a.skip_test))
+
+    # ── deprecated speaker commands (top-level) ──
+    p = sub.add_parser('enable_speaker', help='[deprecated] use "speaker enable"')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('enable_speaker', 'speaker enable'), enable_speaker()
+    ))
+
+    p = sub.add_parser('disable_speaker', help='[deprecated] use "speaker disable"')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('disable_speaker', 'speaker disable'), disable_speaker()
+    ))
+
+    p = sub.add_parser('test_speaker', help='[deprecated] use "speaker test"')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('test_speaker', 'speaker test'), test_speaker()
+    ))
+
+    p = sub.add_parser('setup_speaker', help='[deprecated] use "speaker setup"')
+    p.add_argument('--skip-test', action='store_true', help='skip speaker test')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('setup_speaker', 'speaker setup'), setup_speaker(skip_test=a.skip_test)
+    ))
 
     p = sub.add_parser('version', help='Print library version')
     p.set_defaults(_func=lambda a: print_version())
@@ -494,10 +529,6 @@ def main():
     p.add_argument('--erase-only', action='store_true', help='only erase EEPROM, do not flash (for testing)')
     p.set_defaults(_func=lambda a: print_update_eeprom(erase=a.erase, erase_only=a.erase_only))
 
-    p = sub.add_parser('setup_speaker', help='Run audio setup')
-    p.add_argument('--skip-test', action='store_true', help='skip speaker test')
-    p.set_defaults(_func=lambda a: setup_speaker(skip_test=a.skip_test))
-
     p = sub.add_parser('force_dt_overlay', help='Force device-tree overlay')
     p.set_defaults(_func=lambda a: print_force_dt_overlay())
 
@@ -517,6 +548,10 @@ def main():
 
     if args.option is None:
         parser.print_help()
+        return
+
+    if args.option == 'speaker' and getattr(args, 'speaker_action', None) is None:
+        speaker_parser.print_help()
         return
 
     # Mutual exclusion validation
