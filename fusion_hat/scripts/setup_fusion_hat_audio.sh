@@ -414,7 +414,7 @@ install_soundcard_driver() {
 
             info "testing speaker ..."
             # test speaker
-            speaker-test -l3 -c 2 -t wav
+            aplay /usr/share/sounds/alsa/Front_Center.wav
         fi
     fi
 
