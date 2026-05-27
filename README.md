@@ -25,17 +25,13 @@ Install Fusion Hat
 curl -sSL https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/install-fusion-hat.sh | sudo bash
 ```
 
-After install finished, please reboot your Raspberry Pi. After reboot, run this command to enable audio:
+After install finished, please reboot your Raspberry Pi. After reboot, test the speaker:
 
 ```bash
-fusion_hat speaker setup
+fusion_hat speaker test
 ```
 
-Tab completion is enabled automatically. Open a new shell and try:
-
-```bash
-fusion_hat <TAB>
-```
+Tab completion is enabled automatically (open a new shell).
 
 ## CLI Commands
 
