@@ -14,11 +14,11 @@ def disable_speaker():
 
 def test_speaker():
     print(f"Test Fusion-HAT speaker.")
+    import os as _os
     from .device import enable_speaker, disable_speaker
-    from ._utils import run_command
     try:
         enable_speaker()
-        run_command("aplay /usr/share/sounds/alsa/Front_Center.wav")
+        _os.system("aplay /usr/share/sounds/alsa/Front_Center.wav")
     finally:
         disable_speaker()
 
@@ -373,16 +373,14 @@ def print_update_eeprom(erase: bool = False, erase_only: bool = False):
         print("Check the output above for details.")
 
 def setup_speaker(skip_test: bool = False):
-    from ._utils import run_command
-    import os
-    script = os.path.join(os.path.dirname(__file__), "scripts", "setup_fusion_hat_audio.sh")
-    if not os.path.isfile(script):
+    import os as _os
+    script = _os.path.join(_os.path.dirname(__file__), "scripts", "setup_fusion_hat_audio.sh")
+    if not _os.path.isfile(script):
         print(f"Script not found: {script}")
         return
     print("Setting up speaker...")
     args = "--skip-test" if skip_test else ""
-    status, output = run_command(f"sudo bash {script} {args} 2>&1")
-    print(output)
+    status = _os.system(f"sudo bash {script} {args}")
     if status is not None and status != 0:
         print(f"Setup speaker failed with exit code {status}.")
     else:
