@@ -25,7 +25,7 @@ Install Fusion Hat
 curl -sSL https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/install-fusion-hat.sh | sudo bash
 ```
 
-After install finished, please reboot your Raspberry Pi. After reboot, test the speaker:
+After installation, reboot when prompted. After reboot, test the speaker:
 
 ```bash
 fusion_hat speaker test
