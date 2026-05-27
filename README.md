@@ -28,8 +28,36 @@ curl -sSL https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scri
 After install finished, please reboot your Raspberry Pi. After reboot, run this command to enable audio:
 
 ```bash
-fusion_hat setup_speaker
+fusion_hat speaker setup
 ```
+
+Tab completion is enabled automatically. Open a new shell and try:
+
+```bash
+fusion_hat <TAB>
+```
+
+## CLI Commands
+
+```bash
+fusion_hat speaker enable       # Enable speaker
+fusion_hat speaker disable      # Disable speaker
+fusion_hat speaker test         # Test speaker with a sound
+fusion_hat speaker setup        # Run audio setup (--skip-test to skip speaker test)
+fusion_hat info                 # Show device info
+fusion_hat doctor               # Run hardware health checks
+fusion_hat doctor --fix         # Auto-repair driver issues
+fusion_hat update_eeprom        # Reflash HAT EEPROM
+fusion_hat update_eeprom --erase # Erase then flash EEPROM
+fusion_hat version              # Print library version
+fusion_hat update               # Self-update from git
+fusion_hat scan_i2c             # Scan I2C bus
+fusion_hat force_dt_overlay     # Force device-tree overlay
+fusion_hat remove_dt_overlay    # Remove device-tree overlay
+fusion_hat uninstall            # Uninstall driver and library
+```
+
+> **Deprecated:** Old speaker commands (`enable_speaker`, `disable_speaker`, `test_speaker`, `setup_speaker`) still work but will be removed in a future version. Use `speaker <action>` instead.
 
 ## Create docs
 
