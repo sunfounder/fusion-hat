@@ -32,11 +32,16 @@ fusion_hat doctor            # Run driver/hardware health checks
 fusion_hat doctor --fix      # Auto-repair (erase+reflash EEPROM, modprobe, etc.)
 fusion_hat update_eeprom     # Reflash HAT EEPROM (guides through hardware steps)
 fusion_hat update_eeprom --erase  # Erase EEPROM before flashing (clean write)
-fusion_hat setup_speaker     # Run audio setup (bundled script)
-fusion_hat setup_speaker --skip-test  # Setup without speaker test
+fusion_hat speaker setup     # Run audio setup (bundled script)
+fusion_hat speaker setup --skip-test  # Setup without speaker test
+fusion_hat speaker enable    # Enable speaker
+fusion_hat speaker disable   # Disable speaker
+fusion_hat speaker test      # Test speaker with Front_Center.wav
 fusion_hat version           # Print library version
 fusion_hat scan_i2c          # Scan I2C bus for devices
-fusion_hat enable_speaker|disable_speaker|test_speaker
+fusion_hat force_dt_overlay  # Force device-tree overlay
+fusion_hat remove_dt_overlay # Remove device-tree overlay
+fusion_hat uninstall         # Uninstall driver and library
 ```
 
 There is no test suite or linter configured in this repo.
@@ -120,3 +125,9 @@ EOF
 ```
 
 **Before pushing**: Verify the branch is clean (`git status`), commits are well-formed (`git log`), and changes are focused on the task. Don't push to `main` directly — always go through a branch.
+
+**Before opening a PR**, complete these steps:
+1. **Bump version** in `fusion_hat/_version.py` (semver: patch for fixes, minor for features)
+2. **Update README** if CLI commands, features, or behavior changed
+3. **Clean up** debug logs, stale comments, and dead code
+4. **Check CLAUDE.md** — update CLI command references if they changed
