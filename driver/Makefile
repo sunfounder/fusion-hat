@@ -43,9 +43,23 @@ OVERLAY_DIR := $(firstword $(wildcard $(OVERLAY_DIRS)))
 # DKMS source destination
 DKMS_SRC := /usr/src/fusion_hat-$(DRIVER_VERSION)
 
+# Check that kernel build directory is usable; auto-install headers if missing
+check_kdir = \
+	(if [ ! -f "$(KDIR)/Makefile" ]; then \
+		echo "  Kernel headers not found, installing..."; \
+		sudo apt install -y linux-headers-$$(uname -r) 2>/dev/null; \
+		if [ ! -f "$(KDIR)/Makefile" ]; then \
+			echo "ERROR: Failed to install kernel headers." >&2; \
+			echo "  Try manually: sudo apt install linux-headers-$$(uname -r)" >&2; \
+			exit 1; \
+		fi; \
+		echo "  Kernel headers installed."; \
+	fi)
+
 # Default target - Compile kernel module and device tree overlay
 all:
 	@echo "Building Fusion Hat driver and device tree overlay..."
+	@$(check_kdir)
 	$(MAKE) -C $(KDIR) M=$(PWD) modules
 	@echo "Compiling device tree overlay..."
 	$(DTC) -@ -I dts -O dtb -o $(DTBO_NAME) sunfounder-fusionhat-overlay.dts
@@ -54,7 +68,11 @@ all:
 # Clean target - Remove build artifacts
 clean:
 	@echo "Cleaning build files..."
-	$(MAKE) -C $(KDIR) M=$(PWD) clean
+	@if [ -f "$(KDIR)/Makefile" ]; then \
+		$(MAKE) -C $(KDIR) M=$(PWD) clean; \
+	else \
+		echo "  Skipping module clean (build directory not available)"; \
+	fi
 	rm -f $(DTBO_NAME)
 	rm -f Module.symvers Module.markers modules.order
 	@echo "Clean completed."
@@ -62,6 +80,7 @@ clean:
 # Modules install target - Install kernel module and ensure dependencies are loaded
 modules_install:
 	@echo "Installing kernel module..."
+	@$(check_kdir)
 	$(MAKE) -C $(KDIR) M=$(PWD) modules_install
 	@echo "Loading required IIO subsystem module..."
 	@sudo modprobe industrialio || echo "Warning: Failed to automatically load industrialio module. Please load it manually."
