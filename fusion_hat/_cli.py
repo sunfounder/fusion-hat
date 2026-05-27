@@ -18,7 +18,7 @@ def test_speaker():
     from ._utils import run_command
     try:
         enable_speaker()
-        run_command("speaker-test -l3 -c1 -t wav")
+        run_command("speaker-test -l3 -c2 -t wav")
     finally:
         disable_speaker()
 
