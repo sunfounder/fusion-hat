@@ -47,10 +47,21 @@ DKMS_SRC := /usr/src/fusion_hat-$(DRIVER_VERSION)
 check_kdir = \
 	(if [ ! -f "$(KDIR)/Makefile" ]; then \
 		echo "  Kernel headers not found, installing..."; \
-		sudo apt install -y linux-headers-$$(uname -r) 2>/dev/null; \
+		sudo apt install -y linux-headers-$$(uname -r) 2>/dev/null \
+		|| sudo apt install -y raspberrypi-kernel-headers 2>/dev/null \
+		|| true; \
 		if [ ! -f "$(KDIR)/Makefile" ]; then \
+			echo "" >&2; \
 			echo "ERROR: Failed to install kernel headers." >&2; \
-			echo "  Try manually: sudo apt install linux-headers-$$(uname -r)" >&2; \
+			echo "" >&2; \
+			echo "Try one of these:" >&2; \
+			echo "  sudo apt install linux-headers-$$(uname -r)" >&2; \
+			echo "  sudo apt install raspberrypi-kernel-headers" >&2; \
+			echo "" >&2; \
+			echo "If your kernel has a '+' suffix (rpi-update), a kernel" >&2; \
+			echo "version mismatch may require updating to a standard kernel:" >&2; \
+			echo "  sudo apt update && sudo apt full-upgrade && sudo reboot" >&2; \
+			echo "" >&2; \
 			exit 1; \
 		fi; \
 		echo "  Kernel headers installed."; \
