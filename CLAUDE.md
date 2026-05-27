@@ -131,3 +131,10 @@ EOF
 2. **Update README** if CLI commands, features, or behavior changed
 3. **Clean up** debug logs, stale comments, and dead code
 4. **Check CLAUDE.md** — update CLI command references if they changed
+
+**After merging a PR**, create a version tag:
+```
+git checkout main && git pull origin main
+git tag -a v<VERSION> -m "v<VERSION>"
+git push origin v<VERSION>
+```
