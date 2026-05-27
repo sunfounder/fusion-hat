@@ -18,7 +18,7 @@ def _get_volume():
     import os as _os
     card = "sndrpigooglevoi"
     # Try each control name (same order as audio setup script)
-    for ctrl in ("Fusion Hat Playback Volume", "Playback", "Master"):
+    for ctrl in ("Fusion Hat", "Fusion Hat Playback Volume", "Playback", "Master"):
         try:
             raw = _os.popen(
                 f"amixer -c {card} sget '{ctrl}' 2>/dev/null"
