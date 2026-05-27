@@ -1,4 +1,5 @@
 
+# PYTHON_ARGCOMPLETE_OK
 import argparse
 
 def enable_speaker():
@@ -13,11 +14,11 @@ def disable_speaker():
 
 def test_speaker():
     print(f"Test Fusion-HAT speaker.")
+    import os as _os
     from .device import enable_speaker, disable_speaker
-    from ._utils import run_command
     try:
         enable_speaker()
-        run_command("speaker-test -l3 -c2 -t wav")
+        _os.system("aplay -q /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null")
     finally:
         disable_speaker()
 
@@ -372,16 +373,14 @@ def print_update_eeprom(erase: bool = False, erase_only: bool = False):
         print("Check the output above for details.")
 
 def setup_speaker(skip_test: bool = False):
-    from ._utils import run_command
-    import os
-    script = os.path.join(os.path.dirname(__file__), "scripts", "setup_fusion_hat_audio.sh")
-    if not os.path.isfile(script):
+    import os as _os
+    script = _os.path.join(_os.path.dirname(__file__), "scripts", "setup_fusion_hat_audio.sh")
+    if not _os.path.isfile(script):
         print(f"Script not found: {script}")
         return
     print("Setting up speaker...")
     args = "--skip-test" if skip_test else ""
-    status, output = run_command(f"sudo bash {script} {args} 2>&1")
-    print(output)
+    status = _os.system(f"sudo bash {script} {args}")
     if status is not None and status != 0:
         print(f"Setup speaker failed with exit code {status}.")
     else:
@@ -457,49 +456,104 @@ def print_uninstall():
     uninstall()
 
 
+def _deprecated(old, new):
+    import sys
+    print(f"[WARN] '{old}' is deprecated, use '{new}' instead.", file=sys.stderr)
+
+
 def main():
     """ fusion_hat command line interface """
 
-    CHOICES = {
-        "enable_speaker": enable_speaker,
-        "disable_speaker": disable_speaker,
-        "test_speaker": test_speaker,
-        "version": print_version,
-        "update": update,
-        "scan_i2c": scan_i2c,
-        "info": print_info,
-        "doctor": print_doctor,
-        "update_eeprom": print_update_eeprom,
-        "setup_speaker": setup_speaker,
-        "force_dt_overlay": print_force_dt_overlay,
-        "remove_dt_overlay": print_remove_dt_overlay,
-        "uninstall": print_uninstall,
-    }
-
     parser = argparse.ArgumentParser(description='fusion_hat command line interface')
-    parser.add_argument('option', choices=CHOICES.keys(), help='option')
-    parser.add_argument('--fix', action='store_true', help='auto fix driver issues (doctor only)')
-    parser.add_argument('--erase', action='store_true', help='erase EEPROM before flashing (update_eeprom only)')
-    parser.add_argument('--erase-only', action='store_true', help='only erase EEPROM, do not flash (update_eeprom only, for testing)')
-    parser.add_argument('--skip-test', action='store_true', help='skip speaker test (setup_speaker only)')
+    sub = parser.add_subparsers(dest='option')
+
+    # ── speaker subcommand group ──
+    speaker_parser = sub.add_parser('speaker', help='Speaker control')
+    speaker_sub = speaker_parser.add_subparsers(dest='speaker_action')
+
+    sp = speaker_sub.add_parser('enable', help='Enable speaker')
+    sp.set_defaults(_func=lambda a: enable_speaker())
+
+    sp = speaker_sub.add_parser('disable', help='Disable speaker')
+    sp.set_defaults(_func=lambda a: disable_speaker())
+
+    sp = speaker_sub.add_parser('test', help='Test speaker')
+    sp.set_defaults(_func=lambda a: test_speaker())
+
+    sp = speaker_sub.add_parser('setup', help='Run audio setup')
+    sp.add_argument('--skip-test', action='store_true', help='skip speaker test')
+    sp.set_defaults(_func=lambda a: setup_speaker(skip_test=a.skip_test))
+
+    # ── deprecated speaker commands (top-level) ──
+    p = sub.add_parser('enable_speaker', help='[deprecated] use "speaker enable"')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('enable_speaker', 'speaker enable'), enable_speaker()
+    ))
+
+    p = sub.add_parser('disable_speaker', help='[deprecated] use "speaker disable"')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('disable_speaker', 'speaker disable'), disable_speaker()
+    ))
+
+    p = sub.add_parser('test_speaker', help='[deprecated] use "speaker test"')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('test_speaker', 'speaker test'), test_speaker()
+    ))
+
+    p = sub.add_parser('setup_speaker', help='[deprecated] use "speaker setup"')
+    p.add_argument('--skip-test', action='store_true', help='skip speaker test')
+    p.set_defaults(_func=lambda a: (
+        _deprecated('setup_speaker', 'speaker setup'), setup_speaker(skip_test=a.skip_test)
+    ))
+
+    p = sub.add_parser('version', help='Print library version')
+    p.set_defaults(_func=lambda a: print_version())
+
+    p = sub.add_parser('update', help='Self-update from git')
+    p.set_defaults(_func=lambda a: update())
+
+    p = sub.add_parser('scan_i2c', help='Scan I2C bus')
+    p.set_defaults(_func=lambda a: scan_i2c())
+
+    p = sub.add_parser('info', help='Show device info')
+    p.set_defaults(_func=lambda a: print_info())
+
+    p = sub.add_parser('doctor', help='Run hardware health checks')
+    p.add_argument('--fix', action='store_true', help='auto fix driver issues')
+    p.set_defaults(_func=lambda a: print_doctor(fix=a.fix))
+
+    p = sub.add_parser('update_eeprom', help='Reflash HAT EEPROM')
+    p.add_argument('--erase', action='store_true', help='erase EEPROM before flashing')
+    p.add_argument('--erase-only', action='store_true', help='only erase EEPROM, do not flash (for testing)')
+    p.set_defaults(_func=lambda a: print_update_eeprom(erase=a.erase, erase_only=a.erase_only))
+
+    p = sub.add_parser('force_dt_overlay', help='Force device-tree overlay')
+    p.set_defaults(_func=lambda a: print_force_dt_overlay())
+
+    p = sub.add_parser('remove_dt_overlay', help='Remove device-tree overlay')
+    p.set_defaults(_func=lambda a: print_remove_dt_overlay())
+
+    p = sub.add_parser('uninstall', help='Uninstall fusion-hat')
+    p.set_defaults(_func=lambda a: print_uninstall())
+
+    try:
+        import argcomplete
+        argcomplete.autocomplete(parser)
+    except ImportError:
+        pass
+
     args = parser.parse_args()
 
-    if args.fix and args.option != "doctor":
-        parser.error("--fix is only valid with 'doctor'")
-    if args.erase and args.option != "update_eeprom":
-        parser.error("--erase is only valid with 'update_eeprom'")
-    if args.erase_only and args.option != "update_eeprom":
-        parser.error("--erase-only is only valid with 'update_eeprom'")
-    if args.erase and args.erase_only:
-        parser.error("--erase and --erase-only cannot be used together")
-    if args.skip_test and args.option != "setup_speaker":
-        parser.error("--skip-test is only valid with 'setup_speaker'")
+    if args.option is None:
+        parser.print_help()
+        return
 
-    if args.option == "doctor":
-        CHOICES[args.option](fix=args.fix)
-    elif args.option == "update_eeprom":
-        CHOICES[args.option](erase=args.erase, erase_only=args.erase_only)
-    elif args.option == "setup_speaker":
-        CHOICES[args.option](skip_test=args.skip_test)
-    else:
-        CHOICES[args.option]()
+    if args.option == 'speaker' and getattr(args, 'speaker_action', None) is None:
+        speaker_parser.print_help()
+        return
+
+    # Mutual exclusion validation
+    if args.option == 'update_eeprom' and args.erase and args.erase_only:
+        parser.error('--erase and --erase-only cannot be used together')
+
+    args._func(args)
