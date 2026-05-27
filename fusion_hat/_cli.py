@@ -18,7 +18,7 @@ def test_speaker():
     from .device import enable_speaker, disable_speaker
     try:
         enable_speaker()
-        _os.system("aplay /usr/share/sounds/alsa/Front_Center.wav")
+        _os.system("aplay -q /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null")
     finally:
         disable_speaker()
 
