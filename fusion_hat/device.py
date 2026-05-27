@@ -1165,7 +1165,7 @@ def uninstall() -> bool:
     ok = True
 
     # 1. Unload the module
-    print("  [1/7] Unloading kernel module...")
+    print("  [1/6] Unloading kernel module...")
     if os.path.exists("/sys/module/fusion_hat"):
         _, out = run_command("sudo rmmod fusion_hat 2>&1")
         if os.path.exists("/sys/module/fusion_hat"):
@@ -1177,7 +1177,7 @@ def uninstall() -> bool:
         print("  [OK] fusion_hat not loaded")
 
     # 2. DKMS uninstall
-    print("  [2/7] Removing DKMS registration...")
+    print("  [2/6] Removing DKMS registration...")
     _, dkms_status = run_command("dkms status fusion_hat 2>/dev/null || true")
     if dkms_status.strip():
         for line in dkms_status.strip().split("\n"):
@@ -1197,7 +1197,7 @@ def uninstall() -> bool:
         run_command(f"sudo rm -rf {dkms_dir} 2>/dev/null")
 
     # 3. Remove module files
-    print("  [3/7] Removing kernel module files...")
+    print("  [3/6] Removing kernel module files...")
     ko_paths = [
         f"/lib/modules/{kv}/extra/fusion_hat.ko",
         f"/lib/modules/{kv}/updates/fusion_hat.ko",
@@ -1214,7 +1214,7 @@ def uninstall() -> bool:
     print(f"  [OK] Removed {removed} module file(s)")
 
     # 4. Remove dtbo from overlays
-    print("  [4/7] Removing device-tree overlay (.dtbo)...")
+    print("  [4/6] Removing device-tree overlay (.dtbo)...")
     dtbo_name = "sunfounder-fusionhat.dtbo"
     overlay_dirs = [
         "/boot/firmware/overlays",
@@ -1229,7 +1229,7 @@ def uninstall() -> bool:
     print(f"  [OK] {'Removed' if dtbo_removed else 'Not found'}")
 
     # 5. Remove dtoverlay from config.txt
-    print("  [5/7] Removing dtoverlay from config.txt...")
+    print("  [5/6] Removing dtoverlay from config.txt...")
     if _has_dtoverlay():
         if _remove_dtoverlay():
             print("  [OK] dtoverlay removed from config.txt")
@@ -1239,40 +1239,21 @@ def uninstall() -> bool:
     else:
         print("  [OK] No dtoverlay in config.txt")
 
-    # 6. Remove bit-banged I2C bus (if any)
-    print("  [6/7] Removing I2C GPIO bus 9...")
-    if os.path.exists("/dev/i2c-9"):
-        run_command("sudo dtoverlay -r i2c-gpio 2>/dev/null", timeout=10)
-        if not os.path.exists("/dev/i2c-9"):
-            print("  [OK] /dev/i2c-9 removed")
-        else:
-            print("  [OK] /dev/i2c-9 still present (will clear on reboot)")
-    else:
-        print("  [OK] /dev/i2c-9 not present")
-
-    # 7. Uninstall Python package (optional)
-    print("  [7/7] Uninstall Python package...")
+    # 6. Uninstall Python package
+    print("  [6/6] Uninstall Python package...")
     _, pip_out = run_command(
         "pip show fusion-hat 2>/dev/null | grep -i location",
         timeout=10,
     )
     if pip_out.strip():
-        try:
-            answer = input("  Uninstall fusion-hat Python package? (y/N): ").strip().lower()
-            if answer in ("y", "yes"):
-                _, out = run_command(
-                    "sudo pip uninstall -y fusion-hat 2>&1",
-                    timeout=30,
-                )
-                if "Successfully uninstalled" in out:
-                    print("  [OK] Python package uninstalled")
-                else:
-                    print(f"  [!] pip uninstall returned: {out.strip()[-120:]}")
-            else:
-                print("  [OK] Skipped")
-        except (KeyboardInterrupt, EOFError):
-            print("")
-            print("  [OK] Skipped")
+        _, out = run_command(
+            "sudo pip uninstall -y fusion-hat --break-system-packages 2>&1",
+            timeout=30,
+        )
+        if "Successfully uninstalled" in out:
+            print("  [OK] Python package uninstalled")
+        else:
+            print(f"  [!] pip uninstall returned: {out.strip()[-120:]}")
     else:
         print("  [OK] Python package not found")
 
