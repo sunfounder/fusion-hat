@@ -1,4 +1,5 @@
 #include <linux/module.h>
+#include <linux/version.h>
 #include <linux/i2c.h>
 #include <linux/kernel.h>
 #include <linux/platform_device.h>
