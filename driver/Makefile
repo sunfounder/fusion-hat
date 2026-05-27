@@ -43,23 +43,17 @@ OVERLAY_DIR := $(firstword $(wildcard $(OVERLAY_DIRS)))
 # DKMS source destination
 DKMS_SRC := /usr/src/fusion_hat-$(DRIVER_VERSION)
 
-# Check that kernel build directory is usable
+# Check that kernel build directory is usable; auto-install headers if missing
 check_kdir = \
-	(if [ ! -d "$(KDIR)" ]; then \
-		echo "ERROR: Kernel build directory not found: $(KDIR)" >&2; \
-		echo "" >&2; \
-		echo "Install kernel headers first:" >&2; \
-		echo "  sudo apt install linux-headers-$$(uname -r)" >&2; \
-		echo "" >&2; \
-		exit 1; \
-	elif [ ! -f "$(KDIR)/Makefile" ]; then \
-		echo "ERROR: Kernel build directory is incomplete: $(KDIR)" >&2; \
-		echo "The build symlink exists but the target is missing." >&2; \
-		echo "" >&2; \
-		echo "Reinstall kernel headers:" >&2; \
-		echo "  sudo apt install --reinstall linux-headers-$$(uname -r)" >&2; \
-		echo "" >&2; \
-		exit 1; \
+	(if [ ! -f "$(KDIR)/Makefile" ]; then \
+		echo "  Kernel headers not found, installing..."; \
+		sudo apt install -y linux-headers-$$(uname -r) 2>/dev/null; \
+		if [ ! -f "$(KDIR)/Makefile" ]; then \
+			echo "ERROR: Failed to install kernel headers." >&2; \
+			echo "  Try manually: sudo apt install linux-headers-$$(uname -r)" >&2; \
+			exit 1; \
+		fi; \
+		echo "  Kernel headers installed."; \
 	fi)
 
 # Default target - Compile kernel module and device tree overlay
