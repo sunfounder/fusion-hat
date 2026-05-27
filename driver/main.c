@@ -372,4 +372,8 @@ MODULE_DESCRIPTION("Fusion Hat Driver for Raspberry Pi");
 MODULE_VERSION(VERSION);
 
 // Module dependency declaration
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 13, 0)
+MODULE_IMPORT_NS("IIO");
+#else
 MODULE_IMPORT_NS(IIO);
+#endif
