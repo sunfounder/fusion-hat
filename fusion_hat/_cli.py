@@ -15,11 +15,30 @@ def disable_speaker():
 def test_speaker():
     print(f"Test Fusion-HAT speaker.")
     import os as _os
+    import re as _re
     from .device import enable_speaker, disable_speaker
+
+    # Save current volume
+    current_vol = None
+    try:
+        raw = _os.popen(
+            "amixer -c sndrpigooglevoi sget 'Fusion Hat Playback Volume' 2>/dev/null"
+        ).read()
+        m = _re.search(r"\[(\d+)%\]", raw)
+        if m:
+            current_vol = m.group(1)
+    except Exception:
+        pass
+
     try:
         enable_speaker()
+        _os.system("amixer -c sndrpigooglevoi sset 'Fusion Hat Playback Volume' 80% 2>/dev/null")
         _os.system("aplay -q /usr/share/sounds/alsa/Front_Center.wav 2>/dev/null")
     finally:
+        if current_vol is not None:
+            _os.system(
+                f"amixer -c sndrpigooglevoi sset 'Fusion Hat Playback Volume' {current_vol}% 2>/dev/null"
+            )
         disable_speaker()
 
 def print_version():
