@@ -138,3 +138,11 @@ git checkout main && git pull origin main
 git tag -a v<VERSION> -m "v<VERSION>"
 git push origin v<VERSION>
 ```
+
+**CRITICAL — PR and branch protection rules:**
+
+1. **NEVER push directly to main.** All changes go through a branch → PR → merge.
+2. **NEVER merge a PR without the user's explicit approval.** Present the PR link, wait for "merge" or "合并" before proceeding.
+3. **If branch protection blocks a merge**, do NOT remove protection yourself. Tell the user and let them decide. If the user explicitly instructs removal, remove protection → merge → **IMMEDIATELY re-add protection** before doing anything else.
+4. **After re-adding protection**, verify with `gh api repos/.../branches/main/protection`.
+5. **If a squash/rebase merge loses commits**, create a new branch and PR — do NOT push directly to main.
