@@ -71,7 +71,7 @@ def update():
     print("")
 
     # Pull
-    print("  [1/3] git pull...")
+    print("  [1/4] git pull...")
     _, out = run_command(f"cd {repo_dir} && git pull 2>&1")
     print(out)
     if "Already up to date" in out:
@@ -79,7 +79,7 @@ def update():
         return
 
     # Reinstall Python package
-    print("  [2/3] pip install...")
+    print("  [2/4] pip install...")
     _, out = run_command(
         f"cd {repo_dir} && sudo pip install . --break-system-packages --no-deps --no-build-isolation 2>&1"
     )
@@ -90,7 +90,7 @@ def update():
     # Build and install kernel driver
     driver_dir = _os.path.join(repo_dir, "driver")
     if _os.path.isdir(driver_dir) and _os.path.isfile(_os.path.join(driver_dir, "Makefile")):
-        print("  [3/3] sudo make install (driver)...")
+        print("  [3/4] sudo make install (driver)...")
         _, out = run_command(
             f"cd {driver_dir} && sudo make install 2>&1"
         )
@@ -100,7 +100,18 @@ def update():
             if line and ("Installing" in line or "completed" in line.lower() or "error" in line.lower() or "DKMS" in line):
                 print(f"  {line}")
     else:
-        print("  [3/3] Driver not found, skipping.")
+        print("  [3/4] Driver not found, skipping.")
+
+    # Add dtoverlay to config.txt
+    print("  [4/4] Configure dtoverlay in config.txt...")
+    from .device import _add_dtoverlay, _has_dtoverlay
+    if _has_dtoverlay():
+        print("  dtoverlay already configured.")
+    elif _add_dtoverlay():
+        print("  Added dtoverlay=sunfounder-fusionhat to config.txt.")
+        print("  Reboot to activate: sudo reboot")
+    else:
+        print("  [FAIL] Could not write to config.txt.")
 
     # Read new version from disk (current process still has old import)
     new_ver = __version__
@@ -136,8 +147,7 @@ def print_doctor(fix: bool = False):
     _os.system("sudo -v 2>/dev/null")
 
     if fix:
-        from fusion_hat.device import doctor_fix, force_dt_overlay, update_eeprom
-        import os as _os
+        from fusion_hat.device import doctor_fix
         result = doctor_fix()
         before = result["before"]
         after = result["after"]
@@ -152,40 +162,15 @@ def print_doctor(fix: bool = False):
 
         _show_doctor_result(before)
 
-        # Handle EEPROM mismatch — ask user which fix to apply
-        if fixes and "user must choose fix" in fixes[-1]:
-            fixes.pop()
-            print("  --- Choose fix ---")
-            print("")
-            print("  [1] Reflash EEPROM (only Fusion HAT installed)")
-            print("  [2] Force device-tree overlay (multiple HATs conflict)")
-            print("")
-            try:
-                choice = input("  Select (1 or 2): ").strip()
-                if choice == "1":
-                    print("")
-                    update_eeprom(erase=True)
-                    fixes.append("reflash EEPROM (erase + flash)")
-                    needs_reboot = True
-                elif choice == "2":
-                    print("")
-                    force_dt_overlay()  # prompts for reboot itself
-                    fixes.append("force dtoverlay to bypass EEPROM")
-                    needs_reboot = False
-                else:
-                    fixes.append("no action selected")
-            except (KeyboardInterrupt, EOFError):
-                print("")
-                fixes.append("cancelled")
-            print("")
-
         if fixes:
             print("  --- Fixes ---")
             for action in fixes:
                 print(f"  → {action}")
             print("")
 
-        if needs_reboot:
+        if after["overall"]:
+            print("  All checks pass now!")
+        elif needs_reboot:
             print("  A reboot is needed for changes to take effect.")
             try:
                 answer = input("  Reboot now? (y/N): ").strip().lower()
@@ -212,81 +197,38 @@ def print_doctor(fix: bool = False):
         _show_doctor_result(result)
 
         if not result["overall"]:
-            eeprom_detail = result.get("eeprom_detail") or {}
-            eeprom_timed_out = eeprom_detail.get("timed_out", False)
-            eeprom_valid = result.get("eeprom_valid", False)
-            eeprom_present = result.get("eeprom_present", False)
-            eeprom_blank = eeprom_detail.get("data_is_blank", False)
-            dtoverlay = result.get("dtoverlay", False)
+            from fusion_hat.device import DTOVERLAY_NAME
 
             B = "\033[1m"
             Y = "\033[33m"
             C = "\033[36m"
             R = "\033[0m"
 
+            dtoverlay = result.get("dtoverlay", False)
+
             if not result["detected"]:
                 print("")
-                if eeprom_timed_out:
+                if not dtoverlay:
                     print(f"  {B}══════════════════════════════════════════════{R}")
-                    print(f"  {B}EEPROM scan timed out — possible I2C conflict{R}")
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print("")
-                    print("  If you have multiple HATs installed, their EEPROM")
-                    print("  addresses may clash. Force the device-tree overlay")
-                    print("  to bypass EEPROM detection:")
-                    print("")
-                    print(f"      {C}fusion_hat force_dt_overlay{R}")
-                    print("")
-                elif not eeprom_present:
-                    print(f"  {Y}[!]{R} EEPROM chip not found on I2C bus.")
-                    print("      Check the HAT is properly seated on the GPIO header.")
-                    if not dtoverlay:
-                        print(f"      Or bypass: {C}fusion_hat force_dt_overlay{R}")
-                    print("")
-                elif eeprom_blank:
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print(f"  {B}EEPROM is blank — never programmed{R}")
+                    print(f"  {B}dtoverlay not configured in config.txt{R}")
                     print(f"  {B}══════════════════════════════════════════════{R}")
                     print("")
-                    print("  The EEPROM chip is empty (all 0xFF).")
+                    print(f"  Fusion HAT requires dtoverlay={DTOVERLAY_NAME}")
+                    print("  to be added to your /boot/firmware/config.txt.")
                     print("")
                     print(f"        {C}fusion_hat doctor --fix{R}")
                     print("")
-                elif not eeprom_valid:
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print(f"  {B}EEPROM data mismatch — not Fusion HAT data{R}")
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print("")
-                    print(f"  If you have {B}ONLY{R} Fusion HAT installed:")
-                    print("    -> The EEPROM data may be corrupted. Reflash it:")
-                    print("")
-                    print(f"        {C}fusion_hat update_eeprom --erase{R}")
-                    print("")
-                    print(f"  If you have {B}MULTIPLE{R} HATs installed:")
-                    print("    -> Their EEPROM I2C addresses likely conflict.")
-                    print("       Force the overlay to bypass EEPROM:")
-                    print("")
-                    print(f"        {C}fusion_hat force_dt_overlay{R}")
-                    print("")
-                elif not dtoverlay:
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print(f"  {B}EEPROM data is correct — reboot to apply{R}")
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print("")
-                    print("  The EEPROM has valid Fusion HAT data. The Pi needs")
-                    print("  a reboot to read it and create the device-tree entry.")
+                else:
+                    print(f"  {Y}[!]{R} dtoverlay is in config.txt but the kernel")
+                    print("      has not picked it up yet. A reboot may be needed.")
                     print("")
                     print(f"        {C}sudo reboot{R}")
                     print("")
-                else:
-                    print("  EEPROM OK, dtoverlay configured.")
-                    if not result["module_loaded"]:
-                        print(f"  -> Run: {C}sudo modprobe fusion_hat{R}")
-                    if not result["sysfs"]:
-                        print(f"  -> Run: {C}sudo reboot{R}")
-                    print("")
             else:
                 print("  Some checks failed.")
+                if not dtoverlay:
+                    print(f"  {Y}[!]{R} dtoverlay not in config.txt — run:")
+                    print(f"        {C}fusion_hat doctor --fix{R}")
                 if not result["module_file"]:
                     print("  -> Run: cd driver && sudo make install")
                 if not result["module_loaded"]:
@@ -300,10 +242,9 @@ def print_doctor(fix: bool = False):
             dmesg_hat = result.get("dmesg_hat", "")
             if dmesg_hat:
                 print("")
-                print("  dmesg (HAT/EEPROM/I2C):")
+                print("  dmesg (fusionhat/I2C):")
                 for line in dmesg_hat.strip().split("\n"):
                     print(f"    {line}")
-
 
         print("")
         print("=" * 50)
@@ -328,7 +269,7 @@ def _show_detail_steps(steps, indent="      "):
 
 def _show_doctor_result(result):
     """Render a single doctor result dict to stdout."""
-    from fusion_hat.device import DTOVERLAY_NAME, EEPROM_SCAN_TIMEOUT
+    from fusion_hat.device import DTOVERLAY_NAME
     GREEN = "\033[32m"
     RED = "\033[31m"
     RESET = "\033[0m"
@@ -356,20 +297,10 @@ def _show_doctor_result(result):
         print("      HAT device-tree check:")
         _show_detail_steps(hat_detail["steps"])
 
-    # EEPROM direct check
-    eeprom_detail = result.get("eeprom_detail")
-    if eeprom_detail:
-        if eeprom_detail.get("timed_out"):
-            print(f"      Direct EEPROM check: timed out (I2C bus conflict?)")
-        else:
-            eeprom_steps = eeprom_detail.get("steps", [])
-            print(f"      Direct EEPROM check (bus 9, GPIO 0/1, {EEPROM_SCAN_TIMEOUT}s timeout):")
-            _show_detail_steps(eeprom_steps)
-
     dtoverlay = result.get("dtoverlay", False)
     print(f"  {_icon(dtoverlay)} dtoverlay in config.txt ({DTOVERLAY_NAME})")
-    if not dtoverlay and not result["detected"]:
-        print("      Run 'fusion_hat force_dt_overlay' to bypass EEPROM.")
+    if not dtoverlay:
+        print(f"      Run 'fusion_hat doctor --fix' to add dtoverlay to config.txt.")
 
     # Module file + DKMS
     print(f"  {_icon(result['module_file'])} Module file")
@@ -382,16 +313,6 @@ def _show_doctor_result(result):
             print(f"  {GREEN}✓{RESET} DKMS: {lines[0]}")
 
     print("")
-
-def print_update_eeprom(erase: bool = False, erase_only: bool = False):
-    import os as _os
-    _os.system("sudo -v 2>/dev/null")
-    print("Update Fusion-HAT EEPROM.")
-    from .device import update_eeprom
-    success = update_eeprom(erase=erase, erase_only=erase_only)
-    if not success:
-        print("EEPROM update did not complete successfully.")
-        print("Check the output above for details.")
 
 def setup_speaker(skip_test: bool = False):
     import os as _os
@@ -543,11 +464,6 @@ def main():
     p.add_argument('--fix', action='store_true', help='auto fix driver issues')
     p.set_defaults(_func=lambda a: print_doctor(fix=a.fix))
 
-    p = sub.add_parser('update_eeprom', help='Reflash HAT EEPROM')
-    p.add_argument('--erase', action='store_true', help='erase EEPROM before flashing')
-    p.add_argument('--erase-only', action='store_true', help='only erase EEPROM, do not flash (for testing)')
-    p.set_defaults(_func=lambda a: print_update_eeprom(erase=a.erase, erase_only=a.erase_only))
-
     p = sub.add_parser('force_dt_overlay', help='Force device-tree overlay')
     p.set_defaults(_func=lambda a: print_force_dt_overlay())
 
@@ -572,9 +488,5 @@ def main():
     if args.option == 'speaker' and getattr(args, 'speaker_action', None) is None:
         speaker_parser.print_help()
         return
-
-    # Mutual exclusion validation
-    if args.option == 'update_eeprom' and args.erase and args.erase_only:
-        parser.error('--erase and --erase-only cannot be used together')
 
     args._func(args)
