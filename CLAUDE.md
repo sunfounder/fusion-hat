@@ -26,7 +26,7 @@ sphinx-apidoc -f -d 1 -e -M -P -T -o source/api ../fusion_hat
 
 **CLI commands (available via `fusion_hat` entry point):**
 ```bash
-fusion_hat update            # Self-update: git pull + pip install + dtoverlay
+fusion_hat update            # Self-update: runs installer script (curl | sudo bash)
 fusion_hat info              # Show device info, battery, button, speaker state
 fusion_hat doctor            # Live hardware health check (Driver + Audio sections)
 fusion_hat doctor --fix      # Auto-repair (add dtoverlay, modprobe, enable I2C)
