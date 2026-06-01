@@ -48,90 +48,20 @@ def print_version():
     print(f"Fusion HAT library version: {__version__}")
 
 def update():
-    """Update fusion-hat from git and reinstall."""
+    """Update fusion-hat by running the installer script."""
     import os as _os
-    from ._utils import run_command
     from ._version import __version__
 
-    # Find the repo directory (parent of the installed package)
-    repo_dir = _os.path.dirname(_os.path.dirname(__file__))
-    if not _os.path.isdir(_os.path.join(repo_dir, ".git")):
-        # Fallback: try standard locations
-        for d in ["/home/pi/fusion-hat", _os.path.expanduser("~/fusion-hat")]:
-            if _os.path.isdir(_os.path.join(d, ".git")):
-                repo_dir = d
-                break
-        else:
-            print("[FAIL] Cannot find fusion-hat git repository.")
-            print("  Clone it first: git clone https://github.com/sunfounder/fusion-hat ~/fusion-hat")
-            return
+    URL = "https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/main/install-fusion-hat.sh"
 
-    print(f"  Repository: {repo_dir}")
+    print("")
     print(f"  Current version: {__version__}")
+    print(f"  Running installer: {URL}")
     print("")
 
-    # Pull
-    print("  [1/4] git pull...")
-    _, out = run_command(f"cd {repo_dir} && git pull 2>&1")
-    print(out)
-    if "Already up to date" in out:
-        print("  Already up to date.")
-        return
-
-    # Reinstall Python package
-    print("  [2/4] pip install...")
-    _, out = run_command(
-        f"cd {repo_dir} && sudo pip install . --break-system-packages --no-deps --no-build-isolation 2>&1"
-    )
-    for line in out.split("\n"):
-        if "Successfully installed" in line or "error:" in line.lower():
-            print(f"  {line.strip()}")
-
-    # Build and install kernel driver
-    driver_dir = _os.path.join(repo_dir, "driver")
-    if _os.path.isdir(driver_dir) and _os.path.isfile(_os.path.join(driver_dir, "Makefile")):
-        print("  [3/4] sudo make install (driver)...")
-        _, out = run_command(
-            f"cd {driver_dir} && sudo make install 2>&1"
-        )
-        # Show key lines
-        for line in out.split("\n"):
-            line = line.strip()
-            if line and ("Installing" in line or "completed" in line.lower() or "error" in line.lower() or "DKMS" in line):
-                print(f"  {line}")
-    else:
-        print("  [3/4] Driver not found, skipping.")
-
-    # Add dtoverlay to config.txt
-    print("  [4/4] Configure dtoverlay in config.txt...")
-    from .device import _add_dtoverlay, _has_dtoverlay
-    if _has_dtoverlay():
-        print("  dtoverlay already configured.")
-    elif _add_dtoverlay():
-        print("  Added dtoverlay=sunfounder-fusionhat to config.txt.")
-        print("  Reboot to activate: sudo reboot")
-    else:
-        print("  [FAIL] Could not write to config.txt.")
-
-    # Read new version from disk (current process still has old import)
-    new_ver = __version__
-    try:
-        ver_file = _os.path.join(_os.path.dirname(__file__), "_version.py")
-        with open(ver_file, "r") as f:
-            content = f.read()
-        import re as _re
-        m = _re.search(r"__version__\s*=\s*['\"]([^'\"]+)['\"]", content)
-        if m:
-            new_ver = m.group(1)
-    except Exception:
-        pass
-
-    print("")
-    if new_ver != __version__:
-        print(f"  Updated: {__version__} -> {new_ver}")
-    else:
-        print(f"  Version: {new_ver} (up to date)")
-    print("  Run: fusion_hat doctor")
+    ret = _os.system(f"curl -fsSL {URL} | sudo bash")
+    if ret != 0:
+        print(f"\n  [FAIL] Installer exited with code {ret}")
 
 def scan_i2c():
     print(f"Scan I2C bus.")
