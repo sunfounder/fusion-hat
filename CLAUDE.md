@@ -26,12 +26,10 @@ sphinx-apidoc -f -d 1 -e -M -P -T -o source/api ../fusion_hat
 
 **CLI commands (available via `fusion_hat` entry point):**
 ```bash
-fusion_hat update            # Self-update: git pull + pip install
+fusion_hat update            # Self-update: git pull + pip install + dtoverlay
 fusion_hat info              # Show device info, battery, button, speaker state
-fusion_hat doctor            # Run driver/hardware health checks
-fusion_hat doctor --fix      # Auto-repair (erase+reflash EEPROM, modprobe, etc.)
-fusion_hat update_eeprom     # Reflash HAT EEPROM (guides through hardware steps)
-fusion_hat update_eeprom --erase  # Erase EEPROM before flashing (clean write)
+fusion_hat doctor            # Live hardware health check (Driver + Audio sections)
+fusion_hat doctor --fix      # Auto-repair (add dtoverlay, modprobe, enable I2C)
 fusion_hat speaker setup     # Run audio setup (bundled script)
 fusion_hat speaker setup --skip-test  # Setup without speaker test
 fusion_hat speaker enable    # Enable speaker
@@ -39,9 +37,9 @@ fusion_hat speaker disable   # Disable speaker
 fusion_hat speaker test      # Test speaker with Front_Center.wav
 fusion_hat version           # Print library version
 fusion_hat scan_i2c          # Scan I2C bus for devices
-fusion_hat force_dt_overlay  # Force device-tree overlay
-fusion_hat remove_dt_overlay # Remove device-tree overlay
-fusion_hat uninstall         # Uninstall driver and library
+fusion_hat force_dt_overlay  # Force device-tree overlay in config.txt
+fusion_hat remove_dt_overlay # Remove device-tree overlay from config.txt
+fusion_hat uninstall         # Uninstall driver, dtoverlay, and library
 ```
 
 There is no test suite or linter configured in this repo.
@@ -62,8 +60,8 @@ The Python library talks to hardware through two paths:
 | `fusion_hat/_base.py` | Base class providing a `self.log` Logger to all hardware classes |
 | `fusion_hat/_utils.py` | Utilities: `mapping()`, `constrain()`, `retry` decorator, `run_command()` |
 | `fusion_hat/_i2c.py` | I2C bus wrapper with auto-retry on OSError (5 attempts) |
-| `fusion_hat/device.py` | Device identity, detection (`is_detected`, `is_driver_loaded`), `doctor()`/`doctor_fix()` health checks, `update_eeprom()` EEPROM reflash, `@require_fusion_hat` decorator |
-| `fusion_hat/scripts/` | Bundled shell scripts: `eepflash.sh` (EEPROM flashing), `setup_fusion_hat_audio.sh` (audio config) |
+| `fusion_hat/device.py` | Device identity, `doctor()`/`doctor_fix()` health checks (live-printing, Driver + Audio sections), dtoverlay management, `@require_fusion_hat` decorator |
+| `fusion_hat/scripts/` | Bundled shell scripts: `setup_fusion_hat_audio.sh` (audio config) |
 | `fusion_hat/pin.py` | GPIO pin wrapper around `RPi.GPIO` with active-state abstraction and interrupt callbacks |
 | `fusion_hat/pwm.py` | PWM channel control via sysfs; `Servo` extends this |
 | `fusion_hat/motor.py` | DC motors — maps motor names (M0-M3) to PWM pin pairs, handles direction via two channels |
@@ -79,7 +77,7 @@ The Python library talks to hardware through two paths:
 ### Design patterns
 
 - **All hardware classes inherit `_Base`** for consistent logging. Constructor accepts `log=` and `log_level=` kwargs.
-- **Device readiness guard**: `raise_if_fusion_hat_not_ready()` checks both EEPROM detection and driver load. The `@require_fusion_hat` decorator applies this check transparently. Almost every hardware class calls this in `__init__`.
+- **Device readiness guard**: `raise_if_fusion_hat_not_ready()` checks the driver sysfs interface. The `@require_fusion_hat` decorator applies this check transparently. Almost every hardware class calls this in `__init__`.
 - **I2C retry**: The `@retry(5)` decorator on I2C methods retries on `OSError` — handles transient bus contention.
 - **Deprecation pattern**: Deprecated functions print warnings and delegate to the replacement. Several exist in `device.py`, `motor.py`, `pwm.py`, `user_button.py`.
 
@@ -138,3 +136,5 @@ git checkout main && git pull origin main
 git tag -a v<VERSION> -m "v<VERSION>"
 git push origin v<VERSION>
 ```
+
+**PR merging rule**: NEVER merge a PR without the user's explicit approval. After creating a PR, present the PR link and wait for the user to say "merge" or "合并" before proceeding. Do not approve your own PRs — if needed, temporarily remove branch protection, merge, then re-add protection.
