@@ -220,6 +220,8 @@ def _detect_hat_detail() -> dict:
             })
         return result
 
+    return result
+
 
 def is_driver_loaded() -> bool:
     """ Check if Fusion Hat driver is loaded
