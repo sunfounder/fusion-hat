@@ -203,12 +203,14 @@ def _has_dtoverlay() -> bool:
 
 
 def _add_dtoverlay() -> bool:
-    """Append dtoverlay=sunfounder-fusionhat to config.txt if not present.
+    """Ensure dtoverlay=sunfounder-fusionhat is active in config.txt.
 
-    Uses sudo tee -a since /boot/firmware/config.txt requires root.
+    - Already active → no-op
+    - Commented out → uncomment
+    - Not present → append
 
     Returns:
-        bool: True if the line was added or already present
+        bool: True if the line is active after the call
     """
     from ._utils import run_command
 
@@ -219,10 +221,21 @@ def _add_dtoverlay() -> bool:
         return True
     try:
         line = f"dtoverlay={DTOVERLAY_NAME}"
-        run_command(
-            f"echo '{line}' | sudo tee -a {config} > /dev/null 2>&1",
-            timeout=10,
+        # Check for commented-out line and uncomment it
+        _, has_commented = run_command(
+            f"grep -q '^# *{line}' {config} 2>/dev/null && echo yes || echo no",
+            timeout=5,
         )
+        if has_commented.strip() == "yes":
+            run_command(
+                f"sudo sed -i 's/^# *{line}.*/{line}/' {config}",
+                timeout=10,
+            )
+        else:
+            run_command(
+                f"echo '{line}' | sudo tee -a {config} > /dev/null 2>&1",
+                timeout=10,
+            )
         return _has_dtoverlay()
     except Exception:
         return False
@@ -268,10 +281,12 @@ def _icon(ok: bool) -> str:
     return f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
 
 def _print_check(name: str, ok: bool, detail: str = "", indent: int = 2):
-    """Print a single check result inline."""
+    """Print a single check result inline, clearing previous spinner."""
+    import sys
     pad = " " * indent
     d = f" ({detail})" if detail else ""
-    print(f"{pad}{_icon(ok)} {name}{d}")
+    sys.stdout.write(f"\r{pad}{_icon(ok)} {name}{d}\033[K\n")
+    sys.stdout.flush()
 
 def _print_section(title: str):
     print(f"\n  {BOLD}{title}{RESET}")
@@ -321,7 +336,6 @@ def _check_module_file() -> tuple:
 # ── audio checks ─────────────────────────────────────────────────────────────
 
 AUDIO_CARD_NAME = "sndrpigooglevoi"
-AUDIO_DTOVERLAY = "googlevoicehat-soundcard"
 
 def _check_sound_card() -> tuple:
     """Check Fusion HAT sound card (speaker) via ALSA."""
@@ -339,47 +353,18 @@ def _check_capture_device() -> tuple:
         return True, ""
     return False, "capture device not found"
 
-def _check_audio_dtoverlay() -> tuple:
-    """Check googlevoicehat-soundcard dtoverlay in config.txt."""
-    config = _find_config_txt()
-    if not os.path.isfile(config):
-        return False, "config.txt not found"
-    try:
-        with open(config, "r") as f:
-            for line in f:
-                s = line.strip()
-                if AUDIO_DTOVERLAY in s and not s.startswith("#"):
-                    return True, ""
-    except Exception:
-        pass
-    return False, f"dtoverlay={AUDIO_DTOVERLAY} not in config.txt"
-
-def _check_i2s() -> tuple:
-    """Check dtparam=i2s=on in config.txt."""
-    config = _find_config_txt()
-    if not os.path.isfile(config):
-        return False, "config.txt not found"
-    try:
-        with open(config, "r") as f:
-            for line in f:
-                s = line.strip()
-                if "dtparam=i2s=on" in s and not s.startswith("#"):
-                    return True, ""
-    except Exception:
-        pass
-    return False, "dtparam=i2s=on not in config.txt"
-
-def _check_audio_modules() -> tuple:
-    """Check if WM8960 sound modules are loaded."""
-    from ._utils import run_command
-    _, out = run_command("lsmod 2>/dev/null")
-    missing = []
-    for mod in ["snd_soc_wm8960", "snd_soc_rpi_googlevoicehat"]:
-        if mod not in out:
-            missing.append(mod)
-    if missing:
-        return False, "missing: " + ", ".join(missing)
-    return True, ""
+# TODO: re-enable when confirmed needed
+# def _check_audio_modules() -> tuple:
+#     """Check if WM8960 sound modules are loaded."""
+#     from ._utils import run_command
+#     _, out = run_command("lsmod 2>/dev/null")
+#     missing = []
+#     for mod in ["snd_soc_wm8960", "snd_soc_rpi_googlevoicehat"]:
+#         if mod not in out:
+#             missing.append(mod)
+#     if missing:
+#         return False, "missing: " + ", ".join(missing)
+#     return True, ""
 
 
 def doctor() -> dict:
@@ -434,7 +419,6 @@ def doctor() -> dict:
         ("capture device (mic)", _check_capture_device),
     ]
 
-    audio_failed = False
     for name, func in audio_checks:
         sys.stdout.write(f"  ... {name}\r")
         sys.stdout.flush()
@@ -442,38 +426,32 @@ def doctor() -> dict:
         results[name] = ok
         if not ok:
             audio_ok = False
-            audio_failed = True
         _print_check(name, ok, detail)
-
-    # Audio deep-dive when speaker or mic not found
-    if audio_failed:
-        print(f"\n  {YELLOW}audio dependencies:{RESET}")
-        dep_checks = [
-            ("dtoverlay=googlevoicehat-soundcard", _check_audio_dtoverlay),
-            ("dtparam=i2s=on",                      _check_i2s),
-            ("sound modules (wm8960)",              _check_audio_modules),
-        ]
-        for name, func in dep_checks:
-            sys.stdout.write(f"    ... {name}\r")
-            sys.stdout.flush()
-            ok, detail = func()
-            _print_check(name, ok, detail, indent=4)
 
     results["audio_ok"] = audio_ok
 
     # ── Summary ──
+    dtoverlay_ok = results.get("dtoverlay in config.txt", False)
+    sysfs_ok = results.get("sysfs interface", False)
     overall = driver_ok
     results["overall"] = overall
-    passed = sum(1 for v in results.values() if v is True)
-    total = len([v for v in results.values() if isinstance(v, bool)])
 
     print("")
-    if overall:
-        print(f"  {GREEN}All driver checks passed.{RESET}")
+    if not dtoverlay_ok:
+        print(f"  {YELLOW}dtoverlay not configured{RESET}")
+        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+    elif not sysfs_ok:
+        print(f"  {YELLOW}dtoverlay configured but reboot needed{RESET}")
+        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
     else:
-        print(f"  {YELLOW}Some driver checks failed. Run: {BOLD}fusion_hat doctor --fix{RESET}")
-    if not audio_ok:
-        print(f"  {YELLOW}Audio issues found. Run: {BOLD}fusion_hat speaker setup{RESET}")
+        if overall:
+            print(f"  {GREEN}All driver checks passed.{RESET}")
+        else:
+            print(f"  {YELLOW}Some driver checks failed.{RESET}")
+            print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+        if not audio_ok:
+            print(f"  {YELLOW}Audio issues found.{RESET}")
+            print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
     print("")
     print("=" * 50)
     print("")
@@ -538,29 +516,37 @@ def doctor_fix() -> dict:
         else:
             fixes.append("driver source not found — cannot auto-install")
 
+    dtoverlay_ok = before.get("dtoverlay in config.txt", False)
+    sysfs_ok = before.get("sysfs interface", False)
+    module_loaded = before.get("kernel module loaded", False)
+
     # dtoverlay
-    if not before.get("dtoverlay in config.txt", True):
+    if not dtoverlay_ok:
         if _add_dtoverlay():
-            fixes.append(f"added dtoverlay={DTOVERLAY_NAME} to config.txt")
+            fixes.append(f"dtoverlay={DTOVERLAY_NAME} added to config.txt")
             reboot = True
         else:
             fixes.append("failed to add dtoverlay to config.txt")
     else:
         fixes.append("dtoverlay already in config.txt")
 
-    # Module not loaded
-    if not before.get("kernel module loaded", True):
-        fixes.append("modprobe fusion_hat")
-        run_command("sudo modprobe fusion_hat 2>/dev/null")
-        if not os.path.exists("/sys/module/fusion_hat"):
-            reboot = True
+    # dtoverlay configured but sysfs not working → reboot needed
+    if dtoverlay_ok and not sysfs_ok:
+        fixes.append("dtoverlay configured, reboot required to activate")
+        reboot = True
+    else:
+        # Module not loaded
+        if not module_loaded:
+            fixes.append("modprobe fusion_hat")
+            run_command("sudo modprobe fusion_hat 2>/dev/null")
+            if not os.path.exists("/sys/module/fusion_hat"):
+                reboot = True
 
-    # Module loaded but sysfs missing
-    if (before.get("kernel module loaded", False)
-            and not before.get("sysfs interface", False)):
-        fixes.append("reload fusion_hat module")
-        run_command("sudo rmmod fusion_hat 2>/dev/null")
-        run_command("sudo modprobe fusion_hat 2>/dev/null")
+        # Module loaded but sysfs missing
+        if module_loaded and not sysfs_ok:
+            fixes.append("reload fusion_hat module")
+            run_command("sudo rmmod fusion_hat 2>/dev/null")
+            run_command("sudo modprobe fusion_hat 2>/dev/null")
 
     print(f"\n  --- Fixes ---")
     for action in fixes:
