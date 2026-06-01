@@ -268,10 +268,12 @@ def _icon(ok: bool) -> str:
     return f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
 
 def _print_check(name: str, ok: bool, detail: str = "", indent: int = 2):
-    """Print a single check result inline."""
+    """Print a single check result inline, clearing previous spinner."""
+    import sys
     pad = " " * indent
     d = f" ({detail})" if detail else ""
-    print(f"{pad}{_icon(ok)} {name}{d}")
+    sys.stdout.write(f"\r{pad}{_icon(ok)} {name}{d}\033[K\n")
+    sys.stdout.flush()
 
 def _print_section(title: str):
     print(f"\n  {BOLD}{title}{RESET}")
