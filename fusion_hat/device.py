@@ -75,8 +75,6 @@ __all__ = [
 import os
 from typing import Callable, Any
 
-HAT_DEVICE_TREE = "/proc/device-tree/"
-
 NAME = "Fusion Hat"
 """ Name of the board """
 
@@ -100,128 +98,12 @@ DEVICE_PATH = "/sys/class/fusion_hat/fusion_hat/"
 DTOVERLAY_NAME = "sunfounder-fusionhat"
 
 def is_detected() -> bool:
-    """ Check if Fusion Hat is detected by the kernel
-
-    This function reads the device tree to check if the Fusion Hat's
-    information is accessible, which indicates the hat is recognized
-    (via dtoverlay in config.txt).
+    """Check if the driver sysfs interface exists (driver loaded).
 
     Returns:
-        bool: True if detected, False otherwise
+        bool: True if /sys/class/fusion_hat/ exists
     """
-    for file in os.listdir('/proc/device-tree/'):
-        if 'hat' in file:
-            if os.path.exists(f"/proc/device-tree/{file}/uuid") \
-                and os.path.isfile(f"/proc/device-tree/{file}/uuid"):
-                with open(f"/proc/device-tree/{file}/uuid", "r") as f:
-                    uuid = f.read()[:-1] # [:-1] rm \x00
-                    product_id = uuid.split("-")[2]
-                    product_id = int(product_id, 16)
-                    if product_id == PRODUCT_ID:
-                        return True
-    return False
-
-def _detect_hat_detail() -> dict:
-    """Detect Fusion Hat via device-tree with step-by-step detail.
-
-    Breaks down ``is_detected()`` into individual checks so callers can
-    see exactly *why* detection failed instead of a binary yes/no.
-
-    Returns:
-        dict with keys:
-        - detected (bool): overall detection result
-        - hat_dir (str|None): path under /proc/device-tree/ (e.g. ``hat``)
-        - uuid_file (bool): whether the uuid file exists
-        - uuid_value (str|None): raw UUID string read from device-tree
-        - product_id_match (bool|None): does the product_id segment match?
-        - product_id_expected (str): expected hex product id
-        - product_id_found (str|None): actual hex product id parsed
-        - product_ver_expected (str): expected hex product version
-        - product_ver_found (str|None): actual hex product version parsed
-        - vendor_found (str|None): vendor string from device-tree
-        - product_found (str|None): product string from device-tree
-        - steps (list[dict]): ordered log of each diagnostic step
-    """
-    steps: list[dict] = []
-    result: dict[str, Any] = {
-        "detected": False,
-        "hat_dir": None,
-        "uuid_file": False,
-        "uuid_value": None,
-        "product_id_match": None,
-        "product_id_expected": f"0x{PRODUCT_ID:04X}",
-        "product_id_found": None,
-        "product_ver_expected": f"0x{PRODUCT_VER:04X}",
-        "product_ver_found": None,
-        "vendor_found": None,
-        "product_found": None,
-        "steps": steps,
-    }
-
-    # Step 1 — scan ALL directories under /proc/device-tree/ for Fusion HAT UUID
-    expected_hex = f"{PRODUCT_ID:04X}"
-    hat_dir = None
-    found_hats = []
-    for entry in os.listdir(HAT_DEVICE_TREE):
-        candidate = os.path.join(HAT_DEVICE_TREE, entry)
-        uuid_path = os.path.join(candidate, "uuid")
-        if not os.path.isdir(candidate) or not os.path.isfile(uuid_path):
-            continue
-        try:
-            with open(uuid_path, "rb") as f:
-                raw = f.read().rstrip(b"\x00")
-            raw_uuid = raw.decode("utf-8", errors="replace").strip()
-            found_hats.append((entry, raw_uuid))
-            parts = raw_uuid.split("-")
-            if len(parts) >= 3 and parts[2].upper() == expected_hex:
-                hat_dir = candidate
-                result["hat_dir"] = hat_dir
-                result["uuid_file"] = True
-                result["uuid_value"] = raw_uuid
-                result["detected"] = True
-                result["product_id_match"] = True
-                result["product_id_found"] = f"0x{PRODUCT_ID:04X}"
-                steps.append({
-                    "step": "device-tree hat directory",
-                    "ok": True,
-                    "detail": f"Found Fusion HAT at {hat_dir} (UUID={raw_uuid})",
-                })
-                # Read vendor / product strings
-                for field, label in [("vendor", "Vendor"), ("product", "Product")]:
-                    p = os.path.join(hat_dir, field)
-                    if os.path.isfile(p):
-                        try:
-                            with open(p, "rb") as f2:
-                                val = f2.read().rstrip(b"\x00").decode("utf-8", errors="replace").strip()
-                            result[f"{field}_found"] = val
-                            steps.append({"step": f"{field} string", "ok": True, "detail": f"{label} = {val}"})
-                        except Exception:
-                            pass
-                break
-        except Exception:
-            continue
-
-    if not result["detected"]:
-        if found_hats:
-            names = [n for n, _ in found_hats]
-            steps.append({
-                "step": "device-tree hat directory",
-                "ok": False,
-                "detail": (
-                    f"No Fusion HAT found. Detected other HAT(s): {', '.join(names)}. "
-                    f"Expected product_id=0x{expected_hex}."
-                ),
-            })
-        else:
-            steps.append({
-                "step": "device-tree hat directory",
-                "ok": False,
-                "detail": "No HAT device-tree entries found.",
-            })
-        return result
-
-    return result
-
+    return is_driver_loaded()
 
 def is_driver_loaded() -> bool:
     """ Check if Fusion Hat driver is loaded
@@ -373,57 +255,58 @@ def _remove_dtoverlay() -> bool:
 
 I2C_SCAN_TIMEOUT = 5  # seconds timeout for i2cdetect
 
+# ── doctor helpers ───────────────────────────────────────────────────────────
 
-def doctor() -> dict:
-    """Comprehensive driver and hardware health check.
+GREEN  = "\033[32m"
+RED    = "\033[31m"
+CYAN   = "\033[36m"
+YELLOW = "\033[33m"
+BOLD   = "\033[1m"
+RESET  = "\033[0m"
 
-    Two-phase approach:
-    1. Quick check — sysfs, module, I2C MCU. If all pass, skip deep checks.
-    2. Deep diagnostic — only when quick check fails: device-tree,
-       dtoverlay in config.txt, module file, DKMS, dmesg.
+def _icon(ok: bool) -> str:
+    return f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
 
-    Returns:
-        dict with keys: detected, i2c_enabled, dtoverlay,
-        module_file, dkms_status, module_loaded, sysfs, i2c_0x17,
-        overall, plus *hat_detail* sub-dict.
-    """
-    import platform
+def _print_check(name: str, ok: bool, detail: str = "", indent: int = 2):
+    """Print a single check result inline."""
+    pad = " " * indent
+    d = f" ({detail})" if detail else ""
+    print(f"{pad}{_icon(ok)} {name}{d}")
+
+def _print_section(title: str):
+    print(f"\n  {BOLD}{title}{RESET}")
+    print(f"  {'─' * 40}")
+
+# ── driver checks ────────────────────────────────────────────────────────────
+
+def _check_sysfs() -> tuple:
+    ok = os.path.exists("/sys/class/fusion_hat/")
+    return ok, "" if ok else "/sys/class/fusion_hat not found"
+
+def _check_module_loaded() -> tuple:
+    ok = os.path.exists("/sys/module/fusion_hat")
+    return ok, "" if ok else "module not loaded"
+
+def _check_i2c_mcu() -> tuple:
     from ._utils import run_command
-
-    result = {
-        "detected": False,
-        "i2c_enabled": False,
-        "dtoverlay": False,
-        "module_file": False,
-        "dkms_status": "",
-        "module_loaded": False,
-        "sysfs": False,
-        "i2c_0x17": False,
-        "overall": True,
-        "deep_scan": False,  # True when deep diagnostic ran
-        "hat_detail": None,
-        "dmesg_hat": "",
-    }
-
-    # ── Phase 1: Quick health check ──
-    result["sysfs"] = is_driver_loaded()
-    result["module_loaded"] = os.path.exists("/sys/module/fusion_hat")
-
-    # I2C 0x17 — onboard MCU (fast — main I2C bus)
     try:
-        _, i2c_out = run_command("sudo i2cdetect -y 1 0x10 0x1f 2>/dev/null",
-                                   timeout=I2C_SCAN_TIMEOUT)
-        if i2c_out.strip():
-            for line in i2c_out.strip().split("\n"):
-                if line.startswith("10:"):
-                    entries = line[3:].strip().split()
-                    if len(entries) > 7 and entries[7] in ("17", "UU"):
-                        result["i2c_0x17"] = True
-                    break
+        _, out = run_command("sudo i2cdetect -y 1 0x10 0x1f 2>/dev/null",
+                             timeout=I2C_SCAN_TIMEOUT)
+        for line in out.strip().split("\n"):
+            if line.startswith("10:"):
+                entries = line[3:].strip().split()
+                if len(entries) > 7 and entries[7] in ("17", "UU"):
+                    return True, ""
+        return False, "MCU not responding at 0x17"
     except Exception:
-        pass
+        return False, "i2cdetect failed"
 
-    # Module file — quick check
+def _check_dtoverlay_driver() -> tuple:
+    ok = _has_dtoverlay()
+    return ok, "" if ok else f"dtoverlay={DTOVERLAY_NAME} not in config.txt"
+
+def _check_module_file() -> tuple:
+    import platform
     kv = platform.uname().release
     ko_paths = [
         f"/lib/modules/{kv}/extra/fusion_hat.ko",
@@ -432,63 +315,176 @@ def doctor() -> dict:
         f"/lib/modules/{kv}/updates/fusion_hat.ko.xz",
         f"/lib/modules/{kv}/updates/dkms/fusion_hat.ko.xz",
     ]
-    result["module_file"] = any(os.path.exists(p) for p in ko_paths)
+    ok = any(os.path.exists(p) for p in ko_paths)
+    return ok, "" if ok else "fusion_hat.ko not installed"
 
-    # Check dtoverlay in config.txt (required for fusion_hat)
-    result["dtoverlay"] = _has_dtoverlay()
+# ── audio checks ─────────────────────────────────────────────────────────────
 
-    result["overall"] = all([
-        result["module_file"],
-        result["module_loaded"],
-        result["sysfs"],
-        result["i2c_0x17"],
-    ])
+AUDIO_CARD_NAME = "sndrpigooglevoi"
+AUDIO_DTOVERLAY = "googlevoicehat-soundcard"
 
-    # If all quick checks pass, skip deep diagnostic
-    if result["overall"]:
-        return result
+def _check_sound_card() -> tuple:
+    """Check Fusion HAT sound card (speaker) via ALSA."""
+    from ._utils import run_command
+    _, out = run_command("aplay -l 2>/dev/null")
+    if AUDIO_CARD_NAME in out:
+        return True, ""
+    return False, "sound card not found"
 
-    # ── Phase 2: Deep diagnostic (driver not working) ──
-    result["deep_scan"] = True
+def _check_capture_device() -> tuple:
+    """Check Fusion HAT mic via ALSA."""
+    from ._utils import run_command
+    _, out = run_command("arecord -l 2>/dev/null")
+    if AUDIO_CARD_NAME in out:
+        return True, ""
+    return False, "capture device not found"
 
-    # I2C enabled?
-    result["i2c_enabled"] = os.path.exists("/dev/i2c-1")
+def _check_audio_dtoverlay() -> tuple:
+    """Check googlevoicehat-soundcard dtoverlay in config.txt."""
+    config = _find_config_txt()
+    if not os.path.isfile(config):
+        return False, "config.txt not found"
+    try:
+        with open(config, "r") as f:
+            for line in f:
+                s = line.strip()
+                if AUDIO_DTOVERLAY in s and not s.startswith("#"):
+                    return True, ""
+    except Exception:
+        pass
+    return False, f"dtoverlay={AUDIO_DTOVERLAY} not in config.txt"
 
-    # Device-tree detection (fast — reads /proc/device-tree)
-    hat_detail = _detect_hat_detail()
-    result["hat_detail"] = hat_detail
-    result["detected"] = hat_detail["detected"]
+def _check_i2s() -> tuple:
+    """Check dtparam=i2s=on in config.txt."""
+    config = _find_config_txt()
+    if not os.path.isfile(config):
+        return False, "config.txt not found"
+    try:
+        with open(config, "r") as f:
+            for line in f:
+                s = line.strip()
+                if "dtparam=i2s=on" in s and not s.startswith("#"):
+                    return True, ""
+    except Exception:
+        pass
+    return False, "dtparam=i2s=on not in config.txt"
 
-    # DKMS registration
-    _, dkms_out = run_command("dkms status fusion_hat 2>/dev/null || true")
-    if dkms_out.strip():
-        result["dkms_status"] = dkms_out.strip()
+def _check_audio_modules() -> tuple:
+    """Check if WM8960 sound modules are loaded."""
+    from ._utils import run_command
+    _, out = run_command("lsmod 2>/dev/null")
+    missing = []
+    for mod in ["snd_soc_wm8960", "snd_soc_rpi_googlevoicehat"]:
+        if mod not in out:
+            missing.append(mod)
+    if missing:
+        return False, "missing: " + ", ".join(missing)
+    return True, ""
+
+
+def doctor() -> dict:
+    """Live hardware health check — prints results as each check runs.
+
+    Sections:
+      Driver  — sysfs, module, I2C MCU, dtoverlay, module file
+      Audio   — sound card, capture device (with dependency deep-dive)
+
+    Returns:
+        dict with keys: overall, driver_ok, audio_ok, results (per-check dict)
+    """
+    import sys
+    from ._utils import run_command
+
+    results = {}
+    driver_ok = True
+    audio_ok = True
+
+    print("")
+    print("=" * 50)
+    print("  Fusion Hat Doctor")
+    print("=" * 50)
+
+    # ── Driver ──
+    _print_section("Driver")
+
+    checks = [
+        ("sysfs interface",       _check_sysfs),
+        ("kernel module loaded",  _check_module_loaded),
+        ("I2C MCU (0x17)",        _check_i2c_mcu),
+        ("dtoverlay in config.txt", _check_dtoverlay_driver),
+        ("kernel module file",    _check_module_file),
+    ]
+
+    for name, func in checks:
+        sys.stdout.write(f"  ... {name}\r")
+        sys.stdout.flush()
+        ok, detail = func()
+        results[name] = ok
+        if not ok:
+            driver_ok = False
+        _print_check(name, ok, detail)
+
+    results["driver_ok"] = driver_ok
+
+    # ── Audio ──
+    _print_section("Audio")
+
+    audio_checks = [
+        ("sound card (speaker)", _check_sound_card),
+        ("capture device (mic)", _check_capture_device),
+    ]
+
+    audio_failed = False
+    for name, func in audio_checks:
+        sys.stdout.write(f"  ... {name}\r")
+        sys.stdout.flush()
+        ok, detail = func()
+        results[name] = ok
+        if not ok:
+            audio_ok = False
+            audio_failed = True
+        _print_check(name, ok, detail)
+
+    # Audio deep-dive when speaker or mic not found
+    if audio_failed:
+        print(f"\n  {YELLOW}audio dependencies:{RESET}")
+        dep_checks = [
+            ("dtoverlay=googlevoicehat-soundcard", _check_audio_dtoverlay),
+            ("dtparam=i2s=on",                      _check_i2s),
+            ("sound modules (wm8960)",              _check_audio_modules),
+        ]
+        for name, func in dep_checks:
+            sys.stdout.write(f"    ... {name}\r")
+            sys.stdout.flush()
+            ok, detail = func()
+            _print_check(name, ok, detail, indent=4)
+
+    results["audio_ok"] = audio_ok
+
+    # ── Summary ──
+    overall = driver_ok
+    results["overall"] = overall
+    passed = sum(1 for v in results.values() if v is True)
+    total = len([v for v in results.values() if isinstance(v, bool)])
+
+    print("")
+    if overall:
+        print(f"  {GREEN}All driver checks passed.{RESET}")
     else:
-        _, has_dkms = run_command("command -v dkms >/dev/null 2>&1 && echo yes || echo no")
-        if has_dkms.strip() == "yes":
-            result["dkms_status"] = "not registered"
-        else:
-            result["dkms_status"] = "DKMS not installed"
+        print(f"  {YELLOW}Some driver checks failed. Run: {BOLD}fusion_hat doctor --fix{RESET}")
+    if not audio_ok:
+        print(f"  {YELLOW}Audio issues found. Run: {BOLD}fusion_hat speaker setup{RESET}")
+    print("")
+    print("=" * 50)
+    print("")
 
-    # dmesg — look for HAT / I2C / fusionhat boot messages
-    _, dmesg_out = run_command(
-        "dmesg 2>/dev/null | grep -i -E 'fusionhat|i2c.*error|i2c-0' | tail -20 || true"
-    )
-    if dmesg_out.strip():
-        result["dmesg_hat"] = dmesg_out.strip()
-
-    return result
+    return results
 
 
 def _find_driver_src() -> str:
-    """Find the Fusion Hat driver source directory.
-
-    Returns:
-        str: path to driver source directory, or empty string if not found
-    """
+    """Find the Fusion Hat driver source directory."""
     import platform
     candidates = []
-    # Check alongside the fusion_hat Python package
     try:
         import fusion_hat
         pkg_dir = os.path.dirname(fusion_hat.__file__)
@@ -496,12 +492,10 @@ def _find_driver_src() -> str:
         candidates.append(os.path.join(repo, "driver"))
     except Exception:
         pass
-    # Common install paths
     candidates += [
         "/home/pi/fusion-hat/driver",
         os.path.expanduser("~/fusion-hat/driver"),
     ]
-    # DKMS source
     try:
         kv = platform.uname().release
         candidates.append(f"/usr/src/fusion_hat-{kv}")
@@ -514,13 +508,10 @@ def _find_driver_src() -> str:
 
 
 def doctor_fix() -> dict:
-    """Run doctor and attempt to fix any issues found.
+    """Run doctor and attempt to fix driver issues found.
 
-    Focuses on ensuring dtoverlay=sunfounder-fusionhat is in config.txt
-    (required for Fusion HAT), plus driver installation and loading.
-
-    Returns:
-        dict with ``before``, ``fixes``, ``after``, ``fixed``.
+    Handles: I2C enable, driver install, dtoverlay, modprobe.
+    Returns dict with before, fixes, after, reboot.
     """
     from ._utils import run_command
 
@@ -531,14 +522,14 @@ def doctor_fix() -> dict:
     if before["overall"]:
         return {"before": before, "fixes": fixes, "after": before, "fixed": True, "reboot": False}
 
-    # ── I2C not enabled ──
-    if not before["i2c_enabled"]:
+    # I2C not enabled
+    if not os.path.exists("/dev/i2c-1"):
         fixes.append("enable I2C")
         run_command("sudo raspi-config nonint do_i2c 0 2>/dev/null")
         run_command("sudo modprobe i2c-dev 2>/dev/null")
 
-    # ── Module file missing → install driver ──
-    if not before["module_file"]:
+    # Module file missing
+    if not before.get("kernel module file", True):
         driver_dir = _find_driver_src()
         if driver_dir:
             fixes.append(f"install driver from {driver_dir}")
@@ -547,47 +538,60 @@ def doctor_fix() -> dict:
         else:
             fixes.append("driver source not found — cannot auto-install")
 
-    # ── Ensure dtoverlay is in config.txt (required for Fusion HAT) ──
-    if not before["dtoverlay"]:
+    # dtoverlay
+    if not before.get("dtoverlay in config.txt", True):
         if _add_dtoverlay():
-            fixes.append("added dtoverlay=sunfounder-fusionhat to config.txt")
+            fixes.append(f"added dtoverlay={DTOVERLAY_NAME} to config.txt")
             reboot = True
         else:
             fixes.append("failed to add dtoverlay to config.txt")
     else:
         fixes.append("dtoverlay already in config.txt")
 
-    # ── Module not loaded → modprobe ──
-    if not before["module_loaded"]:
+    # Module not loaded
+    if not before.get("kernel module loaded", True):
         fixes.append("modprobe fusion_hat")
         run_command("sudo modprobe fusion_hat 2>/dev/null")
         if not os.path.exists("/sys/module/fusion_hat"):
             reboot = True
 
-    # ── Module loaded but sysfs missing → reload ──
-    if before["module_loaded"] and not before["sysfs"]:
+    # Module loaded but sysfs missing
+    if (before.get("kernel module loaded", False)
+            and not before.get("sysfs interface", False)):
         fixes.append("reload fusion_hat module")
         run_command("sudo rmmod fusion_hat 2>/dev/null")
         run_command("sudo modprobe fusion_hat 2>/dev/null")
 
-    after = doctor()
+    print(f"\n  --- Fixes ---")
+    for action in fixes:
+        print(f"  → {action}")
+
+    # Quick re-check after fixes
+    after = {
+        "sysfs interface": os.path.exists("/sys/class/fusion_hat/"),
+        "kernel module loaded": os.path.exists("/sys/module/fusion_hat"),
+    }
+    # Re-check I2C
+    try:
+        _, out = run_command("sudo i2cdetect -y 1 0x10 0x1f 2>/dev/null",
+                             timeout=I2C_SCAN_TIMEOUT)
+        i2c_ok = False
+        for line in out.strip().split("\n"):
+            if line.startswith("10:"):
+                entries = line[3:].strip().split()
+                if len(entries) > 7 and entries[7] in ("17", "UU"):
+                    i2c_ok = True
+                    break
+        after["I2C MCU (0x17)"] = i2c_ok
+    except Exception:
+        after["I2C MCU (0x17)"] = False
+    after["dtoverlay in config.txt"] = _has_dtoverlay()
+    after["overall"] = all(after.values())
 
     if reboot and not after["overall"]:
-        return {
-            "before": before,
-            "fixes": fixes,
-            "after": after,
-            "fixed": False,
-            "reboot": True,
-        }
+        return {"before": before, "fixes": fixes, "after": after, "fixed": False, "reboot": True}
 
-    return {
-        "before": before,
-        "fixes": fixes,
-        "after": after,
-        "fixed": after["overall"],
-        "reboot": reboot,
-    }
+    return {"before": before, "fixes": fixes, "after": after, "fixed": after["overall"], "reboot": reboot}
 
 def force_dt_overlay() -> bool:
     """Force-add dtoverlay=sunfounder-fusionhat to config.txt.

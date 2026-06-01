@@ -142,34 +142,16 @@ def scan_i2c():
     print(f"Found devices: {devices}")
 
 def print_doctor(fix: bool = False):
-    # Prompt for sudo early so password prompt appears before the banner
     import os as _os
     _os.system("sudo -v 2>/dev/null")
 
     if fix:
         from fusion_hat.device import doctor_fix
         result = doctor_fix()
-        before = result["before"]
-        after = result["after"]
-        fixes = result["fixes"]
         needs_reboot = result.get("reboot", False)
 
-        print("")
-        print("=" * 50)
-        print("  Fusion Hat Doctor (--fix)")
-        print("=" * 50)
-        print("")
-
-        _show_doctor_result(before)
-
-        if fixes:
-            print("  --- Fixes ---")
-            for action in fixes:
-                print(f"  → {action}")
-            print("")
-
-        if after["overall"]:
-            print("  All checks pass now!")
+        if result["fixed"]:
+            print(f"  \033[32mAll checks pass now!\033[0m\n")
         elif needs_reboot:
             print("  A reboot is needed for changes to take effect.")
             try:
@@ -183,136 +165,9 @@ def print_doctor(fix: bool = False):
                 print("")
                 print("  Reboot later with: sudo reboot")
             print("")
-
-        print("=" * 50)
-        print("")
     else:
         from fusion_hat.device import doctor
-        print("")
-        print("=" * 50)
-        print("  Fusion Hat Driver Status")
-        print("=" * 50)
-        print("")
-        result = doctor()
-        _show_doctor_result(result)
-
-        if not result["overall"]:
-            from fusion_hat.device import DTOVERLAY_NAME
-
-            B = "\033[1m"
-            Y = "\033[33m"
-            C = "\033[36m"
-            R = "\033[0m"
-
-            dtoverlay = result.get("dtoverlay", False)
-
-            if not result["detected"]:
-                print("")
-                if not dtoverlay:
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print(f"  {B}dtoverlay not configured in config.txt{R}")
-                    print(f"  {B}══════════════════════════════════════════════{R}")
-                    print("")
-                    print(f"  Fusion HAT requires dtoverlay={DTOVERLAY_NAME}")
-                    print("  to be added to your /boot/firmware/config.txt.")
-                    print("")
-                    print(f"        {C}fusion_hat doctor --fix{R}")
-                    print("")
-                else:
-                    print(f"  {Y}[!]{R} dtoverlay is in config.txt but the kernel")
-                    print("      has not picked it up yet. A reboot may be needed.")
-                    print("")
-                    print(f"        {C}sudo reboot{R}")
-                    print("")
-            else:
-                print("  Some checks failed.")
-                if not dtoverlay:
-                    print(f"  {Y}[!]{R} dtoverlay not in config.txt — run:")
-                    print(f"        {C}fusion_hat doctor --fix{R}")
-                if not result["module_file"]:
-                    print("  -> Run: cd driver && sudo make install")
-                if not result["module_loaded"]:
-                    print(f"  -> Run: {C}sudo modprobe fusion_hat{R}")
-                if not result["sysfs"]:
-                    print("  -> Driver may not be loaded or compatible with this kernel.")
-                if not result["i2c_0x17"]:
-                    print("  -> Onboard MCU not detected on I2C bus. Check: i2cdetect -y 1")
-
-            # Show dmesg if HAT-related messages found
-            dmesg_hat = result.get("dmesg_hat", "")
-            if dmesg_hat:
-                print("")
-                print("  dmesg (fusionhat/I2C):")
-                for line in dmesg_hat.strip().split("\n"):
-                    print(f"    {line}")
-
-        print("")
-        print("=" * 50)
-        print("")
-
-
-def _show_detail_steps(steps, indent="      "):
-    """Print diagnostic steps — shows all steps with pass/fail icons."""
-    GREEN = "\033[32m"
-    RED = "\033[31m"
-    RESET = "\033[0m"
-
-    for s in steps:
-        ok = s["ok"]
-        icon = f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
-        print(f"{indent}{icon} {s['step']}")
-        detail = s.get("detail", "")
-        if detail:
-            for line in detail.split("\n"):
-                print(f"{indent}   {line}")
-
-
-def _show_doctor_result(result):
-    """Render a single doctor result dict to stdout."""
-    from fusion_hat.device import DTOVERLAY_NAME
-    GREEN = "\033[32m"
-    RED = "\033[31m"
-    RESET = "\033[0m"
-
-    def _icon(ok):
-        return f"{GREEN}✓{RESET}" if ok else f"{RED}✗{RESET}"
-
-    # ── Quick health summary ──
-    print(f"  {_icon(result['sysfs'])} sysfs interface (/sys/class/fusion_hat)")
-    print(f"  {_icon(result['module_loaded'])} Module loaded")
-    print(f"  {_icon(result['i2c_0x17'])} I2C MCU (0x17)")
-
-    if result["overall"]:
-        print("")
-        return
-
-    # ── Deep diagnostic (driver not working) ──
-    print("")
-    print("  --- Deep diagnostic ---")
-
-    # Device-tree detection
-    hat_detail = result.get("hat_detail") or {}
-    print(f"  {_icon(result['detected'])} HAT detected (device-tree)")
-    if not result["detected"] and hat_detail.get("steps"):
-        print("      HAT device-tree check:")
-        _show_detail_steps(hat_detail["steps"])
-
-    dtoverlay = result.get("dtoverlay", False)
-    print(f"  {_icon(dtoverlay)} dtoverlay in config.txt ({DTOVERLAY_NAME})")
-    if not dtoverlay:
-        print(f"      Run 'fusion_hat doctor --fix' to add dtoverlay to config.txt.")
-
-    # Module file + DKMS
-    print(f"  {_icon(result['module_file'])} Module file")
-    dkms = result.get("dkms_status", "")
-    if dkms and dkms != "DKMS not installed":
-        if dkms == "not registered":
-            print(f"  {RED}✗{RESET} DKMS: {dkms}")
-        else:
-            lines = dkms.strip().split("\n")
-            print(f"  {GREEN}✓{RESET} DKMS: {lines[0]}")
-
-    print("")
+        doctor()
 
 def setup_speaker(skip_test: bool = False):
     import os as _os
