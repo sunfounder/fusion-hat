@@ -336,6 +336,9 @@ def _check_module_file() -> tuple:
 # ── audio checks ─────────────────────────────────────────────────────────────
 
 AUDIO_CARD_NAME = "sndrpigooglevoi"
+# PulseAudio uses the full DT name (up to 31 chars), while aplay -l
+# truncates it.  Both variants identify the Fusion Hat sound card.
+AUDIO_CARD_NAMES = (AUDIO_CARD_NAME, "snd_rpi_googlevoicehat_soundcar")
 
 def _check_sound_card() -> tuple:
     """Check Fusion HAT sound card (speaker) via ALSA."""
@@ -357,6 +360,102 @@ def _check_capture_device() -> tuple:
 # ── I2S clock health check ───────────────────────────────────────────────────
 
 PCM_CLK_PATH = "/sys/kernel/debug/clk/clk_summary"
+
+
+def _check_asound_conf() -> tuple:
+    """Check that /etc/asound.conf routes to the Fusion Hat card."""
+    asound_path = "/etc/asound.conf"
+    if not os.path.isfile(asound_path):
+        return False, "/etc/asound.conf not found"
+    try:
+        with open(asound_path, "r") as f:
+            content = f.read()
+        if AUDIO_CARD_NAME in content:
+            return True, ""
+        return False, f"{AUDIO_CARD_NAME} not referenced in asound.conf"
+    except Exception:
+        return False, "cannot read /etc/asound.conf"
+
+
+def _check_pa_default_sink() -> tuple:
+    """Check that PulseAudio default sink is the Fusion Hat card."""
+    import subprocess
+    import pwd
+
+    # Find a non-root user
+    username = None
+    uid = None
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and user.pw_uid < 65534:
+            username = user.pw_name
+            uid = user.pw_uid
+            break
+    if username is None:
+        return True, "no user session — skipped"
+
+    env = {
+        "XDG_RUNTIME_DIR": f"/run/user/{uid}",
+        "DBUS_SESSION_BUS_ADDRESS": f"unix:path=/run/user/{uid}/bus",
+    }
+    try:
+        result = subprocess.run(
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "info"],
+            capture_output=True, text=True, timeout=5,
+        )
+        if result.returncode != 0:
+            return True, "pulseaudio not running — skipped"
+
+        # Find default sink name
+        default_sink = None
+        for line in result.stdout.split("\n"):
+            if line.startswith("Default Sink:"):
+                default_sink = line.split(":", 1)[1].strip()
+                break
+        if not default_sink:
+            return True, "no default sink — skipped"
+
+        # Check if it belongs to Fusion Hat
+        result2 = subprocess.run(
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "-f", "json", "list", "sinks"],
+            capture_output=True, text=True, timeout=5,
+        )
+        import json
+        sinks = json.loads(result2.stdout)
+        for s in sinks:
+            if s.get("name") == default_sink:
+                card = s.get("properties", {}).get("alsa.card_name", "")
+                for name_variant in AUDIO_CARD_NAMES:
+                    if name_variant in card:
+                        return True, ""
+                return False, f"default sink is '{card}' not Fusion Hat"
+        return False, "default sink not found in sink list"
+    except FileNotFoundError:
+        return True, "pactl not available — skipped"
+    except Exception:
+        return True, "pulseaudio check failed — skipped"
+
+
+def _check_alsa_volume() -> tuple:
+    """Check that ALSA speaker volume is not zero or muted."""
+    from ._utils import run_command
+    # Try both possible control names
+    for ctrl in ("Fusion Hat", "Fusion Hat Playback Volume", "Playback", "Master"):
+        _, out = run_command(
+            f"amixer -c {AUDIO_CARD_NAME} sget '{ctrl}' 2>/dev/null",
+            timeout=5,
+        )
+        if out and "Playback" in out:
+            # Check if volume is > 0 and not muted
+            if "[0%]" in out or "[off]" in out or "[0dB]" in out:
+                return False, f"speaker volume is 0% or muted (control: {ctrl})"
+            return True, ""
+    return True, "volume control not found — skipped"
 
 
 def _read_pcm_enable_count() -> int:
@@ -490,7 +589,8 @@ def _get_fusion_hat_pa_sink() -> str:
         sinks = json.loads(result.stdout)
         for s in sinks:
             props = s.get("properties", {})
-            if AUDIO_CARD_NAME in props.get("alsa.card_name", ""):
+            card_name = props.get("alsa.card_name", "")
+            if any(v in card_name for v in AUDIO_CARD_NAMES):
                 return s.get("name", "")
     except Exception:
         pass
@@ -699,9 +799,12 @@ def doctor(fix_mode: bool = False) -> dict:
     _print_section("Audio")
 
     audio_checks = [
-        ("sound card (speaker)", _check_sound_card),
-        ("capture device (mic)", _check_capture_device),
-        ("I2S clock (PCM)",      _check_i2s_clock),
+        ("sound card (speaker)",    _check_sound_card),
+        ("capture device (mic)",    _check_capture_device),
+        ("asound.conf",             _check_asound_conf),
+        ("PulseAudio default sink", _check_pa_default_sink),
+        ("ALSA speaker volume",     _check_alsa_volume),
+        ("I2S clock (PCM)",         _check_i2s_clock),
     ]
 
     for name, func in audio_checks:
