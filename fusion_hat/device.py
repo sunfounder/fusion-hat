@@ -969,9 +969,6 @@ def doctor_fix() -> dict:
             reboot = True
         else:
             fixes.append("failed to add dtoverlay to config.txt")
-    else:
-        fixes.append("dtoverlay already in config.txt")
-
     # dtoverlay configured but sysfs not working → reboot needed
     if dtoverlay_ok and not sysfs_ok:
         fixes.append("dtoverlay configured, reboot required to activate")
