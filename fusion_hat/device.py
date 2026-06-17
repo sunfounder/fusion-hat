@@ -353,6 +353,144 @@ def _check_capture_device() -> tuple:
         return True, ""
     return False, "capture device not found"
 
+
+# ── I2S clock health check ───────────────────────────────────────────────────
+
+PCM_CLK_PATH = "/sys/kernel/debug/clk/clk_summary"
+I2S_OVERLAY = "googlevoicehat-soundcard"
+
+
+def _read_pcm_enable_count() -> int:
+    """Read the current PCM clock enable count from debugfs.
+
+    Returns:
+        int: enable count (first numeric column for 'pcm' row),
+             or -1 if the clock summary is not accessible.
+    """
+    try:
+        if not os.path.isfile(PCM_CLK_PATH):
+            return -1
+        with open(PCM_CLK_PATH, "r") as f:
+            for line in f:
+                if " pcm " in line or line.strip().startswith("pcm "):
+                    parts = line.strip().split()
+                    # Format: name  enable  prepare  protect  rate  ...
+                    # The pcm line is indented, first numeric col is enable count
+                    for p in parts:
+                        if p.isdigit():
+                            return int(p)
+        return -1
+    except Exception:
+        return -1
+
+
+def _check_i2s_clock() -> tuple:
+    """Check if the I2S PCM clock actually starts during playback.
+
+    Plays a brief silent tone via ALSA and verifies that the PCM clock's
+    enable count increases.  A stuck count (especially 0 both before and
+    during playback) means the I2S peripheral is not responding.
+
+    Returns:
+        (bool, str): True if the clock started, False with a diagnostic
+                     message otherwise.
+    """
+    from ._utils import run_command
+
+    # Only run if the sound card exists — otherwise skip with an ok result
+    # because the missing-card check already catches that case.
+    _, aplay_out = run_command("aplay -l 2>/dev/null")
+    if AUDIO_CARD_NAME not in aplay_out:
+        return True, "sound card not available — skipped"
+
+    # Get card index for hw:X,0
+    card_index = None
+    for line in aplay_out.split("\n"):
+        if AUDIO_CARD_NAME in line:
+            parts = line.split()
+            if parts:
+                idx = parts[1].rstrip(":")
+                if idx.isdigit():
+                    card_index = idx
+                    break
+    if card_index is None:
+        return True, "cannot determine card index — skipped"
+
+    before = _read_pcm_enable_count()
+    if before < 0:
+        # debugfs not available — skip the check
+        return True, "debugfs not mounted — skipped"
+
+    # Play a very short silent audio to trigger hw_params -> clock enable.
+    # We use sox to generate 0.1s of near-silence and aplay to push it.
+    import tempfile
+    import subprocess
+
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+            wav_path = tmp.name
+        # Generate 0.1s of silence at 48 kHz / S32_LE / stereo
+        subprocess.run(
+            ["sox", "-n", "-r", "48000", "-b", "32", "-c", "2",
+             wav_path, "trim", "0", "0.1"],
+            capture_output=True, timeout=5
+        )
+        if not os.path.isfile(wav_path):
+            return True, "sox not available — skipped"
+
+        proc = subprocess.Popen(
+            ["aplay", "-D", f"hw:{card_index},0", wav_path],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        )
+        import time
+        time.sleep(0.15)  # give hw_params a moment to set up the clock
+
+        during = _read_pcm_enable_count()
+        proc.terminate()
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        finally:
+            # Clean up temp file
+            try:
+                os.unlink(wav_path)
+            except OSError:
+                pass
+
+        if during > before:
+            return True, ""
+        elif during == 0 and before == 0:
+            return False, "I2S clock stuck — PCM enable count stayed 0 during playback"
+        else:
+            return False, f"I2S clock anomaly — before={before} during={during}"
+
+    except FileNotFoundError:
+        return True, "sox/aplay not available — skipped"
+    except Exception as e:
+        return True, f"check failed: {e} — skipped"
+
+
+def _fix_i2s_stuck() -> bool:
+    """Attempt to fix a stuck I2S peripheral.
+
+    Dynamically re-applies the ``googlevoicehat-soundcard`` device-tree
+    overlay.  This re-triggers the I2S / codec / sound-card driver binding
+    and has been observed to resolve the "BCLK + LRCLK stuck HIGH" issue
+    without requiring a reboot.
+
+    Returns:
+        bool: True if the overlay was loaded successfully.
+    """
+    from ._utils import run_command
+
+    _, out = run_command(f"sudo dtoverlay {I2S_OVERLAY} 2>&1", timeout=10)
+    # dtoverlay prints nothing on success; errors go to stderr
+    if "Failed" in out or "Error" in out or "not found" in out.lower():
+        return False
+    return True
+
+
 # TODO: re-enable when confirmed needed
 # def _check_audio_modules() -> tuple:
 #     """Check if WM8960 sound modules are loaded."""
@@ -417,6 +555,7 @@ def doctor() -> dict:
     audio_checks = [
         ("sound card (speaker)", _check_sound_card),
         ("capture device (mic)", _check_capture_device),
+        ("I2S clock (PCM)",      _check_i2s_clock),
     ]
 
     for name, func in audio_checks:
@@ -428,6 +567,9 @@ def doctor() -> dict:
             audio_ok = False
         _print_check(name, ok, detail)
 
+    i2s_ok = results.get("I2S clock (PCM)", True)
+    if not i2s_ok:
+        audio_ok = False
     results["audio_ok"] = audio_ok
 
     # ── Summary ──
@@ -496,6 +638,21 @@ def doctor_fix() -> dict:
     before = doctor()
     fixes = []
     reboot = False
+
+    # ── audio auto-fix: I2S clock stuck ──────────────────────────────────
+    if before.get("I2S clock (PCM)") is False:
+        print(f"\n  {YELLOW}I2S clock stuck — trying auto-fix...{RESET}")
+        if _fix_i2s_stuck():
+            fixes.append(f"re-applied dtoverlay {I2S_OVERLAY}")
+            import time
+            time.sleep(0.5)  # let the overlay/drivers settle
+            after_i2s = _check_i2s_clock()
+            if after_i2s[0]:
+                print(f"  {GREEN}I2S clock recovered{RESET}")
+            else:
+                print(f"  {YELLOW}I2S still stuck — reboot may be needed{RESET}")
+        else:
+            fixes.append(f"failed to apply dtoverlay {I2S_OVERLAY}")
 
     if before["overall"]:
         return {"before": before, "fixes": fixes, "after": before, "fixed": True, "reboot": False}
