@@ -578,9 +578,25 @@ def _get_fusion_hat_pa_sink() -> str:
              or empty string if not found.
     """
     import subprocess
+    import pwd
+
+    # Find a non-root user to run pactl as
+    username = None
+    uid = None
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and user.pw_uid < 65534:
+            username = user.pw_name
+            uid = user.pw_uid
+            break
+    if username is None:
+        return ""
+
     try:
         result = subprocess.run(
-            ["pactl", "-f", "json", "list", "sinks"],
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "-f", "json", "list", "sinks"],
             capture_output=True, text=True, timeout=5
         )
         if result.returncode != 0:
@@ -616,14 +632,13 @@ def _set_pa_default_sink(sink_name: str) -> bool:
     if username is None:
         return False
 
-    env = {
-        "XDG_RUNTIME_DIR": f"/run/user/{uid}",
-        "DBUS_SESSION_BUS_ADDRESS": f"unix:path=/run/user/{uid}/bus",
-    }
     try:
         subprocess.run(
-            ["sudo", "-u", username, "pactl", "set-default-sink", sink_name],
-            capture_output=True, timeout=5, env=env
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "set-default-sink", sink_name],
+            capture_output=True, timeout=5,
         )
         return True
     except Exception:
@@ -889,15 +904,30 @@ def doctor_fix() -> dict:
     Returns dict with before, fixes, after, reboot.
     """
     from ._utils import run_command
+    import time
 
     before = doctor(fix_mode=True)
     fixes = []
     reboot = False
 
+    # ── audio auto-fix: PulseAudio default sink wrong ────────────────────
+    if before.get("PulseAudio default sink") is False:
+        print(f"\n  {YELLOW}PulseAudio default sink is wrong — fixing...{RESET}")
+        sink = _get_fusion_hat_pa_sink()
+        if sink and _set_pa_default_sink(sink):
+            fixes.append(f"set PA default sink to {sink}")
+            time.sleep(0.3)
+            pa_after, _ = _check_pa_default_sink()
+            if pa_after:
+                print(f"  {GREEN}PulseAudio default sink fixed{RESET}")
+            else:
+                print(f"  {YELLOW}PA sink still wrong after retry{RESET}")
+        else:
+            fixes.append("failed to set PA default sink")
+
     # ── audio auto-fix: I2S clock stuck ──────────────────────────────────
     if before.get("I2S clock (PCM)") is False:
         print(f"\n  {YELLOW}I2S clock stuck — trying auto-fix (trigger hw_params)...{RESET}")
-        import time
         if _fix_i2s_stuck():
             fixes.append("triggered I2S hw_params via playback")
             time.sleep(0.3)
