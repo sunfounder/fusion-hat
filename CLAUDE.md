@@ -142,7 +142,7 @@ git push origin v<VERSION>
 **CRITICAL — PR and branch protection rules:**
 
 1. **NEVER push directly to main.** All changes go through a branch → PR → merge.
-2. **NEVER merge a PR without the user's explicit approval.** Present the PR link, wait for "merge" or "合并" before proceeding.
+2. **Only merge a PR after the user has approved it on GitHub.** If the PR has no review yet, wait — do not prompt, do not ask. Once the user clicks "Approve" on GitHub, you may merge immediately without asking.
 3. **If branch protection blocks a merge**, do NOT remove protection yourself. Tell the user and let them decide. If the user explicitly instructs removal, remove protection → merge → **IMMEDIATELY re-add protection** before doing anything else.
 4. **After re-adding protection**, verify with `gh api repos/.../branches/main/protection`.
 5. **If a squash/rebase merge loses commits**, create a new branch and PR — do NOT push directly to main.

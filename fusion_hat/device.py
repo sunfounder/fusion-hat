@@ -336,6 +336,9 @@ def _check_module_file() -> tuple:
 # ── audio checks ─────────────────────────────────────────────────────────────
 
 AUDIO_CARD_NAME = "sndrpigooglevoi"
+# PulseAudio uses the full DT name (up to 31 chars), while aplay -l
+# truncates it.  Both variants identify the Fusion Hat sound card.
+AUDIO_CARD_NAMES = (AUDIO_CARD_NAME, "snd_rpi_googlevoicehat_soundcar")
 
 def _check_sound_card() -> tuple:
     """Check Fusion HAT sound card (speaker) via ALSA."""
@@ -353,6 +356,398 @@ def _check_capture_device() -> tuple:
         return True, ""
     return False, "capture device not found"
 
+
+# ── I2S clock health check ───────────────────────────────────────────────────
+
+PCM_CLK_PATH = "/sys/kernel/debug/clk/clk_summary"
+
+
+def _check_asound_conf() -> tuple:
+    """Check that /etc/asound.conf routes to the Fusion Hat card."""
+    asound_path = "/etc/asound.conf"
+    if not os.path.isfile(asound_path):
+        return False, "/etc/asound.conf not found"
+    try:
+        with open(asound_path, "r") as f:
+            content = f.read()
+        if AUDIO_CARD_NAME in content:
+            return True, ""
+        return False, f"{AUDIO_CARD_NAME} not referenced in asound.conf"
+    except Exception:
+        return False, "cannot read /etc/asound.conf"
+
+
+def _check_pa_default_sink() -> tuple:
+    """Check that PulseAudio default sink is the Fusion Hat card."""
+    import subprocess
+    import pwd
+
+    # Find a non-root user
+    username = None
+    uid = None
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and user.pw_uid < 65534:
+            username = user.pw_name
+            uid = user.pw_uid
+            break
+    if username is None:
+        return True, "no user session — skipped"
+
+    env = {
+        "XDG_RUNTIME_DIR": f"/run/user/{uid}",
+        "DBUS_SESSION_BUS_ADDRESS": f"unix:path=/run/user/{uid}/bus",
+    }
+    try:
+        result = subprocess.run(
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "info"],
+            capture_output=True, text=True, timeout=5,
+        )
+        if result.returncode != 0:
+            return True, "pulseaudio not running — skipped"
+
+        # Find default sink name
+        default_sink = None
+        for line in result.stdout.split("\n"):
+            if line.startswith("Default Sink:"):
+                default_sink = line.split(":", 1)[1].strip()
+                break
+        if not default_sink:
+            return True, "no default sink — skipped"
+
+        # Check if it belongs to Fusion Hat
+        result2 = subprocess.run(
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "-f", "json", "list", "sinks"],
+            capture_output=True, text=True, timeout=5,
+        )
+        import json
+        sinks = json.loads(result2.stdout)
+        for s in sinks:
+            if s.get("name") == default_sink:
+                card = s.get("properties", {}).get("alsa.card_name", "")
+                for name_variant in AUDIO_CARD_NAMES:
+                    if name_variant in card:
+                        return True, ""
+                return False, f"default sink is '{card}' not Fusion Hat"
+        return False, "default sink not found in sink list"
+    except FileNotFoundError:
+        return True, "pactl not available — skipped"
+    except Exception:
+        return True, "pulseaudio check failed — skipped"
+
+
+def _check_alsa_volume() -> tuple:
+    """Check that ALSA speaker volume is not zero or muted."""
+    from ._utils import run_command
+    # Try both possible control names
+    for ctrl in ("Fusion Hat", "Fusion Hat Playback Volume", "Playback", "Master"):
+        _, out = run_command(
+            f"amixer -c {AUDIO_CARD_NAME} sget '{ctrl}' 2>/dev/null",
+            timeout=5,
+        )
+        if out and "Playback" in out:
+            # Check if volume is > 0 and not muted
+            if "[0%]" in out or "[off]" in out or "[0dB]" in out:
+                return False, f"speaker volume is 0% or muted (control: {ctrl})"
+            return True, ""
+    return True, "volume control not found — skipped"
+
+
+def _read_pcm_enable_count() -> int:
+    """Read the current PCM clock enable count from debugfs.
+
+    Returns:
+        int: enable count (first numeric column for 'pcm' row),
+             or -1 if the clock summary is not accessible.
+    """
+    try:
+        if not os.path.isfile(PCM_CLK_PATH):
+            return -1
+        with open(PCM_CLK_PATH, "r") as f:
+            for line in f:
+                if " pcm " in line or line.strip().startswith("pcm "):
+                    parts = line.strip().split()
+                    # Format: name  enable  prepare  protect  rate  ...
+                    # The pcm line is indented, first numeric col is enable count
+                    for p in parts:
+                        if p.isdigit():
+                            return int(p)
+        return -1
+    except Exception:
+        return -1
+
+
+def _check_i2s_clock() -> tuple:
+    """Check if the I2S PCM clock actually starts during playback.
+
+    Plays a brief silent tone via ALSA and verifies that the PCM clock's
+    enable count increases.  A stuck count (especially 0 both before and
+    during playback) means the I2S peripheral is not responding.
+
+    Returns:
+        (bool, str): True if the clock started, False with a diagnostic
+                     message otherwise.
+    """
+    from ._utils import run_command
+
+    # Only run if the sound card exists — otherwise skip with an ok result
+    # because the missing-card check already catches that case.
+    _, aplay_out = run_command("aplay -l 2>/dev/null")
+    if AUDIO_CARD_NAME not in aplay_out:
+        return True, "sound card not available — skipped"
+
+    # Get card index for hw:X,0
+    card_index = None
+    for line in aplay_out.split("\n"):
+        if AUDIO_CARD_NAME in line:
+            parts = line.split()
+            if parts:
+                idx = parts[1].rstrip(":")
+                if idx.isdigit():
+                    card_index = idx
+                    break
+    if card_index is None:
+        return True, "cannot determine card index — skipped"
+
+    before = _read_pcm_enable_count()
+    if before < 0:
+        # debugfs not available — skip the check
+        return True, "debugfs not mounted — skipped"
+
+    # Play a very short silent audio to trigger hw_params -> clock enable.
+    # We use sox to generate 0.1s of near-silence and aplay to push it.
+    import tempfile
+    import subprocess
+
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+            wav_path = tmp.name
+        # Generate 0.5s tone at 48 kHz / S32_LE / stereo (long enough to
+        # reliably catch the PCM clock enable before aplay exits).
+        subprocess.run(
+            ["sox", "-n", "-r", "48000", "-b", "32", "-c", "2",
+             wav_path, "synth", "0.5", "sin", "440"],
+            capture_output=True, timeout=5
+        )
+        if not os.path.isfile(wav_path):
+            return True, "sox not available — skipped"
+
+        proc = subprocess.Popen(
+            ["aplay", "-D", f"hw:{card_index},0", wav_path],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+        )
+        import time
+        time.sleep(0.2)  # give hw_params a moment to set up the clock
+
+        during = _read_pcm_enable_count()
+        proc.terminate()
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        finally:
+            # Clean up temp file
+            try:
+                os.unlink(wav_path)
+            except OSError:
+                pass
+
+        if during > before:
+            return True, ""
+        elif during == 0 and before == 0:
+            return False, "I2S clock stuck — PCM enable count stayed 0 during playback"
+        else:
+            return False, f"I2S clock anomaly — before={before} during={during}"
+
+    except FileNotFoundError:
+        return True, "sox/aplay not available — skipped"
+    except Exception as e:
+        return True, f"check failed: {e} — skipped"
+
+
+def _get_fusion_hat_pa_sink() -> str:
+    """Find the PulseAudio sink name for the Fusion Hat sound card.
+
+    Returns:
+        str: sink name like ``alsa_output.platform-soc_sound.stereo-fallback``,
+             or empty string if not found.
+    """
+    import subprocess
+    import pwd
+
+    # Find a non-root user to run pactl as
+    username = None
+    uid = None
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and user.pw_uid < 65534:
+            username = user.pw_name
+            uid = user.pw_uid
+            break
+    if username is None:
+        return ""
+
+    try:
+        result = subprocess.run(
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "-f", "json", "list", "sinks"],
+            capture_output=True, text=True, timeout=5
+        )
+        if result.returncode != 0:
+            return ""
+        import json
+        sinks = json.loads(result.stdout)
+        for s in sinks:
+            props = s.get("properties", {})
+            card_name = props.get("alsa.card_name", "")
+            if any(v in card_name for v in AUDIO_CARD_NAMES):
+                return s.get("name", "")
+    except Exception:
+        pass
+    return ""
+
+
+def _set_pa_default_sink(sink_name: str) -> bool:
+    """Set the PulseAudio default sink.
+
+    Runs as the first non-root user (typically 'pi') via sudo.
+    """
+    import subprocess
+    import pwd
+
+    # Find a non-root user to run pactl as
+    username = None
+    uid = None
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and user.pw_uid < 65534:
+            username = user.pw_name
+            uid = user.pw_uid
+            break
+    if username is None:
+        return False
+
+    try:
+        subprocess.run(
+            ["sudo", "-u", username, "env",
+             f"XDG_RUNTIME_DIR=/run/user/{uid}",
+             f"DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus",
+             "pactl", "set-default-sink", sink_name],
+            capture_output=True, timeout=5,
+        )
+        return True
+    except Exception:
+        return False
+
+
+def _fix_i2s_stuck() -> bool:
+    """Attempt to fix a stuck I2S peripheral.
+
+    Two-step fix for the "BCLK + LRCLK stuck HIGH / speaker hot" issue:
+
+      1. **PulseAudio routing** — Ensure the default sink is the Fusion Hat
+         card, not the built-in headphone jack.  When Pipewire/PulseAudio
+         routes audio to the wrong card, the I2S clock never starts.
+
+      2. **Trigger hw_params** — Play a brief tone via ``play`` (sox) to
+         force the ALSA ``hw_params`` call which configures the I2S
+         registers correctly.
+
+    Returns:
+        bool: True if PCM clock enable count increased after the fix.
+    """
+    import subprocess
+    import time
+
+    # ── Step 1: fix PulseAudio default sink ──────────────────────────
+    sink = _get_fusion_hat_pa_sink()
+    if sink:
+        _set_pa_default_sink(sink)
+
+    # ── Step 2: enable speaker + trigger hw_params ───────────────────
+    speaker_path = os.path.join(DEVICE_PATH, "speaker")
+    if os.path.exists(speaker_path):
+        try:
+            with open(speaker_path, "w") as f:
+                f.write("1")
+        except Exception:
+            pass
+
+    # Play a tone long enough to be caught by the clock check
+    before = _read_pcm_enable_count()
+    try:
+        proc = subprocess.Popen(
+            ["play", "-n", "synth", "0.5", "sin", "440"],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.6)
+        during = _read_pcm_enable_count()
+        proc.terminate()
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        return during > before
+    except FileNotFoundError:
+        pass
+    except Exception:
+        pass
+
+    # Fallback: direct hw access via aplay
+    try:
+        result = subprocess.run(
+            ["aplay", "-l"], capture_output=True, text=True, timeout=5
+        )
+        card_index = None
+        for line in (result.stdout + result.stderr).split("\n"):
+            if AUDIO_CARD_NAME in line:
+                parts = line.split()
+                if len(parts) > 1:
+                    idx = parts[1].rstrip(":")
+                    if idx.isdigit():
+                        card_index = idx
+                        break
+        if card_index is None:
+            return False
+
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+            wav_path = tmp.name
+        subprocess.run(
+            ["sox", "-n", "-r", "48000", "-b", "32", "-c", "2",
+             wav_path, "synth", "0.5", "sin", "440"],
+            capture_output=True, timeout=5
+        )
+        if not os.path.isfile(wav_path):
+            return False
+
+        before2 = _read_pcm_enable_count()
+        proc = subprocess.Popen(
+            ["aplay", "-D", f"hw:{card_index},0", wav_path],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.6)
+        during2 = _read_pcm_enable_count()
+        proc.terminate()
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        finally:
+            try:
+                os.unlink(wav_path)
+            except OSError:
+                pass
+        return during2 > before2
+    except Exception:
+        return False
+
+
 # TODO: re-enable when confirmed needed
 # def _check_audio_modules() -> tuple:
 #     """Check if WM8960 sound modules are loaded."""
@@ -367,12 +762,16 @@ def _check_capture_device() -> tuple:
 #     return True, ""
 
 
-def doctor() -> dict:
+def doctor(fix_mode: bool = False) -> dict:
     """Live hardware health check — prints results as each check runs.
 
     Sections:
       Driver  — sysfs, module, I2C MCU, dtoverlay, module file
-      Audio   — sound card, capture device (with dependency deep-dive)
+      Audio   — sound card, capture device, I2S clock health
+
+    Args:
+        fix_mode: If True, summary messages adapt for ``--fix`` mode
+                  (don't suggest running ``--fix`` again).
 
     Returns:
         dict with keys: overall, driver_ok, audio_ok, results (per-check dict)
@@ -415,8 +814,12 @@ def doctor() -> dict:
     _print_section("Audio")
 
     audio_checks = [
-        ("sound card (speaker)", _check_sound_card),
-        ("capture device (mic)", _check_capture_device),
+        ("sound card (speaker)",    _check_sound_card),
+        ("capture device (mic)",    _check_capture_device),
+        ("asound.conf",             _check_asound_conf),
+        ("PulseAudio default sink", _check_pa_default_sink),
+        ("ALSA speaker volume",     _check_alsa_volume),
+        ("I2S clock (PCM)",         _check_i2s_clock),
     ]
 
     for name, func in audio_checks:
@@ -428,35 +831,44 @@ def doctor() -> dict:
             audio_ok = False
         _print_check(name, ok, detail)
 
+    i2s_ok = results.get("I2S clock (PCM)", True)
+    if not i2s_ok:
+        audio_ok = False
     results["audio_ok"] = audio_ok
 
     # ── Summary ──
     dtoverlay_ok = results.get("dtoverlay in config.txt", False)
     sysfs_ok = results.get("sysfs interface", False)
-    overall = driver_ok
+    overall = driver_ok and audio_ok
     results["overall"] = overall
 
     print("")
     if not dtoverlay_ok:
         print(f"  {YELLOW}dtoverlay not configured{RESET}")
-        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+        _print_fix_hint(fix_mode)
     elif not sysfs_ok:
         print(f"  {YELLOW}dtoverlay configured but reboot needed{RESET}")
-        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+        _print_fix_hint(fix_mode)
     else:
-        if overall:
-            print(f"  {GREEN}All driver checks passed.{RESET}")
+        if driver_ok and audio_ok:
+            print(f"  {GREEN}All checks passed.{RESET}")
         else:
-            print(f"  {YELLOW}Some driver checks failed.{RESET}")
-            print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
-        if not audio_ok:
-            print(f"  {YELLOW}Audio issues found.{RESET}")
-            print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+            if not driver_ok:
+                print(f"  {YELLOW}Driver issues found.{RESET}")
+            if not audio_ok:
+                print(f"  {YELLOW}Audio issues found.{RESET}")
+            _print_fix_hint(fix_mode)
     print("")
     print("=" * 50)
     print("")
 
     return results
+
+
+def _print_fix_hint(fix_mode: bool = False):
+    """Print a hint to run ``--fix``, or skip if already in fix mode."""
+    if not fix_mode:
+        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
 
 
 def _find_driver_src() -> str:
@@ -492,10 +904,40 @@ def doctor_fix() -> dict:
     Returns dict with before, fixes, after, reboot.
     """
     from ._utils import run_command
+    import time
 
-    before = doctor()
+    before = doctor(fix_mode=True)
     fixes = []
     reboot = False
+
+    # ── audio auto-fix: PulseAudio default sink wrong ────────────────────
+    if before.get("PulseAudio default sink") is False:
+        print(f"\n  {YELLOW}PulseAudio default sink is wrong — fixing...{RESET}")
+        sink = _get_fusion_hat_pa_sink()
+        if sink and _set_pa_default_sink(sink):
+            fixes.append(f"set PA default sink to {sink}")
+            time.sleep(0.3)
+            pa_after, _ = _check_pa_default_sink()
+            if pa_after:
+                print(f"  {GREEN}PulseAudio default sink fixed{RESET}")
+            else:
+                print(f"  {YELLOW}PA sink still wrong after retry{RESET}")
+        else:
+            fixes.append("failed to set PA default sink")
+
+    # ── audio auto-fix: I2S clock stuck ──────────────────────────────────
+    if before.get("I2S clock (PCM)") is False:
+        print(f"\n  {YELLOW}I2S clock stuck — trying auto-fix (trigger hw_params)...{RESET}")
+        if _fix_i2s_stuck():
+            fixes.append("triggered I2S hw_params via playback")
+            time.sleep(0.3)
+            after_i2s = _check_i2s_clock()
+            if after_i2s[0]:
+                print(f"  {GREEN}I2S clock recovered{RESET}")
+            else:
+                print(f"  {YELLOW}I2S still stuck after retry — try 'fusion_hat speaker setup'{RESET}")
+        else:
+            fixes.append("failed to trigger I2S hw_params")
 
     if before["overall"]:
         return {"before": before, "fixes": fixes, "after": before, "fixed": True, "reboot": False}
@@ -527,9 +969,6 @@ def doctor_fix() -> dict:
             reboot = True
         else:
             fixes.append("failed to add dtoverlay to config.txt")
-    else:
-        fixes.append("dtoverlay already in config.txt")
-
     # dtoverlay configured but sysfs not working → reboot needed
     if dtoverlay_ok and not sysfs_ok:
         fixes.append("dtoverlay configured, reboot required to activate")
