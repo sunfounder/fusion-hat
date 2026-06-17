@@ -357,7 +357,6 @@ def _check_capture_device() -> tuple:
 # ── I2S clock health check ───────────────────────────────────────────────────
 
 PCM_CLK_PATH = "/sys/kernel/debug/clk/clk_summary"
-I2S_OVERLAY = "googlevoicehat-soundcard"
 
 
 def _read_pcm_enable_count() -> int:
@@ -429,10 +428,11 @@ def _check_i2s_clock() -> tuple:
     try:
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
             wav_path = tmp.name
-        # Generate 0.1s of silence at 48 kHz / S32_LE / stereo
+        # Generate 0.5s tone at 48 kHz / S32_LE / stereo (long enough to
+        # reliably catch the PCM clock enable before aplay exits).
         subprocess.run(
             ["sox", "-n", "-r", "48000", "-b", "32", "-c", "2",
-             wav_path, "trim", "0", "0.1"],
+             wav_path, "synth", "0.5", "sin", "440"],
             capture_output=True, timeout=5
         )
         if not os.path.isfile(wav_path):
@@ -443,7 +443,7 @@ def _check_i2s_clock() -> tuple:
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
         )
         import time
-        time.sleep(0.15)  # give hw_params a moment to set up the clock
+        time.sleep(0.2)  # give hw_params a moment to set up the clock
 
         during = _read_pcm_enable_count()
         proc.terminate()
@@ -471,24 +471,166 @@ def _check_i2s_clock() -> tuple:
         return True, f"check failed: {e} — skipped"
 
 
+def _get_fusion_hat_pa_sink() -> str:
+    """Find the PulseAudio sink name for the Fusion Hat sound card.
+
+    Returns:
+        str: sink name like ``alsa_output.platform-soc_sound.stereo-fallback``,
+             or empty string if not found.
+    """
+    import subprocess
+    try:
+        result = subprocess.run(
+            ["pactl", "-f", "json", "list", "sinks"],
+            capture_output=True, text=True, timeout=5
+        )
+        if result.returncode != 0:
+            return ""
+        import json
+        sinks = json.loads(result.stdout)
+        for s in sinks:
+            props = s.get("properties", {})
+            if AUDIO_CARD_NAME in props.get("alsa.card_name", ""):
+                return s.get("name", "")
+    except Exception:
+        pass
+    return ""
+
+
+def _set_pa_default_sink(sink_name: str) -> bool:
+    """Set the PulseAudio default sink.
+
+    Runs as the first non-root user (typically 'pi') via sudo.
+    """
+    import subprocess
+    import pwd
+
+    # Find a non-root user to run pactl as
+    username = None
+    uid = None
+    for user in pwd.getpwall():
+        if user.pw_uid >= 1000 and user.pw_uid < 65534:
+            username = user.pw_name
+            uid = user.pw_uid
+            break
+    if username is None:
+        return False
+
+    env = {
+        "XDG_RUNTIME_DIR": f"/run/user/{uid}",
+        "DBUS_SESSION_BUS_ADDRESS": f"unix:path=/run/user/{uid}/bus",
+    }
+    try:
+        subprocess.run(
+            ["sudo", "-u", username, "pactl", "set-default-sink", sink_name],
+            capture_output=True, timeout=5, env=env
+        )
+        return True
+    except Exception:
+        return False
+
+
 def _fix_i2s_stuck() -> bool:
     """Attempt to fix a stuck I2S peripheral.
 
-    Dynamically re-applies the ``googlevoicehat-soundcard`` device-tree
-    overlay.  This re-triggers the I2S / codec / sound-card driver binding
-    and has been observed to resolve the "BCLK + LRCLK stuck HIGH" issue
-    without requiring a reboot.
+    Two-step fix for the "BCLK + LRCLK stuck HIGH / speaker hot" issue:
+
+      1. **PulseAudio routing** — Ensure the default sink is the Fusion Hat
+         card, not the built-in headphone jack.  When Pipewire/PulseAudio
+         routes audio to the wrong card, the I2S clock never starts.
+
+      2. **Trigger hw_params** — Play a brief tone via ``play`` (sox) to
+         force the ALSA ``hw_params`` call which configures the I2S
+         registers correctly.
 
     Returns:
-        bool: True if the overlay was loaded successfully.
+        bool: True if PCM clock enable count increased after the fix.
     """
-    from ._utils import run_command
+    import subprocess
+    import time
 
-    _, out = run_command(f"sudo dtoverlay {I2S_OVERLAY} 2>&1", timeout=10)
-    # dtoverlay prints nothing on success; errors go to stderr
-    if "Failed" in out or "Error" in out or "not found" in out.lower():
+    # ── Step 1: fix PulseAudio default sink ──────────────────────────
+    sink = _get_fusion_hat_pa_sink()
+    if sink:
+        _set_pa_default_sink(sink)
+
+    # ── Step 2: enable speaker + trigger hw_params ───────────────────
+    speaker_path = os.path.join(DEVICE_PATH, "speaker")
+    if os.path.exists(speaker_path):
+        try:
+            with open(speaker_path, "w") as f:
+                f.write("1")
+        except Exception:
+            pass
+
+    # Play a tone long enough to be caught by the clock check
+    before = _read_pcm_enable_count()
+    try:
+        proc = subprocess.Popen(
+            ["play", "-n", "synth", "0.5", "sin", "440"],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.6)
+        during = _read_pcm_enable_count()
+        proc.terminate()
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        return during > before
+    except FileNotFoundError:
+        pass
+    except Exception:
+        pass
+
+    # Fallback: direct hw access via aplay
+    try:
+        result = subprocess.run(
+            ["aplay", "-l"], capture_output=True, text=True, timeout=5
+        )
+        card_index = None
+        for line in (result.stdout + result.stderr).split("\n"):
+            if AUDIO_CARD_NAME in line:
+                parts = line.split()
+                if len(parts) > 1:
+                    idx = parts[1].rstrip(":")
+                    if idx.isdigit():
+                        card_index = idx
+                        break
+        if card_index is None:
+            return False
+
+        import tempfile
+        with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
+            wav_path = tmp.name
+        subprocess.run(
+            ["sox", "-n", "-r", "48000", "-b", "32", "-c", "2",
+             wav_path, "synth", "0.5", "sin", "440"],
+            capture_output=True, timeout=5
+        )
+        if not os.path.isfile(wav_path):
+            return False
+
+        before2 = _read_pcm_enable_count()
+        proc = subprocess.Popen(
+            ["aplay", "-D", f"hw:{card_index},0", wav_path],
+            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+        )
+        time.sleep(0.6)
+        during2 = _read_pcm_enable_count()
+        proc.terminate()
+        try:
+            proc.wait(timeout=2)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+        finally:
+            try:
+                os.unlink(wav_path)
+            except OSError:
+                pass
+        return during2 > before2
+    except Exception:
         return False
-    return True
 
 
 # TODO: re-enable when confirmed needed
@@ -505,12 +647,16 @@ def _fix_i2s_stuck() -> bool:
 #     return True, ""
 
 
-def doctor() -> dict:
+def doctor(fix_mode: bool = False) -> dict:
     """Live hardware health check — prints results as each check runs.
 
     Sections:
       Driver  — sysfs, module, I2C MCU, dtoverlay, module file
-      Audio   — sound card, capture device (with dependency deep-dive)
+      Audio   — sound card, capture device, I2S clock health
+
+    Args:
+        fix_mode: If True, summary messages adapt for ``--fix`` mode
+                  (don't suggest running ``--fix`` again).
 
     Returns:
         dict with keys: overall, driver_ok, audio_ok, results (per-check dict)
@@ -575,30 +721,36 @@ def doctor() -> dict:
     # ── Summary ──
     dtoverlay_ok = results.get("dtoverlay in config.txt", False)
     sysfs_ok = results.get("sysfs interface", False)
-    overall = driver_ok
+    overall = driver_ok and audio_ok
     results["overall"] = overall
 
     print("")
     if not dtoverlay_ok:
         print(f"  {YELLOW}dtoverlay not configured{RESET}")
-        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+        _print_fix_hint(fix_mode)
     elif not sysfs_ok:
         print(f"  {YELLOW}dtoverlay configured but reboot needed{RESET}")
-        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+        _print_fix_hint(fix_mode)
     else:
-        if overall:
-            print(f"  {GREEN}All driver checks passed.{RESET}")
+        if driver_ok and audio_ok:
+            print(f"  {GREEN}All checks passed.{RESET}")
         else:
-            print(f"  {YELLOW}Some driver checks failed.{RESET}")
-            print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
-        if not audio_ok:
-            print(f"  {YELLOW}Audio issues found.{RESET}")
-            print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
+            if not driver_ok:
+                print(f"  {YELLOW}Driver issues found.{RESET}")
+            if not audio_ok:
+                print(f"  {YELLOW}Audio issues found.{RESET}")
+            _print_fix_hint(fix_mode)
     print("")
     print("=" * 50)
     print("")
 
     return results
+
+
+def _print_fix_hint(fix_mode: bool = False):
+    """Print a hint to run ``--fix``, or skip if already in fix mode."""
+    if not fix_mode:
+        print(f"  → Run: {BOLD}fusion_hat doctor --fix{RESET}")
 
 
 def _find_driver_src() -> str:
@@ -635,24 +787,24 @@ def doctor_fix() -> dict:
     """
     from ._utils import run_command
 
-    before = doctor()
+    before = doctor(fix_mode=True)
     fixes = []
     reboot = False
 
     # ── audio auto-fix: I2S clock stuck ──────────────────────────────────
     if before.get("I2S clock (PCM)") is False:
-        print(f"\n  {YELLOW}I2S clock stuck — trying auto-fix...{RESET}")
+        print(f"\n  {YELLOW}I2S clock stuck — trying auto-fix (trigger hw_params)...{RESET}")
+        import time
         if _fix_i2s_stuck():
-            fixes.append(f"re-applied dtoverlay {I2S_OVERLAY}")
-            import time
-            time.sleep(0.5)  # let the overlay/drivers settle
+            fixes.append("triggered I2S hw_params via playback")
+            time.sleep(0.3)
             after_i2s = _check_i2s_clock()
             if after_i2s[0]:
                 print(f"  {GREEN}I2S clock recovered{RESET}")
             else:
-                print(f"  {YELLOW}I2S still stuck — reboot may be needed{RESET}")
+                print(f"  {YELLOW}I2S still stuck after retry — try 'fusion_hat speaker setup'{RESET}")
         else:
-            fixes.append(f"failed to apply dtoverlay {I2S_OVERLAY}")
+            fixes.append("failed to trigger I2S hw_params")
 
     if before["overall"]:
         return {"before": before, "fixes": fixes, "after": before, "fixed": True, "reboot": False}
