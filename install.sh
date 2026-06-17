@@ -86,10 +86,10 @@ RUN "register-python-argcomplete -s bash fusion_hat > /etc/bash_completion.d/fus
 TITLE "Setup audio"
 if [ "$SKIP_AUDIO_TEST" = true ]; then
     RUN "sudo bash $HOME/fusion-hat/fusion_hat/scripts/setup_fusion_hat_audio.sh --skip-test" \
-        "Setup audio (speaker test skipped)"
+        "Setup audio"
 else
     RUN "sudo bash $HOME/fusion-hat/fusion_hat/scripts/setup_fusion_hat_audio.sh" \
-        "Setup audio with speaker test"
+        "Setup audio"
 fi
 
 installer_install
