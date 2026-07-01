@@ -160,13 +160,15 @@ install:
 	@echo "Installing Fusion Hat driver and device tree overlay..."
 	@# Unload module if loaded
 	-@sudo rmmod fusion_hat 2>/dev/null || echo "Module not currently loaded."
-	@# Try DKMS first, fall back to traditional install
-	@if command -v dkms >/dev/null 2>&1; then \
+	@# Try DKMS first, fall back to traditional install if DKMS fails or is missing
+	@DKMS_OK=0; \
+	if command -v dkms >/dev/null 2>&1; then \
 	    echo "DKMS detected, using DKMS for module installation..."; \
-	    $(MAKE) dkms_install; \
-	else \
-	    echo "DKMS not found, using traditional installation (driver will NOT auto-rebuild on kernel updates)."; \
-	    echo "Install DKMS (sudo apt-get install dkms) and re-run 'sudo make install' for auto-rebuild support."; \
+	    $(MAKE) dkms_install && DKMS_OK=1 || echo "DKMS failed, falling back to traditional install..."; \
+	fi; \
+	if [ "$$DKMS_OK" = "0" ]; then \
+	    echo "Using traditional installation (driver will NOT auto-rebuild on kernel updates)."; \
+	    echo "Install DKMS (sudo apt-get install dkms) and re-run for auto-rebuild support."; \
 	    $(MAKE) modules_install; \
 	fi
 	@$(MAKE) install-overlay
@@ -197,7 +199,7 @@ status:
 	@echo "=== Fusion Hat Driver Status ==="
 	@echo ""
 	@# Check if module file exists
-	@if [ -f /lib/modules/$(shell uname -r)/extra/fusion_hat.ko ] || [ -f /lib/modules/$(shell uname -r)/updates/fusion_hat.ko ]; then \
+	@if [ -f /lib/modules/$(shell uname -r)/extra/fusion_hat.ko ] || [ -f /lib/modules/$(shell uname -r)/updates/fusion_hat.ko ] || [ -f /lib/modules/$(shell uname -r)/updates/dkms/fusion_hat.ko ]; then \
 	    echo "Module file    : INSTALLED"; \
 	else \
 	    echo "Module file    : MISSING"; \
