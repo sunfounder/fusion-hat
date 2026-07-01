@@ -197,7 +197,7 @@ status:
 	@echo "=== Fusion Hat Driver Status ==="
 	@echo ""
 	@# Check if module file exists
-	@if [ -f /lib/modules/$(shell uname -r)/extra/fusion_hat.ko ] || [ -f /lib/modules/$(shell uname -r)/updates/fusion_hat.ko ]; then \
+	@if [ -f /lib/modules/$(shell uname -r)/extra/fusion_hat.ko ] || [ -f /lib/modules/$(shell uname -r)/updates/fusion_hat.ko ] || [ -f /lib/modules/$(shell uname -r)/updates/dkms/fusion_hat.ko ]; then \
 	    echo "Module file    : INSTALLED"; \
 	else \
 	    echo "Module file    : MISSING"; \

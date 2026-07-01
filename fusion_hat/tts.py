@@ -8,6 +8,7 @@ Available TTS engines:
 - ``Pico2Wave``: SVOX Pico TTS engine used to convert text into a WAV audio file.
 - ``Espeak``: A compact open source software speech synthesizer for English and other languages.
 - ``OpenAI_TTS`` Online TTS service from OpenAI.
+- ``EdgeTTS``: Free cloud TTS from Microsoft Edge.
 
 Example:
 
@@ -109,9 +110,10 @@ __all__ = [
     "Pico2Wave",
     "Espeak",
     "OpenAI_TTS",
+    "EdgeTTS",
 ]
 
-from sunfounder_voice_assistant.tts import Piper, Pico2Wave, Espeak, OpenAI_TTS
+from sunfounder_voice_assistant.tts import Piper, Pico2Wave, Espeak, OpenAI_TTS, EdgeTTS
 from .device import enable_speaker
 
 # Save original __init__ methods
@@ -119,6 +121,7 @@ _original_piper_init = Piper.__init__
 _original_pico2wave_init = Pico2Wave.__init__
 _original_espeak_init = Espeak.__init__
 _original_openai_tts_init = OpenAI_TTS.__init__
+_original_edge_tts_init = EdgeTTS.__init__
 
 # Override __init__ methods to enable speaker
 def _piper_init_with_speaker(self, *args, **kwargs):
@@ -137,8 +140,13 @@ def _openai_tts_init_with_speaker(self, *args, **kwargs):
     _original_openai_tts_init(self, *args, **kwargs)
     enable_speaker()
 
+def _edge_tts_init_with_speaker(self, *args, **kwargs):
+    _original_edge_tts_init(self, *args, **kwargs)
+    enable_speaker()
+
 # Apply modified __init__ methods
 Piper.__init__ = _piper_init_with_speaker
 Pico2Wave.__init__ = _pico2wave_init_with_speaker
 Espeak.__init__ = _espeak_init_with_speaker
 OpenAI_TTS.__init__ = _openai_tts_init_with_speaker
+EdgeTTS.__init__ = _edge_tts_init_with_speaker
