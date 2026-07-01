@@ -329,6 +329,7 @@ def _check_module_file() -> tuple:
         f"/lib/modules/{kv}/extra/fusion_hat.ko.xz",
         f"/lib/modules/{kv}/updates/fusion_hat.ko.xz",
         f"/lib/modules/{kv}/updates/dkms/fusion_hat.ko.xz",
+        f"/lib/modules/{kv}/updates/dkms/fusion_hat.ko",
     ]
     ok = any(os.path.exists(p) for p in ko_paths)
     return ok, "" if ok else "fusion_hat.ko not installed"
