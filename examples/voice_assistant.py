@@ -1,15 +1,17 @@
 from fusion_hat.voice_assistant import VoiceAssistant
 from fusion_hat.llm import OpenAI as LLM
 from secret import OPENAI_API_KEY as API_KEY
-from fusion_hat.tts import EdgeTTS
 
 # ── TTS engines ──────────────────────────────────────────────────────────
-# Default: EdgeTTS — free cloud TTS, 100+ voices, no API key
-tts = EdgeTTS(voice="en-US-AriaNeural")
+# Pick one. The VoiceAssistant accepts any TTS instance via the `tts=` parameter.
 
-# Piper — local neural TTS, offline, fast (but slow on Pi Zero)
-# from sunfounder_voice_assistant.tts import Piper
-# tts = Piper(model="en_US-ryan-low")
+# Default: Piper — local neural TTS, offline, fast
+from sunfounder_voice_assistant.tts import Piper
+tts = Piper(model="en_US-ryan-low")
+
+# EdgeTTS — free cloud TTS, 100+ voices, no API key
+# from fusion_hat.tts import EdgeTTS
+# tts = EdgeTTS(voice="en-US-AriaNeural")
 
 # Espeak — compact offline TTS, robotic, fastest
 # from sunfounder_voice_assistant.tts import Espeak
