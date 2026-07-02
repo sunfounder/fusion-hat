@@ -39,6 +39,7 @@ APT_INSTALL_LIST=(
     "libsdl2-mixer-dev"
     "portaudio19-dev"
     "sox"
+    "libsox-fmt-mp3"  # EdgeTTS MP3→WAV conversion
     "libttspico-utils"
     "dkms"
 )
