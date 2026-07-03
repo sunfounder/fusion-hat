@@ -43,8 +43,6 @@ fusion_hat speaker setup        # Run audio setup (--skip-test to skip speaker t
 fusion_hat info                 # Show device info
 fusion_hat doctor               # Run hardware health checks
 fusion_hat doctor --fix         # Auto-repair driver issues
-fusion_hat update_eeprom        # Reflash HAT EEPROM
-fusion_hat update_eeprom --erase # Erase then flash EEPROM
 fusion_hat version              # Print library version
 fusion_hat update               # Self-update from git
 fusion_hat scan_i2c             # Scan I2C bus
