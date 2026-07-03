@@ -142,8 +142,8 @@ dkms_install:
 	@sudo sed -i 's/^PACKAGE_VERSION=.*/PACKAGE_VERSION="$(DRIVER_VERSION)"/' $(DKMS_SRC)/dkms.conf
 	@# Add, build, and install via DKMS
 	@sudo dkms add -m fusion_hat -v $(DRIVER_VERSION)
-	@sudo dkms build -m fusion_hat -v $(DRIVER_VERSION)
-	@sudo dkms install -m fusion_hat -v $(DRIVER_VERSION)
+	@# Use autoinstall to build for ALL installed kernels (fixes Pi 5 2712 vs v8 mismatch)
+	@sudo dkms autoinstall -m fusion_hat -v $(DRIVER_VERSION)
 	@echo "DKMS installation completed. The driver will auto-rebuild on kernel updates."
 
 # DKMS uninstall - remove module from DKMS
