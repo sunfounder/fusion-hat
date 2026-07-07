@@ -3,7 +3,7 @@
 #  Fusion Hat Installer
 #  =============================================================================
 #  One-command install:
-#    curl -sSL https://raw.githubusercontent.com/sunfounder/fusion-hat/main/install.sh | sudo bash
+#    curl -sSL https://raw.githubusercontent.com/sunfounder/fusion-hat/v1/install.sh | sudo bash
 #
 #  Custom branch:
 #    FUSION_HAT_BRANCH=develop sudo bash install.sh
@@ -12,8 +12,8 @@
 set -e
 
 # ── Branch overrides (set via environment variable to test feature branches) ──
-FUSION_HAT_BRANCH="${FUSION_HAT_BRANCH:-main}"
-INSTALLER_BRANCH="${INSTALLER_BRANCH:-main}"
+FUSION_HAT_BRANCH="${FUSION_HAT_BRANCH:-v1}"
+INSTALLER_BRANCH="${INSTALLER_BRANCH:-v1}"
 
 INSTALLER_URL="https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/refs/heads/${INSTALLER_BRANCH}/tools/installer_1.1.0.sh"
 
