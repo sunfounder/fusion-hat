@@ -13,7 +13,7 @@ set -e
 
 # ── Branch overrides (set via environment variable to test feature branches) ──
 FUSION_HAT_BRANCH="${FUSION_HAT_BRANCH:-v1}"
-INSTALLER_BRANCH="${INSTALLER_BRANCH:-v1}"
+INSTALLER_BRANCH="${INSTALLER_BRANCH:-main}"
 
 INSTALLER_URL="https://raw.githubusercontent.com/sunfounder/sunfounder-installer-scripts/refs/heads/${INSTALLER_BRANCH}/tools/installer_1.1.0.sh"
 
