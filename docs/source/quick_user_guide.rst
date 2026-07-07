@@ -177,7 +177,7 @@ Run the following installation command:
 
 .. code-block:: bash
 
-   curl -sSL https://raw.githubusercontent.com/sunfounder/fusion-hat/main/install.sh | sudo bash
+   curl -sSL https://raw.githubusercontent.com/sunfounder/fusion-hat/v1/install.sh | sudo bash
 
 After installation completes, reboot the Raspberry Pi. Then execute the audio setup script:
 
