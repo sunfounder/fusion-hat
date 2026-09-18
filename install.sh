@@ -41,7 +41,6 @@ APT_INSTALL_LIST=(
     "sox"
     "libsox-fmt-mp3"  # EdgeTTS MP3→WAV conversion
     "libttspico-utils"
-    "dkms"
 )
 
 # ── Parse arguments ─────────────────────────────────────────────────────────
@@ -60,6 +59,8 @@ TITLE "Install Fusion Hat Python Library\n"
 TITLE "Install dependencies"
 RUN "apt-get update" "Update apt"
 RUN "apt-get install -y ${APT_INSTALL_LIST[*]}" "Install apt dependencies"
+RUN "apt-get install -y --no-install-recommends dkms" \
+    "Install DKMS (without recommends - avoids pulling Debian kernel headers)"
 
 TITLE "Install fusion-hat library"
 CD "$HOME/" "Change to home directory"

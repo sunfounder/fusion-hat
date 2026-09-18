@@ -123,7 +123,7 @@ dkms_install:
 	@# Check if DKMS is installed
 	@if ! command -v dkms >/dev/null 2>&1; then \
 	    echo "DKMS not found. Installing dkms package..."; \
-	    sudo apt-get update && sudo apt-get install -y dkms || { \
+	    sudo apt-get update && sudo apt-get install -y --no-install-recommends dkms || { \
 	        echo "Error: Failed to install DKMS. Please install it manually: sudo apt-get install dkms"; \
 	        exit 1; \
 	    }; \
@@ -143,14 +143,34 @@ dkms_install:
 	@# Add, build, and install via DKMS
 	@sudo dkms add -m fusion_hat -v $(DRIVER_VERSION)
 	@# Build for ALL installed kernels that have headers (fixes Pi 5 2712 vs v8 mismatch)
-	@for kver in $$(ls /lib/modules/ 2>/dev/null); do \
+	@DKMS_FAILED=""; DKMS_CRITICAL=0; \
+	for kver in $$(ls /lib/modules/ 2>/dev/null); do \
 	    if [ -d "/lib/modules/$$kver/build" ]; then \
 	        echo "Building for kernel $$kver..."; \
-	        sudo dkms build -m fusion_hat -v $(DRIVER_VERSION) -k "$$kver" && \
-	        sudo dkms install -m fusion_hat -v $(DRIVER_VERSION) -k "$$kver" || \
-	        echo "  (skip $$kver — build failed)"; \
+	        if sudo dkms build -m fusion_hat -v $(DRIVER_VERSION) -k "$$kver" && \
+	           sudo dkms install -m fusion_hat -v $(DRIVER_VERSION) -k "$$kver"; then \
+	            echo "  OK: $$kver"; \
+	        else \
+	            echo "" >&2; \
+	            echo "  !! DKMS BUILD FAILED for kernel $$kver" >&2; \
+	            echo "     The driver will be missing on that kernel, and the next kernel-headers" >&2; \
+	            echo "     update can make 'apt' fail inside the DKMS postinst hook." >&2; \
+	            echo "     See /var/lib/dkms/fusion_hat/$(DRIVER_VERSION)/build/make.log" >&2; \
+	            echo "" >&2; \
+	            DKMS_FAILED="$$DKMS_FAILED $$kver"; \
+	            if [ "$$kver" = "$$(uname -r)" ]; then DKMS_CRITICAL=1; fi; \
+	        fi; \
 	    fi; \
-	done
+	done; \
+	if [ -n "$$DKMS_FAILED" ]; then \
+	    echo "WARNING: DKMS build failed for:$$DKMS_FAILED" >&2; \
+	    echo "WARNING: stale kernel-headers packages that do not belong to the running" >&2; \
+	    echo "         kernel (e.g. Debian linux-headers-*-arm64) are a common cause." >&2; \
+	fi; \
+	if [ "$$DKMS_CRITICAL" = "1" ]; then \
+	    echo "ERROR: the running kernel ($$(uname -r)) has no working module." >&2; \
+	    exit 1; \
+	fi
 	@echo "DKMS installation completed. The driver will auto-rebuild on kernel updates."
 
 # DKMS uninstall - remove module from DKMS
@@ -171,7 +191,7 @@ install:
 	@DKMS_OK=0; \
 	if command -v dkms >/dev/null 2>&1; then \
 	    echo "DKMS detected, using DKMS for module installation..."; \
-	    $(MAKE) dkms_install && DKMS_OK=1 || echo "DKMS failed, falling back to traditional install..."; \
+	    $(MAKE) dkms_install && DKMS_OK=1 || echo "WARNING: DKMS failed, falling back to traditional install (no auto-rebuild on kernel updates)..."; \
 	fi; \
 	if [ "$$DKMS_OK" = "0" ]; then \
 	    echo "Using traditional installation (driver will NOT auto-rebuild on kernel updates)."; \
