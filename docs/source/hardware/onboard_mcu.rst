@@ -105,7 +105,7 @@ Since PSC must be an integer, it is approximated to 351. Therefore, by setting P
 
     72,000,000 / 352 / 4096 = 49.937 Hz ≈ 50 Hz.  
 
-By default, the PWM prescaler (PSC) and period (ARR) are set to 351 and 4095, respectively, resulting in a default frequency of approximately 50 Hz.
+By default the driver uses a period of 1000 µs (1 kHz), while the firmware powers up the timers with PSC = 719 and ARR = 1999, that is 72,000,000 / 720 / 2000 = 50 Hz. When the ``period`` attribute is written the driver keeps neither value fixed: it decomposes the requested period into a matching PSC and ARR pair (``(PSC + 1) * (ARR + 1) = 72,000,000 * period / 1,000,000``), so any frequency between 1 Hz (``period = 1000000``) and 1 MHz (``period = 1``) can be generated. The ``period`` attribute is expressed in microseconds (µs).
 
 The pulse width corresponds to the duty cycle value within the period.  
 For example, with the configuration above where the period (ARR) is 4096, setting the pulse width (CCR) to 2048 yields a 50% PWM output.  
