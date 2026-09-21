@@ -763,12 +763,148 @@ def _fix_i2s_stuck() -> bool:
 #     return True, ""
 
 
+# ── system checks ────────────────────────────────────────────────────────────
+
+def _pkg_kernel_series(name: str) -> str:
+    """Kernel version encoded in a kernel header / kbuild package name."""
+    import re
+    m = re.match(r"^linux-(?:headers|kbuild)-(.+)$", name)
+    if not m:
+        return ""
+    series = re.sub(r"-common(-rpi)?$", "", m.group(1))
+    # meta packages: linux-headers-arm64 / linux-headers-rpi-2712 / ...
+    if series in ("arm64", "generic", "rpi-2712", "rpi-v8"):
+        return ""
+    return series
+
+
+def _installed_kernel_header_pkgs() -> list:
+    """Installed kernel header / kbuild packages as (name, kernel series)."""
+    from ._utils import run_command
+    try:
+        # ${db:Status-Abbrev} matters: a wildcard also lists packages that are
+        # known but no longer installed, and those must not show up as problems.
+        _, out = run_command(
+            "dpkg-query -W -f='${Package}\\t${db:Status-Abbrev}\\n' "
+            "'linux-headers-*' 'linux-kbuild-*' 2>/dev/null",
+            timeout=10)
+    except Exception:
+        return []
+    pkgs = []
+    for line in out.splitlines():
+        parts = line.split()
+        if len(parts) < 2 or not parts[1].startswith("i"):
+            continue  # only installed / half-configured / unpacked
+        pkgs.append((parts[0], _pkg_kernel_series(parts[0])))
+    return pkgs
+
+
+def _foreign_kernel_header_pkgs() -> list:
+    """Header/kbuild packages that belong to a kernel this machine never runs.
+
+    A package is *not* foreign when it is the running kernel, a Raspberry Pi
+    kernel (``+rpt`` / ``rpi``) or a Raspberry Pi meta package - those can be
+    the next kernel to boot (a freshly installed kernel before a reboot) and
+    must never be touched.
+    """
+    import platform
+    running = platform.uname().release
+    foreign = []
+    for name, series in _installed_kernel_header_pkgs():
+        if series == "":  # meta package
+            if name in ("linux-headers-arm64", "linux-headers-generic"):
+                foreign.append(name)  # Debian meta -> pulls a Debian kernel
+            continue
+        if series == running:  # the kernel we are running
+            continue
+        if "+rpt" in series or "rpi" in series:  # Raspberry Pi kernel
+            continue
+        foreign.append(name)
+    return foreign
+
+
+def _blocking_reasons(pkgs: list) -> list:
+    """Why removing ``pkgs`` could be wrong; empty list means it is safe."""
+    from ._utils import run_command
+    reasons = []
+    names = set(pkgs)
+
+    def _plain(pkg: str) -> str:
+        # drop the architecture qualifier: linux-kbuild-6.1:armhf -> linux-kbuild-6.1
+        return pkg.split(":", 1)[0]
+
+    plain_names = {_plain(n) for n in names}
+
+    # 1) something outside this set still depends on them
+    for name in sorted(names):
+        try:
+            _, out = run_command(
+                f"apt-cache rdepends --installed {name} 2>/dev/null", timeout=10)
+        except Exception:
+            continue
+        if "Reverse Depends:" not in out:
+            continue
+        deps = [d.strip() for d in out.split("Reverse Depends:", 1)[1].split() if d.strip()]
+        deps = [_plain(d) for d in deps]
+        deps = [d for d in deps if d and d not in plain_names]
+        if deps:
+            reasons.append(f"{name} is required by {', '.join(sorted(set(deps))[:3])}")
+
+    # 2) referenced by the boot configuration
+    for cfg in ("/boot/firmware/config.txt", "/boot/config.txt",
+                "/boot/firmware/cmdline.txt", "/boot/cmdline.txt"):
+        try:
+            with open(cfg, "r", errors="ignore") as fh:
+                text = fh.read()
+        except Exception:
+            continue
+        for name in sorted(names):
+            series = _pkg_kernel_series(name)
+            if series and series in text:
+                reasons.append(f"boot configuration {cfg} references {series}")
+                break
+
+    # 3) a DKMS module is registered for that kernel
+    try:
+        _, out = run_command("dkms status 2>/dev/null", timeout=10)
+        for line in out.splitlines():
+            for name in sorted(names):
+                series = _pkg_kernel_series(name)
+                if series and f", {series}," in line:
+                    reasons.append(f"DKMS module registered for {series}")
+    except Exception:
+        pass
+
+    return reasons
+
+
+def _check_foreign_kernel_headers() -> tuple:
+    """Warn about Debian kernel headers for a kernel this Pi does not run.
+
+    They stay harmless until the next ``apt upgrade``: the headers post-install
+    script then runs ``dkms autoinstall`` for that kernel, our driver cannot be
+    built there, and the whole apt transaction is aborted.  They can be removed
+    safely while nothing uses them - see ``fusion_hat doctor --fix``.
+    """
+    import platform
+    pkgs = _foreign_kernel_header_pkgs()
+    if not pkgs:
+        return True, ""
+    reasons = _blocking_reasons(pkgs)
+    if reasons:
+        # present, but in use - keep them
+        return True, f"{len(pkgs)} foreign header pkg(s) kept: {reasons[0]}"
+    running = platform.uname().release
+    return False, (f"{len(pkgs)} unused Debian header pkg(s) for another kernel "
+                   f"(running {running}) - 'doctor --fix' removes them")
+
 def doctor(fix_mode: bool = False) -> dict:
     """Live hardware health check — prints results as each check runs.
 
     Sections:
       Driver  — sysfs, module, I2C MCU, dtoverlay, module file
       Audio   — sound card, capture device, I2S clock health
+      System  — unused Debian kernel headers that can break a later apt upgrade
 
     Args:
         fix_mode: If True, summary messages adapt for ``--fix`` mode
@@ -837,10 +973,29 @@ def doctor(fix_mode: bool = False) -> dict:
         audio_ok = False
     results["audio_ok"] = audio_ok
 
+    # ── System ──
+    _print_section("System")
+
+    system_ok = True
+    system_checks = [
+        ("foreign kernel headers", _check_foreign_kernel_headers),
+    ]
+
+    for name, func in system_checks:
+        sys.stdout.write(f"  ... {name}\r")
+        sys.stdout.flush()
+        ok, detail = func()
+        results[name] = ok
+        if not ok:
+            system_ok = False
+        _print_check(name, ok, detail)
+
+    results["system_ok"] = system_ok
+
     # ── Summary ──
     dtoverlay_ok = results.get("dtoverlay in config.txt", False)
     sysfs_ok = results.get("sysfs interface", False)
-    overall = driver_ok and audio_ok
+    overall = driver_ok and audio_ok and system_ok
     results["overall"] = overall
 
     print("")
@@ -851,13 +1006,16 @@ def doctor(fix_mode: bool = False) -> dict:
         print(f"  {YELLOW}dtoverlay configured but reboot needed{RESET}")
         _print_fix_hint(fix_mode)
     else:
-        if driver_ok and audio_ok:
+        if driver_ok and audio_ok and system_ok:
             print(f"  {GREEN}All checks passed.{RESET}")
         else:
             if not driver_ok:
                 print(f"  {YELLOW}Driver issues found.{RESET}")
             if not audio_ok:
                 print(f"  {YELLOW}Audio issues found.{RESET}")
+            if not system_ok:
+                print(f"  {YELLOW}Unused Debian kernel headers found - "
+                      f"they can abort the next 'apt upgrade'.{RESET}")
             _print_fix_hint(fix_mode)
     print("")
     print("=" * 50)
@@ -897,6 +1055,51 @@ def _find_driver_src() -> str:
             return os.path.realpath(p)
     return ""
 
+
+def _fix_foreign_kernel_headers() -> tuple:
+    """Remove the unused Debian kernel headers reported by doctor.
+
+    Re-runs every safety check first (never trusts an earlier result), prints
+    the exact package list, and never uses ``apt autoremove`` - on this image
+    that would also remove unrelated auto-installed packages.
+
+    Returns (removed, kept).
+    """
+    from ._utils import run_command
+    pkgs = _foreign_kernel_header_pkgs()
+    if not pkgs:
+        print(f"  {GREEN}No foreign kernel headers to remove{RESET}")
+        return [], []
+
+    reasons = _blocking_reasons(pkgs)
+    if reasons:
+        print(f"  {YELLOW}Not removing - still in use:{RESET}")
+        for r in reasons:
+            print(f"    - {r}")
+        return [], pkgs
+
+    print(f"  {YELLOW}Removing unused kernel header packages:{RESET}")
+    for name in sorted(pkgs):
+        print(f"    - {name}")
+
+    _, out = run_command(
+        "sudo DEBIAN_FRONTEND=noninteractive apt-get purge -y " + " ".join(sorted(pkgs)),
+        timeout=300)
+    for line in out.strip().splitlines()[-6:]:
+        print(f"    {line}")
+    run_command("sudo apt-get -f install -y 2>/dev/null", timeout=300)
+
+    # drop leftover /lib/modules/<series> dirs whose headers are gone
+    for name in pkgs:
+        series = _pkg_kernel_series(name)
+        if not series:
+            continue
+        d = f"/lib/modules/{series}"
+        if os.path.isdir(d) and not os.path.exists(os.path.join(d, "build")):
+            run_command(f"sudo rm -rf {d}")
+            print(f"    removed leftover {d}")
+
+    return pkgs, []
 
 def doctor_fix() -> dict:
     """Run doctor and attempt to fix driver issues found.
@@ -939,6 +1142,15 @@ def doctor_fix() -> dict:
                 print(f"  {YELLOW}I2S still stuck after retry — try 'fusion_hat speaker setup'{RESET}")
         else:
             fixes.append("failed to trigger I2S hw_params")
+
+    # ── system auto-fix: unused Debian kernel headers ───────────────────
+    if before.get("foreign kernel headers") is False:
+        print(f"\n  {YELLOW}Unused Debian kernel headers found - removing...{RESET}")
+        removed, kept = _fix_foreign_kernel_headers()
+        if removed:
+            fixes.append("removed unused Debian kernel headers: " + ", ".join(removed))
+        elif kept:
+            fixes.append("kept foreign kernel headers (still in use) - review manually")
 
     if before["overall"]:
         return {"before": before, "fixes": fixes, "after": before, "fixed": True, "reboot": False}
@@ -1012,6 +1224,7 @@ def doctor_fix() -> dict:
     except Exception:
         after["I2C MCU (0x17)"] = False
     after["dtoverlay in config.txt"] = _has_dtoverlay()
+    after["foreign kernel headers"] = _check_foreign_kernel_headers()[0]
     after["overall"] = all(after.values())
 
     if reboot and not after["overall"]:
