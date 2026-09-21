@@ -782,12 +782,21 @@ def _installed_kernel_header_pkgs() -> list:
     """Installed kernel header / kbuild packages as (name, kernel series)."""
     from ._utils import run_command
     try:
+        # ${db:Status-Abbrev} matters: a wildcard also lists packages that are
+        # known but no longer installed, and those must not show up as problems.
         _, out = run_command(
-            "dpkg-query -W -f='${Package}\\n' 'linux-headers-*' 'linux-kbuild-*' 2>/dev/null",
+            "dpkg-query -W -f='${Package}\\t${db:Status-Abbrev}\\n' "
+            "'linux-headers-*' 'linux-kbuild-*' 2>/dev/null",
             timeout=10)
     except Exception:
         return []
-    return [(n, _pkg_kernel_series(n)) for n in out.split()]
+    pkgs = []
+    for line in out.splitlines():
+        parts = line.split()
+        if len(parts) < 2 or not parts[1].startswith("i"):
+            continue  # only installed / half-configured / unpacked
+        pkgs.append((parts[0], _pkg_kernel_series(parts[0])))
+    return pkgs
 
 
 def _foreign_kernel_header_pkgs() -> list:
@@ -820,6 +829,12 @@ def _blocking_reasons(pkgs: list) -> list:
     reasons = []
     names = set(pkgs)
 
+    def _plain(pkg: str) -> str:
+        # drop the architecture qualifier: linux-kbuild-6.1:armhf -> linux-kbuild-6.1
+        return pkg.split(":", 1)[0]
+
+    plain_names = {_plain(n) for n in names}
+
     # 1) something outside this set still depends on them
     for name in sorted(names):
         try:
@@ -830,9 +845,10 @@ def _blocking_reasons(pkgs: list) -> list:
         if "Reverse Depends:" not in out:
             continue
         deps = [d.strip() for d in out.split("Reverse Depends:", 1)[1].split() if d.strip()]
-        deps = [d for d in deps if d not in names]
+        deps = [_plain(d) for d in deps]
+        deps = [d for d in deps if d and d not in plain_names]
         if deps:
-            reasons.append(f"{name} is required by {', '.join(deps[:3])}")
+            reasons.append(f"{name} is required by {', '.join(sorted(set(deps))[:3])}")
 
     # 2) referenced by the boot configuration
     for cfg in ("/boot/firmware/config.txt", "/boot/config.txt",
