@@ -29,7 +29,8 @@ class PWM(_Base):
 
     Args:
         channel (int/str): PWM channel number(0-11/P0-P11)
-        freq (int, optional): PWM frequency, default is 50Hz
+        freq (int, optional): PWM frequency in Hz, default is 50Hz; pass None
+            to keep the period currently configured in the driver
         addr (int, optional): I2C address, default is 0x17
         *args: Additional arguments for :class:`fusion_hat._i2c.I2C`
         **kwargs: Additional keyword arguments for :class:`fusion_hat._i2c.I2C`
@@ -65,6 +66,10 @@ class PWM(_Base):
         self.log.debug(f"PWM channel {self.channel} period: {self._period}")
         self._freq = 1000000 / self._period
         self.log.debug(f"PWM channel {self.channel} frequency: {self._freq}")
+        # Apply the requested frequency after enable(), otherwise enable_store()
+        # would overwrite it with the period stored in the driver
+        if freq is not None:
+            self.freq(freq)
         self.duty_cycle(0)
 
         self.log.debug(f"PWM channel {self.channel} initilized")
@@ -80,39 +85,39 @@ class PWM(_Base):
         self.log.debug(f"PWM channel {self.channel} enabled: {enable}")
 
     def read_period(self) -> int:
-        """ Get period in ms
+        """ Get period in us
 
         Returns:
-            int: period in ms
+            int: period in us
         """
         with open(f"{self.PATH}/pwm{self.channel}/period", "r") as f:
             value = f.read().strip()
             return int(value)
 
     def write_period(self, period: int) -> int:
-        """ Set period in ms
+        """ Set period in us
 
         Args:
-            period (int): period in ms
+            period (int): period in us
         """
         with open(f"{self.PATH}/pwm{self.channel}/period", "w") as f:
             f.write(str(period))
 
     def read_duty_cycle(self) -> int:
-        """ Get duty cycle in ms
+        """ Get duty cycle in us
 
         Returns:
-            int: duty cycle in ms
+            int: duty cycle in us
         """
         with open(f"{self.PATH}/pwm{self.channel}/duty_cycle", "r") as f:
             value = f.read().strip()
             return int(value)
 
     def write_duty_cycle(self, duty_cycle: int) -> int:
-        """ Set duty cycle in ms
+        """ Set duty cycle in us
 
         Args:
-            duty_cycle (int): duty cycle in ms
+            duty_cycle (int): duty cycle in us
         """
         self.log.debug(f"PWM channel {self.channel} duty cycle: {duty_cycle}")
         with open(f"{self.PATH}/pwm{self.channel}/duty_cycle", "w") as f:
@@ -122,18 +127,22 @@ class PWM(_Base):
         """ Set/get frequency, leave blank to get frequency
 
         Args:
-            freq (float, optional): frequency(0-65535)(Hz), default is 50Hz
+            freq (float, optional): frequency in Hz (1Hz - 1MHz, limited by the
+                driver's 1us - 1000000us period range), default is 50Hz
 
         Returns:
-            float: frequency
+            float: frequency in Hz
         """
         if freq == None:
             return self._freq
         
         self._freq = int(freq)
-        # Calculate period in ms
+        # Calculate period in us
         period = int(1000000/self._freq)
         self.period(period)
+        # Report the frequency of the integer period actually written, so the
+        # getter matches the hardware instead of the rounded request
+        self._freq = 1000000 / self._period
         return self._freq
 
     def prescaler(self, prescaler: Optional[int]=None, raw: bool=False) -> int:
@@ -144,11 +153,11 @@ class PWM(_Base):
         """ Set/get period, leave blank to get period
 
         Args:
-            period (int, optional): period(0-65535), default is 0
-            raw (bool, optional): Whether to write period directly, default is False
+            period (int, optional): period in us (1-1000000); leave blank to get
+                the current period
 
         Returns:
-            int: period
+            int: period in us
         """
         if period == None:
             return self._period
@@ -158,12 +167,12 @@ class PWM(_Base):
         return self._period
 
     def duty_cycle(self, duty_cycle: Optional[int]=None) -> int:
-        """ Set/get duty cycle, in ms
+        """ Set/get duty cycle, in us
 
         Args:
-            duty_cycle (int, optional): duty cycle
+            duty_cycle (int, optional): duty cycle in us
         Returns:
-            int: duty cycle
+            int: duty cycle in us
         """
         if duty_cycle == None:
             return self._duty_cycle
@@ -174,10 +183,10 @@ class PWM(_Base):
         return self._duty_cycle
 
     def pulse_width(self, pulse_width: Optional[int]=None) -> int:
-        """ Set/get pulse width, in ms
+        """ Set/get pulse width, in us
 
         Args:
-            pulse_width (int, optional): pulse width in ms
+            pulse_width (int, optional): pulse width in us
 
         Returns:
             int: pulse width

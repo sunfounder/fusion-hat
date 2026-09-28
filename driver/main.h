@@ -24,7 +24,7 @@
 #include <linux/workqueue.h>
 
 // Driver version
-#define VERSION "1.0.2"
+#define VERSION "1.1.0"
 
 // Device name and I2C address
 #define FUSION_HAT_NAME "fusion_hat"
@@ -91,9 +91,9 @@
 #define SHUTDOWN_REQUEST_BATTERY 1  // Low battery shutdown request
 #define SHUTDOWN_REQUEST_BUTTON 2   // Button shutdown request
 #define PWM_CORE_FREQUENCY 72000000 // PWM core frequency (72MHz)
-#define PWM_DEFAULT_PRESCALER 22    // Default PWM prescaler
-#define PWM_PERIOD_VALUE 65535      // PWM period value (16-bit resolution)
-#define PWM_DEFAULT_PERIOD 1000     // Default PWM period (1ms)
+#define PWM_DEFAULT_PRESCALER 22    // Legacy default prescaler (unused)
+#define PWM_PERIOD_VALUE 65535      // Max ARR value (16-bit auto-reload)
+#define PWM_DEFAULT_PERIOD 1000     // Default PWM period in us (1kHz)
 #define PWM_TIMER_COUNT 3           // Number of timers
 
 // PWM channel count

@@ -116,7 +116,7 @@ $ fusion_hat doctor
   ✓ Module loaded
   ✓ sysfs interface
   ✓ I2C MCU (0x17)
-  ✓ DKMS            : fusion_hat/1.0.2, 6.12.47+rpt-rpi-2712, aarch64: installed
+  ✓ DKMS            : fusion_hat/1.1.0, 6.12.47+rpt-rpi-2712, aarch64: installed
 
 ==================================================
 ```
@@ -134,9 +134,9 @@ $ fusion_hat info
           Product ID: 1908
          Product Ver: 10
               Vendor: SunFounder
-     Library Version: 1.3.1
+     Library Version: 1.14.0
     Firmware Version: 1.0.2
-      Driver Version: 1.0.2
+      Driver Version: 1.1.0
    User Button State: Released
        Speaker State: Disabled
       User LED State: Off

@@ -49,6 +49,76 @@ static struct fusion_hat_pwm_channel pwm_channels[FUSION_HAT_PWM_CHANNELS];
  */
 static inline uint8_t get_timer_index(int channel) { return channel / 4; }
 
+/**
+ * @brief Decompose a PWM period into a prescaler ratio and an ARR value
+ * @param period PWM period in microseconds, in [1, 1000000]
+ * @param psc_ratio Output: prescaler ratio, i.e. the PSC register value + 1
+ *                  (1 .. 65536)
+ * @param arr Output: auto-reload register value (0 .. PWM_PERIOD_VALUE)
+ *
+ * Finds (psc_ratio * (arr + 1)) == div, where div is the number of 72 MHz
+ * timer clocks per period, preferring an exact divisor of div so that the
+ * generated frequency is as close as possible to the requested one. The
+ * resulting frequency is PWM_CORE_FREQUENCY / psc_ratio / (arr + 1).
+ *
+ * NOTE: psc_ratio is NOT the register value; write (psc_ratio - 1) to the
+ * prescaler register and arr to the auto-reload register.
+ */
+static void fusion_hat_pwm_calc_div(uint32_t period, uint32_t *psc_ratio,
+                                    uint32_t *arr) {
+  // Clocks per period; PWM_CORE_FREQUENCY * period overflows 32 bits
+  uint32_t div = (uint32_t)((uint64_t)PWM_CORE_FREQUENCY * period / 1000000);
+  uint32_t psc;
+
+  if (div == 0)
+    div = 1;
+
+  // Keep ARR within 16 bits: the ratio must be at least div / (ARR + 1)
+  psc = (div + PWM_PERIOD_VALUE) / (PWM_PERIOD_VALUE + 1);
+  if (psc == 0)
+    psc = 1;
+
+  // Look for an exact divisor of div, so the frequency is exact
+  while (psc <= (uint32_t)(PWM_PERIOD_VALUE + 1) && (div % psc) != 0)
+    psc++;
+
+  if (psc > (uint32_t)(PWM_PERIOD_VALUE + 1)) {
+    // div has no usable divisor in range (large prime): take the closest fit
+    psc = (div + PWM_PERIOD_VALUE) / (PWM_PERIOD_VALUE + 1);
+    if (psc == 0)
+      psc = 1;
+  }
+
+  *psc_ratio = psc;
+  *arr = div / psc - 1;
+}
+
+/**
+ * @brief Convert a pulse width in microseconds to a timer compare value
+ * @param duty_us Pulse width in microseconds
+ * @param period PWM period in microseconds, in [1, 1000000]
+ * @param full_scale Full scale of the timer, i.e. ARR + 1
+ * @return Compare value, always within [0, PWM_PERIOD_VALUE]
+ *
+ * The compare value is relative to the timer full scale (ARR + 1), which
+ * follows the period. A pulse at least as long as the period saturates at
+ * 100% instead of wrapping around, and the result always fits the 16-bit
+ * compare register (full_scale itself can be 65536).
+ */
+static uint16_t fusion_hat_pwm_calc_compare(uint32_t duty_us, uint32_t period,
+                                            uint32_t full_scale) {
+  // 64-bit intermediate: duty_us * full_scale overflows 32 bits, and the
+  // clamp below must happen before the value is narrowed again
+  uint64_t compare = (uint64_t)duty_us * full_scale / period;
+
+  if (compare > full_scale)
+    compare = full_scale;
+  if (compare > PWM_PERIOD_VALUE)
+    compare = PWM_PERIOD_VALUE;
+
+  return (uint16_t)compare;
+}
+
 // Function prototypes
 int fusion_hat_write_pwm_value(struct i2c_client *client, uint8_t channel,
                                uint16_t value);
@@ -145,27 +215,57 @@ static ssize_t period_store(struct kobject *kobj, struct kobj_attribute *attr,
       container_of(kobj, struct fusion_hat_pwm_channel, kobj);
   int channel = pwm_chan->channel;
   struct fusion_hat_dev *fusion_dev = pwm_chan->dev;
-  uint32_t period;
-  int ret;
+  uint32_t period, psc, arr, full_scale;
+  int i, ret, duty_ret;
 
   if (kstrtou32(buf, 10, &period) < 0)
     return -EINVAL;
 
-  // Calculate prescaler from period
-  uint32_t frequency = 1000000 / period;
-  uint32_t prescaler =
-      PWM_CORE_FREQUENCY / frequency / (PWM_PERIOD_VALUE + 1) - 1;
-  if (prescaler == 0)
-    prescaler = 1;
-  if (prescaler > 65535)
-    prescaler = 65535;
+  // Clamp invalid periods instead of failing; the clamped value is the one
+  // stored, so the read-back value always describes the generated signal
+  if (period == 0 || period > 1000000) {
+    dev_warn_ratelimited(&fusion_dev->client->dev,
+                         "pwm%d: invalid period %u us, clamped to [1, 1000000]\n",
+                         channel, period);
+    period = period ? 1000000 : 1;
+  }
+
+  // Split the period into a prescaler ratio and an ARR value
+  fusion_hat_pwm_calc_div(period, &psc, &arr);
+  full_scale = arr + 1;
 
   mutex_lock(&fusion_dev->lock);
-  ret =
-      fusion_hat_write_prescaler_value(fusion_dev->client, channel, prescaler);
-  mutex_unlock(&fusion_dev->lock);
+  // ARR and PSC are both buffered and updated on the same update event, so
+  // both must be written
+  ret = fusion_hat_write_period_value(fusion_dev->client, channel,
+                                      (uint16_t)arr);
   if (ret >= 0)
-    fusion_dev->pwm_periods[channel] = period;
+    ret = fusion_hat_write_prescaler_value(fusion_dev->client, channel,
+                                           (uint16_t)(psc - 1));
+  if (ret >= 0) {
+    // PSC and ARR are shared by the 4 channels of one timer group: store the
+    // new period for all of them and re-express the stored pulse width of
+    // every enabled member in the new full scale (ARR + 1). Disabled channels
+    // are skipped, their compare value is already 0.
+    for (i = channel & ~3; i <= (channel | 3); i++) {
+      fusion_dev->pwm_periods[i] = period;
+      if (!fusion_dev->pwm_enabled[i])
+        continue;
+      duty_ret = fusion_hat_write_pwm_value(
+          fusion_dev->client, i,
+          fusion_hat_pwm_calc_compare(fusion_dev->pwm_duty_cycles[i], period,
+                                      full_scale));
+      if (duty_ret < 0) {
+        // Keep refreshing the other channels, but report the first failure
+        dev_err(&fusion_dev->client->dev,
+                "Failed to set duty cycle value for channel %d: %d\n", i,
+                duty_ret);
+        if (ret >= 0)
+          ret = duty_ret;
+      }
+    }
+  }
+  mutex_unlock(&fusion_dev->lock);
 
   return ret < 0 ? ret : count;
 }
@@ -203,7 +303,7 @@ static ssize_t duty_cycle_store(struct kobject *kobj,
       container_of(kobj, struct fusion_hat_pwm_channel, kobj);
   int channel = pwm_chan->channel;
   struct fusion_hat_dev *fusion_dev = pwm_chan->dev;
-  uint32_t input_value;
+  uint32_t input_value, period, psc, arr, full_scale;
   uint16_t pwm_value;
   int ret;
 
@@ -220,9 +320,14 @@ static ssize_t duty_cycle_store(struct kobject *kobj,
     return -EINVAL;
   }
 
-  // Calculate PWM value from duty cycle (ms)
-  pwm_value = (uint32_t)input_value * PWM_PERIOD_VALUE /
-              fusion_dev->pwm_periods[channel];
+  // The compare value is relative to the current full scale (ARR + 1); a
+  // hard-coded PWM_PERIOD_VALUE would distort the duty cycle for smaller ARR
+  period = fusion_dev->pwm_periods[channel];
+  if (period == 0 || period > 1000000)
+    period = PWM_DEFAULT_PERIOD;
+  fusion_hat_pwm_calc_div(period, &psc, &arr);
+  full_scale = arr + 1;
+  pwm_value = fusion_hat_pwm_calc_compare(input_value, period, full_scale);
 
   mutex_lock(&fusion_dev->lock);
   ret = fusion_hat_write_pwm_value(fusion_dev->client, channel, pwm_value);
@@ -269,36 +374,61 @@ static ssize_t enable_store(struct kobject *kobj, struct kobj_attribute *attr,
   int channel = pwm_chan->channel;
   struct fusion_hat_dev *fusion_dev = pwm_chan->dev;
   uint8_t enable;
+  uint32_t period, psc, arr, full_scale;
+  int i, ret, duty_ret;
 
   if (kstrtou8(buf, 10, &enable) < 0)
     return -EINVAL;
 
   mutex_lock(&fusion_dev->lock);
   fusion_dev->pwm_enabled[channel] = enable ? true : false;
-  mutex_unlock(&fusion_dev->lock);
-  // If disabling PWM, set value to 0
-  if (enable) {
-    int ret;
-    // Set default period
-    ret = fusion_hat_write_period_value(fusion_dev->client, channel,
-                                        PWM_PERIOD_VALUE);
-    if (ret < 0) {
-      dev_err(&fusion_dev->client->dev, "Failed to initialize channel %d: %d\n",
-              channel, ret);
-      return ret;
-    }
 
-    // Set default prescaler
-    ret = fusion_hat_write_prescaler_value(fusion_dev->client, channel,
-                                           PWM_DEFAULT_PRESCALER);
+  if (enable) {
+    // Re-apply the period last written through the period attribute; the
+    // previous hard-coded ARR/PSC silently overrode the user's frequency
+    period = fusion_dev->pwm_periods[channel];
+    if (period == 0 || period > 1000000)
+      period = PWM_DEFAULT_PERIOD;
+    fusion_hat_pwm_calc_div(period, &psc, &arr);
+    full_scale = arr + 1;
+
+    ret = fusion_hat_write_period_value(fusion_dev->client, channel,
+                                        (uint16_t)arr);
+    if (ret >= 0)
+      ret = fusion_hat_write_prescaler_value(fusion_dev->client, channel,
+                                             (uint16_t)(psc - 1));
     if (ret < 0) {
       dev_err(&fusion_dev->client->dev, "Failed to initialize channel %d: %d\n",
               channel, ret);
+    } else {
+      // PSC and ARR are shared by the 4 channels of one timer group, so every
+      // enabled member keeps its pulse width on the new full scale (ARR + 1)
+      for (i = channel & ~3; i <= (channel | 3); i++) {
+        if (!fusion_dev->pwm_enabled[i])
+          continue;
+        duty_ret = fusion_hat_write_pwm_value(
+            fusion_dev->client, i,
+            fusion_hat_pwm_calc_compare(fusion_dev->pwm_duty_cycles[i], period,
+                                        full_scale));
+        if (duty_ret < 0) {
+          // Keep refreshing the other channels, but report the first failure
+          dev_err(&fusion_dev->client->dev,
+                  "Failed to set duty cycle value for channel %d: %d\n", i,
+                  duty_ret);
+          if (ret >= 0)
+            ret = duty_ret;
+        }
+      }
+    }
+    if (ret < 0) {
+      mutex_unlock(&fusion_dev->lock);
       return ret;
     }
   } else {
+    // If disabling PWM, set value to 0
     fusion_hat_write_pwm_value(fusion_dev->client, channel, 0);
   }
+  mutex_unlock(&fusion_dev->lock);
 
   return count;
 }
